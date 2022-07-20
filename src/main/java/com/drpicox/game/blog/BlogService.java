@@ -1,6 +1,6 @@
 package com.drpicox.game.blog;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileReader;
@@ -9,7 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
 
-@Component
+@Service
 public class BlogService {
 
     private List<Post> posts;

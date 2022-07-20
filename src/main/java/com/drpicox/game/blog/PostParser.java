@@ -48,6 +48,7 @@ public class PostParser {
             nextLine();
             return;
         }
+
         if (!line.matches("^[A-Za-z0-9._]+:.*$"))
             fail("the frontMatter content should be \"key: value\"");
 
