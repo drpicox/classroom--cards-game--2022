@@ -2,6 +2,7 @@ package com.drpicox.game.blog;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -69,7 +70,7 @@ public class PostParserTest {
             postId = "2010-01-01_title";
         }
 
-        var parser = new PostParser(postId, Arrays.asList(lines));
+        var parser = new PostParser(postId, Arrays.asList(lines), new byte[]{});
         return parser.parse();
     }
 

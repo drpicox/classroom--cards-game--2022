@@ -1,6 +1,5 @@
-package com.drpicox.game.runner;
+package com.drpicox.game.fixtures;
 
-import com.drpicox.game.blog.api.ListPostsResponse;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 import org.springframework.test.web.servlet.MockMvc;

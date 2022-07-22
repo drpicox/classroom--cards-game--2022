@@ -162,7 +162,8 @@ public class BlogTest {
                 throw new AssertionError("Post '" + id + ".md' has a coder but test class not found.\n" +
                         "post id            : " + id + "\n" +
                         "expected test class: " + testClassName + "\n" +
-                        "- if the class exists, check the naming\n"
+                        "- if the class exists, check the naming\n" +
+                        "Please, verify that you have the yarn create-tests running."
                 );
             }
         });

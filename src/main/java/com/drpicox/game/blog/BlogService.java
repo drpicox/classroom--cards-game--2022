@@ -2,11 +2,15 @@ package com.drpicox.game.blog;
 
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Service
@@ -44,17 +48,14 @@ public class BlogService {
 
     private Post loadPost(String postId, File file) throws Exception {
         try (
-                var fr = new FileReader(file);
-                var lr = new LineNumberReader(fr);
+            var fr = new FileReader(file);
+            var br = new BufferedReader(fr);
         ) {
-            var lines = new ArrayList<String>();
-            var line = lr.readLine();
-            while (line != null) {
-                lines.add(line);
-                line = lr.readLine();
-            }
+            var path = Paths.get(file.toURI());
+            var lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            var rawContent = Files.readAllBytes(path);
 
-            return new PostParser(postId, lines).parse();
+            return new PostParser(postId, lines, rawContent).parse();
         }
     }
 

@@ -12,13 +12,15 @@ public class Post implements Comparable<Post> {
     private final int bodyLineNumber;
     private final String body;
     private final Map<String, String> frontMatter;
+    private final String md5;
 
-    public Post(String postId, Map<String, String> frontMatter, String title, int bodyLineNumber, String body) {
+    public Post(String postId, Map<String, String> frontMatter, String title, int bodyLineNumber, String body, String md5) {
         this.id = postId;
         this.frontMatter = frontMatter;
         this.title = title;
         this.bodyLineNumber = bodyLineNumber;
         this.body = body;
+        this.md5 = md5;
     }
 
     public String getId() {
@@ -31,6 +33,10 @@ public class Post implements Comparable<Post> {
 
     public String getBody() {
         return body;
+    }
+
+    public String getMd5() {
+        return md5;
     }
 
     public List<PostLine> getBodyLines() {

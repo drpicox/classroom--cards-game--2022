@@ -1,5 +1,8 @@
 package com.drpicox.game.blog;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,9 +18,12 @@ public class PostParser {
     private final List<String> lines;
     private int lineIndex;
 
-    public PostParser(String postId, List<String> lines) {
+    private byte[] rawContent;
+
+    public PostParser(String postId, List<String> lines, byte[] rawContent) {
         this.postId = postId;
         this.lines = lines;
+        this.rawContent = rawContent;
     }
 
     public Post parse() {
@@ -28,7 +34,9 @@ public class PostParser {
         int bodyLineNumber = lineIndex + 1;
         parseBody();
 
-        return new Post(postId, frontMatter, title, bodyLineNumber, body.toString());
+        var md5 = computeMd5(lines.stream().collect(Collectors.joining("\n")));
+
+        return new Post(postId, frontMatter, title, bodyLineNumber, body.toString(), md5);
     }
 
     private void parseFrontMatter() {
@@ -162,5 +170,16 @@ public class PostParser {
         if (bottom != lines.size()) details.append("       ...\n");
 
         throw new IllegalPostFileFormatException(postId, lineNumber, details.toString());
+    }
+
+    private String computeMd5(String body) {
+        try {
+            var md = MessageDigest.getInstance("MD5");
+            md.update(rawContent);
+            byte[] digest = md.digest();
+            return DatatypeConverter.printHexBinary(digest).toLowerCase();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Could not compute the MD5 for the post " + postId, e);
+        }
     }
 }
