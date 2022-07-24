@@ -1,9 +1,12 @@
-import { render } from "@testing-library/react";
-import { App } from "../../App";
+import { renderApp } from "./renderApp";
 import { verifyPostMd5 } from "./verifyPostMd5";
 
 export async function runBeforeTestStarts(postId, expectedMd5) {
   await verifyPostMd5(postId, expectedMd5);
 
-  render(<App />);
+  renderApp();
+}
+
+export async function runWhenTestSuccessful() {
+  //
 }
