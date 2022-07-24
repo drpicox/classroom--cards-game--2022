@@ -34,7 +34,7 @@ function makeContextContent(post) {
 
 function makeContextHeader(post) {
   return join(
-    `import { act, screen } from '@testing-library/react';`,
+    `import { screen } from '@testing-library/react';`,
     ``,
     `export class ${post.contextName} {`
   );

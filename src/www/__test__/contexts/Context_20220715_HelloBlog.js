@@ -1,9 +1,10 @@
-import { act, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import user from "@testing-library/user-event";
 
 export class Context_20220715_HelloBlog {
   async goToTheBlogSection() {
     const link = screen.getByRole("link", { name: "Blog" });
-    act(() => link.click());
+    user.click(link);
   }
 
   async youShouldSeeAListOfPosts() {
@@ -21,7 +22,7 @@ export class Context_20220715_HelloBlog {
 
   async goToTheXPost(the) {
     const link = screen.getByRole("link", { name: the });
-    act(() => link.click());
+    user.click(link);
   }
 
   async youShouldSeeTheXPost(the) {
