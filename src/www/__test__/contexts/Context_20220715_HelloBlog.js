@@ -1,10 +1,10 @@
-import { screen } from "@testing-library/react";
-import user from "@testing-library/user-event";
+import { screen, waitFor } from "@testing-library/react";
+import { userSimulator } from "../fixtures/userSimulator";
 
 export class Context_20220715_HelloBlog {
   async goToTheBlogSection() {
     const link = screen.getByRole("link", { name: "Blog" });
-    user.click(link);
+    userSimulator.click(link);
   }
 
   async youShouldSeeAListOfPosts() {
@@ -22,7 +22,7 @@ export class Context_20220715_HelloBlog {
 
   async goToTheXPost(the) {
     const link = screen.getByRole("link", { name: the });
-    user.click(link);
+    userSimulator.click(link);
   }
 
   async youShouldSeeTheXPost(the) {
@@ -34,6 +34,6 @@ export class Context_20220715_HelloBlog {
 
   async thePostShouldContainXWhichIsHere(contain) {
     const body = await screen.findByTestId("post-body");
-    expect(body).toHaveTextContent(contain);
+    waitFor(() => expect(body).toHaveTextContent(contain));
   }
 }

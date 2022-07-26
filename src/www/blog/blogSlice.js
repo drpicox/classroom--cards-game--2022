@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { backend } from "../backend";
 
 function selectPostsById(state) {
   return state.blog;
@@ -50,11 +51,11 @@ export function blogReducer(state = {}, action) {
 }
 
 async function fetchPosts() {
-  return await [{ id: "post1", title: "Hello Blog" }];
+  return backend.get("/api/v1/posts");
 }
 
 async function fetchPost(postId) {
-  return await { id: postId, body: "have this text" };
+  return backend.get(`/api/v1/posts/${postId}`);
 }
 
 export const blogMiddleware = (store) => (next) => async (action) => {
