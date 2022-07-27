@@ -5,15 +5,15 @@ import { isEqual } from "underscore";
 
 let postId;
 let filePath;
-let responsesPromise;
-let nextResponseIndex;
-let responses;
+let interactionsPromise;
+let nextInteractionIndex;
+let interactions;
 let closed;
 
 jest.doMock("../../backend", () => {
   const backend = {
     async get(url) {
-      const response = await nextResponse({ method: "GET", url });
+      const response = await nextResponse({ method: "GET", url, body: null });
       return response.body;
     },
   };
@@ -22,7 +22,7 @@ jest.doMock("../../backend", () => {
 });
 
 export function prepareBackendResponses(currentPostId) {
-  nextResponseIndex = 0;
+  nextInteractionIndex = 0;
 
   postId = currentPostId;
   filePath = path.join(
@@ -33,26 +33,27 @@ export function prepareBackendResponses(currentPostId) {
     "..",
     "target",
     "classes",
-    "backendResponses",
+    "frontendBackendInteractions",
     `${postId}.json`
   );
 
   closed = false;
-  responses = null;
-  responsesPromise = readFile(filePath, { encoding: "utf8" })
+  interactions = null;
+  interactionsPromise = readFile(filePath, { encoding: "utf8" })
     .then((c) => JSON.parse(c))
-    .then((r) => (responses = r));
+    .then((r) => (interactions = r));
 }
 
 export async function closeBackendResponses() {
   closed = true;
-  await responsesPromise;
+  await interactionsPromise;
 
-  if (nextResponseIndex < responses.length) throwSomeResponsesNotConsumed();
+  if (nextInteractionIndex < interactions.length)
+    throwSomeResponsesNotConsumed();
 }
 
 async function nextResponse(actualRequest) {
-  const { request, response } = await nextEntry(actualRequest);
+  const { request, response } = await nextInteraction(actualRequest);
 
   if (!isEqual(actualRequest, request))
     throwUnexpectedRequest(actualRequest, request);
@@ -60,18 +61,18 @@ async function nextResponse(actualRequest) {
   return response;
 }
 
-async function nextEntry(actualRequest) {
+async function nextInteraction(actualRequest) {
   if (closed) throwResponsesClosed(actualRequest);
 
-  await responsesPromise;
-  const responseIndex = nextResponseIndex;
-  nextResponseIndex += 1;
+  await interactionsPromise;
+  const responseIndex = nextInteractionIndex;
+  nextInteractionIndex += 1;
 
-  if (nextResponseIndex > responses.length)
+  if (nextInteractionIndex > interactions.length)
     throwTooManyBackendCalls(actualRequest);
 
-  const entry = responses[responseIndex];
-  return entry;
+  const interaction = interactions[responseIndex];
+  return interaction;
 }
 
 function throwUnexpectedRequest(actual, expected) {
@@ -99,7 +100,7 @@ function throwResponsesClosed(actualRequest) {
 function throwSomeResponsesNotConsumed() {
   throwError(
     `The frontend has done less calls to the backend than the ones that the backend has simulated in its tests. `,
-    `The frontend has done ${nextResponseIndex} calls but the backend has simulated ${responses.length}.`
+    `The frontend has done ${nextInteractionIndex} calls but the backend has simulated ${interactions.length}.`
   );
 }
 
@@ -130,14 +131,14 @@ function explainSituation() {
     `The error appeared while executing the test for ${postId}.md. `,
     `The file that contains all the recorded frontend simulations from the backend is at:`,
     `>  ${filePath}`,
-    responses && [
+    interactions && [
       `The file contains the following recorded responses:`,
-      responses.map((entry, index) => [
-        index < nextResponseIndex - 1 ? "√ " : "ø ",
+      interactions.map((entry, index) => [
+        index < nextInteractionIndex - 1 ? "√ " : "ø ",
         `${pad(index + 1)}. ${entry.request.method} ${entry.request.url}`,
       ]),
-      nextResponseIndex <= responses.length
-        ? `The current recorded response is the ${nextResponseIndex}.`
+      nextInteractionIndex <= interactions.length
+        ? `The current recorded response is the ${nextInteractionIndex}.`
         : `All recorded responses have been used.`,
     ],
   ];

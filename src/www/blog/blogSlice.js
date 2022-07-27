@@ -51,7 +51,7 @@ export function blogReducer(state = {}, action) {
 }
 
 async function fetchPosts() {
-  return backend.get("/api/v1/posts");
+  return backend.get("/api/v1/posts").then((r) => r.posts);
 }
 
 async function fetchPost(postId) {
