@@ -7,12 +7,10 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 public class Game {
-    private List<Card> cards = new LinkedList<>();
+    private List<Card> cards;
 
-    public Game() {
-        cards.add(new Card("villager"));
-        cards.add(new Card("bush"));
-        cards.add(new Card("berry"));
+    public Game(List<Card> cards) {
+        this.cards = cards;
     }
 
     public Stream<Card> streamCards() {
