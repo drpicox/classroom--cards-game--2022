@@ -9,7 +9,7 @@ const { writeJsContextFile } = require("./writeJsContextFile");
 async function update(filePath) {
   const post = await readBlogPost(filePath);
 
-  post.failed = verifyPost(post);
+  post.failed = !verifyPost(post);
   if (post.failed) return post;
 
   let testWritten = false;

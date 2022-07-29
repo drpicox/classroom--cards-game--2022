@@ -39,7 +39,7 @@ function verifyPostTitle(post) {
   expectedId = post.id.slice(0, 11) + expectedId;
 
   const ok = expectedId === post.id;
-  if (ok) return;
+  if (ok) return true;
 
   writePostError(post);
   console.error(
@@ -57,6 +57,6 @@ function verifyPostTitle(post) {
   return false;
 }
 
-function writePostError({ postPath }) {
-  console.error(chalk.red.inverse(`ERROR ${postPath}`));
+function writePostError(post) {
+  console.error(chalk.red.inverse(`ERROR ${post.path}`));
 }
