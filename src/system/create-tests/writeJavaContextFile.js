@@ -41,7 +41,7 @@ function makeContextHeader(post) {
     `import org.springframework.stereotype.Component;`,
     `import static com.google.common.truth.Truth.assertThat;`,
     `import static com.google.common.truth.Truth8.assertThat;`,
-    `import com.drpicox.game.testUtils.FrontendSimulator;`,
+    `import com.drpicox.game.fixtures.FrontendSimulator;`,
     ``,
     `@Component`,
     `public class ${post.contextName} {`,
