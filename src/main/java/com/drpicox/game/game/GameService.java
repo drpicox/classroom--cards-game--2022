@@ -2,8 +2,6 @@ package com.drpicox.game.game;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-
 @Service
 public class GameService {
 
@@ -13,7 +11,7 @@ public class GameService {
         this.gameBuilder = gameBuilder;
     }
 
-    public Game enter() {
-        return gameBuilder.prepare().build();
+    public void create() {
+        gameBuilder.prepare().build();
     }
 }

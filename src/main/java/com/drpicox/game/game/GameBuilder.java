@@ -2,12 +2,10 @@ package com.drpicox.game.game;
 
 import com.drpicox.game.PropertiesLoader;
 import com.drpicox.game.PropertiesSugar;
-import com.drpicox.game.cards.Card;
 import com.drpicox.game.cards.CardsService;
+import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 @Service
@@ -33,10 +31,8 @@ public class GameBuilder {
             this.gameProperties = new PropertiesSugar(gameProperties);
         }
 
-        public Game build() {
+        public void build() {
             addCards();
-
-            return new Game(cardsService.findAll());
         }
 
         private void addCards() {

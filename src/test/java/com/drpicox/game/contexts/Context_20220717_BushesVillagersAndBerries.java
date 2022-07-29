@@ -1,6 +1,6 @@
 package com.drpicox.game.contexts;
 
-import com.drpicox.game.game.Game;
+import com.drpicox.game.game.api.GameResponse;
 import com.drpicox.game.game.GameService;
 import org.springframework.stereotype.Component;
 import static com.google.common.truth.Truth.assertThat;
@@ -14,7 +14,7 @@ public class Context_20220717_BushesVillagersAndBerries {
 
     private final GameService gameService;
 
-    private Game game;
+    private GameResponse game;
 
     public Context_20220717_BushesVillagersAndBerries(FrontendSimulator frontendSimulator, GameService gameService) {
         this.frontendSimulator = frontendSimulator;
@@ -23,7 +23,7 @@ public class Context_20220717_BushesVillagersAndBerries {
 
     public void enterInTheGame() {
         // example:  * Enter in the game.
-        game = gameService.enter();
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void thereShouldBeNCards(int expected) {
