@@ -9,7 +9,8 @@ function verifyPostFrontmatterSemantics(post) {
   return (
     verifyPostFrontmatterKeys(post) &&
     verifyPostFrontmatterMandatoryKeys(post) &&
-    verifyPostAuthors(post)
+    verifyPostAuthors(post) &&
+    verifyPostWriterAndCodeAreDifferent(post)
   );
 }
 
@@ -66,6 +67,27 @@ function verifyPostAuthors(post) {
     `Please, verify that the name is correct, and `,
     `if you think that the author is missing, add it to authors.properties, `,
     `or make sure that it is in the right "username=Author Name" line format.`,
+  ]);
+
+  return false;
+}
+
+function verifyPostWriterAndCodeAreDifferent(post) {
+  const { writer, coder } = post.frontmatter.values;
+  if (writer !== coder) return true;
+
+  const wrongLine = post.frontmatter.valuesLines[coder];
+  const acceptableCoders = getAuthorUsernames().filter(
+    (coder) => coder !== writer
+  );
+  reportPostError(post, wrongLine, [
+    `frontmatter "writer" and "coder" cannot be the same, but both were "${writer}". `,
+    `The writer of a post cannot be the coder who implements the post.`,
+    `- actual writer value : "${writer}"`,
+    `- actual coder value  : "${coder}"`,
+    `- expected coder value: not ${coder}`,
+    `- acceptable coders   : "${acceptableCoders.join('", "')}"`,
+    `Please, fix it if you are not "${writer}" or look for another post to solve.`,
   ]);
 
   return false;
