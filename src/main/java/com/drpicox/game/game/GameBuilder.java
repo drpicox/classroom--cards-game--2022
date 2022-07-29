@@ -2,6 +2,8 @@ package com.drpicox.game.game;
 
 import com.drpicox.game.PropertiesLoader;
 import com.drpicox.game.PropertiesSugar;
+import com.drpicox.game.cards.Card;
+import com.drpicox.game.cards.CardsService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,9 +14,11 @@ import java.util.Properties;
 public class GameBuilder {
 
     private final PropertiesLoader propertiesLoader;
+    private final CardsService cardsService;
 
-    public GameBuilder(PropertiesLoader propertiesLoader) {
+    public GameBuilder(PropertiesLoader propertiesLoader, CardsService cardsService) {
         this.propertiesLoader = propertiesLoader;
+        this.cardsService = cardsService;
     }
 
     public GameInstanceBuilder prepare() {
@@ -23,7 +27,6 @@ public class GameBuilder {
     }
 
     public class GameInstanceBuilder {
-        private List<Card> cards = new ArrayList<>();
         private PropertiesSugar gameProperties;
 
         public GameInstanceBuilder(Properties gameProperties) {
@@ -33,7 +36,7 @@ public class GameBuilder {
         public Game build() {
             addCards();
 
-            return new Game(cards);
+            return new Game(cardsService.findAll());
         }
 
         private void addCards() {
@@ -42,7 +45,7 @@ public class GameBuilder {
                 var cardName = initialCardKey.substring(14);
                 var count = gameProperties.getInt(initialCardKey);
                 for (var i = 0; i < count; i += 1)
-                    cards.add(new Card(cardName));
+                    cardsService.create(cardName);
             });
         }
     }

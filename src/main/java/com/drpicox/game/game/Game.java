@@ -1,9 +1,9 @@
 package com.drpicox.game.game;
 
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
+import com.drpicox.game.cards.Card;
+
+import javax.persistence.Entity;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Stream;
 
 public class Game {

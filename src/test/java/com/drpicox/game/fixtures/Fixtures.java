@@ -9,12 +9,14 @@ import java.util.stream.Collectors;
 public class Fixtures {
 
     private final BlogService blogService;
+    private final DatabaseFixture databaseFixture;
     private final FrontendSimulator frontendSimulator;
 
     private String postId;
 
-    public Fixtures(BlogService blogService, FrontendSimulator frontendSimulator) {
+    public Fixtures(BlogService blogService, DatabaseFixture databaseFixture, FrontendSimulator frontendSimulator) {
         this.blogService = blogService;
+        this.databaseFixture = databaseFixture;
         this.frontendSimulator = frontendSimulator;
     }
 
@@ -22,6 +24,7 @@ public class Fixtures {
         this.postId = postId;
 
         verifyExpectedMd5(postId, expectedMd5);
+        databaseFixture.clear();
         frontendSimulator.clear(postId);
     }
 
