@@ -16,7 +16,10 @@ async function readBlogPost(path) {
   const testCalls = [];
   const contextMethods = [];
 
-  const title = findPostTitle(postLines);
+  const frontmatter = findFrontmatter(postLines);
+  const titleIndex = findPostTitleIndex(postLines);
+  const titleLineNumber = titleIndex + 1;
+  const title = postLines[titleIndex];
   const hasCoder = findHasCoder(postLines);
 
   postLines.forEach((line) => parseLine(line, testCalls, contextMethods));
@@ -24,8 +27,11 @@ async function readBlogPost(path) {
   return {
     id,
     title,
+    titleLineNumber,
     path,
     hasCoder,
+    lines: postLines,
+    frontmatter,
     testName,
     testCalls,
     contextName,
@@ -47,11 +53,51 @@ function parseLine(postLine, testCalls, contextMethods) {
     contextMethods.push(method);
 }
 
-function findPostTitle(lines) {
-  const line = lines.find((l) => l.startsWith("# "));
-  if (!line) return "It should have a title, but it does not!";
+function findFrontmatter(lines) {
+  const opening = lines[0].trim();
+  const isOpeningOk = opening.startsWith("---");
 
-  return line;
+  const closingIndex = findFrontmatterClosingIndex(lines);
+  const isClosingOk = closingIndex !== -1;
+
+  let values = Object.create(null);
+  let valuesLines = {};
+  let areValuesOk = true;
+  let wrongValuesLines = [];
+
+  for (let index = 1; index < closingIndex; index += 1) {
+    const line = lines[index];
+    const match = line.match(/^\s*([a-z_$-][a-z_0-9$-]*)\s*:\s*(.+)\s*/i);
+    if (!match) {
+      areValuesOk = false;
+      wrongValuesLines.push({ lineNumber: index + 1, lineText: line });
+    } else {
+      valuesLines[match[1]] = index + 1;
+      values[match[1]] = match[2].trim();
+    }
+  }
+
+  return {
+    opening,
+    isOpeningOk,
+    closingIndex,
+    isClosingOk,
+    values,
+    valuesLines,
+    areValuesOk,
+    wrongValuesLines,
+  };
+}
+
+function findFrontmatterClosingIndex(lines) {
+  for (let index = 1; index < lines.length; index++) {
+    if (lines[index].trim().startsWith("---")) return index;
+  }
+  return -1;
+}
+
+function findPostTitleIndex(lines) {
+  return lines.findIndex((l) => l.startsWith("# "));
 }
 
 function findHasCoder(lines) {

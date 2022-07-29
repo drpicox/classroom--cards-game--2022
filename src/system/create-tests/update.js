@@ -28,7 +28,8 @@ async function update(filePath) {
   console.log(
     `${action} ${filePath}` +
       `${testWritten ? ` => ${post.testName}` : ""}` +
-      `${contextWritten ? ` => ${post.contextName}` : ""}`
+      `${contextWritten ? ` => ${post.contextName}` : ""}` +
+      `${post.hasCoder ? "" : " (no coder) "}`
   );
 
   return post;
