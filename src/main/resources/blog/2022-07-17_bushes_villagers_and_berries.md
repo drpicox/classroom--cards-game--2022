@@ -1,27 +1,21 @@
 ---
 writer: drpicox
 ---
-# Bushes Villagers and Berries
+# Bushes, Villagers and Berries
 
-You can find here the blog.
-The blog is a contract, between you, the player, and me, the maker of this game.
+This is a card game, in which you have your village, and everything in it is a card.
 
-In the blog We will explain you the rules of the game,
-and We will show you examples of how it works.
+There are three initial types of cards:
+- Villagers
+- Bushes, and
+- Berries.
 
-It is our contract towards you.
+## The game
 
-## How to use the blog
+You can see them when you enter in the game for the first time.
 
-The blog is available in the application, and you can arrive through the header.
-
- * Go to the blog section,
- * You should see a list of posts,
- * The last post title should be "Hello Blog", this post
- * Go to the "Hello Blog" post,
- * You should see the "Hello Blog" post
- * The post should contain "this text", which is here.
-
-_Thanks for the read._
-_We hope you enjoyed it, we wait for your feedback, and we expect to release several more features._
-
+* Enter in the game.
+* There should be 3 cards.
+* There should be 1 "villager" card.
+* There should be 1 "bush" card.
+* And there should be 1 "berry" card.
