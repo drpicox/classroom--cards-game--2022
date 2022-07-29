@@ -11,7 +11,7 @@ export class Context_20220715_HelloBlog {
     await screen.findAllByTestId("post-list--item");
   }
 
-  async theLastPostTitleShouldBeXThisPost(expected) {
+  async theLastPostTitleShouldBeSThisPost(expected) {
     // expected = "Hello Blog"
 
     const posts = await screen.findAllByTestId("post-list--item");
@@ -20,19 +20,19 @@ export class Context_20220715_HelloBlog {
     expect(last).toHaveTextContent(expected);
   }
 
-  async goToTheXPost(the) {
+  async goToTheSPost(the) {
     const link = screen.getByRole("link", { name: the });
     userSimulator.click(link);
   }
 
-  async youShouldSeeTheXPost(the) {
+  async youShouldSeeTheSPost(the) {
     // the = "Hello Blog"
 
     const title = await screen.findByTestId("post-title");
     expect(title).toHaveTextContent(the);
   }
 
-  async thePostShouldContainXWhichIsHere(contain) {
+  async thePostShouldContainSWhichIsHere(contain) {
     const body = await screen.findByTestId("post-body");
     waitFor(() => expect(body).toHaveTextContent(contain));
   }

@@ -80,6 +80,10 @@ function makeTestBody(post) {
 }
 
 function makeTestCall(call) {
+  if (!call.name) {
+    return `        // ${call.text}`;
+  }
+
   const methodCall = `context.${call.name}(${call.arguments
     .map((a) => a.value)
     .join(", ")});`;

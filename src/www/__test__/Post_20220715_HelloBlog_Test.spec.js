@@ -14,12 +14,14 @@ test("2022-07-15_hello_blog.md", async () => {
   );
 
   const context = new Context_20220715_HelloBlog();
+  // # Hello Blog
+  // ## How to use the blog
   await context.goToTheBlogSection();
   await context.youShouldSeeAListOfPosts();
-  await context.theLastPostTitleShouldBeXThisPost("Hello Blog");
-  await context.goToTheXPost("Hello Blog");
-  await context.youShouldSeeTheXPost("Hello Blog");
-  await context.thePostShouldContainXWhichIsHere("this text");
+  await context.theLastPostTitleShouldBeSThisPost("Hello Blog");
+  await context.goToTheSPost("Hello Blog");
+  await context.youShouldSeeTheSPost("Hello Blog");
+  await context.thePostShouldContainSWhichIsHere("this text");
 
   await runWhenTestSuccessful();
 });

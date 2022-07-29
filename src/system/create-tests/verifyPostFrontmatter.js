@@ -24,7 +24,7 @@ function verifyPostFrontmatterOpening(post) {
 function verifyPostFrontmatterClosing(post) {
   if (post.frontmatter.isClosingOk) return true;
 
-  reportPostError(post, null, [
+  reportPostError(post, post.lines.length + 1, [
     `frontmatter should be closed. `,
     `The closing is a line with three dashes "---" like the frontmatter opening (the first line).`,
     `The frontmatter would look like this:`,

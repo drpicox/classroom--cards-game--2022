@@ -30,24 +30,24 @@ public class Context_20220715_HelloBlog {
         assertThat(postsList.getPosts()).isNotEmpty();
     }
 
-    public void theLastPostTitleShouldBeXThisPost(String expected) {
+    public void theLastPostTitleShouldBeSThisPost(String expected) {
         // expected = "Hello Blog"
         var query = findPostEntry(expected);
         assertThat(query).isPresent();
     }
 
-    public void goToTheXPost(String the) {
+    public void goToTheSPost(String the) {
         // the = "Hello Blog"
         var entry = findPostEntry(the);
         var id = entry.get().getId();
         post = frontendSimulator.get("/api/v1/posts/" + id, PostResponse.class);
     }
 
-    public void youShouldSeeTheXPost(String the) {
+    public void youShouldSeeTheSPost(String the) {
         assertThat(post.getTitle()).isEqualTo(the);
     }
 
-    public void thePostShouldContainXWhichIsHere(String contain) {
+    public void thePostShouldContainSWhichIsHere(String contain) {
         assertThat(post.getBody()).contains(contain);
     }
 

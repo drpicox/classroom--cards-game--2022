@@ -24,12 +24,17 @@ function reportPostError(post, line, messages) {
 
 exports.reportPostError = reportPostError;
 
+const range = 2;
 function getLineContext(post, line) {
-  const range = 2;
   const index = line - 1;
   const { lines } = post;
-  const startIndex = Math.max(0, index - range);
-  const endIndex = Math.min(lines.length - 1, index + range);
+  let startIndex = Math.max(0, index - range);
+  let endIndex = Math.min(lines.length - 1, index + range);
+
+  if (endIndex - startIndex < range * 2 && lines.length >= range * 2 + 1) {
+    if (startIndex === 0) endIndex = range * 2;
+    else startIndex = endIndex - range * 2;
+  }
 
   const result = [];
 

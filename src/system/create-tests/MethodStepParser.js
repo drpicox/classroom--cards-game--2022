@@ -28,6 +28,7 @@ class MethodStepParser {
         name: this.#argumentNames[i],
         type: this.#argumentTypes[i],
       })),
+      text: this.#text,
     };
   }
 
@@ -44,7 +45,7 @@ class MethodStepParser {
     const arg = this.#accept(/^"[^"]+"/);
     if (!arg) return;
     this.#appendArgument(arg[0]);
-    this.#appendNameWord("X");
+    this.#appendNameWord("S");
     this.#appendArgumentType("String");
   }
 

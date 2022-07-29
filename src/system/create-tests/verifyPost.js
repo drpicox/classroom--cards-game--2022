@@ -10,6 +10,7 @@ function verifyPost(post) {
     verifyPostNotEmpty(post) &&
     verifyPostFrontmatter(post) &&
     verifyPostFrontmatterSemantics(post) &&
+    verifyPostMethods(post) &&
     verifyPostTitle(post)
   );
 }
@@ -62,6 +63,21 @@ function verifyPostTitle(post) {
     `- expected post name: ${expectedId}.md`,
     `- actual post name  : ${post.id}.md`,
     `Please, rename the file accordingly.`,
+  ]);
+
+  return false;
+}
+
+function verifyPostMethods(post) {
+  if (post.contextMethods.length > 0) return true;
+
+  const startLines = [...new Set(post.lines.map((l) => l.slice(0, 3)))];
+  reportPostError(post, post.lines.length + 1, [
+    `does not have any executable instruction by tests.`,
+    `- post lines start with        : "${startLines.join('", "')}"`,
+    `- expected some line start with: " * "`,
+    `Please, fix executable lines if they do not begin with " * " or `,
+    `add test executable lines.`,
   ]);
 
   return false;

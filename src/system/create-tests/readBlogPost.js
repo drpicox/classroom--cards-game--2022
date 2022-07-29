@@ -44,8 +44,14 @@ exports.readBlogPost = readBlogPost;
 
 function parseLine(postLine, testCalls, contextMethods) {
   const isCommand = postLine.startsWith(" * ");
-  if (!isCommand) return;
+  const isComment = postLine.startsWith("#");
 
+  if (isComment) {
+    testCalls.push({ isComment: true, text: postLine });
+    return;
+  }
+
+  if (!isCommand) return;
   const method = new MethodStepParser(postLine).parse();
   testCalls.push(method);
 

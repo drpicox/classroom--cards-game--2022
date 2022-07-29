@@ -44,13 +44,14 @@ function makeContextBody(post) {
   return join(...post.contextMethods.flatMap(makeContextMethod));
 }
 
-function makeContextMethod({ name, arguments: args }) {
+function makeContextMethod({ name, arguments: args, text }) {
   const formalArguments = args.map(({ name }) => `${name}`);
   const methodSignature = `${name}(${formalArguments.join(", ")})`;
 
   return [
     ``,
     `  async ${methodSignature} {`,
+    `    // example: ${text}`,
     ...args.map(({ name, value }) => `    // ${name} = ${value}`),
     args.length && ``,
     args.some(({ name }) => name === "expected") && [
