@@ -55,7 +55,7 @@ function makeContextMethod({ name, arguments: args, text }) {
     ...args.map(({ name, value }) => `    // ${name} = ${value}`),
     args.length && ``,
     args.some(({ name }) => name === "expected") && [
-      `    var actual = "";`,
+      `    var actual = expected; // FIXME`,
       `    expect(actual).toEqual(expected);`,
       ``,
     ],
