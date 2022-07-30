@@ -17,7 +17,17 @@ Tested with correto-17 17.0.4 (aarch64)
 In mac, add to ~/.zshrc:
 
 ```
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.17.0.4)
+$ export JAVA_HOME=$(/usr/libexec/java_home -v 1.17.0.4)
+```
+
+## Javascript
+
+It requires at least Node 16.6.0 and yarn.
+
+You can enable yarn by executing:
+
+```
+$ corepack enable
 ```
 
 ## Backend
