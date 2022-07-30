@@ -6,6 +6,20 @@
 **Note**: you should keep running `yarn create-tests` while you are developing.
 It will create and update all tests according the blog contents.
 
+## Java
+
+It works based on Java 17.
+
+**MacOS**
+
+Tested with correto-17 17.0.4 (aarch64)
+
+In mac, add to ~/.zshrc:
+
+```
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.17.0.4)
+```
+
 ## Backend
 
 Run on Java 17.
