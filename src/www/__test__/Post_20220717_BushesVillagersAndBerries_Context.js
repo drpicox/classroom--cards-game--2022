@@ -1,7 +1,7 @@
 import { screen, waitFor } from "@testing-library/react";
-import { userSimulator } from "../fixtures/userSimulator";
+import { userSimulator } from "./fixtures/userSimulator";
 
-export class Context_20220717_BushesVillagersAndBerries {
+export class Post_20220717_BushesVillagersAndBerries_Context {
   async enterInTheGame() {
     // example:  * Enter in the game.
     const button = screen.getByRole("button", { name: "Enter the Game" });

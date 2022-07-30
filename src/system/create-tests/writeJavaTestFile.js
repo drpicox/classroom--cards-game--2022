@@ -43,7 +43,6 @@ function makeTestHeader(post) {
     `import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;`,
     `import org.springframework.boot.test.context.SpringBootTest;`,
     ``,
-    `import com.drpicox.game.contexts.${post.contextName};`,
     `import com.drpicox.game.fixtures.Fixtures;`,
     ``,
     `// !!! IMPORTANT !!!`,

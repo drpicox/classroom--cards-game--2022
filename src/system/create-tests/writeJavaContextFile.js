@@ -10,7 +10,6 @@ async function writeJavaContextFile(post) {
     "com",
     "drpicox",
     "game",
-    "contexts",
     post.contextName + ".java"
   );
 

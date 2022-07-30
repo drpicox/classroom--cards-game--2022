@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.drpicox.game.contexts.Context_20220715_HelloBlog;
 import com.drpicox.game.fixtures.Fixtures;
 
 // !!! IMPORTANT !!!
@@ -18,7 +17,7 @@ import com.drpicox.game.fixtures.Fixtures;
 @AutoConfigureMockMvc
 public class Post_20220715_HelloBlog_Test {
 
-    @Autowired Context_20220715_HelloBlog context;
+    @Autowired Post_20220715_HelloBlog_Context context;
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() {

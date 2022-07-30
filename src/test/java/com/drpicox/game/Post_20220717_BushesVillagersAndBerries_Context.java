@@ -1,4 +1,4 @@
-package com.drpicox.game.contexts;
+package com.drpicox.game;
 
 import com.drpicox.game.game.api.GameResponse;
 import com.drpicox.game.game.GameService;
@@ -8,7 +8,7 @@ import static com.google.common.truth.Truth8.assertThat;
 import com.drpicox.game.fixtures.FrontendSimulator;
 
 @Component
-public class Context_20220717_BushesVillagersAndBerries {
+public class Post_20220717_BushesVillagersAndBerries_Context {
 
     private final FrontendSimulator frontendSimulator;
 
@@ -16,7 +16,7 @@ public class Context_20220717_BushesVillagersAndBerries {
 
     private GameResponse game;
 
-    public Context_20220717_BushesVillagersAndBerries(FrontendSimulator frontendSimulator, GameService gameService) {
+    public Post_20220717_BushesVillagersAndBerries_Context(FrontendSimulator frontendSimulator, GameService gameService) {
         this.frontendSimulator = frontendSimulator;
         this.gameService = gameService;
     }

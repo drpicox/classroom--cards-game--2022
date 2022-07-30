@@ -1,7 +1,7 @@
 import { screen, waitFor } from "@testing-library/react";
-import { userSimulator } from "../fixtures/userSimulator";
+import { userSimulator } from "./fixtures/userSimulator";
 
-export class Context_20220715_HelloBlog {
+export class Post_20220715_HelloBlog_Context {
   async goToTheBlogSection() {
     const link = screen.getByRole("link", { name: "Blog" });
     userSimulator.click(link);

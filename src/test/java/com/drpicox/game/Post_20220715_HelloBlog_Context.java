@@ -1,4 +1,4 @@
-package com.drpicox.game.contexts;
+package com.drpicox.game;
 
 import com.drpicox.game.blog.api.ListPostsResponse;
 import com.drpicox.game.blog.api.ListPostsResponseEntry;
@@ -11,14 +11,14 @@ import com.drpicox.game.fixtures.FrontendSimulator;
 import java.util.Optional;
 
 @Component
-public class Context_20220715_HelloBlog {
+public class Post_20220715_HelloBlog_Context {
 
     private final FrontendSimulator frontendSimulator;
 
     private ListPostsResponse postsList;
     private PostResponse post;
 
-    Context_20220715_HelloBlog(FrontendSimulator frontendSimulator) {
+    Post_20220715_HelloBlog_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
     }
 

@@ -8,7 +8,7 @@ async function readBlogPost(path) {
   const id = path.slice(watchPath.length + 1).split(".")[0];
   const javaName = makeJavaName(id);
   const testName = `Post_${javaName}_Test`;
-  const contextName = `Context_${javaName}`;
+  const contextName = `Post_${javaName}_Context`;
 
   const postContent = await readFile(path, "utf8");
   const postLines = postContent.split("\n");

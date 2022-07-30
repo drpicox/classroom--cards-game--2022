@@ -8,7 +8,6 @@ async function writeJsContextFile(post) {
     "src",
     "www",
     "__test__",
-    "contexts",
     post.contextName + ".js"
   );
 
@@ -35,7 +34,7 @@ function makeContextContent(post) {
 function makeContextHeader(post) {
   return join(
     `import { screen, waitFor } from '@testing-library/react';`,
-    `import { userSimulator } from "../fixtures/userSimulator";`,
+    `import { userSimulator } from "./fixtures/userSimulator";`,
     ``,
     `export class ${post.contextName} {`
   );
