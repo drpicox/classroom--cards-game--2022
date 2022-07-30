@@ -1,46 +1,33 @@
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
+import { userSimulator } from "../fixtures/userSimulator";
 
 export class Context_20220717_BushesVillagersAndBerries {
   async enterInTheGame() {
     // example:  * Enter in the game.
-    throw new Error("The method enterInTheGame() is not implemented yet.");
+    const button = screen.getByRole("button", { name: "Enter the Game" });
+    userSimulator.click(button);
   }
 
-  async thereShouldBeNCards(expected) {
+  async thereShouldBeNCards(expectedCount) {
     // example:  * There should be 3 cards.
     // expected = 3
 
-    var actual = "";
-    expect(actual).toEqual(expected);
-
-    throw new Error(
-      "The method thereShouldBeNCards(expected) is not implemented yet."
-    );
+    await waitFor(async () => {
+      const cards = await screen.findAllByTestId("card");
+      expect(cards).toHaveLength(expectedCount);
+    });
   }
 
-  async thereShouldBeNSCard(expected, arg1) {
+  async thereShouldBeNSCard(expectedCount, cardName) {
     // example:  * There should be 1 "villager" card.
     // expected = 1
     // arg1 = "villager"
 
-    var actual = "";
-    expect(actual).toEqual(expected);
-
-    throw new Error(
-      "The method thereShouldBeNSCard(expected, arg1) is not implemented yet."
-    );
+    const cards = screen.getAllByData("cardname", cardName);
+    expect(cards).toHaveLength(expectedCount);
   }
 
-  async andThereShouldBeNSCard(expected, arg1) {
-    // example:  * And there should be 1 "berry" card.
-    // expected = 1
-    // arg1 = "berry"
-
-    var actual = "";
-    expect(actual).toEqual(expected);
-
-    throw new Error(
-      "The method andThereShouldBeNSCard(expected, arg1) is not implemented yet."
-    );
+  async andThereShouldBeNSCard(expectedCount, cardName) {
+    this.thereShouldBeNSCard(expectedCount, cardName);
   }
 }

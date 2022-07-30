@@ -95,7 +95,9 @@ export class BackendSimulator {
       `The interactions are:`,
       `- actual frontend interactions  : ${this.nextInteractionIndex}`,
       `- expected frontend interactions: ${this.interactions.length}`,
-      `Please, make sure that the frontend does the required api calls to the backend.`
+      `Please, add to the frontend the missing (${
+        this.interactions.length - this.nextInteractionIndex
+      }) backend api calls.`
     );
   }
 }
