@@ -25,8 +25,10 @@ async function update(filePath) {
   if (!post.hasCoder) action = chalk.yellowBright.inverse(" Skipped ");
   if (contextWritten) action = chalk.greenBright.inverse(" Created ");
 
+  const stats = `(${post.contextMethods.length} methods, ${post.testCalls.length} calls)`;
+
   console.log(
-    `${action} ${filePath}` +
+    `${action} ${filePath} ${stats}` +
       `${testWritten ? ` => ${post.testName}` : ""}` +
       `${contextWritten ? ` => ${post.contextName}` : ""}` +
       `${post.hasCoder ? "" : " (no coder) "}`
