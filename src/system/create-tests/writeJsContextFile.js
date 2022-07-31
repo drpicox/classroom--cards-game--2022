@@ -35,7 +35,7 @@ function makeContextContent(post) {
 
 function makeContextHeader(post) {
   return join(
-    `import { screen, waitFor } from '@testing-library/react';`,
+    `import { screen } from '@testing-library/react';`,
     `import { userSimulator } from "./fixtures/userSimulator";`,
     ``,
     `export class ${post.contextName} {`

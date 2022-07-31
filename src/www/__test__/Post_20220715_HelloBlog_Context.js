@@ -1,20 +1,22 @@
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { userSimulator } from "./fixtures/userSimulator";
 
 export class Post_20220715_HelloBlog_Context {
   async goToTheBlogSection() {
     const link = screen.getByRole("link", { name: "Blog" });
     userSimulator.click(link);
+    await userSimulator.waitForLoading();
   }
 
   async youShouldSeeAListOfPosts() {
-    await screen.findAllByTestId("post-list--item");
+    const posts = screen.queryAllByTestId("post-list--item");
+    expect(posts).not.toHaveLength(0);
   }
 
   async theLastPostTitleShouldBeSThisPost(expected) {
     // expected = "Hello Blog"
 
-    const posts = await screen.findAllByTestId("post-list--item");
+    const posts = screen.queryAllByTestId("post-list--item");
     const last = posts.at(-1);
 
     expect(last).toHaveTextContent(expected);
@@ -23,17 +25,18 @@ export class Post_20220715_HelloBlog_Context {
   async goToTheSPost(the) {
     const link = screen.getByRole("link", { name: the });
     userSimulator.click(link);
+    await userSimulator.waitForLoading();
   }
 
   async youShouldSeeTheSPost(the) {
     // the = "Hello Blog"
 
-    const title = await screen.findByTestId("post-title");
+    const title = screen.getByTestId("post-title");
     expect(title).toHaveTextContent(the);
   }
 
   async thePostShouldContainSWhichIsHere(contain) {
-    const body = await screen.findByTestId("post-body");
-    waitFor(() => expect(body).toHaveTextContent(contain));
+    const body = screen.getByTestId("post-body");
+    expect(body).toHaveTextContent(contain);
   }
 }

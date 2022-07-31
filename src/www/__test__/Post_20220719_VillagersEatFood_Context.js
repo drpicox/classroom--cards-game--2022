@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { getByData } from "./fixtures/queryByData";
 import { userSimulator } from "./fixtures/userSimulator";
 
@@ -7,6 +7,7 @@ export class Post_20220719_VillagersEatFood_Context {
     // example:  * Given we have entered into a new game.
     const button = screen.getByRole("button", { name: "Enter the Game" });
     userSimulator.click(button);
+    await userSimulator.waitForLoading();
   }
 
   async theSCardHasNInSTag(cardName, count, tagName) {
@@ -15,7 +16,7 @@ export class Post_20220719_VillagersEatFood_Context {
     // has = 1
     // arg2 = "food"
 
-    const [card] = await screen.findAllByData("cardname", cardName);
+    const [card] = screen.getAllByData("cardname", cardName);
     const tag = getByData(card, "tagname", tagName);
     expect(tag).toHaveTextContent("" + count);
   }
@@ -24,25 +25,21 @@ export class Post_20220719_VillagersEatFood_Context {
     // example:  * End the current moon.
     const button = screen.getByRole("button", { name: "End Moon" });
     userSimulator.click(button);
+    await userSimulator.waitForLoading();
   }
 
   async thereShouldBeNCards(expected) {
     // example:  * There are 2 cards.
-    let actual;
-    await waitFor(() => {
-      actual = screen.getAllByTestId("card");
-      expect(actual).toHaveLength(expected);
-    });
+    const actual = screen.getAllByTestId("card");
+    expect(actual).toHaveLength(expected);
   }
 
   async thereShouldBeNoSCard(cardName) {
     // example:  * There is no "berry" card.
     // no = "berry"
 
-    await waitFor(() => {
-      const card = screen.queryByData("cardname", cardName);
-      expect(card).not.toBeInTheDocument();
-    });
+    const card = screen.queryByData("cardname", cardName);
+    expect(card).not.toBeInTheDocument();
   }
 
   async thereShouldBeNSCard(count, cardName) {
@@ -50,9 +47,7 @@ export class Post_20220719_VillagersEatFood_Context {
     // is = 1
     // n = "villager"
 
-    await waitFor(() => {
-      const cards = screen.getAllByData("cardname", cardName);
-      expect(cards).toHaveLength(count);
-    });
+    const cards = screen.getAllByData("cardname", cardName);
+    expect(cards).toHaveLength(count);
   }
 }

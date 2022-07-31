@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { userSimulator } from "./fixtures/userSimulator";
 
 export class Post_20220717_BushesVillagersAndBerries_Context {
@@ -6,16 +6,15 @@ export class Post_20220717_BushesVillagersAndBerries_Context {
     // example:  * Enter in the game.
     const button = screen.getByRole("button", { name: "Enter the Game" });
     userSimulator.click(button);
+    await userSimulator.waitForLoading();
   }
 
   async thereShouldBeNCards(expectedCount) {
     // example:  * There should be 3 cards.
     // expected = 3
 
-    await waitFor(async () => {
-      const cards = await screen.findAllByTestId("card");
-      expect(cards).toHaveLength(expectedCount);
-    });
+    const cards = screen.getAllByTestId("card");
+    expect(cards).toHaveLength(expectedCount);
   }
 
   async thereShouldBeNSCard(expectedCount, cardName) {
