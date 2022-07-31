@@ -20,7 +20,7 @@ public class CardResponse {
         return name;
     }
 
-    public int getProperty(String property) {
+    public int getTag(String tag) {
         return 1;
     }
 }

@@ -27,7 +27,7 @@ public class Post_20220719_VillagersEatFood_Context {
         // has = 1
         // in = "food"
         var matchingCard = game.streamCardsByName(cardName).findAny().get();
-        assertThat(matchingCard.getProperty(property)).isEqualTo(1);
+        assertThat(matchingCard.getTag(property)).isEqualTo(count);
     }
 
     public void endTheCurrentMoon() {

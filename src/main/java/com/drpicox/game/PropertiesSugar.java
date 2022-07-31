@@ -4,17 +4,21 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 public class PropertiesSugar {
-    private final Properties gameProperties;
+    private final Properties properties;
 
-    public PropertiesSugar(Properties gameProperties) {
-        this.gameProperties = gameProperties;
+    public PropertiesSugar(Properties properties) {
+        this.properties = properties;
     }
 
     public Stream<String> streamKeysStartWith(String prefix) {
-        return gameProperties.stringPropertyNames().stream().filter(k -> k.startsWith(prefix));
+        return properties.stringPropertyNames().stream().filter(k -> k.startsWith(prefix));
     }
 
-    public int getInt(String initialCardKey) {
-        return Integer.parseInt(gameProperties.getProperty(initialCardKey));
+    public int getInt(String key) {
+        return Integer.parseInt(properties.getProperty(key));
+    }
+
+    public String getString(String key) {
+        return properties.getProperty(key);
     }
 }
