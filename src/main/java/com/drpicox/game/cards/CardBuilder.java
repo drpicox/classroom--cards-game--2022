@@ -5,16 +5,19 @@ import com.drpicox.game.PropertiesSugar;
 import org.springframework.stereotype.Service;
 
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 @Service
 public class CardBuilder {
 
     private final PropertiesLoader propertiesLoader;
     private final CardsRepository cardsRepository;
+    private final TagBuilder tagBuilder;
 
-    public CardBuilder(PropertiesLoader propertiesLoader, CardsRepository cardsRepository) {
+    public CardBuilder(PropertiesLoader propertiesLoader, CardsRepository cardsRepository, TagBuilder tagBuilder) {
         this.propertiesLoader = propertiesLoader;
         this.cardsRepository = cardsRepository;
+        this.tagBuilder = tagBuilder;
     }
 
     public CardInstanceBuilder prepare(String cardName) {
@@ -31,8 +34,11 @@ public class CardBuilder {
 
         public Card build() {
             var cardName = getName();
+            var cardId = getNextId(cardName);
 
-            var card = new Card(getNextId(cardName), cardName);
+            var tags = tagBuilder.createAll(cardProperties, cardId);
+
+            var card = new Card(cardId, cardName, tags);
             cardsRepository.save(card);
             return card;
         }
