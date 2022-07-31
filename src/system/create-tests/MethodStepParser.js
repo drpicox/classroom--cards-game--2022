@@ -2,6 +2,7 @@ const { keywords } = require("./keywords");
 
 class MethodStepParser {
   #text;
+  #lineNumber;
   #index = 0;
   #methodName = "";
   #argumentValues = [];
@@ -9,8 +10,9 @@ class MethodStepParser {
   #argumentNames = [];
   #lastWord = "";
 
-  constructor(text) {
+  constructor(text, lineNumber) {
     this.#text = text;
+    this.#lineNumber = lineNumber;
   }
 
   parse() {
@@ -31,6 +33,7 @@ class MethodStepParser {
         type: this.#argumentTypes[i],
       })),
       text: this.#text,
+      lineNumber: this.#lineNumber,
     };
   }
 

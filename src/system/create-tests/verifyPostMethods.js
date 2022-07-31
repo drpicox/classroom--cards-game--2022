@@ -7,7 +7,8 @@ function verifyPostMethods(post) {
   return (
     verifyPostHaveAnyMethod(post) &&
     verifyPostHaveShouldMethod(post) &&
-    verifyPostThereMethods(post)
+    verifyPostThereMethods(post) &&
+    verifyPostNoInvalidCalls(post)
   );
 }
 
@@ -82,6 +83,51 @@ function verifyPostThereMethods(post) {
   return false;
 }
 
+function verifyPostNoInvalidCalls(post) {
+  const callWithoutMethod = post.testCalls.find(
+    (call) =>
+      !call.isComment &&
+      !post.contextMethods.every(
+        (method) =>
+          method.name !== call.name || areArgumentsTypesEqual(method, call)
+      )
+  );
+
+  if (!callWithoutMethod) return true;
+
+  const firstOccurrence = post.testCalls.find(
+    (c) => c.name === callWithoutMethod.name
+  );
+  const color = (other) => {
+    if (other.name !== firstOccurrence.name) return chalk.grey;
+    if (areArgumentsTypesEqual(other, firstOccurrence)) return chalk.green;
+    return chalk.red;
+  };
+
+  reportPostError(post, callWithoutMethod.lineNumber, [
+    `have no colliding executable instructions. `,
+    `In this case, there is at least two executable instructions that `,
+    `generate the same name `,
+    `but have different arguments.`,
+    listCalls(post, color),
+    `Please, `,
+    `verify that it has no "s" or "n" words, or modify `,
+    `the writting to generate a different name.`,
+  ]);
+
+  return false;
+}
+
+function areArgumentsTypesEqual(a, b) {
+  return (
+    a.arguments &&
+    a.arguments.length === b.arguments.length &&
+    a.arguments.every(
+      (argument, index) => b.arguments[index].type === argument.type
+    )
+  );
+}
+
 function listMethods(post, color = (method) => chalk.grey) {
   return [
     `Methods found:`,
@@ -91,6 +137,20 @@ function listMethods(post, color = (method) => chalk.grey) {
           `(${countCalls(post, method)} calls)`
         )}`}`
     ),
+  ];
+}
+
+function listCalls(post, color = (method) => chalk.grey) {
+  return [
+    `Calls found:`,
+    post.testCalls
+      .filter((c) => !c.isComment)
+      .map(
+        (call) =>
+          `${color(call)`${call.text} ${chalk.dim(
+            `(line ${call.lineNumber})`
+          )}`}`
+      ),
   ];
 }
 

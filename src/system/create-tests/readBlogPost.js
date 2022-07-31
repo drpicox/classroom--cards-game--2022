@@ -22,7 +22,9 @@ async function readBlogPost(path) {
   const title = postLines[titleIndex];
   const hasCoder = findHasCoder(postLines);
 
-  postLines.forEach((line) => parseLine(line, testCalls, contextMethods));
+  postLines.forEach((line, index) =>
+    parseLine(line, index + 1, testCalls, contextMethods)
+  );
 
   return {
     id,
@@ -42,7 +44,7 @@ async function readBlogPost(path) {
 }
 exports.readBlogPost = readBlogPost;
 
-function parseLine(postLine, testCalls, contextMethods) {
+function parseLine(postLine, lineNumber, testCalls, contextMethods) {
   const isCommand = postLine.startsWith(" * ");
   const isComment = postLine.startsWith("#");
 
@@ -52,7 +54,7 @@ function parseLine(postLine, testCalls, contextMethods) {
   }
 
   if (!isCommand) return;
-  const method = new MethodStepParser(postLine).parse();
+  const method = new MethodStepParser(postLine, lineNumber).parse();
   testCalls.push(method);
 
   if (contextMethods.every((m) => m.name !== method.name))
