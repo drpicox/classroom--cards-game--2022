@@ -7,6 +7,9 @@ jest.doMock("../../../backend", () => {
     async get(url) {
       return backendSimulator.get(url);
     },
+    async post(url, body) {
+      return backendSimulator.post(url, body);
+    },
   };
 
   return { backend };

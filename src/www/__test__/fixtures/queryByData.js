@@ -23,6 +23,15 @@ const queries = {
   findByData,
 };
 
+export {
+  queryByData,
+  queryAllByData,
+  getByData,
+  getAllByData,
+  findAllByData,
+  findByData,
+};
+
 export function extendScreenByData(screen) {
   Object.assign(
     screen,

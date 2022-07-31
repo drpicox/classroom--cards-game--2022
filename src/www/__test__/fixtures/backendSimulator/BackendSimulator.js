@@ -20,7 +20,15 @@ export class BackendSimulator {
   }
 
   async get(url) {
-    const actualRequest = { method: "GET", url, body: null };
+    return this.#fetch("GET", url, null);
+  }
+
+  async post(url, body) {
+    return this.#fetch("POST", url, body);
+  }
+
+  async #fetch(method, url, body) {
+    const actualRequest = { method, url, body };
 
     const interaction = await this.#nextInteraction(actualRequest);
     const expectedRequest = interaction.request;

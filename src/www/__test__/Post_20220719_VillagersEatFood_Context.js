@@ -1,49 +1,58 @@
 import { screen, waitFor } from "@testing-library/react";
+import { getByData } from "./fixtures/queryByData";
 import { userSimulator } from "./fixtures/userSimulator";
 
 export class Post_20220719_VillagersEatFood_Context {
   async givenWeHaveEnteredIntoANewGame() {
     // example:  * Given we have entered into a new game.
-    throw new Error(
-      "The method givenWeHaveEnteredIntoANewGame() is not implemented yet."
-    );
+    const button = screen.getByRole("button", { name: "Enter the Game" });
+    userSimulator.click(button);
   }
 
-  async theSCardHasNInSTag(the, has, arg2) {
+  async theSCardHasNInSTag(cardName, count, tagName) {
     // example:  * The "berry" card has 1 in "food" tag.
     // the = "berry"
     // has = 1
     // arg2 = "food"
 
-    throw new Error(
-      "The method theSCardHasNInSTag(the, has, arg2) is not implemented yet."
-    );
+    const [card] = await screen.findAllByData("cardname", cardName);
+    const tag = getByData(card, "tagname", tagName);
+    expect(tag).toHaveTextContent("" + count);
   }
 
   async endTheCurrentMoon() {
     // example:  * End the current moon.
-    throw new Error("The method endTheCurrentMoon() is not implemented yet.");
+    const button = screen.getByRole("button", { name: "End Moon" });
+    userSimulator.click(button);
   }
 
-  async thereAreNCards(are) {
+  async thereShouldBeNCards(expected) {
     // example:  * There are 2 cards.
-    // are = 2
-
-    throw new Error("The method thereAreNCards(are) is not implemented yet.");
+    let actual;
+    await waitFor(() => {
+      actual = screen.getAllByTestId("card");
+      expect(actual).toHaveLength(expected);
+    });
   }
 
-  async thereIsNoSCard(no) {
+  async thereShouldBeNoSCard(cardName) {
     // example:  * There is no "berry" card.
     // no = "berry"
 
-    throw new Error("The method thereIsNoSCard(no) is not implemented yet.");
+    await waitFor(() => {
+      const card = screen.queryByData("cardname", cardName);
+      expect(card).not.toBeInTheDocument();
+    });
   }
 
-  async thereIsNSCard(is, n) {
+  async thereShouldBeNSCard(count, cardName) {
     // example:  * There is 1 "villager" card.
     // is = 1
     // n = "villager"
 
-    throw new Error("The method thereIsNSCard(is, n) is not implemented yet.");
+    await waitFor(() => {
+      const cards = screen.getAllByData("cardname", cardName);
+      expect(cards).toHaveLength(count);
+    });
   }
 }
