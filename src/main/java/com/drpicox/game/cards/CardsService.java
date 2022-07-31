@@ -8,10 +8,12 @@ import java.util.List;
 public class CardsService {
 
     private final CardsRepository cardsRepository;
+    private final TagsRepository tagsRepository;
     private final CardBuilder cardBuilder;
 
-    public CardsService(CardsRepository cardsRepository, CardBuilder cardBuilder) {
+    public CardsService(CardsRepository cardsRepository, TagsRepository tagsRepository, CardBuilder cardBuilder) {
         this.cardsRepository = cardsRepository;
+        this.tagsRepository = tagsRepository;
         this.cardBuilder = cardBuilder;
     }
 
@@ -26,5 +28,12 @@ public class CardsService {
 
     public void deleteCard(Card card) {
         cardsRepository.delete(card);
+    }
+
+    public List<Card> findAllByTagName(String tagName) {
+        var tags = tagsRepository.findAllByTagName(tagName);
+        var ids = tags.stream().map(t -> t.getCardId()).toList();
+        var cards = cardsRepository.findAllById(ids);
+        return cards;
     }
 }

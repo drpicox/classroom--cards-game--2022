@@ -13,14 +13,15 @@ public class MoonService {
     }
 
     public void endMoon() {
-        var cards = cardsService.findAll();
-        for (var card: cards) {
-            if (card.getName().equals("berry")) cardsService.deleteCard(card);
-        }
+        var eaters = cardsService.findAllByTagName("eats");
+        var foods = cardsService.findAllByTagName("food");
 
-        if (cards.size() == 2) for (var card: cards) {
-            if (card.getName().equals("villager")) {
-                cardsService.deleteCard(card);
+        for (var eater: eaters) {
+            if (!foods.isEmpty()) {
+                var food = foods.remove(0);
+                cardsService.deleteCard(food);
+            } else {
+                cardsService.deleteCard(eater);
                 cardsService.create("corpse");
             }
         }

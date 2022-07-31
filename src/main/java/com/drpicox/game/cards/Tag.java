@@ -17,6 +17,10 @@ public class Tag {
         this.tagValue = value;
     }
 
+    public String getCardId() {
+        return cardId;
+    }
+
     public String getName() {
         return tagName;
     }
@@ -26,4 +30,5 @@ public class Tag {
     }
 
     protected Tag() {}
+
 }
