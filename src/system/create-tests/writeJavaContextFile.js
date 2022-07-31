@@ -18,7 +18,9 @@ async function writeJavaContextFile(post) {
   try {
     await writeFile(contextPath, contextContent, { flag: "wx" });
     return true;
-  } catch (e) {}
+  } catch (e) {
+    if (e.code !== "EEXIST") console.error(e);
+  }
 
   return false;
 }
@@ -35,7 +37,7 @@ function makeContextContent(post) {
 
 function makeContextHeader(post) {
   return join(
-    `package com.drpicox.game.contexts;`,
+    `package com.drpicox.game;`,
     ``,
     `import org.springframework.stereotype.Component;`,
     `import static com.google.common.truth.Truth.assertThat;`,

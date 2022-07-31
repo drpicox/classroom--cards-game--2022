@@ -1,3 +1,5 @@
+const { keywords } = require("./keywords");
+
 class MethodStepParser {
   #text;
   #index = 0;
@@ -69,7 +71,7 @@ class MethodStepParser {
   #appendArgument(value) {
     let name = this.#lastWord;
     if (/shouldBe/i.test(this.#methodName)) name = "expected";
-    if (this.#argumentNames.includes(name))
+    if (this.#argumentNames.includes(name) || keywords.has(name))
       name = `arg${this.#argumentValues.length}`;
     this.#argumentNames.push(name);
 

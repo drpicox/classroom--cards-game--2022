@@ -16,7 +16,9 @@ async function writeJsContextFile(post) {
   try {
     await writeFile(contextPath, prettyJs(contextContent), { flag: "wx" });
     return true;
-  } catch (e) {}
+  } catch (e) {
+    if (e.code !== "EEXIST") console.error(e);
+  }
 
   return false;
 }
