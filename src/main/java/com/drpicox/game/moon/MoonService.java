@@ -3,27 +3,19 @@ package com.drpicox.game.moon;
 import com.drpicox.game.cards.CardsService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MoonService {
 
-    private final CardsService cardsService;
+    private final List<EndMoonRule> endMoonRules;
 
-    public MoonService(CardsService cardsService) {
-        this.cardsService = cardsService;
+    public MoonService(List<EndMoonRule> endMoonRules) {
+        this.endMoonRules = endMoonRules;
+        this.endMoonRules.sort((a, b) -> a.getClass().getSimpleName().compareTo(b.getClass().getSimpleName()));
     }
 
     public void endMoon() {
-        var eaters = cardsService.findAllByTagName("eats");
-        var foods = cardsService.findAllByTagName("food");
-
-        for (var eater: eaters) {
-            if (!foods.isEmpty()) {
-                var food = foods.remove(0);
-                cardsService.deleteCard(food);
-            } else {
-                cardsService.deleteCard(eater);
-                cardsService.create("corpse");
-            }
-        }
+        for (var rule: endMoonRules) rule.applyRule();
     }
 }
