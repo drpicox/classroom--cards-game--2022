@@ -33,12 +33,12 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
         assertThat(cards).hasSize(expected);
     }
 
-    public void thereShouldBeNSCard(int expectedCount, String expectedName) {
+    public void thereShouldBeNSCard(int expectedCount, String cardName) {
         // example:  * There should be 1 "villager" card.
         // expected = 1
         // arg1 = "villager"
 
-        var matchingCards = game.streamCards().filter(c -> c.getName().equals(expectedName));
+        var matchingCards = game.streamCardsByName(cardName);
         assertThat(matchingCards).hasSize(expectedCount);
     }
 

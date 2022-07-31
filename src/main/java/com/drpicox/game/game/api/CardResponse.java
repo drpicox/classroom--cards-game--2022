@@ -19,4 +19,8 @@ public class CardResponse {
     public String getName() {
         return name;
     }
+
+    public int getProperty(String property) {
+        return 1;
+    }
 }

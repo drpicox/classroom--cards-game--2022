@@ -3,7 +3,6 @@ package com.drpicox.game.cards;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CardsService {
@@ -36,4 +35,7 @@ public class CardsService {
         return cardName + "-" + (maxId + 1);
     }
 
+    public void deleteCard(Card card) {
+        cardsRepository.delete(card);
+    }
 }

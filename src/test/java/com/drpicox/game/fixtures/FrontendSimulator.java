@@ -1,6 +1,8 @@
 package com.drpicox.game.fixtures;
 
+import com.drpicox.game.game.api.GameResponse;
 import com.google.gson.Gson;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -46,6 +48,32 @@ public class FrontendSimulator {
         var list = gson.fromJson(result, type);
 
         interactions.add(new FrontendBackendInteraction("GET", url, null, list));
+
+        return list;
+    }
+
+
+
+    public <T> T post(String url, Object requestBody, Class<T> type) {
+        String result = null;
+        var requestBodyJson = gson.toJson(requestBody);
+        try {
+            result = mockMvc.perform(MockMvcRequestBuilders.post(url)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(requestBodyJson)
+                    .characterEncoding("utf-8")
+                )
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        } catch (Exception e) {
+            throw new RuntimeException("Error while executing the API REST Call: POST " + url, e);
+        }
+
+        var list = gson.fromJson(result, type);
+
+        interactions.add(new FrontendBackendInteraction("POST", url, requestBody, list));
 
         return list;
     }
