@@ -33,12 +33,12 @@ When the moon ends, the rules applies and the magic begin.
 
 And look to the results:
 
- * There are 2 cards.
- * There is no "berry" card.
- * There is 1 "villager" card.
- * There is 1 "bush" card.
+ * There should be 2 cards.
+ * There should be no "berry" card.
+ * There should be 1 "villager" card.
+ * There should be 1 "bush" card.
 
-The villager has eaten the berry, and there is no 
+The villager has eaten the berry, and there should be no 
 more berries available.
 
 ## Starving
@@ -51,15 +51,15 @@ and if we do not have food for the villagers,
 they die.
 
  * End the current moon.
- * There are 2 cards.
- * There is no "berry" card.
- * There is no "villager" card.
- * There is 1 "bush" card.
+ * There should be 2 cards.
+ * There should be no "berry" card.
+ * There should be no "villager" card.
+ * There should be 1 "bush" card.
 
 Wait, there are two cards, but, only one bush.
 Which is the other card?
 
- * There is 1 "corpse" card.
+ * There should be 1 "corpse" card.
 
 It's a corpse. Your villager died,
 and you only have a corpse now.
