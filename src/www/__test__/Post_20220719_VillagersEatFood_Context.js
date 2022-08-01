@@ -1,12 +1,16 @@
-import { screen } from "@testing-library/react";
-import { getByData } from "./fixtures/queryByData";
-import { userSimulator } from "./fixtures/userSimulator";
+import {
+  mainView,
+  getAllCardByName,
+  getTagByName,
+  getAllCard,
+  queryCardByName,
+} from "./queries";
+import * as userSimulator from "./userSimulator";
 
 export class Post_20220719_VillagersEatFood_Context {
   async givenWeHaveEnteredIntoANewGame() {
     // example:  * Given we have entered into a new game.
-    const button = screen.getByRole("button", { name: "Enter the Game" });
-    userSimulator.click(button);
+    userSimulator.clickButton(mainView, "Enter the Game");
     await userSimulator.waitForLoading();
   }
 
@@ -16,21 +20,20 @@ export class Post_20220719_VillagersEatFood_Context {
     // has = 1
     // arg2 = "food"
 
-    const [card] = screen.getAllByData("cardname", cardName);
-    const tag = getByData(card, "tagname", tagName);
+    const [card] = getAllCardByName(mainView, cardName);
+    const tag = getTagByName(card, tagName);
     expect(tag).toHaveTextContent("" + count);
   }
 
   async endTheCurrentMoon() {
     // example:  * End the current moon.
-    const button = screen.getByRole("button", { name: "End Moon" });
-    userSimulator.click(button);
+    userSimulator.clickButton(mainView, "End Moon");
     await userSimulator.waitForLoading();
   }
 
   async thereShouldBeNCards(expected) {
     // example:  * There are 2 cards.
-    const actual = screen.getAllByTestId("card");
+    const actual = getAllCard(mainView);
     expect(actual).toHaveLength(expected);
   }
 
@@ -38,7 +41,7 @@ export class Post_20220719_VillagersEatFood_Context {
     // example:  * There is no "berry" card.
     // no = "berry"
 
-    const card = screen.queryByData("cardname", cardName);
+    const card = queryCardByName(mainView, cardName);
     expect(card).not.toBeInTheDocument();
   }
 
@@ -47,7 +50,7 @@ export class Post_20220719_VillagersEatFood_Context {
     // is = 1
     // n = "villager"
 
-    const cards = screen.getAllByData("cardname", cardName);
+    const cards = getAllCardByName(mainView, cardName);
     expect(cards).toHaveLength(count);
   }
 }

@@ -3,13 +3,16 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
 import { App } from "../../App";
 import { createAppStore } from "../../createAppStore";
+import { setMainView } from "../queries/mainView";
 
 export function renderApp() {
-  render(
+  const result = render(
     <Provider store={createAppStore()}>
       <MemoryRouter>
         <App />
       </MemoryRouter>
     </Provider>
   );
+
+  setMainView(result.container);
 }

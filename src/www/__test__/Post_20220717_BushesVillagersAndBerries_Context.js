@@ -1,11 +1,10 @@
-import { screen } from "@testing-library/react";
-import { userSimulator } from "./fixtures/userSimulator";
+import { mainView, getAllCard, getAllCardByName } from "./queries";
+import * as userSimulator from "./userSimulator";
 
 export class Post_20220717_BushesVillagersAndBerries_Context {
   async enterInTheGame() {
     // example:  * Enter in the game.
-    const button = screen.getByRole("button", { name: "Enter the Game" });
-    userSimulator.click(button);
+    userSimulator.clickButton(mainView, "Enter the Game");
     await userSimulator.waitForLoading();
   }
 
@@ -13,7 +12,7 @@ export class Post_20220717_BushesVillagersAndBerries_Context {
     // example:  * There should be 3 cards.
     // expected = 3
 
-    const cards = screen.getAllByTestId("card");
+    const cards = getAllCard(mainView);
     expect(cards).toHaveLength(expectedCount);
   }
 
@@ -22,7 +21,7 @@ export class Post_20220717_BushesVillagersAndBerries_Context {
     // expected = 1
     // arg1 = "villager"
 
-    const cards = screen.getAllByData("cardname", cardName);
+    const cards = getAllCardByName(mainView, cardName);
     expect(cards).toHaveLength(expectedCount);
   }
 
