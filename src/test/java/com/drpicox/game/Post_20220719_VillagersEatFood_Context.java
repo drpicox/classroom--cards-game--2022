@@ -21,7 +21,7 @@ public class Post_20220719_VillagersEatFood_Context {
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
-    public void theSCardHasNInSTag(String cardName, int count, String property) {
+    public void theSCardShouldHaveNInSTag(String cardName, int count, String property) {
         // example:  * The "berry" card has 1 in "food" tag.
         // the = "berry"
         // has = 1

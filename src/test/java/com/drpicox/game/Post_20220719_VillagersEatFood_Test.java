@@ -21,13 +21,13 @@ public class Post_20220719_VillagersEatFood_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() {
-        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "bc155c52fa090491dbd1ac36dbacf0bb");
+        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "3b61e4eced50f14bdad34085676ba0e4");
 
         // # Villagers Eat Food
         // ## Berries are food
         context.givenWeHaveEnteredIntoANewGame();
-        context.theSCardHasNInSTag("berry", 1, "food");
-        context.theSCardHasNInSTag("villager", 1, "eats");
+        context.theSCardShouldHaveNInSTag("berry", 1, "food");
+        context.theSCardShouldHaveNInSTag("villager", 1, "eats");
         // ## Moons
         context.endTheCurrentMoon();
         context.thereShouldBeNCards(2);

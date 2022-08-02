@@ -16,11 +16,11 @@ see that it has several properties.
 For example, berries are food.
 
  * Given we have entered into a new game.
- * The "berry" card has 1 in "food" tag.
+ * The "berry" card should have 1 in "food" tag.
 
 And villagers eats.
 
- * The "villager" card has 1 in "eats" tag.
+ * The "villager" card should have 1 in "eats" tag.
 
 ## Moons
 

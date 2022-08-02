@@ -10,15 +10,15 @@ import { Post_20220719_VillagersEatFood_Context } from "./Post_20220719_Villager
 test("2022-07-19_villagers_eat_food.md", async () => {
   await runBeforeTestStarts(
     "2022-07-19_villagers_eat_food",
-    "bc155c52fa090491dbd1ac36dbacf0bb"
+    "3b61e4eced50f14bdad34085676ba0e4"
   );
 
   const context = new Post_20220719_VillagersEatFood_Context();
   // # Villagers Eat Food
   // ## Berries are food
   await context.givenWeHaveEnteredIntoANewGame();
-  await context.theSCardHasNInSTag("berry", 1, "food");
-  await context.theSCardHasNInSTag("villager", 1, "eats");
+  await context.theSCardShouldHaveNInSTag("berry", 1, "food");
+  await context.theSCardShouldHaveNInSTag("villager", 1, "eats");
   // ## Moons
   await context.endTheCurrentMoon();
   await context.thereShouldBeNCards(2);

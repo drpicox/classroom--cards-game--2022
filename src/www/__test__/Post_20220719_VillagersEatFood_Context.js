@@ -14,7 +14,7 @@ export class Post_20220719_VillagersEatFood_Context {
     await userSimulator.waitForLoading();
   }
 
-  async theSCardHasNInSTag(cardName, count, tagName) {
+  async theSCardShouldHaveNInSTag(cardName, count, tagName) {
     // example:  * The "berry" card has 1 in "food" tag.
     // the = "berry"
     // has = 1
