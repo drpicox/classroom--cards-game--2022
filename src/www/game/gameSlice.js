@@ -1,7 +1,7 @@
 import { backend } from "../backend";
 import { replaceCards } from "../cards/cardsSlice";
 import {
-  hideLoaddingSpinner,
+  hideLoadingSpinner,
   showLoadingSpinner,
 } from "../loading/loadingSlice";
 
@@ -30,13 +30,13 @@ export const gameMiddleware = (store) => (next) => async (action) => {
     store.dispatch(showLoadingSpinner());
     const game = await fetchGame();
     store.dispatch(replaceCards(game.cards));
-    store.dispatch(hideLoaddingSpinner());
+    store.dispatch(hideLoadingSpinner());
   }
 
   if (action.type === REQUEST_END_MOON) {
     store.dispatch(showLoadingSpinner());
     const game = await fetchEndMoon();
     store.dispatch(replaceCards(game.cards));
-    store.dispatch(hideLoaddingSpinner());
+    store.dispatch(hideLoadingSpinner());
   }
 };

@@ -7,7 +7,7 @@ export function showLoadingSpinner() {
   return replaceLoadingSpinner(true);
 }
 
-export function hideLoaddingSpinner() {
+export function hideLoadingSpinner() {
   return replaceLoadingSpinner(false);
 }
 

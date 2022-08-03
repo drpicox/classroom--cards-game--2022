@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import { backend } from "../backend";
 import {
-  hideLoaddingSpinner,
+  hideLoadingSpinner,
   showLoadingSpinner,
 } from "../loading/loadingSlice";
 
@@ -69,13 +69,13 @@ export const blogMiddleware = (store) => (next) => async (action) => {
     store.dispatch(showLoadingSpinner());
     const posts = await fetchPosts();
     store.dispatch(replacePosts(posts));
-    store.dispatch(hideLoaddingSpinner());
+    store.dispatch(hideLoadingSpinner());
   }
 
   if (action.type === REQUEST_POST) {
     store.dispatch(showLoadingSpinner());
     const post = await fetchPost(action.postId);
     store.dispatch(extendPost(post));
-    store.dispatch(hideLoaddingSpinner());
+    store.dispatch(hideLoadingSpinner());
   }
 };

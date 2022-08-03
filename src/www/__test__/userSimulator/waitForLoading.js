@@ -7,7 +7,7 @@ export async function waitForLoading() {
       [
         `There is no loading. ` +
           `If you are getting some data from the backend, ` +
-          `you should add the dispatch for showLoadingSpinner and hideLoaddingSpinner. ` +
+          `you should add the dispatch for showLoadingSpinner and hideLoadingSpinner. ` +
           `The code might look as follow:`,
         `export const myMiddleware = (store) => (next) => async (action) => {`,
         `  next(action);`,
@@ -16,12 +16,12 @@ export async function waitForLoading() {
         `    store.dispatch(showLoadingSpinner());   // <<<<<<< Add This`,
         `    const data = await fetchMyData();`,
         `    store.dispatch(replaceMyData(data));`,
-        `    store.dispatch(hideLoaddingSpinner());  // <<<<<<< Add This`,
+        `    store.dispatch(hideLoadingSpinner());  // <<<<<<< Add This`,
         `  }`,
         `};`,
       ].join("\n")
     );
 
-  // ** If it fails add: store.dispatch(hideLoaddingSpinner());
+  // ** If it fails add: store.dispatch(hideLoadingSpinner());
   await waitForElementToBeRemoved(() => screen.queryByTestId("loading"));
 }
