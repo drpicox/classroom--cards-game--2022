@@ -3,6 +3,7 @@ package com.drpicox.game.cards;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class CardsService {
@@ -18,7 +19,8 @@ public class CardsService {
     }
 
     public Card create(String cardName) {
-        var card = cardBuilder.prepare(cardName).build();
+        var normalizedName = cardName.replaceAll(" ", "-");
+        var card = cardBuilder.prepare(normalizedName).build();
         return card;
     }
 
@@ -35,5 +37,19 @@ public class CardsService {
         var ids = tags.stream().map(t -> t.getCardId()).toList();
         var cards = cardsRepository.findAllById(ids);
         return cards;
+    }
+
+    public List<Card> ensureCardCount(int count, String name) {
+        var existingCards = cardsRepository.findAllByName(name);
+        while (existingCards.size() > count)
+            deleteCard(existingCards.remove(0));
+
+        while (existingCards.size() < count) {
+            var card = create(name);
+            existingCards.add(card);
+            cardsRepository.save(card);
+        }
+
+        return existingCards;
     }
 }

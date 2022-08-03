@@ -31,6 +31,9 @@ public class CardResponse {
     }
 
     public int getTag(String tagName) {
-        return tags.get(tagName).getValue();
+        var tag = tags.get(tagName);
+
+        if (tag == null) return 0;
+        return tag.getValue();
     }
 }

@@ -33,4 +33,11 @@ public class Card {
 
     protected Card() {}
 
+    public int getTagValue(String tagName) {
+        return tags.stream()
+            .filter(tag -> tag.getName().equals(tagName))
+            .mapToInt(tag -> tag.getValue())
+            .findAny()
+            .orElse(0);
+    }
 }

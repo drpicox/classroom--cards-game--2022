@@ -21,13 +21,13 @@ public class Post_20220719_VillagersEatFood_Context {
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
-    public void theSCardShouldHaveNInSTag(String cardName, int count, String property) {
+    public void theSCardShouldHaveNInSTag(String cardName, int count, String tagName) {
         // example:  * The "berry" card has 1 in "food" tag.
         // the = "berry"
         // has = 1
         // in = "food"
         var matchingCard = game.streamCardsByName(cardName).findAny().get();
-        assertThat(matchingCard.getTag(property)).isEqualTo(count);
+        assertThat(matchingCard.getTag(tagName)).isEqualTo(count);
     }
 
     public void endTheCurrentMoon() {

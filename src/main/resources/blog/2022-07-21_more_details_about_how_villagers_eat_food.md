@@ -1,5 +1,6 @@
 ---
 writer: drpicox
+coder: nobody
 ---
 # More Details About How Villagers Eat Food
 
@@ -63,18 +64,20 @@ all the apple has ruined. So, there is only left two berry cards:
 And the same goes when there is not enough food. The ones that survive are the ones
 that require less food. So:
 
- * Given there are 0 "berry", 2 "apple", and 3 "fruit salad" cards.
+ * Given there are 3 "berry", 0 "apple", and 0 "fruit salad" cards.
  * The sum of all "eats" tags value should be 12.
- * The sum of all "food" tags value should be 9.
+ * The sum of all "food" tags value should be 3.
 
-In this example there is an excess of three points of food, but:
+In this example everyone dies except the two villagers. The militia does not
+survive because cannot eat only one berry. The berry is kept for the future.
 
  * End the current moon.
  * The sum of all "eats" tags value should be 2.
- * The sum of all "food" tags value should be 0.
+ * The sum of all "food" tags value should be 1.
 
 And exactly, the only survivals are the two villagers:
 
+ * There should be 1 "berry" cards.
  * There should be 2 "villager" cards.
  * There should be 0 "militia" cards.
  * There should be 0 "trader" cards.

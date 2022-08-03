@@ -26,7 +26,7 @@ public class GameController {
 
     @GetMapping
     public GameResponse getGame() {
-        gameService.create();
+        gameService.createIfDoesNotExist();
         return getGameResponse();
     }
 
