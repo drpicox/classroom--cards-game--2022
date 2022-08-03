@@ -1,5 +1,3 @@
-const { keywords } = require("./keywords");
-
 class MethodStepParser {
   #text;
   #lineNumber;
@@ -8,7 +6,7 @@ class MethodStepParser {
   #argumentValues = [];
   #argumentTypes = [];
   #argumentNames = [];
-  #lastWord = "";
+  #hintCounts = {};
 
   constructor(text, lineNumber) {
     this.#text = text;
@@ -49,7 +47,7 @@ class MethodStepParser {
   #acceptStringArgument() {
     const arg = this.#accept(/^"[^"]+"/);
     if (!arg) return;
-    this.#appendArgument(arg[0]);
+    this.#appendArgument(arg[0], "s");
     this.#appendNameWord("S");
     this.#appendArgumentType("String");
   }
@@ -57,27 +55,28 @@ class MethodStepParser {
   #acceptNumberArgument() {
     const arg = this.#accept(/^[0-9]+/);
     if (!arg) return;
-    this.#appendArgument(arg[0]);
+    this.#appendArgument(arg[0], "n");
     this.#appendNameWord("N");
     this.#appendArgumentType("int");
   }
 
   #appendNameWord(word) {
-    this.#lastWord = word.toLowerCase();
-
     this.#methodName +=
       this.#methodName.length === 0
         ? word.toLowerCase()
         : word[0].toUpperCase() + word.slice(1).toLowerCase();
   }
 
-  #appendArgument(value) {
-    let name = this.#lastWord;
-    if (/shouldBe/i.test(this.#methodName)) name = "expected";
-    if (this.#argumentNames.includes(name) || keywords.has(name))
-      name = `arg${this.#argumentValues.length}`;
-    this.#argumentNames.push(name);
+  #appendArgument(value, nameHint = "arg") {
+    let count = this.#hintCounts[nameHint] || 1;
+    let name = `${nameHint}${count}`;
+    this.#hintCounts[nameHint] = count + 1;
 
+    const isShouldBe = /shouldBe/i.test(this.#methodName);
+    const isExpectNameFree = !this.#argumentNames.includes("expected");
+    if (isShouldBe && isExpectNameFree) name = "expected";
+
+    this.#argumentNames.push(name);
     this.#argumentValues.push(value);
   }
 
@@ -99,4 +98,5 @@ class MethodStepParser {
     return candidate.match(token);
   }
 }
+
 exports.MethodStepParser = MethodStepParser;

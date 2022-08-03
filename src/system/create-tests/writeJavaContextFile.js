@@ -66,8 +66,9 @@ function makeContextMethod({ name, arguments: args, text }) {
 
   return [
     `    public void ${methodSignature} {`,
-    `        // example: ${text}`,
-    ...args.map(({ name, value }) => `        // ${name} = ${value}`),
+    `        // text: ${text}`,
+    `        // code: this.${name}(${args.map((a) => a.value).join(", ")})`,
+    // ...args.map(({ name, value }) => `        // ${name} = ${value}`),
     args.length && ``,
     args.some(({ name }) => name === "expected") && [
       `        var actual = expected; // FIXME`,
