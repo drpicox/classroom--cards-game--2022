@@ -28,7 +28,7 @@ async function update(filePath) {
   const stats = `(${post.contextMethods.length} methods, ${post.testCalls.length} calls)`;
 
   console.log(
-    `${action} ${filePath} ${stats}` +
+    `[${new Date().toLocaleTimeString("ca")}] ${action} ${filePath} ${stats}` +
       `${testWritten ? ` => ${post.testName}` : ""}` +
       `${contextWritten ? ` => ${post.contextName}` : ""}` +
       `${post.hasCoder ? "" : " (no coder) "}`

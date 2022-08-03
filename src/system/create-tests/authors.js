@@ -35,7 +35,11 @@ exports.getAuthorUsernames = getAuthorUsernames;
 
 async function loadAuthors() {
   const color = chalk.magenta;
-  console.log(`${color.inverse(" Authors ")} ${color(authorsWatchPath)}`);
+  console.log(
+    `[${new Date().toLocaleTimeString("ca")}] ${color.inverse(
+      " Authors "
+    )} ${color(authorsWatchPath)}`
+  );
 
   const authorsContent = await readFile(authorsPath, "utf8");
   const authorsLines = authorsContent.split("\n");
