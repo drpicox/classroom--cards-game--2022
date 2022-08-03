@@ -26,6 +26,7 @@ export function throwBackendSimulatorError(backendSimulator, ...messages) {
     `Error: ${backendSimulator.postId} backend interactions failed. ${message}`
   );
 }
+
 function expectize(output) {
   return output
     .split("\n")
@@ -39,6 +40,7 @@ function expectize(output) {
     })
     .join("\n");
 }
+
 function magentize(output) {
   return output
     .split("\n")
@@ -49,6 +51,7 @@ function magentize(output) {
     })
     .join("\n");
 }
+
 function please(output) {
   return output
     .split("\n")
@@ -58,6 +61,7 @@ function please(output) {
     })
     .join("\n");
 }
+
 function explainSituation(backendSimulator) {
   let result = [
     `\nThe interaction simulation between backend and frontend is recorded at:`,
@@ -104,6 +108,7 @@ function explainSituation(backendSimulator) {
 
   return result;
 }
+
 function explainLineInteraction(backendSimulator, index) {
   const interaction = backendSimulator.interactions[index];
   return `[${pad(index + 1)}]  ${interaction.request.method} ${
@@ -119,6 +124,7 @@ export function explainRequest(interaction) {
       : `- body  : null`,
   ];
 }
+
 function explainInteraction(interaction) {
   return [
     `- request method : "${interaction.request.method}"`,
@@ -129,11 +135,13 @@ function explainInteraction(interaction) {
     `- response body  : ${JSON.stringify(interaction.response.body, null, 2)}`,
   ];
 }
+
 function pad(n) {
   let o = `${n}`;
   while (o.length < 3) o = ` ${o}`;
   return o;
 }
+
 function join(...texts) {
   return texts
     .flat(Infinity)
