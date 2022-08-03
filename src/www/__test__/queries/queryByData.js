@@ -1,9 +1,11 @@
 import { queryHelpers, buildQueries } from "@testing-library/react";
+import { verifyContainer } from "./verifyContainer";
 
 // The queryAllByAttribute is a shortcut for attribute-based matchers
 // You can also use document.querySelector or a combination of existing
 // testing library utilities to find matching nodes for your query
 const queryAllByData = (container, key, ...args) =>
+  verifyContainer(container) &&
   queryHelpers.queryAllByAttribute(`data-${key}`, container, ...args);
 
 const getMultipleError = (c, dataKey, dataValue) =>
