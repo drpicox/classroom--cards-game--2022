@@ -5,6 +5,7 @@ export function Header() {
   return (
     <div>
       <Link to="/blog">Blog</Link>
+      <Link to="/game">Game</Link>
       <Loading />
     </div>
   );
