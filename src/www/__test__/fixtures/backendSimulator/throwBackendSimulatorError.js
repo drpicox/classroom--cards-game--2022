@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import { join } from "./join";
 
 export function throwBackendSimulatorError(backendSimulator, ...messages) {
   const firstJumpIndex = messages.findIndex((m) => !m.endsWith(" "));
@@ -14,16 +15,16 @@ export function throwBackendSimulatorError(backendSimulator, ...messages) {
           chalk.magenta(message),
           explainSituation(backendSimulator),
           additional.length && join(``, additional),
-          `\n`
-        )
-      )
-    )
+          `\n`,
+        ),
+      ),
+    ),
   );
 
   process.stderr.write(chalk.gray(output));
 
   throw new Error(
-    `Error: ${backendSimulator.postId} backend interactions failed. ${message}`
+    `Error: ${backendSimulator.postId} backend interactions failed. ${message}`,
   );
 }
 
@@ -71,7 +72,7 @@ function explainSituation(backendSimulator) {
 
   for (let i = 0; i < backendSimulator.nextInteractionIndex; i += 1)
     result.push(
-      chalk.green(`   ${explainLineInteraction(backendSimulator, i)}`)
+      chalk.green(`   ${explainLineInteraction(backendSimulator, i)}`),
     );
 
   if (
@@ -81,9 +82,9 @@ function explainSituation(backendSimulator) {
       chalk.red(
         `** ${explainLineInteraction(
           backendSimulator,
-          backendSimulator.nextInteractionIndex
-        )}`
-      )
+          backendSimulator.nextInteractionIndex,
+        )}`,
+      ),
     );
 
   for (
@@ -92,7 +93,7 @@ function explainSituation(backendSimulator) {
     i += 1
   )
     result.push(
-      chalk.grey(`   ${explainLineInteraction(backendSimulator, i)}`)
+      chalk.grey(`   ${explainLineInteraction(backendSimulator, i)}`),
     );
 
   if (
@@ -101,8 +102,8 @@ function explainSituation(backendSimulator) {
     result.push(`\nThe next expected interaction is:`);
     result.push(
       explainInteraction(
-        backendSimulator.interactions[backendSimulator.nextInteractionIndex]
-      )
+        backendSimulator.interactions[backendSimulator.nextInteractionIndex],
+      ),
     );
   }
 
@@ -140,12 +141,4 @@ function pad(n) {
   let o = `${n}`;
   while (o.length < 3) o = ` ${o}`;
   return o;
-}
-
-function join(...texts) {
-  return texts
-    .flat(Infinity)
-    .filter((x) => x || x === "")
-    .map((s) => (s.endsWith(" ") ? s : `${s}\n`))
-    .join("");
 }
