@@ -1,6 +1,7 @@
 package com.drpicox.game.blog;
 
-import com.drpicox.game.PropertiesLoader;
+import com.drpicox.game.PropertiesSyrup;
+import com.drpicox.game.PropertiesSyrupLoader;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -8,21 +9,21 @@ import java.util.*;
 @Service
 public class AuthorsService {
 
-    private final PropertiesLoader propertiesLoader;
+    private final PropertiesSyrupLoader propertiesSyrupLoader;
 
-    public AuthorsService(PropertiesLoader propertiesLoader) {
-        this.propertiesLoader = propertiesLoader;
+    public AuthorsService(PropertiesSyrupLoader propertiesSyrupLoader) {
+        this.propertiesSyrupLoader = propertiesSyrupLoader;
     }
 
-    private Properties authors;
+    private PropertiesSyrup authors;
 
-    private Properties getAuthors() {
+    private PropertiesSyrup getAuthors() {
         if (authors == null) authors = readAuthorsFile();
         return authors;
     }
 
-    private Properties readAuthorsFile() {
-        return propertiesLoader.load("authors.properties");
+    private PropertiesSyrup readAuthorsFile() {
+        return propertiesSyrupLoader.load(".", "authors");
     }
 
     public boolean containsGitHubUser(String value) {
@@ -31,6 +32,6 @@ public class AuthorsService {
     }
 
     public Collection<String> getGitHubUsers() {
-        return getAuthors().stringPropertyNames();
+        return getAuthors().keySet();
     }
 }

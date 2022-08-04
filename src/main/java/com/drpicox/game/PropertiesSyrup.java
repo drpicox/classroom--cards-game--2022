@@ -1,12 +1,13 @@
 package com.drpicox.game;
 
+import java.util.Collection;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-public class PropertiesSugar {
+public class PropertiesSyrup {
     private final Properties properties;
 
-    public PropertiesSugar(Properties properties) {
+    public PropertiesSyrup(Properties properties) {
         this.properties = properties;
     }
 
@@ -20,5 +21,13 @@ public class PropertiesSugar {
 
     public String getString(String key) {
         return properties.getProperty(key);
+    }
+
+    public boolean containsKey(String value) {
+        return properties.containsKey(value);
+    }
+
+    public Collection<String> keySet() {
+        return properties.stringPropertyNames();
     }
 }

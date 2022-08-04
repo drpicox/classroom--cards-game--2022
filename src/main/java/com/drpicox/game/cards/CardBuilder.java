@@ -1,35 +1,32 @@
 package com.drpicox.game.cards;
 
-import com.drpicox.game.PropertiesLoader;
-import com.drpicox.game.PropertiesSugar;
+import com.drpicox.game.PropertiesSyrup;
+import com.drpicox.game.PropertiesSyrupLoader;
 import org.springframework.stereotype.Service;
-
-import java.util.Properties;
-import java.util.stream.Collectors;
 
 @Service
 public class CardBuilder {
 
-    private final PropertiesLoader propertiesLoader;
+    private final PropertiesSyrupLoader propertiesSyrupLoader;
     private final CardsRepository cardsRepository;
     private final TagBuilder tagBuilder;
 
-    public CardBuilder(PropertiesLoader propertiesLoader, CardsRepository cardsRepository, TagBuilder tagBuilder) {
-        this.propertiesLoader = propertiesLoader;
+    public CardBuilder(PropertiesSyrupLoader propertiesSyrupLoader, CardsRepository cardsRepository, TagBuilder tagBuilder) {
+        this.propertiesSyrupLoader = propertiesSyrupLoader;
         this.cardsRepository = cardsRepository;
         this.tagBuilder = tagBuilder;
     }
 
     public CardInstanceBuilder prepare(String cardName) {
-        var cardProperties = propertiesLoader.load("cards", cardName+".properties");
+        var cardProperties = propertiesSyrupLoader.load("cards", cardName);
         return new CardInstanceBuilder(cardProperties);
     }
 
     public class CardInstanceBuilder {
-        private PropertiesSugar cardProperties;
+        private PropertiesSyrup cardProperties;
 
-        public CardInstanceBuilder(Properties cardProperties) {
-            this.cardProperties = new PropertiesSugar(cardProperties);
+        public CardInstanceBuilder(PropertiesSyrup cardProperties) {
+            this.cardProperties = cardProperties;
         }
 
         public Card build() {

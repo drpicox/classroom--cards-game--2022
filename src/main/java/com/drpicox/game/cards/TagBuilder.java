@@ -1,12 +1,9 @@
 package com.drpicox.game.cards;
 
-import com.drpicox.game.PropertiesLoader;
-import com.drpicox.game.PropertiesSugar;
+import com.drpicox.game.PropertiesSyrup;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Properties;
-import java.util.stream.Collectors;
 
 @Service
 public class TagBuilder {
@@ -17,7 +14,7 @@ public class TagBuilder {
         this.tagsRepository = tagsRepository;
     }
 
-    public List<Tag> createAll(PropertiesSugar cardProperties, String cardId) {
+    public List<Tag> createAll(PropertiesSyrup cardProperties, String cardId) {
         var tagKeys = cardProperties.streamKeysStartWith("tags.");
         var tags = tagKeys.map(tagKey -> {
             var tagName = tagKey.substring(5);
@@ -27,16 +24,16 @@ public class TagBuilder {
         return tags;
     }
 
-    public CardInstanceBuilder prepare(PropertiesSugar cardProperties, String cardId, String tagName) {
+    public CardInstanceBuilder prepare(PropertiesSyrup cardProperties, String cardId, String tagName) {
         return new CardInstanceBuilder(cardProperties, cardId, tagName);
     }
 
     public class CardInstanceBuilder {
-        private PropertiesSugar cardProperties;
+        private PropertiesSyrup cardProperties;
         private String cardId;
         private String tagName;
 
-        public CardInstanceBuilder(PropertiesSugar cardProperties, String cardId, String tagName) {
+        public CardInstanceBuilder(PropertiesSyrup cardProperties, String cardId, String tagName) {
             this.cardProperties = cardProperties;
             this.cardId = cardId;
             this.tagName = tagName;

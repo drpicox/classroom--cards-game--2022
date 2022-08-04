@@ -19,8 +19,7 @@ public class CardsService {
     }
 
     public Card create(String cardName) {
-        var normalizedName = cardName.replaceAll(" ", "-");
-        var card = cardBuilder.prepare(normalizedName).build();
+        var card = cardBuilder.prepare(cardName).build();
         return card;
     }
 

@@ -1,7 +1,7 @@
 package com.drpicox.game.game;
 
-import com.drpicox.game.PropertiesLoader;
-import com.drpicox.game.PropertiesSugar;
+import com.drpicox.game.PropertiesSyrupLoader;
+import com.drpicox.game.PropertiesSyrup;
 import com.drpicox.game.cards.CardsService;
 import org.springframework.stereotype.Service;
 
@@ -10,24 +10,24 @@ import java.util.Properties;
 @Service
 public class GameBuilder {
 
-    private final PropertiesLoader propertiesLoader;
+    private final PropertiesSyrupLoader propertiesSyrupLoader;
     private final CardsService cardsService;
 
-    public GameBuilder(PropertiesLoader propertiesLoader, CardsService cardsService) {
-        this.propertiesLoader = propertiesLoader;
+    public GameBuilder(PropertiesSyrupLoader propertiesSyrupLoader, CardsService cardsService) {
+        this.propertiesSyrupLoader = propertiesSyrupLoader;
         this.cardsService = cardsService;
     }
 
     public GameInstanceBuilder prepare(String name) {
-        var gameProperties = propertiesLoader.load("games/minimal.properties");
+        var gameProperties = propertiesSyrupLoader.load("games", name);
         return new GameInstanceBuilder(gameProperties);
     }
 
     public class GameInstanceBuilder {
-        private PropertiesSugar gameProperties;
+        private PropertiesSyrup gameProperties;
 
-        public GameInstanceBuilder(Properties gameProperties) {
-            this.gameProperties = new PropertiesSugar(gameProperties);
+        public GameInstanceBuilder(PropertiesSyrup gameProperties) {
+            this.gameProperties = gameProperties;
         }
 
         public void build() {
