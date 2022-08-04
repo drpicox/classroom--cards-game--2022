@@ -6,5 +6,5 @@ import java.util.List;
 
 interface CardsRepository extends JpaRepository<Card, String> {
 
-    public List<Card> findAllByName(String name);
+    List<Card> findAllByName(String name);
 }

@@ -6,7 +6,6 @@ import com.drpicox.game.moon.EndMoonRule;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
-import java.util.LinkedList;
 
 @Service
 public class Rule_100_EatersEatFood implements EndMoonRule {
@@ -30,7 +29,7 @@ public class Rule_100_EatersEatFood implements EndMoonRule {
         while (totalEats > totalFood) {
             var next = eaters.remove(0);
             totalEats -= next.getTagValue("eats");
-            cardsService.deleteCard(next);
+            cardsService.delete(next);
             cardsService.create("corpse");
         }
 
@@ -38,7 +37,7 @@ public class Rule_100_EatersEatFood implements EndMoonRule {
         while (remainingToEat > 0) {
             var plated = foods.remove(0);
             remainingToEat -= plated.getTagValue("food");
-            cardsService.deleteCard(plated);
+            cardsService.delete(plated);
         }
     }
 

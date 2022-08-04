@@ -24,33 +24,31 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
     }
 
     public void beforeTest() {
+        gameService.create("empty");
     }
 
     public void givenThereAreNSNSAndNSCards(int count1, String name1, int count2, String name2, int count3, String name3) {
         // example:  * Given there are 2 "villager", 2 "militia", and 2 "trader" cards.
-        gameService.createEmptyGameIfDoesNotExist();
-        cardsService.ensureCardCount(count1, name1);
-        cardsService.ensureCardCount(count2, name2);
-        cardsService.ensureCardCount(count3, name3);
+        cardsService.deleteAllByName(name1);
+        cardsService.createMany(count1, name1);
+
+        cardsService.deleteAllByName(name2);
+        cardsService.createMany(count2, name2);
+
+        cardsService.deleteAllByName(name3);
+        cardsService.createMany(count3, name3);
 
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void theSCardShouldHaveNInSTag(String cardName, int count, String tagName) {
         // example:  * The "villager" card should have 1 in "eats" tag.
-        // the = "villager"
-        // have = 1
-        // arg2 = "eats"
-
         var matchingCard = game.streamCardsByName(cardName).findAny().get();
         assertThat(matchingCard.getTag(tagName)).isEqualTo(count);
     }
 
     public void theSumOfAllSTagsValueShouldBeN(String tagName, int expected) {
         // example:  * The sum of all "eats" tags value should be 12.
-        // all = "eats"
-        // expected = 12
-
         var sum = game.streamCards().mapToInt(c -> c.getTag(tagName)).sum();
         assertThat(sum).isEqualTo(expected);
     }
@@ -62,9 +60,6 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     public void thereShouldBeNSCards(int expected, String cardName) {
         // example:  * There should be 2 "berry" cards.
-        // expected = 2
-        // arg1 = "berry"
-
         var actual = game.streamCardsByName(cardName).count();
         assertThat(actual).isEqualTo(expected);
     }

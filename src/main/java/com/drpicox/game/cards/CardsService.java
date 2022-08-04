@@ -28,7 +28,7 @@ public class CardsService {
         return cardsRepository.findAll();
     }
 
-    public void deleteCard(Card card) {
+    public void delete(Card card) {
         cardsRepository.delete(card);
     }
 
@@ -39,17 +39,12 @@ public class CardsService {
         return cards;
     }
 
-    public List<Card> ensureCardCount(int count, String name) {
-        var existingCards = cardsRepository.findAllByName(name);
-        while (existingCards.size() > count)
-            deleteCard(existingCards.remove(0));
+    public void deleteAllByName(String name) {
+        var cards = cardsRepository.findAllByName(name);
+        cardsRepository.deleteAll(cards);
+    }
 
-        while (existingCards.size() < count) {
-            var card = create(name);
-            existingCards.add(card);
-            cardsRepository.save(card);
-        }
-
-        return existingCards;
+    public List<Card> createMany(int count, String name) {
+        return Stream.generate(() -> create(name)).limit(count).toList();
     }
 }

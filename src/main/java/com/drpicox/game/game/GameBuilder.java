@@ -3,7 +3,6 @@ package com.drpicox.game.game;
 import com.drpicox.game.PropertiesLoader;
 import com.drpicox.game.PropertiesSugar;
 import com.drpicox.game.cards.CardsService;
-import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.Properties;
@@ -19,8 +18,8 @@ public class GameBuilder {
         this.cardsService = cardsService;
     }
 
-    public GameInstanceBuilder prepare() {
-        var gameProperties = propertiesLoader.load("game.properties");
+    public GameInstanceBuilder prepare(String name) {
+        var gameProperties = propertiesLoader.load("games/minimal.properties");
         return new GameInstanceBuilder(gameProperties);
     }
 

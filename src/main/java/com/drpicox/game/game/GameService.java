@@ -15,18 +15,12 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public void create() {
+    public void create(String name) {
         gameRepository.save(new Game(GAME_ID));
-        gameBuilder.prepare().build();
+        gameBuilder.prepare(name).build();
     }
 
     public void createIfDoesNotExist() {
-        if (gameRepository.existsById(GAME_ID)) return;
-        create();
-    }
-
-    public void createEmptyGameIfDoesNotExist() {
-        if (gameRepository.existsById(GAME_ID)) return;
-        gameRepository.save(new Game(GAME_ID));
+        if (!gameRepository.existsById(GAME_ID)) create("default");
     }
 }
