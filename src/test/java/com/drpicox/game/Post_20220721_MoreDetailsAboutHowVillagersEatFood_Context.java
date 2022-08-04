@@ -23,6 +23,9 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
         this.cardsService = cardsService;
     }
 
+    public void beforeTest() {
+    }
+
     public void givenThereAreNSNSAndNSCards(int count1, String name1, int count2, String name2, int count3, String name3) {
         // example:  * Given there are 2 "villager", 2 "militia", and 2 "trader" cards.
         gameService.createEmptyGameIfDoesNotExist();
@@ -66,4 +69,6 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
         assertThat(actual).isEqualTo(expected);
     }
 
+    public void afterTest() {
+    }
 }

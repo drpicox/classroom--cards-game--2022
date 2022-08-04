@@ -22,6 +22,7 @@ public class Post_20220719_VillagersEatFood_Test {
 
     @Test public void testPost() {
         fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "3b61e4eced50f14bdad34085676ba0e4");
+        context.beforeTest();
 
         // # Villagers Eat Food
         // ## Berries are food
@@ -42,6 +43,7 @@ public class Post_20220719_VillagersEatFood_Test {
         context.thereShouldBeNSCard(1, "bush");
         context.thereShouldBeNSCard(1, "corpse");
 
+        context.afterTest();
         fixtures.runWhenTestSuccessful();
     }
 

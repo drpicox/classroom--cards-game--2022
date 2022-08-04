@@ -15,6 +15,8 @@ test("2022-07-21_more_details_about_how_villagers_eat_food.md", async () => {
 
   const context =
     new Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context();
+  await context.beforeTest();
+
   // # More Details About How Villagers Eat Food
   // ## More kinds of villagers
   await context.givenThereAreNSNSAndNSCards(
@@ -81,5 +83,6 @@ test("2022-07-21_more_details_about_how_villagers_eat_food.md", async () => {
   await context.thereShouldBeNSCards(0, "militia");
   await context.thereShouldBeNSCards(0, "trader");
 
+  await context.afterTest();
   await runWhenTestSuccessful();
 });

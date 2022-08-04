@@ -16,6 +16,9 @@ public class Post_20220719_VillagersEatFood_Context {
         this.frontendSimulator = frontendSimulator;
     }
 
+    public void beforeTest() {
+    }
+
     public void givenWeHaveEnteredIntoANewGame() {
         // example:  * Given we have entered into a new game.
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
@@ -59,4 +62,6 @@ public class Post_20220719_VillagersEatFood_Context {
         assertThat(matchingCards).hasSize(expectedCount);
     }
 
+    public void afterTest() {
+    }
 }

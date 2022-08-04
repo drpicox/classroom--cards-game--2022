@@ -21,6 +21,9 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
         this.gameService = gameService;
     }
 
+    public void beforeTest() {
+    }
+
     public void enterInTheGame() {
         // example:  * Enter in the game.
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
@@ -46,4 +49,6 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
         thereShouldBeNSCard(expectedCount, expectedName);
     }
 
+    public void afterTest() {
+    }
 }

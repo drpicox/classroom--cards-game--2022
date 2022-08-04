@@ -8,6 +8,8 @@ import {
 import * as userSimulator from "./userSimulator";
 
 export class Post_20220719_VillagersEatFood_Context {
+  async beforeTest() {}
+
   async givenWeHaveEnteredIntoANewGame() {
     // example:  * Given we have entered into a new game.
     userSimulator.clickButton(mainView, "Enter the Game");
@@ -53,4 +55,6 @@ export class Post_20220719_VillagersEatFood_Context {
     const cards = getAllCardByName(mainView, cardName);
     expect(cards).toHaveLength(count);
   }
+
+  async afterTest() {}
 }

@@ -22,6 +22,7 @@ public class Post_20220715_HelloBlog_Test {
 
     @Test public void testPost() {
         fixtures.runBeforeTestStarts("2022-07-15_hello_blog", "bdc923639522b08b9df5faf815a6a152");
+        context.beforeTest();
 
         // # Hello Blog
         // ## How to use the blog
@@ -32,6 +33,7 @@ public class Post_20220715_HelloBlog_Test {
         context.youShouldSeeTheSPost("Hello Blog");
         context.thePostShouldContainSWhichIsHere("this text");
 
+        context.afterTest();
         fixtures.runWhenTestSuccessful();
     }
 

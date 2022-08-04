@@ -41,12 +41,19 @@ function makeTestHeader(post) {
     `test('${post.id}.md', async () => {`,
     `  await runBeforeTestStarts(${idValue}, ${md5Value});`,
     ``,
-    `  const context = new ${post.contextName}();`
+    `  const context = new ${post.contextName}();`,
+    `  await context.beforeTest();`,
+    ``
   );
 }
 
 function makeTestFooter() {
-  return join(``, `await runWhenTestSuccessful();`, `})`);
+  return join(
+    ``,
+    `await context.afterTest();`,
+    `await runWhenTestSuccessful();`,
+    `})`
+  );
 }
 
 function makeTestBody(post) {

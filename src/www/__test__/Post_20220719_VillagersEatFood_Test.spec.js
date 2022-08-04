@@ -14,6 +14,8 @@ test("2022-07-19_villagers_eat_food.md", async () => {
   );
 
   const context = new Post_20220719_VillagersEatFood_Context();
+  await context.beforeTest();
+
   // # Villagers Eat Food
   // ## Berries are food
   await context.givenWeHaveEnteredIntoANewGame();
@@ -33,5 +35,6 @@ test("2022-07-19_villagers_eat_food.md", async () => {
   await context.thereShouldBeNSCard(1, "bush");
   await context.thereShouldBeNSCard(1, "corpse");
 
+  await context.afterTest();
   await runWhenTestSuccessful();
 });

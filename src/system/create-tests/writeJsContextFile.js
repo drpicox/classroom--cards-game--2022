@@ -38,7 +38,10 @@ function makeContextHeader(post) {
     `import { mainView, getByTestId } from "./queries";`,
     `import * as userSimulator from "./userSimulator";`,
     ``,
-    `export class ${post.contextName} {`
+    `export class ${post.contextName} {`,
+    `  async beforeTest() {`,
+    `    // Do your setup here, if necessary`,
+    `  }`
   );
 }
 
@@ -68,7 +71,13 @@ function makeContextMethod({ name, arguments: args, text }) {
 }
 
 function makeContextFooter() {
-  return join(`}`);
+  return join(
+    ``,
+    `  async afterTest() {`,
+    `    // Do your teardown here, if necessary`,
+    `  }`,
+    `}`
+  );
 }
 
 exports.writeJsContextFile = writeJsContextFile;

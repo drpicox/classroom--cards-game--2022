@@ -22,6 +22,7 @@ public class Post_20220717_BushesVillagersAndBerries_Test {
 
     @Test public void testPost() {
         fixtures.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "d6ec337ab57972a7dfeea3004e9318b5");
+        context.beforeTest();
 
         // # Bushes, Villagers and Berries
         // ## The game
@@ -31,6 +32,7 @@ public class Post_20220717_BushesVillagersAndBerries_Test {
         context.thereShouldBeNSCard(1, "bush");
         context.andThereShouldBeNSCard(1, "berry");
 
+        context.afterTest();
         fixtures.runWhenTestSuccessful();
     }
 

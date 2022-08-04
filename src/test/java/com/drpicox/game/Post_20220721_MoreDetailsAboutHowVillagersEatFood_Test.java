@@ -22,6 +22,7 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Test {
 
     @Test public void testPost() {
         fixtures.runBeforeTestStarts("2022-07-21_more_details_about_how_villagers_eat_food", "13cb246411b97b3aca344f906f5bbf14");
+        context.beforeTest();
 
         // # More Details About How Villagers Eat Food
         // ## More kinds of villagers
@@ -61,6 +62,7 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Test {
         context.thereShouldBeNSCards(0, "militia");
         context.thereShouldBeNSCards(0, "trader");
 
+        context.afterTest();
         fixtures.runWhenTestSuccessful();
     }
 

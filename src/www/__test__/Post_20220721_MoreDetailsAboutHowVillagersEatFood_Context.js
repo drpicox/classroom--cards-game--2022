@@ -2,13 +2,14 @@ import {
   mainView,
   getAllCardByName,
   getTagByName,
-  getAllTagByName,
   queryAllTagByName,
   queryAllCardByName,
 } from "./queries";
 import * as userSimulator from "./userSimulator";
 
 export class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
+  async beforeTest() {}
+
   async givenThereAreNSNSAndNSCards() {
     userSimulator.clickLink(mainView, "Game");
     userSimulator.clickButton(mainView, "Reload");
@@ -50,4 +51,6 @@ export class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
     var actual = queryAllCardByName(mainView, cardName);
     expect(actual).toHaveLength(expected);
   }
+
+  async afterTest() {}
 }

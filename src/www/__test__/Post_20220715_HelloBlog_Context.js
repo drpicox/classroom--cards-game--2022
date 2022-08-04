@@ -2,6 +2,8 @@ import * as userSimulator from "./userSimulator";
 import { mainView, queryAllByTestId, getByTestId } from "./queries";
 
 export class Post_20220715_HelloBlog_Context {
+  async beforeTest() {}
+
   async goToTheBlogSection() {
     userSimulator.clickLink(mainView, "Blog");
     await userSimulator.waitForLoading();
@@ -37,4 +39,6 @@ export class Post_20220715_HelloBlog_Context {
     const body = getByTestId(mainView, "post-body");
     expect(body).toHaveTextContent(contain);
   }
+
+  async afterTest() {}
 }

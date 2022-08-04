@@ -22,6 +22,9 @@ public class Post_20220715_HelloBlog_Context {
         this.frontendSimulator = frontendSimulator;
     }
 
+    public void beforeTest() {
+    }
+
     public void goToTheBlogSection() {
         postsList = frontendSimulator.get("/api/v1/posts", ListPostsResponse.class);
     }
@@ -55,4 +58,6 @@ public class Post_20220715_HelloBlog_Context {
         return postsList.getPosts().stream().filter(p -> p.getTitle().equals(expectedTitle)).findAny();
     }
 
+    public void afterTest() {
+    }
 }

@@ -14,6 +14,8 @@ test("2022-07-17_bushes_villagers_and_berries.md", async () => {
   );
 
   const context = new Post_20220717_BushesVillagersAndBerries_Context();
+  await context.beforeTest();
+
   // # Bushes, Villagers and Berries
   // ## The game
   await context.enterInTheGame();
@@ -22,5 +24,6 @@ test("2022-07-17_bushes_villagers_and_berries.md", async () => {
   await context.thereShouldBeNSCard(1, "bush");
   await context.andThereShouldBeNSCard(1, "berry");
 
+  await context.afterTest();
   await runWhenTestSuccessful();
 });

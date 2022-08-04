@@ -52,7 +52,10 @@ function makeContextHeader(post) {
     `    ${post.contextName}(FrontendSimulator frontendSimulator) {`,
     `        this.frontendSimulator = frontendSimulator;`,
     `    }`,
-    ``
+    ``,
+    `    public void beforeTest() {`,
+    `        // Do your setup here, if necessary`,
+    `    }`
   );
 }
 
@@ -65,6 +68,7 @@ function makeContextMethod({ name, arguments: args, text }) {
   const methodSignature = `${name}(${formalArguments.join(", ")})`;
 
   return [
+    ``,
     `    public void ${methodSignature} {`,
     `        // text: ${text}`,
     `        // code: this.${name}(${args.map((a) => a.value).join(", ")})`,
@@ -77,12 +81,17 @@ function makeContextMethod({ name, arguments: args, text }) {
     ],
     `        throw new UnsupportedOperationException("The method ${methodSignature} is not implemented yet.");`,
     `    }`,
-    ``,
   ];
 }
 
 function makeContextFooter() {
-  return join(`}`);
+  return join(
+    ``,
+    `    public void afterTest() {`,
+    `        // Do your teardown here, if necessary`,
+    `    }`,
+    `}`
+  );
 }
 
 exports.writeJavaContextFile = writeJavaContextFile;

@@ -14,6 +14,8 @@ test("2022-07-15_hello_blog.md", async () => {
   );
 
   const context = new Post_20220715_HelloBlog_Context();
+  await context.beforeTest();
+
   // # Hello Blog
   // ## How to use the blog
   await context.goToTheBlogSection();
@@ -23,5 +25,6 @@ test("2022-07-15_hello_blog.md", async () => {
   await context.youShouldSeeTheSPost("Hello Blog");
   await context.thePostShouldContainSWhichIsHere("this text");
 
+  await context.afterTest();
   await runWhenTestSuccessful();
 });

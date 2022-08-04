@@ -2,6 +2,8 @@ import { mainView, getAllCard, getAllCardByName } from "./queries";
 import * as userSimulator from "./userSimulator";
 
 export class Post_20220717_BushesVillagersAndBerries_Context {
+  async beforeTest() {}
+
   async enterInTheGame() {
     // example:  * Enter in the game.
     userSimulator.clickButton(mainView, "Enter the Game");
@@ -28,4 +30,6 @@ export class Post_20220717_BushesVillagersAndBerries_Context {
   async andThereShouldBeNSCard(expectedCount, cardName) {
     this.thereShouldBeNSCard(expectedCount, cardName);
   }
+
+  async afterTest() {}
 }

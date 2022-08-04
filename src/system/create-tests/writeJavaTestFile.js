@@ -60,6 +60,7 @@ function makeTestHeader(post) {
     ``,
     `    @Test public void testPost() {`,
     `        fixtures.runBeforeTestStarts(${idValue}, ${md5Value});`,
+    `        context.beforeTest();`,
     ``
   );
 }
@@ -67,6 +68,7 @@ function makeTestHeader(post) {
 function makeTestFooter() {
   return join(
     ``,
+    `        context.afterTest();`,
     `        fixtures.runWhenTestSuccessful();`,
     `    }`,
     ``,
