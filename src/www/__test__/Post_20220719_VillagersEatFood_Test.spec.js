@@ -10,7 +10,7 @@ import { Post_20220719_VillagersEatFood_Context } from "./Post_20220719_Villager
 test("2022-07-19_villagers_eat_food.md", async () => {
   await runBeforeTestStarts(
     "2022-07-19_villagers_eat_food",
-    "b1f3fa0c802d0863316fec78f95d264e"
+    "73bcb415ffc123f38e4c651752c51f32"
   );
 
   const context = new Post_20220719_VillagersEatFood_Context();
@@ -23,13 +23,11 @@ test("2022-07-19_villagers_eat_food.md", async () => {
   await context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
   // ## Moons
   await context.endTheCurrentMoon();
-  await context.thereShouldBeNCards(2);
   await context.thereShouldBeNoSCard("Berry");
   await context.thereShouldBeNSCard(1, "Villager");
   await context.thereShouldBeNSCard(1, "Bush");
   // ## Starving
   await context.endTheCurrentMoon();
-  await context.thereShouldBeNCards(2);
   await context.thereShouldBeNoSCard("Berry");
   await context.thereShouldBeNoSCard("Villager");
   await context.thereShouldBeNSCard(1, "Bush");

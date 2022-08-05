@@ -38,13 +38,6 @@ public class Post_20220719_VillagersEatFood_Context {
         game = frontendSimulator.post("/api/v1/game/moon", null, GameResponse.class);
     }
 
-    public void thereShouldBeNCards(int expectedCards) {
-        // example:  * There are 2 cards.
-        // are = 2
-        var matchingCards = game.streamCards();
-        assertThat(matchingCards).hasSize(expectedCards);
-    }
-
     public void thereShouldBeNoSCard(String cardName) {
         // example:  * There is no "berry" card.
         // no = "berry"

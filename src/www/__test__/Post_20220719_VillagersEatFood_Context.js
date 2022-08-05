@@ -2,7 +2,6 @@ import {
   mainView,
   getAllCardByName,
   getTagByName,
-  getAllCard,
   queryCardByName,
 } from "./queries";
 import * as userSimulator from "./userSimulator";
@@ -31,12 +30,6 @@ export class Post_20220719_VillagersEatFood_Context {
     // example:  * End the current moon.
     userSimulator.clickButton(mainView, "End Moon");
     await userSimulator.waitForLoading();
-  }
-
-  async thereShouldBeNCards(expected) {
-    // example:  * There are 2 cards.
-    const actual = getAllCard(mainView);
-    expect(actual).toHaveLength(expected);
   }
 
   async thereShouldBeNoSCard(cardName) {
