@@ -16,11 +16,11 @@ see that it has several properties.
 For example, berries are food.
 
  * Given we have entered into a new game.
- * The "berry" card should have 1 in "food" tag.
+ * The "Berry" card should have 1 in "food" tag.
 
 And villagers eats.
 
- * The "villager" card should have 1 in "eats" tag.
+ * The "Villager" card should have 1 in "eats" tag.
 
 ## Moons
 
@@ -35,9 +35,9 @@ When the moon ends, the rules applies and the magic begin.
 And look to the results:
 
  * There should be 2 cards.
- * There should be no "berry" card.
- * There should be 1 "villager" card.
- * There should be 1 "bush" card.
+ * There should be no "Berry" card.
+ * There should be 1 "Villager" card.
+ * There should be 1 "Bush" card.
 
 The villager has eaten the berry, and there should be no 
 more berries available.
@@ -53,14 +53,14 @@ they die.
 
  * End the current moon.
  * There should be 2 cards.
- * There should be no "berry" card.
- * There should be no "villager" card.
- * There should be 1 "bush" card.
+ * There should be no "Berry" card.
+ * There should be no "Villager" card.
+ * There should be 1 "Bush" card.
 
 Wait, there are two cards, but, only one bush.
 Which is the other card?
 
- * There should be 1 "corpse" card.
+ * There should be 1 "Corpse" card.
 
 It's a corpse. Your villager died,
 and you only have a corpse now.

@@ -10,7 +10,7 @@ import { Post_20220717_BushesVillagersAndBerries_Context } from "./Post_20220717
 test("2022-07-17_bushes_villagers_and_berries.md", async () => {
   await runBeforeTestStarts(
     "2022-07-17_bushes_villagers_and_berries",
-    "d6ec337ab57972a7dfeea3004e9318b5"
+    "b4aa8ae253de3d96a8876fdd12da5a53"
   );
 
   const context = new Post_20220717_BushesVillagersAndBerries_Context();
@@ -20,9 +20,9 @@ test("2022-07-17_bushes_villagers_and_berries.md", async () => {
   // ## The game
   await context.enterInTheGame();
   await context.thereShouldBeNCards(3);
-  await context.thereShouldBeNSCard(1, "villager");
-  await context.thereShouldBeNSCard(1, "bush");
-  await context.andThereShouldBeNSCard(1, "berry");
+  await context.thereShouldBeNSCard(1, "Villager");
+  await context.thereShouldBeNSCard(1, "Bush");
+  await context.andThereShouldBeNSCard(1, "Berry");
 
   await context.afterTest();
   await runWhenTestSuccessful();

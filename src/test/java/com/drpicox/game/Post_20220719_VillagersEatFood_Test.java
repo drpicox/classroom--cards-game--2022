@@ -21,27 +21,27 @@ public class Post_20220719_VillagersEatFood_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() throws Throwable {
-        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "3b61e4eced50f14bdad34085676ba0e4");
+        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "b1f3fa0c802d0863316fec78f95d264e");
         context.beforeTest();
 
         // # Villagers Eat Food
         // ## Berries are food
         context.givenWeHaveEnteredIntoANewGame();
-        context.theSCardShouldHaveNInSTag("berry", 1, "food");
-        context.theSCardShouldHaveNInSTag("villager", 1, "eats");
+        context.theSCardShouldHaveNInSTag("Berry", 1, "food");
+        context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
         // ## Moons
         context.endTheCurrentMoon();
         context.thereShouldBeNCards(2);
-        context.thereShouldBeNoSCard("berry");
-        context.thereShouldBeNSCard(1, "villager");
-        context.thereShouldBeNSCard(1, "bush");
+        context.thereShouldBeNoSCard("Berry");
+        context.thereShouldBeNSCard(1, "Villager");
+        context.thereShouldBeNSCard(1, "Bush");
         // ## Starving
         context.endTheCurrentMoon();
         context.thereShouldBeNCards(2);
-        context.thereShouldBeNoSCard("berry");
-        context.thereShouldBeNoSCard("villager");
-        context.thereShouldBeNSCard(1, "bush");
-        context.thereShouldBeNSCard(1, "corpse");
+        context.thereShouldBeNoSCard("Berry");
+        context.thereShouldBeNoSCard("Villager");
+        context.thereShouldBeNSCard(1, "Bush");
+        context.thereShouldBeNSCard(1, "Corpse");
 
         context.afterTest();
         fixtures.runWhenTestSuccessful();

@@ -10,7 +10,7 @@ import { Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context } from "./Pos
 test("2022-07-21_more_details_about_how_villagers_eat_food.md", async () => {
   await runBeforeTestStarts(
     "2022-07-21_more_details_about_how_villagers_eat_food",
-    "13cb246411b97b3aca344f906f5bbf14"
+    "53d02ab61b4bab6354d458c3c6e9d3d0"
   );
 
   const context =
@@ -21,28 +21,28 @@ test("2022-07-21_more_details_about_how_villagers_eat_food.md", async () => {
   // ## More kinds of villagers
   await context.givenThereAreNSNSAndNSCards(
     2,
-    "villager",
+    "Villager",
     2,
-    "militia",
+    "Militia",
     2,
-    "trader"
+    "Trader"
   );
-  await context.theSCardShouldHaveNInSTag("villager", 1, "eats");
-  await context.theSCardShouldHaveNInSTag("militia", 2, "eats");
-  await context.theSCardShouldHaveNInSTag("trader", 3, "eats");
+  await context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
+  await context.theSCardShouldHaveNInSTag("Militia", 2, "eats");
+  await context.theSCardShouldHaveNInSTag("Trader", 3, "eats");
   await context.theSumOfAllSTagsValueShouldBeN("eats", 12);
   // ## More kinds of food
   await context.givenThereAreNSNSAndNSCards(
     2,
-    "berry",
+    "Berry",
     2,
-    "apple",
+    "Apple",
     2,
-    "fruit salad"
+    "Fruit salad"
   );
-  await context.theSCardShouldHaveNInSTag("berry", 1, "food");
-  await context.theSCardShouldHaveNInSTag("apple", 2, "food");
-  await context.theSCardShouldHaveNInSTag("fruit salad", 3, "food");
+  await context.theSCardShouldHaveNInSTag("Berry", 1, "food");
+  await context.theSCardShouldHaveNInSTag("Apple", 2, "food");
+  await context.theSCardShouldHaveNInSTag("Fruit salad", 3, "food");
   await context.theSumOfAllSTagsValueShouldBeN("food", 12);
   // ## Eating
   await context.endTheCurrentMoon();
@@ -51,37 +51,37 @@ test("2022-07-21_more_details_about_how_villagers_eat_food.md", async () => {
   // ## Too much food
   await context.givenThereAreNSNSAndNSCards(
     2,
-    "berry",
+    "Berry",
     2,
-    "apple",
+    "Apple",
     3,
-    "fruit salad"
+    "Fruit salad"
   );
   await context.theSumOfAllSTagsValueShouldBeN("eats", 12);
   await context.theSumOfAllSTagsValueShouldBeN("food", 15);
   await context.endTheCurrentMoon();
   await context.theSumOfAllSTagsValueShouldBeN("eats", 12);
   await context.theSumOfAllSTagsValueShouldBeN("food", 2);
-  await context.thereShouldBeNSCards(2, "berry");
-  await context.thereShouldBeNSCards(0, "apple");
+  await context.thereShouldBeNSCards(2, "Berry");
+  await context.thereShouldBeNSCards(0, "Apple");
   // ## Too few food
   await context.givenThereAreNSNSAndNSCards(
     3,
-    "berry",
+    "Berry",
     0,
-    "apple",
+    "Apple",
     0,
-    "fruit salad"
+    "Fruit salad"
   );
   await context.theSumOfAllSTagsValueShouldBeN("eats", 12);
   await context.theSumOfAllSTagsValueShouldBeN("food", 3);
   await context.endTheCurrentMoon();
   await context.theSumOfAllSTagsValueShouldBeN("eats", 2);
   await context.theSumOfAllSTagsValueShouldBeN("food", 1);
-  await context.thereShouldBeNSCards(1, "berry");
-  await context.thereShouldBeNSCards(2, "villager");
-  await context.thereShouldBeNSCards(0, "militia");
-  await context.thereShouldBeNSCards(0, "trader");
+  await context.thereShouldBeNSCards(1, "Berry");
+  await context.thereShouldBeNSCards(2, "Villager");
+  await context.thereShouldBeNSCards(0, "Militia");
+  await context.thereShouldBeNSCards(0, "Trader");
 
   await context.afterTest();
   await runWhenTestSuccessful();

@@ -21,46 +21,46 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() throws Throwable {
-        fixtures.runBeforeTestStarts("2022-07-21_more_details_about_how_villagers_eat_food", "13cb246411b97b3aca344f906f5bbf14");
+        fixtures.runBeforeTestStarts("2022-07-21_more_details_about_how_villagers_eat_food", "53d02ab61b4bab6354d458c3c6e9d3d0");
         context.beforeTest();
 
         // # More Details About How Villagers Eat Food
         // ## More kinds of villagers
-        context.givenThereAreNSNSAndNSCards(2, "villager", 2, "militia", 2, "trader");
-        context.theSCardShouldHaveNInSTag("villager", 1, "eats");
-        context.theSCardShouldHaveNInSTag("militia", 2, "eats");
-        context.theSCardShouldHaveNInSTag("trader", 3, "eats");
+        context.givenThereAreNSNSAndNSCards(2, "Villager", 2, "Militia", 2, "Trader");
+        context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
+        context.theSCardShouldHaveNInSTag("Militia", 2, "eats");
+        context.theSCardShouldHaveNInSTag("Trader", 3, "eats");
         context.theSumOfAllSTagsValueShouldBeN("eats", 12);
         // ## More kinds of food
-        context.givenThereAreNSNSAndNSCards(2, "berry", 2, "apple", 2, "fruit salad");
-        context.theSCardShouldHaveNInSTag("berry", 1, "food");
-        context.theSCardShouldHaveNInSTag("apple", 2, "food");
-        context.theSCardShouldHaveNInSTag("fruit salad", 3, "food");
+        context.givenThereAreNSNSAndNSCards(2, "Berry", 2, "Apple", 2, "Fruit salad");
+        context.theSCardShouldHaveNInSTag("Berry", 1, "food");
+        context.theSCardShouldHaveNInSTag("Apple", 2, "food");
+        context.theSCardShouldHaveNInSTag("Fruit salad", 3, "food");
         context.theSumOfAllSTagsValueShouldBeN("food", 12);
         // ## Eating
         context.endTheCurrentMoon();
         context.theSumOfAllSTagsValueShouldBeN("eats", 12);
         context.theSumOfAllSTagsValueShouldBeN("food", 0);
         // ## Too much food
-        context.givenThereAreNSNSAndNSCards(2, "berry", 2, "apple", 3, "fruit salad");
+        context.givenThereAreNSNSAndNSCards(2, "Berry", 2, "Apple", 3, "Fruit salad");
         context.theSumOfAllSTagsValueShouldBeN("eats", 12);
         context.theSumOfAllSTagsValueShouldBeN("food", 15);
         context.endTheCurrentMoon();
         context.theSumOfAllSTagsValueShouldBeN("eats", 12);
         context.theSumOfAllSTagsValueShouldBeN("food", 2);
-        context.thereShouldBeNSCards(2, "berry");
-        context.thereShouldBeNSCards(0, "apple");
+        context.thereShouldBeNSCards(2, "Berry");
+        context.thereShouldBeNSCards(0, "Apple");
         // ## Too few food
-        context.givenThereAreNSNSAndNSCards(3, "berry", 0, "apple", 0, "fruit salad");
+        context.givenThereAreNSNSAndNSCards(3, "Berry", 0, "Apple", 0, "Fruit salad");
         context.theSumOfAllSTagsValueShouldBeN("eats", 12);
         context.theSumOfAllSTagsValueShouldBeN("food", 3);
         context.endTheCurrentMoon();
         context.theSumOfAllSTagsValueShouldBeN("eats", 2);
         context.theSumOfAllSTagsValueShouldBeN("food", 1);
-        context.thereShouldBeNSCards(1, "berry");
-        context.thereShouldBeNSCards(2, "villager");
-        context.thereShouldBeNSCards(0, "militia");
-        context.thereShouldBeNSCards(0, "trader");
+        context.thereShouldBeNSCards(1, "Berry");
+        context.thereShouldBeNSCards(2, "Villager");
+        context.thereShouldBeNSCards(0, "Militia");
+        context.thereShouldBeNSCards(0, "Trader");
 
         context.afterTest();
         fixtures.runWhenTestSuccessful();

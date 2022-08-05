@@ -10,7 +10,7 @@ import { Post_20220719_VillagersEatFood_Context } from "./Post_20220719_Villager
 test("2022-07-19_villagers_eat_food.md", async () => {
   await runBeforeTestStarts(
     "2022-07-19_villagers_eat_food",
-    "3b61e4eced50f14bdad34085676ba0e4"
+    "b1f3fa0c802d0863316fec78f95d264e"
   );
 
   const context = new Post_20220719_VillagersEatFood_Context();
@@ -19,21 +19,21 @@ test("2022-07-19_villagers_eat_food.md", async () => {
   // # Villagers Eat Food
   // ## Berries are food
   await context.givenWeHaveEnteredIntoANewGame();
-  await context.theSCardShouldHaveNInSTag("berry", 1, "food");
-  await context.theSCardShouldHaveNInSTag("villager", 1, "eats");
+  await context.theSCardShouldHaveNInSTag("Berry", 1, "food");
+  await context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
   // ## Moons
   await context.endTheCurrentMoon();
   await context.thereShouldBeNCards(2);
-  await context.thereShouldBeNoSCard("berry");
-  await context.thereShouldBeNSCard(1, "villager");
-  await context.thereShouldBeNSCard(1, "bush");
+  await context.thereShouldBeNoSCard("Berry");
+  await context.thereShouldBeNSCard(1, "Villager");
+  await context.thereShouldBeNSCard(1, "Bush");
   // ## Starving
   await context.endTheCurrentMoon();
   await context.thereShouldBeNCards(2);
-  await context.thereShouldBeNoSCard("berry");
-  await context.thereShouldBeNoSCard("villager");
-  await context.thereShouldBeNSCard(1, "bush");
-  await context.thereShouldBeNSCard(1, "corpse");
+  await context.thereShouldBeNoSCard("Berry");
+  await context.thereShouldBeNoSCard("Villager");
+  await context.thereShouldBeNSCard(1, "Bush");
+  await context.thereShouldBeNSCard(1, "Corpse");
 
   await context.afterTest();
   await runWhenTestSuccessful();
