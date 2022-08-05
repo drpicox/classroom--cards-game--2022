@@ -32,6 +32,6 @@ public class AuthorsService {
     }
 
     public Collection<String> getGitHubUsers() {
-        return getAuthors().keySet();
+        return authors.keySet();
     }
 }

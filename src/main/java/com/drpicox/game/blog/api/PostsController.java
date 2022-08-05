@@ -17,7 +17,7 @@ public class PostsController {
     }
 
     @GetMapping
-    public ListPostsResponse listPosts() {
+    public ListPostsResponse listPosts() throws Exception {
         var list = blogService.findAll();
         var result = new ListPostsResponse();
         list.forEach(post -> result.addPost(post));

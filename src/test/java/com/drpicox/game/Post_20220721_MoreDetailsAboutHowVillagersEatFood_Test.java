@@ -20,7 +20,7 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Test {
     @Autowired Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context context;
     @Autowired Fixtures fixtures;
 
-    @Test public void testPost() {
+    @Test public void testPost() throws Throwable {
         fixtures.runBeforeTestStarts("2022-07-21_more_details_about_how_villagers_eat_food", "13cb246411b97b3aca344f906f5bbf14");
         context.beforeTest();
 

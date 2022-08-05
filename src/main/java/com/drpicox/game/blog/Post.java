@@ -9,16 +9,14 @@ public class Post implements Comparable<Post> {
 
     private final String id;
     private final String title;
-    private final int bodyLineNumber;
     private final String body;
     private final Map<String, String> frontMatter;
     private final String md5;
 
-    public Post(String postId, Map<String, String> frontMatter, String title, int bodyLineNumber, String body, String md5) {
+    public Post(String postId, Map<String, String> frontMatter, String title, String body, String md5) {
         this.id = postId;
         this.frontMatter = frontMatter;
         this.title = title;
-        this.bodyLineNumber = bodyLineNumber;
         this.body = body;
         this.md5 = md5;
     }
@@ -39,17 +37,6 @@ public class Post implements Comparable<Post> {
         return md5;
     }
 
-    public List<PostLine> getBodyLines() {
-        var firstLineNumber = getBodyLineNumber();
-        var lines = getBody().split("\n");
-
-        var list = new ArrayList<PostLine>(lines.length);
-        for (var lineIndex = 0; lineIndex < lines.length; lineIndex += 1)
-            list.add(new PostLine(id, firstLineNumber + lineIndex, lines[lineIndex]));
-
-        return list;
-    }
-
     public String getValue(String key) {
         return frontMatter.get(key);
     }
@@ -65,9 +52,5 @@ public class Post implements Comparable<Post> {
     @Override
     public int compareTo(Post o) {
         return -id.compareTo(o.id);
-    }
-
-    public int getBodyLineNumber() {
-        return this.bodyLineNumber;
     }
 }

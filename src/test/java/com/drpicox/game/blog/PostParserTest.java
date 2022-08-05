@@ -3,6 +3,8 @@ package com.drpicox.game.blog;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -11,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class PostParserTest {
 
     @Test
-    public void parses_successfully_a_blog_post() {
+    public void parses_successfully_a_blog_post() throws Throwable {
         var post = parse(
                 "2010-01-01_title",
                 "---",
@@ -33,7 +35,7 @@ public class PostParserTest {
     }
 
     @Test
-    public void front_matter_allows_spaces_and_comments() {
+    public void front_matter_allows_spaces_and_comments() throws Throwable {
         var post = parse("2010-01-01_title", "---", "foo: bar", "    ", "# some comment", "other: value", "---", "# Title", "content");
 
         assertThat(post.getId()).isEqualTo("2010-01-01_title");
@@ -44,24 +46,38 @@ public class PostParserTest {
         assertThat(post.getBody()).isEqualTo("content\n");
     }
 
-    @Test void failures_in_parsing() {
-        assertThrows(IllegalPostFileFormatException.class, () -> parse());
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("2021-2-10_title", "---", "x:a", "---", "# title"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("2021-20-10_title", "---", "x:a", "---", "# title"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("2021-10-4_title", "---", "x:a", "---", "# title"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("2021-10-40_title", "---", "x:a", "---", "# title"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("2021-10-10_wrong_title", "---", "x:a", "---", "# Right title"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("2021-10-10_wrongid", "---", "x:a", "---", "# Wrong Id"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("2021-10-10_wrong_Id", "---", "x:a", "---", "# Wrong Id"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("---", "x", "---", "# title"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("no frontmatter", "---", "title:x", "---"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("---","foo: no frontmatter end", "other: prop"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("---","unexpected frontmatter line", "---", "bla"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("---","other:prop", "---", "no title"));
-        assertThrows(IllegalPostFileFormatException.class, () -> parse("---","only: frontmatter", "---", ""));
+    @Test public void if_post_title_starts_with_non_chars_it_does_not_become_an_extra___underscore() throws Throwable {
+        var post = parse("2010-01-01_title", "---", "foo: bar", "---", "# !Title", "content");
+        assertThat(post.getId()).isEqualTo("2010-01-01_title");
+    }
+    @Test public void failures_in_parsing() throws Throwable {
+        assertThatThrows();
+        assertThatThrows("2021-2-10_title", "---", "x:a", "---", "# title");
+        assertThatThrows("2021-20-10_title", "---", "x:a", "---", "# title");
+        assertThatThrows("2021-10-4_title", "---", "x:a", "---", "# title");
+        assertThatThrows("2021-10-40_title", "---", "x:a", "---", "# title");
+        assertThatThrows("2021-10-10_wrong_title", "---", "x:a", "---", "# Right title");
+        assertThatThrows("2021-10-10_wrongid", "---", "x:a", "---", "# Wrong Id");
+        assertThatThrows("2021-10-10_wrong_Id", "---", "x:a", "---", "# Wrong Id");
+        assertThatThrows("---", "x", "---", "# title");
+        assertThatThrows("no frontmatter", "---", "title:x", "---");
+        assertThatThrows("---","foo: no frontmatter end", "other: prop");
+        assertThatThrows("---","unexpected frontmatter line", "---", "bla");
+        assertThatThrows("---","other:prop", "---", "no title");
+        assertThatThrows("---","only: frontmatter", "---", "");
     }
 
-    private static Post parse(String ...lines) {
+    private void assertThatThrows(String ...lines) throws Throwable {
+        IllegalPostFileFormatException throwable = null;
+        try {
+            parse(lines);
+        } catch (IllegalPostFileFormatException exception) {
+            throwable = exception;
+        }
+        assertThat(throwable).isNotNull();
+    }
+
+    private static Post parse(String ...lines) throws NoSuchAlgorithmException {
         String postId;
         if (lines.length > 0 && lines[0].charAt(0) == '2') {
             postId = lines[0];

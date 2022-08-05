@@ -20,7 +20,7 @@ public class Post_20220717_BushesVillagersAndBerries_Test {
     @Autowired Post_20220717_BushesVillagersAndBerries_Context context;
     @Autowired Fixtures fixtures;
 
-    @Test public void testPost() {
+    @Test public void testPost() throws Throwable {
         fixtures.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "d6ec337ab57972a7dfeea3004e9318b5");
         context.beforeTest();
 

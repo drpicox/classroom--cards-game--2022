@@ -20,7 +20,7 @@ public class Fixtures {
         this.frontendSimulator = frontendSimulator;
     }
 
-    public void runBeforeTestStarts(String postId, String expectedMd5) {
+    public void runBeforeTestStarts(String postId, String expectedMd5) throws Exception {
         this.postId = postId;
 
         verifyExpectedMd5(postId, expectedMd5);
@@ -28,7 +28,7 @@ public class Fixtures {
         frontendSimulator.clear(postId);
     }
 
-    private void verifyExpectedMd5(String postId, String expectedMd5) {
+    private void verifyExpectedMd5(String postId, String expectedMd5) throws Exception {
         var post = blogService.findPost(postId).get();
         var actualMd5 = post.getMd5();
 

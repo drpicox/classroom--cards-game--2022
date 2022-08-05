@@ -27,8 +27,14 @@ public class BlogTest {
 
     @Autowired private MockMvc mockMvc;
     @Autowired private Gson gson;
-
     @Autowired private AuthorsService authorsService;
+    @Autowired private PropertiesSyrupLoader propertiesSyrupLoader;
+
+    @Test
+    public void there_should_be_more_than_one_author() {
+        var users = authorsService.getGitHubUsers();
+        assertThat(users.size()).isGreaterThan(1);
+    }
 
     @Test
     public void the_post_service_list_all_the_posts() throws Throwable {
@@ -184,5 +190,16 @@ public class BlogTest {
     private void forEachPost(Consumer<ListPostsResponseEntry> consumer) throws Throwable {
         var list = fetchFromRestController("/api/v1/posts", ListPostsResponse.class);
         list.getPosts().stream().forEach(consumer);
+    }
+
+    @Test
+    public void properties_syrup_loader_fails_correctly_when_trying_to_load_unknown_things() {
+        Throwable exception = null;
+        try {
+            propertiesSyrupLoader.load("unexisting", "wrong-properties");
+        } catch (Throwable thrown) {
+            exception = thrown;
+        }
+        assertThat(exception).hasMessageThat().contains("wrong-properties");
     }
 }

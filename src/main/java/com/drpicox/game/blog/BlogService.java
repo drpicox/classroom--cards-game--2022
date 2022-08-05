@@ -17,19 +17,15 @@ public class BlogService {
 
     private List<Post> posts;
 
-    public List<Post> findAll() {
+    public List<Post> findAll() throws Exception {
         if (posts == null) {
-            try {
-                posts = loadAll();
-            } catch (Exception e) {
-                throw new RuntimeException("An exception found while loading all posts", e);
-            }
+            posts = loadAll();
         }
 
         return posts;
     }
 
-    public Optional<Post> findPost(String postId) {
+    public Optional<Post> findPost(String postId) throws Exception {
         return findAll().stream().filter(p -> p.getId().equals(postId)).findFirst();
     }
 

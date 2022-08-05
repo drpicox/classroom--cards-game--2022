@@ -13,9 +13,9 @@ async function writeJavaTestFile(post) {
       "com",
       "drpicox",
       "game",
-      post.testName + ".java"
+      post.testName + ".java",
     ),
-    testContent
+    testContent,
   );
 
   return true;
@@ -58,10 +58,10 @@ function makeTestHeader(post) {
     `    @Autowired ${post.contextName} context;`,
     `    @Autowired Fixtures fixtures;`,
     ``,
-    `    @Test public void testPost() {`,
+    `    @Test public void testPost() throws Throwable {`,
     `        fixtures.runBeforeTestStarts(${idValue}, ${md5Value});`,
     `        context.beforeTest();`,
-    ``
+    ``,
   );
 }
 
@@ -72,7 +72,7 @@ function makeTestFooter() {
     `        fixtures.runWhenTestSuccessful();`,
     `    }`,
     ``,
-    `}`
+    `}`,
   );
 }
 

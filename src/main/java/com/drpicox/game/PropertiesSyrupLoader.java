@@ -71,7 +71,7 @@ public class PropertiesSyrupLoader {
         var files = new File(uri).listFiles();
         for (var file: files) {
             if (file.isDirectory()) loadDirectory(category, file.toURI());
-            else if (file.isFile()) loadFile(category, file);
+            else loadFile(category, file);
         }
     }
 

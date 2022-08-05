@@ -26,17 +26,16 @@ public class PostParser {
         this.rawContent = rawContent;
     }
 
-    public Post parse() {
+    public Post parse() throws NoSuchAlgorithmException {
         parseFrontMatter();
         skipEmptyLines();
         parseTitle();
         skipEmptyLines();
-        int bodyLineNumber = lineIndex + 1;
         parseBody();
 
         var md5 = computeMd5(lines.stream().collect(Collectors.joining("\n")));
 
-        return new Post(postId, frontMatter, title, bodyLineNumber, body.toString(), md5);
+        return new Post(postId, frontMatter, title, body.toString(), md5);
     }
 
     private void parseFrontMatter() {
@@ -58,7 +57,7 @@ public class PostParser {
         }
 
         if (!line.matches("^[A-Za-z0-9._]+:.*$"))
-            fail("the frontMatter content should be \"key: value\"");
+            throw newError("the frontMatter content should be \"key: value\"");
 
         var indexOfColon = line.indexOf(':');
         var key = line.substring(0, indexOfColon);
@@ -71,7 +70,7 @@ public class PostParser {
         expectNotEof("The title, \"# Your title here\" should be present after the frontMatter, but it does not appears before reaching the end of file");
         var line = peekLine();
         if (!line.startsWith("# "))
-            fail("The title, \"# Your title here\" should be the first thing present after the frontMatter, but found \"" + line + "\" instead");
+            throw newError("The title, \"# Your title here\" should be the first thing present after the frontMatter, but found \"" + line + "\" instead");
 
         title = line.substring(1).trim();
         validateTitle();
@@ -92,11 +91,13 @@ public class PostParser {
             );
 
         var expected = Arrays.stream(title.toLowerCase().split("[^a-z0-9]+")).collect(Collectors.joining("_"));
-        if (expected.startsWith("_")) expected = expected.substring(1);
+        if (expected.startsWith("_")) {
+            expected = expected.substring(1);
+        }
         expected = postId.substring(0,11) + expected;
 
         if (!expected.equals(postId))
-            fail("The post file id was \""+postId+"\" but it does not match the expected \""+expected+"\". Please check that:\n" +
+            throw newError("The post file id was \""+postId+"\" but it does not match the expected \""+expected+"\". Please check that:\n" +
                         "- The post tile (# title) and the postId contains the same text,\n" +
                         "- The postId is in lower case,\n" +
                         "- That all spaces and non latin letters (no a-z), and not numbers, are replaced by underscore _,\n" +
@@ -143,15 +144,15 @@ public class PostParser {
 
     private void expectNotEof(String message) {
         if (isNotEof()) return;
-        fail("Unexpectedly reached end of file, " + message);
+        throw newError("Unexpectedly reached end of file, " + message);
     }
 
     private void expectPeekStartWith(String prefix, String message) {
         if (peekLine().startsWith(prefix)) return;
-        fail("The line should begin with \"" + prefix+ "\", " + message);
+        throw newError("The line should begin with \"" + prefix+ "\", " + message);
     }
 
-    private void fail(String message) {
+    private IllegalPostFileFormatException newError(String message) {
         int lineNumber = lineIndex + 1;
         var details = new StringBuffer();
         details.append("\n  ").append(message).append(".\n");
@@ -169,17 +170,13 @@ public class PostParser {
         }
         if (bottom != lines.size()) details.append("       ...\n");
 
-        throw new IllegalPostFileFormatException(postId, lineNumber, details.toString());
+        return new IllegalPostFileFormatException(postId, lineNumber, details.toString());
     }
 
-    private String computeMd5(String body) {
-        try {
-            var md = MessageDigest.getInstance("MD5");
-            md.update(rawContent);
-            byte[] digest = md.digest();
-            return DatatypeConverter.printHexBinary(digest).toLowerCase();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Could not compute the MD5 for the post " + postId, e);
-        }
+    private String computeMd5(String body) throws NoSuchAlgorithmException {
+        var md = MessageDigest.getInstance("MD5");
+        md.update(rawContent);
+        byte[] digest = md.digest();
+        return DatatypeConverter.printHexBinary(digest).toLowerCase();
     }
 }
