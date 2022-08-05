@@ -27,16 +27,13 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
         gameService.create("empty");
     }
 
-    public void givenThereAreNSNSAndNSCards(int count1, String name1, int count2, String name2, int count3, String name3) {
-        // example:  * Given there are 2 "villager", 2 "militia", and 2 "trader" cards.
+    public void givenThereAreNSAndNSCards(int count1, String name1, int count2, String name2) {
+        // example:  * Given there are 2 "villager" and 2 "trader" cards.
         cardsService.deleteAllByName(name1);
         cardsService.createMany(count1, name1);
 
         cardsService.deleteAllByName(name2);
         cardsService.createMany(count2, name2);
-
-        cardsService.deleteAllByName(name3);
-        cardsService.createMany(count3, name3);
 
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }

@@ -10,7 +10,7 @@ import * as userSimulator from "./userSimulator";
 export class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
   async beforeTest() {}
 
-  async givenThereAreNSNSAndNSCards() {
+  async givenThereAreNSAndNSCards() {
     userSimulator.clickLink(mainView, "Game");
     userSimulator.clickButton(mainView, "Reload");
     await userSimulator.waitForLoading();
