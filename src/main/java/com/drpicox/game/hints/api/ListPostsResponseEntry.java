@@ -1,6 +1,6 @@
-package com.drpicox.game.blog.api;
+package com.drpicox.game.hints.api;
 
-import com.drpicox.game.blog.Post;
+import com.drpicox.game.hints.Post;
 
 import java.util.Map;
 

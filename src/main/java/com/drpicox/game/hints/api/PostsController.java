@@ -1,6 +1,6 @@
-package com.drpicox.game.blog.api;
+package com.drpicox.game.hints.api;
 
-import com.drpicox.game.blog.BlogService;
+import com.drpicox.game.hints.BlogService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

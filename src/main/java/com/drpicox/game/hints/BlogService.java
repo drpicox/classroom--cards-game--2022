@@ -1,4 +1,4 @@
-package com.drpicox.game.blog;
+package com.drpicox.game.hints;
 
 import org.springframework.stereotype.Service;
 

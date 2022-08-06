@@ -24,7 +24,7 @@ public class Rule_100_EatersEatFood implements EndMoonRule {
             var next = eaters.remove(0);
             totalEats -= next.getTagValue("eats");
             cardsService.delete(next);
-            cardsService.create("corpse");
+            cardsService.create("Corpse");
         }
 
         var remainingToEat = totalEats;

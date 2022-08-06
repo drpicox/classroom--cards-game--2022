@@ -1,8 +1,8 @@
 package com.drpicox.game;
 
-import com.drpicox.game.blog.api.ListPostsResponse;
-import com.drpicox.game.blog.api.ListPostsResponseEntry;
-import com.drpicox.game.blog.api.PostResponse;
+import com.drpicox.game.hints.api.ListPostsResponse;
+import com.drpicox.game.hints.api.ListPostsResponseEntry;
+import com.drpicox.game.hints.api.PostResponse;
 import org.springframework.stereotype.Component;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;

@@ -1,9 +1,7 @@
 package com.drpicox.game.fixtures;
 
-import com.drpicox.game.blog.BlogService;
+import com.drpicox.game.hints.BlogService;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 public class Fixtures {

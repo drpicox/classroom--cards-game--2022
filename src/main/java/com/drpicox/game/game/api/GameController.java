@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,7 +27,7 @@ public class GameController {
     }
 
     @GetMapping
-    public GameResponse getGame() {
+    public GameResponse getGame() throws IOException, URISyntaxException {
         gameService.createIfDoesNotExist();
         return getGameResponse();
     }

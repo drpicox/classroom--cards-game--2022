@@ -1,4 +1,4 @@
-package com.drpicox.game;
+package com.drpicox.game.propertiesSyrup;
 
 import java.util.Collection;
 import java.util.Properties;

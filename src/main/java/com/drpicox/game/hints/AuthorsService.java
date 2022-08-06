@@ -1,9 +1,11 @@
-package com.drpicox.game.blog;
+package com.drpicox.game.hints;
 
-import com.drpicox.game.PropertiesSyrup;
-import com.drpicox.game.PropertiesSyrupLoader;
+import com.drpicox.game.propertiesSyrup.PropertiesSyrup;
+import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.*;
 
 @Service
@@ -17,16 +19,16 @@ public class AuthorsService {
 
     private PropertiesSyrup authors;
 
-    private PropertiesSyrup getAuthors() {
+    private PropertiesSyrup getAuthors() throws IOException, URISyntaxException {
         if (authors == null) authors = readAuthorsFile();
         return authors;
     }
 
-    private PropertiesSyrup readAuthorsFile() {
-        return propertiesSyrupLoader.load(".", "authors");
+    private PropertiesSyrup readAuthorsFile() throws IOException, URISyntaxException {
+        return propertiesSyrupLoader.load( "authors.properties");
     }
 
-    public boolean containsGitHubUser(String value) {
+    public boolean containsGitHubUser(String value) throws IOException, URISyntaxException {
         var authors = getAuthors();
         return authors.containsKey(value);
     }

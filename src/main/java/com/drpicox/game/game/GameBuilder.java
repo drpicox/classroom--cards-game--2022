@@ -1,11 +1,12 @@
 package com.drpicox.game.game;
 
-import com.drpicox.game.PropertiesSyrupLoader;
-import com.drpicox.game.PropertiesSyrup;
+import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;
+import com.drpicox.game.propertiesSyrup.PropertiesSyrup;
 import com.drpicox.game.cards.CardsService;
 import org.springframework.stereotype.Service;
 
-import java.util.Properties;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @Service
 public class GameBuilder {
@@ -18,8 +19,8 @@ public class GameBuilder {
         this.cardsService = cardsService;
     }
 
-    public GameInstanceBuilder prepare(String name) {
-        var gameProperties = propertiesSyrupLoader.load("games", name);
+    public GameInstanceBuilder prepare(String name) throws IOException, URISyntaxException {
+        var gameProperties = propertiesSyrupLoader.load("games/" + name + ".properties");
         return new GameInstanceBuilder(gameProperties);
     }
 

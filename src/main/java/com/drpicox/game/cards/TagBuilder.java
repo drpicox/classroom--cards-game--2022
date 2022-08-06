@@ -1,6 +1,6 @@
 package com.drpicox.game.cards;
 
-import com.drpicox.game.PropertiesSyrup;
+import com.drpicox.game.propertiesSyrup.PropertiesSyrup;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

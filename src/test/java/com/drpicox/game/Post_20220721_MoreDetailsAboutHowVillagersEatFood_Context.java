@@ -8,6 +8,9 @@ import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import com.drpicox.game.fixtures.FrontendSimulator;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 @Component
 public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
@@ -23,7 +26,7 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
         this.cardsService = cardsService;
     }
 
-    public void beforeTest() {
+    public void beforeTest() throws IOException, URISyntaxException {
         gameService.create("empty");
     }
 

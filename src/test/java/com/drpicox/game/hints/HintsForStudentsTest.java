@@ -1,20 +1,18 @@
-package com.drpicox.game.blog;
+package com.drpicox.game.hints;
 
 import org.junit.jupiter.api.Test;
 
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PostParserTest {
+public class HintsForStudentsTest {
 
     @Test
     public void parses_successfully_a_blog_post() throws Throwable {
-        var post = parse(
+        var post = parsePostContent(
                 "2010-01-01_title",
                 "---",
                 "akey: avalue",
@@ -36,7 +34,7 @@ public class PostParserTest {
 
     @Test
     public void front_matter_allows_spaces_and_comments() throws Throwable {
-        var post = parse("2010-01-01_title", "---", "foo: bar", "    ", "# some comment", "other: value", "---", "# Title", "content");
+        var post = parsePostContent("2010-01-01_title", "---", "foo: bar", "    ", "# some comment", "other: value", "---", "# Title", "content");
 
         assertThat(post.getId()).isEqualTo("2010-01-01_title");
         assertThat(post.getValue("foo")).isEqualTo("bar");
@@ -47,9 +45,10 @@ public class PostParserTest {
     }
 
     @Test public void if_post_title_starts_with_non_chars_it_does_not_become_an_extra___underscore() throws Throwable {
-        var post = parse("2010-01-01_title", "---", "foo: bar", "---", "# !Title", "content");
+        var post = parsePostContent("2010-01-01_title", "---", "foo: bar", "---", "# !Title", "content");
         assertThat(post.getId()).isEqualTo("2010-01-01_title");
     }
+
     @Test public void failures_in_parsing() throws Throwable {
         assertThatThrows();
         assertThatThrows("2021-2-10_title", "---", "x:a", "---", "# title");
@@ -67,17 +66,21 @@ public class PostParserTest {
         assertThatThrows("---","only: frontmatter", "---", "");
     }
 
+    @Test public void loading_an_unknown_card_throws_an_exception() {
+        //
+    }
+
     private void assertThatThrows(String ...lines) throws Throwable {
         IllegalPostFileFormatException throwable = null;
         try {
-            parse(lines);
+            parsePostContent(lines);
         } catch (IllegalPostFileFormatException exception) {
             throwable = exception;
         }
         assertThat(throwable).isNotNull();
     }
 
-    private static Post parse(String ...lines) throws NoSuchAlgorithmException {
+    private static Post parsePostContent(String ...lines) throws NoSuchAlgorithmException {
         String postId;
         if (lines.length > 0 && lines[0].charAt(0) == '2') {
             postId = lines[0];

@@ -1,9 +1,10 @@
 package com.drpicox.game;
 
-import com.drpicox.game.blog.AuthorsService;
-import com.drpicox.game.blog.api.ListPostsResponse;
-import com.drpicox.game.blog.api.ListPostsResponseEntry;
-import com.drpicox.game.blog.api.PostResponse;
+import com.drpicox.game.hints.AuthorsService;
+import com.drpicox.game.hints.api.ListPostsResponse;
+import com.drpicox.game.hints.api.ListPostsResponseEntry;
+import com.drpicox.game.hints.api.PostResponse;
+import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,8 @@ public class BlogTest {
     @Test
     public void posts_writer_and_coder_values_must_correspond_to_actual_github_users_saved_in_the_resources_authors_properties_file() throws Throwable {
         forEachPost(post -> {
-            Arrays.stream(new String[]{ "writer", "coder" }).forEach(key -> {
+            var keys = new String[]{ "writer", "coder" };
+            for (var key: keys) {
                 var value = post.getProperty(key);
                 if (value == null) return;
 
@@ -115,7 +117,7 @@ public class BlogTest {
                         "- the naming is right, correct the spelling if necessary,\n" +
                         "- the github user is in the file, add it if it is not present,\n"
                 );
-            });
+            }
         });
     }
 
@@ -187,19 +189,14 @@ public class BlogTest {
         return list;
     }
 
-    private void forEachPost(Consumer<ListPostsResponseEntry> consumer) throws Throwable {
+    private void forEachPost(TestPost consumer) throws Throwable {
         var list = fetchFromRestController("/api/v1/posts", ListPostsResponse.class);
-        list.getPosts().stream().forEach(consumer);
+        for (var post: list.getPosts()) {
+            consumer.test(post);
+        }
     }
 
-    @Test
-    public void properties_syrup_loader_fails_correctly_when_trying_to_load_unknown_things() {
-        Throwable exception = null;
-        try {
-            propertiesSyrupLoader.load("unexisting", "wrong-properties");
-        } catch (Throwable thrown) {
-            exception = thrown;
-        }
-        assertThat(exception).hasMessageThat().contains("wrong-properties");
+    interface TestPost {
+        void test(ListPostsResponseEntry post) throws Throwable;
     }
 }
