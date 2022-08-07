@@ -3,13 +3,13 @@ const { reportPostError } = require("./reportPostError");
 
 exports.verifyPostMethods = verifyPostMethods;
 
-const companionWords = ["there", "is", "are", "has", "have"];
+const companionWords = ["there", "is", "are", "has", "have", "need", "needs"];
 const companionWordRegExps = companionWords.map(
-  (w) => new RegExp(`\\b${w}\\b`, `i`)
+  (w) => new RegExp(`\\b${w}\\b`, `i`),
 );
 const needsCompanionRegExp = new RegExp(
   `\\b(${companionWords.join("|")})\\b`,
-  "i"
+  "i",
 );
 const haveCompanionRegExp = /\b(given|should)\b/i;
 
@@ -18,7 +18,9 @@ function verifyPostMethods(post) {
     verifyPostHaveAnyMethod(post) &&
     verifyPostHaveShouldMethod(post) &&
     verifyPostCompanionMethods(post) &&
-    verifyPostNoInvalidCalls(post)
+    verifyPostNoGivenShouldMethods(post) &&
+    verifyPostNoInvalidCalls(post) &&
+    verifyPostEndsWithShould(post)
   );
 }
 
@@ -39,7 +41,7 @@ function verifyPostHaveAnyMethod(post) {
 
 function verifyPostHaveShouldMethod(post) {
   const someMethodsWithShould = post.contextMethods.some((m) =>
-    m.name.toLowerCase().includes("should")
+    m.name.toLowerCase().includes("should"),
   );
   if (someMethodsWithShould) return true;
 
@@ -58,20 +60,46 @@ function verifyPostHaveShouldMethod(post) {
   return false;
 }
 
+function verifyPostNoGivenShouldMethods(post) {
+  const givenShouldMethods = post.contextMethods.filter(
+    (m) => /\bgiven\b/i.test(m.text) && /\bshould\b/i.test(m.text),
+  );
+
+  if (givenShouldMethods.length === 0) return true;
+
+  const color = (method) => {
+    if (givenShouldMethods.includes(method)) return chalk.red;
+    return chalk.grey;
+  };
+
+  const count = givenShouldMethods.length;
+  reportPostError(post, givenShouldMethods[0].lineNumber, [
+    `have instructions with the word "given" and "should" at the same time. `,
+    `Both words in the same instruction can be confusing.`,
+    `- actual " * " instructions without "given" or "should"  : ${count}`,
+    `- expected " * " instructions without "given" or "should": 0`,
+    listMethods(post, color),
+    `Please, `,
+    `remove "given" or "should" depending the context:`,
+    `- keep "given" and remove "should" if it is a setup instruction, or`,
+    `- keep "should" and remove "given" if it is an assertion instruction.`,
+  ]);
+}
+
 function verifyPostCompanionMethods(post) {
   const methodsShouldHaveCompanion = post.contextMethods.filter((m) =>
-    needsCompanionRegExp.test(m.text)
+    needsCompanionRegExp.test(m.text),
   );
 
   const withoutCompanions = methodsShouldHaveCompanion.filter(
-    (m) => !haveCompanionRegExp.test(m.text)
+    (m) => !haveCompanionRegExp.test(m.text),
   );
 
   if (withoutCompanions.length === 0) return true;
 
   const withoutCompanion = withoutCompanions[0];
   const companionIndex = companionWordRegExps.findIndex((re) =>
-    re.test(withoutCompanion.text)
+    re.test(withoutCompanion.text),
   );
   const companion = companionWords[companionIndex];
   const includesCompanionRegExp = companionWordRegExps[companionIndex];
@@ -103,14 +131,14 @@ function verifyPostNoInvalidCalls(post) {
       !call.isComment &&
       !post.contextMethods.every(
         (method) =>
-          method.name !== call.name || areArgumentsTypesEqual(method, call)
-      )
+          method.name !== call.name || areArgumentsTypesEqual(method, call),
+      ),
   );
 
   if (!callWithoutMethod) return true;
 
   const firstOccurrence = post.testCalls.find(
-    (c) => c.name === callWithoutMethod.name
+    (c) => c.name === callWithoutMethod.name,
   );
   const color = (other) => {
     if (other.name !== firstOccurrence.name) return chalk.grey;
@@ -132,12 +160,25 @@ function verifyPostNoInvalidCalls(post) {
   return false;
 }
 
+function verifyPostEndsWithShould(post) {
+  const lastCall = post.testCalls.at(-1);
+  if (/\bshould\b/i.test(lastCall.text)) return true;
+
+  reportPostError(post, lastCall.lineNumber, [
+    `should end in a should instruction, but it does not. `,
+    `Any action should be always verified with an assertion.`,
+    `Please, modify the last instruction to include should `,
+    `or add an additional last instruction with should `,
+    `to verify that everything worked as expected.`,
+  ]);
+}
+
 function areArgumentsTypesEqual(a, b) {
   return (
     a.arguments &&
     a.arguments.length === b.arguments.length &&
     a.arguments.every(
-      (argument, index) => b.arguments[index].type === argument.type
+      (argument, index) => b.arguments[index].type === argument.type,
     )
   );
 }
@@ -148,8 +189,8 @@ function listMethods(post, color = (method) => chalk.grey) {
     post.contextMethods.map(
       (method) =>
         `${color(method)`${method.text} ${chalk.dim(
-          `(${countCalls(post, method)} calls)`
-        )}`}`
+          `(${countCalls(post, method)} calls)`,
+        )}`}`,
     ),
   ];
 }
@@ -162,8 +203,8 @@ function listCalls(post, color = (method) => chalk.grey) {
       .map(
         (call) =>
           `${color(call)`${call.text} ${chalk.dim(
-            `(line ${call.lineNumber})`
-          )}`}`
+            `(line ${call.lineNumber})`,
+          )}`}`,
       ),
   ];
 }
