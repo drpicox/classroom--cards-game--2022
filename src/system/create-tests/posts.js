@@ -2,6 +2,11 @@ const levenshtein = require("fast-levenshtein");
 
 const posts = {};
 
+function removePost(postId) {
+  delete posts[postId];
+}
+exports.removePost = removePost;
+
 function registerPost(post) {
   posts[post.id] = post;
 
