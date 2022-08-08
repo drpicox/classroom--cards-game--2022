@@ -20,9 +20,9 @@ In mac, add to ~/.zshrc:
 $ export JAVA_HOME=$(/usr/libexec/java_home -v 1.17.0.4)
 ```
 
-## Javascript
+## Javascript
 
-It requires at least Node 16.6.0 and yarn.
+It requires at least Node 18.6.0 and yarn.
 
 You can enable yarn by executing:
 
@@ -40,7 +40,7 @@ Non-fully compatible flags for even faster execution: `-ea -client -Xverify:none
 
 ## create-tests
 
-It is an utility to maintain the tests and create the initial context files.
+It is a utility to maintain the tests and create the initial context files.
 
 Run the command:
 
@@ -51,9 +51,9 @@ $ yarn create-tests
 Watches the posts and creates the test files.
 
 - Creates `src/test/java/com/drpicox/game/Post_XXX_Test.java`
-- Creates `src/test/java/com/drpicox/game/contexts/Context_XXX.java`
+- Creates `src/test/java/com/drpicox/game/Post_XXX_Context.java`
 - Creates `src/www/__test__/Post_XXX_Test.spec.js`
-- Creates `src/www/__test__/contexts/Context_XXX.js`
+- Creates `src/www/__test__/Post_XXX_Context.js`
 
 The possible outputs are:
 
