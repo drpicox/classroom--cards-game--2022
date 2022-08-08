@@ -49,7 +49,9 @@
   "engines": {
     "node": ">= 18.6.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "fast-levenshtein": "^3.0.0"
+  },
   "prettier": {
     "trailingComma": "all"
   }

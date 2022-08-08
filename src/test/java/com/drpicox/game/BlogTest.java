@@ -70,9 +70,9 @@ public class BlogTest {
             var id = post.getId();
             var frontMatter = post.getFrontMatter();
 
-            var keys = new LinkedHashSet<>(frontMatter.keySet());
-            keys.removeAll(acceptedFrontMatterKeys);
-            if (keys.size() == 0) return;
+            var offendingKeys = new LinkedHashSet<>(frontMatter.keySet());
+            offendingKeys.removeAll(acceptedFrontMatterKeys);
+            if (offendingKeys.size() == 0) return;
 
             throw new AssertionError("Post '" + id + ".md' should have only 'writer' and 'coder' in the frontMatter.\n" +
                     "post id         : " + id + "\n" +
@@ -80,11 +80,12 @@ public class BlogTest {
                     "actual keys are : " + frontMatter.keySet() + "\n" +
                     "expected key are: " + acceptedFrontMatterKeys.stream().collect(Collectors.joining(", ")) + "\n" +
                     "Please, verify that there is no extra keys in the frontmatter.\n" +
+                    (offendingKeys.contains("debug") ? "IMPORTANT: the debug key should be removed, its purpose is only for local execution, not for deployment.\n" : "" )+
                     "Example:\n" +
                     "  ---\n" +
                     frontMatter.keySet().stream().map(key -> {
                        var result =  "  " + key + ": " + frontMatter.get(key);
-                       if (!acceptedFrontMatterKeys.contains(result))
+                       if (!acceptedFrontMatterKeys.contains(key))
                            result += "  << remove this key, or fix the spelling";
                        result += "\n";
                        return result;

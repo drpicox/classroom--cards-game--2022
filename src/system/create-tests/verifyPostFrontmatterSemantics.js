@@ -5,6 +5,8 @@ const validKeys = ["writer", "coder"];
 const mandatoryKeys = ["writer"];
 const keysWithAuthors = ["writer", "coder"];
 
+if (!process.env.CI !== "1") validKeys.push("debug");
+
 function verifyPostFrontmatterSemantics(post) {
   return (
     verifyPostFrontmatterKeys(post) &&
@@ -50,10 +52,10 @@ function verifyPostFrontmatterMandatoryKeys(post) {
 function verifyPostAuthors(post) {
   const actualKeys = Object.keys(post.frontmatter.values);
   const existingKeysWithAuthors = actualKeys.filter((key) =>
-    keysWithAuthors.includes(key)
+    keysWithAuthors.includes(key),
   );
   const wrongKey = existingKeysWithAuthors.find(
-    (key) => !isAuthorValid(post.frontmatter.values[key])
+    (key) => !isAuthorValid(post.frontmatter.values[key]),
   );
   if (!wrongKey) return true;
 
@@ -78,7 +80,7 @@ function verifyPostWriterAndCodeAreDifferent(post) {
 
   const wrongLine = post.frontmatter.valuesLines[coder];
   const acceptableCoders = getAuthorUsernames().filter(
-    (coder) => coder !== writer
+    (coder) => coder !== writer,
   );
   reportPostError(post, wrongLine, [
     `frontmatter "writer" and "coder" cannot be the same, but both were "${writer}". `,

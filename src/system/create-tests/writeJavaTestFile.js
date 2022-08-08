@@ -77,10 +77,11 @@ function makeTestFooter() {
 }
 
 function makeTestBody(post) {
-  return join(...post.testCalls.map(makeTestCall));
+  return join(...post.testCalls.map((c) => makeTestCall(post, c)));
 }
 
-function makeTestCall(call) {
+function makeTestCall(post, call) {
+  const debug = post.frontmatter.values.debug === "true";
   if (!call.name) {
     return `        // ${call.text}`;
   }
@@ -89,5 +90,8 @@ function makeTestCall(call) {
     .map((a) => a.value)
     .join(", ")});`;
 
-  return `        ${methodCall}`;
+  return [
+    debug && `        System.out.println(${JSON.stringify(call.text)});`,
+    `        ${methodCall}`,
+  ];
 }

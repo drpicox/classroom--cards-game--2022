@@ -8,7 +8,7 @@ async function writeJsTestFile(post) {
 
   await writeFile(
     path.join("src", "www", "__test__", post.testName + ".spec.js"),
-    prettyJs(testContent)
+    prettyJs(testContent),
   );
 
   return true;
@@ -43,7 +43,7 @@ function makeTestHeader(post) {
     ``,
     `  const context = new ${post.contextName}();`,
     `  await context.beforeTest();`,
-    ``
+    ``,
   );
 }
 
@@ -52,20 +52,24 @@ function makeTestFooter() {
     ``,
     `await context.afterTest();`,
     `await runWhenTestSuccessful();`,
-    `})`
+    `})`,
   );
 }
 
 function makeTestBody(post) {
-  return join(...post.testCalls.map(makeTestCall));
+  return join(...post.testCalls.map((c) => makeTestCall(post, c)));
 }
 
-function makeTestCall(call) {
+function makeTestCall(post, call) {
+  const debug = post.frontmatter.values.debug === "true";
   if (!call.name) return `  // ${call.text}`;
 
   const methodCall = `await context.${call.name}(${call.arguments
     .map((a) => a.value)
     .join(", ")});`;
 
-  return `  ${methodCall}`;
+  return [
+    debug && `  process.stdout.write(${JSON.stringify(call.text)} + "\\n");`,
+    `  ${methodCall}`,
+  ];
 }
