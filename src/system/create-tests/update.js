@@ -6,6 +6,7 @@ const { verifyPost } = require("./verifyPost");
 const { readBlogPost } = require("./readBlogPost");
 const { writeJsTestFile } = require("./writeJsTestFile");
 const { writeJsContextFile } = require("./writeJsContextFile");
+const { registerPost, findClosestMethod } = require("./posts");
 const { join } = require("./join");
 
 async function update(filePath) {
@@ -15,6 +16,7 @@ async function update(filePath) {
 
   post.failed = !verifyPost(post);
   if (post.failed) return post;
+  registerPost(post);
 
   let testWritten = false;
   let contextWritten = false;
@@ -73,15 +75,26 @@ function debugPost(post) {
       `Total methods: ${post.contextMethods.length}`,
       `Methos sorted by similitude:`,
       sortedMethods.map((method) => {
-        const line = `${method.text} (∆${
-          method.distance
-        }, lines: ${post.testCalls
+        let color = (i) => i;
+
+        let line = `${method.text} (∆${method.distance}, lines: ${post.testCalls
           .filter((c) => c.name === method.name)
           .map((c) => c.lineNumber)})`;
 
-        if (1 <= method.distance && method.distance <= 3)
-          return chalk.yellow(line);
-        return line;
+        let closestMethod = findClosestMethod(post, method);
+        if (closestMethod.distance < 3) color = chalk.yellow;
+        if (closestMethod.distance === 0) color = chalk.green.bold;
+
+        if (closestMethod.distance < 3)
+          line += ` (∆${
+            closestMethod.distance
+          } at: ${closestMethod.postIds.join(", ")})`;
+        if (0 < closestMethod.distance && closestMethod.distance < 3)
+          line += ` "${closestMethod.text}"`;
+
+        if (1 <= method.distance && method.distance <= 3) color = chalk.yellow;
+
+        return color(line);
       }),
     ),
   );

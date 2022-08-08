@@ -1,6 +1,7 @@
 const path = require("node:path");
 const { writeFile } = require("node:fs/promises");
 const { join } = require("./join");
+const { findClosestMethod } = require("./posts");
 
 async function writeJavaContextFile(post) {
   const contextPath = path.join(
@@ -10,7 +11,7 @@ async function writeJavaContextFile(post) {
     "com",
     "drpicox",
     "game",
-    post.contextName + ".java"
+    post.contextName + ".java",
   );
 
   const contextContent = makeContextContent(post);
@@ -55,17 +56,21 @@ function makeContextHeader(post) {
     ``,
     `    public void beforeTest() {`,
     `        // Do your setup here, if necessary`,
-    `    }`
+    `    }`,
   );
 }
 
 function makeContextBody(post) {
-  return join(...post.contextMethods.flatMap(makeContextMethod));
+  return join(
+    ...post.contextMethods.flatMap((m) => makeContextMethod(post, m)),
+  );
 }
 
-function makeContextMethod({ name, arguments: args, text }) {
+function makeContextMethod(post, method) {
+  const { name, arguments: args, text } = method;
   const formalArguments = args.map(({ name, type }) => `${type} ${name}`);
   const methodSignature = `${name}(${formalArguments.join(", ")})`;
+  const closest = findClosestMethod(post, method);
 
   return [
     ``,
@@ -73,6 +78,8 @@ function makeContextMethod({ name, arguments: args, text }) {
     `        // text: ${text}`,
     `        // code: this.${name}(${args.map((a) => a.value).join(", ")})`,
     // ...args.map(({ name, value }) => `        // ${name} = ${value}`),
+    closest?.distance < 4 &&
+      `        // hint: ${closest.post.contextName}.${closest.name}`,
     args.length && ``,
     args.some(({ name }) => name === "expected") && [
       `        var actual = expected; // FIXME`,
@@ -90,7 +97,7 @@ function makeContextFooter() {
     `    public void afterTest() {`,
     `        // Do your teardown here, if necessary`,
     `    }`,
-    `}`
+    `}`,
   );
 }
 

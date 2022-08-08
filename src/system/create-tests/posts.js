@@ -2,31 +2,38 @@ const levenshtein = require("fast-levenshtein");
 
 const posts = {};
 
-Object.assign(exports, {
-  registerPost(post) {
-    posts[post.id] = post;
-  },
+function registerPost(post) {
+  posts[post.id] = post;
 
-  findClosestMethod(post, method) {
-    const usages = findMethodUsages(findOtherPosts(post));
-    const targetName = method.name;
+  // Invalidate memoizations
+  memoizedPost = null;
+}
+exports.registerPost = registerPost;
 
-    let candidate = usages[0];
-    let candidateDistance = levenshtein.get(candidate.name, targetName);
-    for (let i = 1; i < usages.length; i += 1) {
-      let newCandidate = usages[i];
-      let newDistance = levenshtein.get(newCandidate.name, targetName);
-      if (newDistance < candidateDistance) {
-        candidate = newCandidate;
-        candidateDistance = newDistance;
-      }
+function findClosestMethod(post, method) {
+  const usages = findOtherPostsMethodUsages(post);
+  const targetName = method.name;
+
+  let candidate = usages[0];
+  let candidateDistance = levenshtein.get(candidate.name, targetName);
+  for (let i = 1; i < usages.length; i += 1) {
+    let newCandidate = usages[i];
+    let newDistance = levenshtein.get(newCandidate.name, targetName);
+    if (newDistance < candidateDistance) {
+      candidate = newCandidate;
+      candidateDistance = newDistance;
     }
+  }
 
-    return { ...candidate, distance: candidateDistance };
-  },
-});
+  return { ...candidate, distance: candidateDistance };
+}
+exports.findClosestMethod = findClosestMethod;
 
-function findMethodUsages(posts) {
+let memoizedPost = null;
+let memoizedResult = null;
+function findOtherPostsMethodUsages(post) {
+  if (memoizedPost === post) return memoizedResult;
+  let posts = findOtherPosts(post);
   posts = posts.slice().sort().reverse();
   const usages = {};
   posts.forEach((post) => {
@@ -34,13 +41,17 @@ function findMethodUsages(posts) {
       if (!usages[method.name]) {
         usages[method.name] = {
           ...method,
+          post,
           postIds: [],
         };
       }
       usages[method.name].postIds.push(post.id);
     });
   });
-  return Object.values(usages);
+
+  memoizedPost = post;
+  memoizedResult = Object.values(usages);
+  return memoizedResult;
 }
 
 function findOtherPosts(post) {
