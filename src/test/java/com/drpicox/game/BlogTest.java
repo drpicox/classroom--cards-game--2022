@@ -61,10 +61,11 @@ public class BlogTest {
     private static final Set<String> acceptedFrontMatterKeys = new LinkedHashSet<>(){{
         add("writer");
         add("coder");
+        add("package");
     }};
 
     @Test
-    public void posts_only_can_contain_the_frontmatter_keys_of_writer_or_coder__no_other_keys_are_accepted() throws Throwable {
+    public void posts_only_can_contain_the_frontmatter_accepte_keys__no_other_keys_are_accepted() throws Throwable {
         forEachPost(post -> {
             var id = post.getId();
             var frontMatter = post.getFrontMatter();
@@ -145,38 +146,6 @@ public class BlogTest {
             );
         });
     }
-
-    @Test
-    public void posts_with_coder_should_have_a_test_class_satisfying_the_expected_naming() throws Throwable {
-        forEachPost(post -> {
-            var id = post.getId();
-            var coder = post.getProperty("coder");
-            if (coder == null) return;
-
-            var testClassNameBuilder = new StringBuilder();
-            testClassNameBuilder.append("com.drpicox.game.Post_");
-            testClassNameBuilder.append(id.substring(0,10).replaceAll("-", ""));
-            testClassNameBuilder.append("_");
-            Arrays.stream(id.toLowerCase().substring(11).split("_")).forEach(word -> {
-                testClassNameBuilder.append(word.substring(0,1).toUpperCase());
-                testClassNameBuilder.append(word.substring(1));
-            });
-            testClassNameBuilder.append("_Test");
-            var testClassName = testClassNameBuilder.toString();
-
-            try {
-                Class.forName(testClassName);
-            } catch (ClassNotFoundException e) {
-                throw new AssertionError("Post '" + id + ".md' has a coder but test class not found.\n" +
-                        "post id            : " + id + "\n" +
-                        "expected test class: " + testClassName + "\n" +
-                        "- if the class exists, check the naming\n" +
-                        "Please, verify that you have the yarn create-tests running."
-                );
-            }
-        });
-    }
-
 
     private <T> T fetchFromRestController(String url, Class<T> type) throws Exception {
         var result = mockMvc.perform(get(url))

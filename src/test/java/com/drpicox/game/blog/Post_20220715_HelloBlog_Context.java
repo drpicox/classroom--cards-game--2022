@@ -1,4 +1,4 @@
-package com.drpicox.game;
+package com.drpicox.game.blog;
 
 import com.drpicox.game.blog.api.ListPostsResponse;
 import com.drpicox.game.blog.api.ListPostsResponseEntry;

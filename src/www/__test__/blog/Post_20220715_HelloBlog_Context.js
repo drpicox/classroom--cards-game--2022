@@ -1,5 +1,5 @@
-import * as userSimulator from "./userSimulator";
-import { mainView, queryAllByTestId, getByTestId } from "./queries";
+import * as userSimulator from "../userSimulator";
+import { mainView, queryAllByTestId, getByTestId } from "../queries";
 
 export class Post_20220715_HelloBlog_Context {
   async beforeTest() {}

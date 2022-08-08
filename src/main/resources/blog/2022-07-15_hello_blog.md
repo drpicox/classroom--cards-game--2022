@@ -1,6 +1,7 @@
 ---
 writer: drpicox
 coder: nobody
+package: blog
 ---
 # Hello Blog
 

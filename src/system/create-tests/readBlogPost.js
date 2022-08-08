@@ -23,8 +23,11 @@ async function readBlogPost(path) {
   const hasCoder = findHasCoder(postLines);
 
   postLines.forEach((line, index) =>
-    parseLine(line, index + 1, testCalls, contextMethods)
+    parseLine(line, index + 1, testCalls, contextMethods),
   );
+
+  const pkg = frontmatter.values.package;
+  const subPath = pkg ? pkg.split(".") : [];
 
   return {
     id,
@@ -38,6 +41,9 @@ async function readBlogPost(path) {
     testCalls,
     contextName,
     contextMethods,
+    subPath,
+    subPackage: pkg ? `.${pkg}` : "",
+    parent: subPath.length ? subPath.map(() => "..").join("/") : ".",
     md5: md5(postContent),
     failed: false,
   };

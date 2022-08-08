@@ -1,5 +1,5 @@
 const path = require("node:path");
-const { writeFile } = require("node:fs/promises");
+const { outputFile } = require("fs-extra");
 const { join } = require("./join");
 const { prettyJs } = require("./prettyJs");
 const { findClosestMethod } = require("./posts");
@@ -9,13 +9,14 @@ async function writeJsContextFile(post) {
     "src",
     "www",
     "__test__",
+    ...post.subPath,
     post.contextName + ".js",
   );
 
   const contextContent = makeContextContent(post);
 
   try {
-    await writeFile(contextPath, prettyJs(contextContent), { flag: "wx" });
+    await outputFile(contextPath, prettyJs(contextContent), { flag: "wx" });
     return true;
   } catch (e) {
     if (e.code !== "EEXIST") console.error(e);
@@ -36,8 +37,8 @@ function makeContextContent(post) {
 
 function makeContextHeader(post) {
   return join(
-    `import { mainView, getByTestId } from "./queries";`,
-    `import * as userSimulator from "./userSimulator";`,
+    `import { mainView, getByTestId } from "${post.parent}/queries";`,
+    `import * as userSimulator from "${post.parent}/userSimulator";`,
     ``,
     `export class ${post.contextName} {`,
     `  async beforeTest() {`,

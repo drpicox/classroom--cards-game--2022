@@ -1,5 +1,5 @@
 const path = require("node:path");
-const { writeFile } = require("node:fs/promises");
+const { outputFile } = require("fs-extra");
 const { join } = require("./join");
 const { prettyJs } = require("./prettyJs");
 const { writeTestContextCalls } = require("./writeTestContextCalls");
@@ -7,8 +7,14 @@ const { writeTestContextCalls } = require("./writeTestContextCalls");
 async function writeJsTestFile(post) {
   const testContent = await makeTestContent(post);
 
-  await writeFile(
-    path.join("src", "www", "__test__", post.testName + ".spec.js"),
+  await outputFile(
+    path.join(
+      "src",
+      "www",
+      "__test__",
+      ...post.subPath,
+      post.testName + ".spec.js",
+    ),
     prettyJs(testContent),
   );
 
@@ -30,7 +36,7 @@ function makeTestHeader(post) {
   const md5Value = JSON.stringify(post.md5);
 
   return join(
-    `import { runBeforeTestStarts, runWhenTestSuccessful } from './fixtures';`,
+    `import { runBeforeTestStarts, runWhenTestSuccessful } from '${post.parent}/fixtures';`,
     `import { ${post.contextName} } from './${post.contextName}';`,
     ``,
     `// !!! IMPORTANT !!!`,
@@ -60,6 +66,11 @@ function makeTestFooter() {
 const jsHandler = {
   debug(text) {
     return `System.out.println(${JSON.stringify(text)});`;
+  },
+  invoke(call) {
+    return `await context.${call.name}(${call.arguments
+      .map((a) => a.value)
+      .join(", ")}); //`;
   },
 };
 

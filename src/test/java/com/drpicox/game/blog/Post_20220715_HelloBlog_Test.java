@@ -1,4 +1,4 @@
-package com.drpicox.game;
+package com.drpicox.game.blog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class Post_20220715_HelloBlog_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() throws Throwable {
-        fixtures.runBeforeTestStarts("2022-07-15_hello_blog", "bdc923639522b08b9df5faf815a6a152");
+        fixtures.runBeforeTestStarts("2022-07-15_hello_blog", "51b19208fbda586e1c68931c488111bf");
         context.beforeTest();
 
         // # Hello Blog                                          // # Hello Blog

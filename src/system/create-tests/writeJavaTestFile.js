@@ -1,12 +1,12 @@
 const path = require("node:path");
-const { writeFile } = require("node:fs/promises");
+const { outputFile } = require("fs-extra");
 const { join } = require("./join");
 const { writeTestContextCalls } = require("./writeTestContextCalls");
 
 async function writeJavaTestFile(post) {
   const testContent = await makeTestContent(post);
 
-  await writeFile(
+  await outputFile(
     path.join(
       "src",
       "test",
@@ -14,6 +14,7 @@ async function writeJavaTestFile(post) {
       "com",
       "drpicox",
       "game",
+      ...post.subPath,
       post.testName + ".java",
     ),
     testContent,
@@ -37,7 +38,7 @@ function makeTestHeader(post) {
   const md5Value = JSON.stringify(post.md5);
 
   return join(
-    `package com.drpicox.game;`,
+    `package com.drpicox.game${post.subPackage};`,
     ``,
     `import org.junit.jupiter.api.Test;`,
     `import org.springframework.beans.factory.annotation.Autowired;`,

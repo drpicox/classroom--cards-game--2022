@@ -1,5 +1,5 @@
 const path = require("node:path");
-const { writeFile } = require("node:fs/promises");
+const { outputFile } = require("fs-extra");
 const { join } = require("./join");
 const { findClosestMethod } = require("./posts");
 
@@ -11,13 +11,14 @@ async function writeJavaContextFile(post) {
     "com",
     "drpicox",
     "game",
+    ...post.subPath,
     post.contextName + ".java",
   );
 
   const contextContent = makeContextContent(post);
 
   try {
-    await writeFile(contextPath, contextContent, { flag: "wx" });
+    await outputFile(contextPath, contextContent, { flag: "wx" });
     return true;
   } catch (e) {
     if (e.code !== "EEXIST") console.error(e);
@@ -38,12 +39,13 @@ function makeContextContent(post) {
 
 function makeContextHeader(post) {
   return join(
-    `package com.drpicox.game;`,
+    `package com.drpicox.game${post.subPackage};`,
     ``,
     `import org.springframework.stereotype.Component;`,
     `import static com.google.common.truth.Truth.assertThat;`,
     `import static com.google.common.truth.Truth8.assertThat;`,
     `import com.drpicox.game.fixtures.FrontendSimulator;`,
+    `import com.drpicox.game.game.GameService;`,
     ``,
     `@Component`,
     `public class ${post.contextName} {`,
@@ -56,9 +58,9 @@ function makeContextHeader(post) {
     `        this.gameService = gameService;`,
     `    }`,
     ``,
-    `    public void beforeTest() {`,
+    `    public void beforeTest() throws Throwable {`,
     `        // Do your setup here, and change this contents, if necessary`,
-    `        gameService.create("empty");`,
+    `        gameService.create("safe");`,
     `        throw new UnsupportedOperationException("Please, review the implementation of beforeTest() and remove this exception when it is correct.");`,
     `    }`,
   );

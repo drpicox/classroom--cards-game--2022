@@ -1,7 +1,7 @@
 const { isAuthorValid, getAuthorUsernames } = require("./authors");
 const { reportPostError } = require("./reportPostError");
 
-const validKeys = ["writer", "coder"];
+const validKeys = ["writer", "coder", "package"];
 const mandatoryKeys = ["writer"];
 const keysWithAuthors = ["writer", "coder"];
 
@@ -11,6 +11,7 @@ function verifyPostFrontmatterSemantics(post) {
   return (
     verifyPostFrontmatterKeys(post) &&
     verifyPostFrontmatterMandatoryKeys(post) &&
+    verifyPostFrontmatterPackageKey(post) &&
     verifyPostAuthors(post) &&
     verifyPostWriterAndCodeAreDifferent(post)
   );
@@ -74,11 +75,35 @@ function verifyPostAuthors(post) {
   return false;
 }
 
+const packageRegExp = /^[a-z][a-zA-Z0-9]*(\.[a-z][a-zA-Z0-9]*)*$/;
+function verifyPostFrontmatterPackageKey(post) {
+  const { package: pkg } = post.frontmatter.values;
+  if (!pkg) return true;
+  if (packageRegExp.test(pkg)) return true;
+
+  const wrongLine = post.frontmatter.valuesLines.package;
+  reportPostError(post, wrongLine, [
+    `frontmatter "package" or is either empty or has satisfies this format ${packageRegExp.source} but it was "${pkg}". `,
+    `- actual package value            : "${pkg}"`,
+    `- example of valid package value  : not existing`,
+    `- example of valid package value  : "cards"`,
+    `- example of valid package value  : "ideas.places"`,
+    `- example of valid package value  : "someStrange3.packageName"`,
+    `- example of valid package value  : "someStrange3.packageName"`,
+    `- example of invalid package value: "Caps"`,
+    `- example of invalid package value: "12Number"`,
+    `- example of invalid package value: "with/slash"`,
+    `Please, remove or fix the package value.`,
+  ]);
+
+  return false;
+}
+
 function verifyPostWriterAndCodeAreDifferent(post) {
   const { writer, coder } = post.frontmatter.values;
   if (writer !== coder) return true;
 
-  const wrongLine = post.frontmatter.valuesLines[coder];
+  const wrongLine = post.frontmatter.valuesLines.coder;
   const acceptableCoders = getAuthorUsernames().filter(
     (coder) => coder !== writer,
   );
