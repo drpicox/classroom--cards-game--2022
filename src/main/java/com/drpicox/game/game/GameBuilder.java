@@ -2,7 +2,7 @@ package com.drpicox.game.game;
 
 import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;
 import com.drpicox.game.propertiesSyrup.PropertiesSyrup;
-import com.drpicox.game.cards.CardsService;
+import com.drpicox.game.cards.CardService;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,11 +12,11 @@ import java.net.URISyntaxException;
 public class GameBuilder {
 
     private final PropertiesSyrupLoader propertiesSyrupLoader;
-    private final CardsService cardsService;
+    private final CardService cardService;
 
-    public GameBuilder(PropertiesSyrupLoader propertiesSyrupLoader, CardsService cardsService) {
+    public GameBuilder(PropertiesSyrupLoader propertiesSyrupLoader, CardService cardService) {
         this.propertiesSyrupLoader = propertiesSyrupLoader;
-        this.cardsService = cardsService;
+        this.cardService = cardService;
     }
 
     public GameInstanceBuilder prepare(String name) throws IOException, URISyntaxException {
@@ -41,7 +41,7 @@ public class GameBuilder {
                 var cardName = initialCardKey.substring(14);
                 var count = gameProperties.getInt(initialCardKey);
                 for (var i = 0; i < count; i += 1)
-                    cardsService.create(cardName);
+                    cardService.create(cardName);
             });
         }
     }

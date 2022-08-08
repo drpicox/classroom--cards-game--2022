@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 public class CardBuilder {
 
     private final CardPropertiesCollection cardPropertiesCollection;
-    private final CardsRepository cardsRepository;
+    private final CardRepository cardRepository;
     private final TagBuilder tagBuilder;
 
-    public CardBuilder(CardPropertiesCollection cardPropertiesCollection, CardsRepository cardsRepository, TagBuilder tagBuilder) {
+    public CardBuilder(CardPropertiesCollection cardPropertiesCollection, CardRepository cardRepository, TagBuilder tagBuilder) {
         this.cardPropertiesCollection = cardPropertiesCollection;
-        this.cardsRepository = cardsRepository;
+        this.cardRepository = cardRepository;
         this.tagBuilder = tagBuilder;
     }
 
@@ -35,7 +35,7 @@ public class CardBuilder {
             var tags = tagBuilder.createAll(cardProperties, cardId);
 
             var card = new Card(cardId, cardName, tags);
-            cardsRepository.save(card);
+            cardRepository.save(card);
             return card;
         }
 
@@ -44,7 +44,7 @@ public class CardBuilder {
         }
 
         private final String getNextId(String cardName) {
-            var allCards = cardsRepository.findAllByName(cardName);
+            var allCards = cardRepository.findAllByName(cardName);
             var maxId = allCards.stream()
                 .map(c -> c.getId())
                 .map(i -> i.substring(cardName.length() + 1))

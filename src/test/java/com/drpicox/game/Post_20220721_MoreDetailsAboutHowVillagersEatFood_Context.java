@@ -1,6 +1,6 @@
 package com.drpicox.game;
 
-import com.drpicox.game.cards.CardsService;
+import com.drpicox.game.cards.CardService;
 import com.drpicox.game.game.GameService;
 import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Component;
@@ -16,14 +16,14 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     private final FrontendSimulator frontendSimulator;
     private final GameService gameService;
-    private final CardsService cardsService;
+    private final CardService cardService;
 
     private GameResponse game;
 
-    public Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context(FrontendSimulator frontendSimulator, GameService gameService, CardsService cardsService) {
+    public Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context(FrontendSimulator frontendSimulator, GameService gameService, CardService cardService) {
         this.frontendSimulator = frontendSimulator;
         this.gameService = gameService;
-        this.cardsService = cardsService;
+        this.cardService = cardService;
     }
 
     public void beforeTest() throws IOException, URISyntaxException {
@@ -32,11 +32,11 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     public void givenThereAreNSAndNSCards(int count1, String name1, int count2, String name2) {
         // example:  * Given there are 2 "villager" and 2 "trader" cards.
-        cardsService.deleteAllByName(name1);
-        cardsService.createMany(count1, name1);
+        cardService.deleteAllByName(name1);
+        cardService.createMany(count1, name1);
 
-        cardsService.deleteAllByName(name2);
-        cardsService.createMany(count2, name2);
+        cardService.deleteAllByName(name2);
+        cardService.createMany(count2, name2);
 
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }

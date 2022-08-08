@@ -8,10 +8,10 @@ import java.util.List;
 @Service
 public class TagBuilder {
 
-    private final TagsRepository tagsRepository;
+    private final TagRepository tagRepository;
 
-    public TagBuilder(TagsRepository tagsRepository) {
-        this.tagsRepository = tagsRepository;
+    public TagBuilder(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
     }
 
     public List<Tag> createAll(PropertiesSyrup cardProperties, String cardId) {
@@ -43,7 +43,7 @@ public class TagBuilder {
             var tagKey = "tags." + tagName;
             var tagValue = cardProperties.getInt(tagKey);
             var tag = new Tag(cardId, tagName, tagValue);
-            tagsRepository.save(tag);
+            tagRepository.save(tag);
             return tag;
         }
     }

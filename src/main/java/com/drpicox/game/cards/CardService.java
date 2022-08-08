@@ -6,15 +6,15 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Service
-public class CardsService {
+public class CardService {
 
-    private final CardsRepository cardsRepository;
-    private final TagsRepository tagsRepository;
+    private final CardRepository cardRepository;
+    private final TagRepository tagRepository;
     private final CardBuilder cardBuilder;
 
-    public CardsService(CardsRepository cardsRepository, TagsRepository tagsRepository, CardBuilder cardBuilder) {
-        this.cardsRepository = cardsRepository;
-        this.tagsRepository = tagsRepository;
+    public CardService(CardRepository cardRepository, TagRepository tagRepository, CardBuilder cardBuilder) {
+        this.cardRepository = cardRepository;
+        this.tagRepository = tagRepository;
         this.cardBuilder = cardBuilder;
     }
 
@@ -24,23 +24,23 @@ public class CardsService {
     }
 
     public List<Card> findAll() {
-        return cardsRepository.findAll();
+        return cardRepository.findAll();
     }
 
     public void delete(Card card) {
-        cardsRepository.delete(card);
+        cardRepository.delete(card);
     }
 
     public List<Card> findAllByTagName(String tagName) {
-        var tags = tagsRepository.findAllByTagName(tagName);
+        var tags = tagRepository.findAllByTagName(tagName);
         var ids = tags.stream().map(t -> t.getCardId()).toList();
-        var cards = cardsRepository.findAllById(ids);
+        var cards = cardRepository.findAllById(ids);
         return cards;
     }
 
     public void deleteAllByName(String name) {
-        var cards = cardsRepository.findAllByName(name);
-        cardsRepository.deleteAll(cards);
+        var cards = cardRepository.findAllByName(name);
+        cardRepository.deleteAll(cards);
     }
 
     public List<Card> createMany(int count, String name) {
