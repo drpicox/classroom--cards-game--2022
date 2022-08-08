@@ -51,11 +51,7 @@ public class ConstantsLoader {
     }
 
     private static Constants loadFile(File file) throws IOException {
-        try (var reader = new FileReader(file)) {
-            var props = new Properties();
-            props.load(reader);
-            return new Constants(props);
-        }
+        return Constants.load(file);
     }
 
     private static URI getUri(String resourceName) throws URISyntaxException {

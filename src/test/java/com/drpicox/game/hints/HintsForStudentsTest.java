@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Properties;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -113,7 +114,7 @@ public class HintsForStudentsTest {
         var collection = new ConstantsCollection("demo");
         Throwable found = null;
         try {
-            collection.add(new Constants(new Properties()), "some/path.properties");
+            collection.add(new Constants(new HashMap<>()), "some/path.properties");
         } catch (Throwable th) {
             found = th;
         }
@@ -126,8 +127,8 @@ public class HintsForStudentsTest {
     }
 
     private static Constants newConstants(String name) {
-        var props = new Properties();
-        props.setProperty("name", name);
+        var props = new HashMap();
+        props.put("name", name);
         var constants = new Constants(props);
         return constants;
     }
