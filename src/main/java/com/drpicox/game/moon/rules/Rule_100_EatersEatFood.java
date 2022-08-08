@@ -1,4 +1,4 @@
-package com.drpicox.game.rules;
+package com.drpicox.game.moon.rules;
 
 import com.drpicox.game.cards.CardService;
 import com.drpicox.game.moon.EndMoonRule;
