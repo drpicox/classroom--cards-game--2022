@@ -1,4 +1,4 @@
-package com.drpicox.game.hints;
+package com.drpicox.game.blog;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;

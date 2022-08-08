@@ -1,6 +1,6 @@
-package com.drpicox.game.hints.api;
+package com.drpicox.game.blog.api;
 
-import com.drpicox.game.hints.Post;
+import com.drpicox.game.blog.Post;
 
 public class PostResponse {
     private final String id;

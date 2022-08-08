@@ -1,5 +1,8 @@
 package com.drpicox.game.hints;
 
+import com.drpicox.game.blog.IllegalPostFileFormatException;
+import com.drpicox.game.blog.Post;
+import com.drpicox.game.blog.PostParser;
 import org.junit.jupiter.api.Test;
 
 import java.security.NoSuchAlgorithmException;

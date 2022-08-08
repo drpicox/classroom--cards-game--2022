@@ -1,9 +1,9 @@
 package com.drpicox.game;
 
-import com.drpicox.game.hints.AuthorsService;
-import com.drpicox.game.hints.api.ListPostsResponse;
-import com.drpicox.game.hints.api.ListPostsResponseEntry;
-import com.drpicox.game.hints.api.PostResponse;
+import com.drpicox.game.blog.AuthorsService;
+import com.drpicox.game.blog.api.ListPostsResponse;
+import com.drpicox.game.blog.api.ListPostsResponseEntry;
+import com.drpicox.game.blog.api.PostResponse;
 import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static com.google.common.truth.Truth.assertThat;

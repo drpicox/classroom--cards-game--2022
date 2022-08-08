@@ -1,4 +1,4 @@
-package com.drpicox.game.hints;
+package com.drpicox.game.blog;
 
 import com.drpicox.game.propertiesSyrup.PropertiesSyrup;
 import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;

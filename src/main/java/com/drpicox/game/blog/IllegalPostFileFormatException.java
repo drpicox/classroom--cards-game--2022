@@ -1,4 +1,4 @@
-package com.drpicox.game.hints;
+package com.drpicox.game.blog;
 
 public class IllegalPostFileFormatException extends IllegalArgumentException {
     public IllegalPostFileFormatException(String postId, int line, String message) {
