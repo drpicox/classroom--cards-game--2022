@@ -161,7 +161,7 @@ function verifyPostNoInvalidCalls(post) {
 }
 
 function verifyPostEndsWithShould(post) {
-  const lastCall = post.testCalls.at(-1);
+  const lastCall = post.testCalls.filter((c) => c.isMethod).at(-1);
   if (/\bshould\b/i.test(lastCall.text)) return true;
 
   reportPostError(post, lastCall.lineNumber, [
@@ -199,7 +199,7 @@ function listCalls(post, color = (method) => chalk.grey) {
   return [
     `Calls found:`,
     post.testCalls
-      .filter((c) => !c.isComment)
+      .filter((c) => c.isMethod)
       .map(
         (call) =>
           `${color(call)`${call.text} ${chalk.dim(
@@ -210,5 +210,7 @@ function listCalls(post, color = (method) => chalk.grey) {
 }
 
 function countCalls(post, method) {
-  return post.testCalls.filter((call) => call.name === method.name).length;
+  return post.testCalls.filter(
+    (call) => call.name === method.name && call.isMEthod,
+  ).length;
 }

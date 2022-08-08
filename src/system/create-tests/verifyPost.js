@@ -8,11 +8,13 @@ const { verifyPostMethods } = require("./verifyPostMethods");
 function verifyPost(post) {
   return (
     verifyPostId(post) &&
-    verifyPostNotEmpty(post) &&
     verifyPostFrontmatter(post) &&
     verifyPostFrontmatterSemantics(post) &&
+    verifyPostNotEmptyTitle(post) &&
+    verifyPostTitle(post) &&
+    verifyPostNotEmpty(post) &&
     verifyPostMethods(post) &&
-    verifyPostTitle(post)
+    true
   );
 }
 
@@ -35,6 +37,16 @@ function verifyPostId(post) {
   ]);
 
   return false;
+}
+
+function verifyPostNotEmptyTitle(post) {
+  if (post.title && post.titleLineNumber) return true;
+
+  reportPostError(post, post.frontmatter.closingIndex + 2, [
+    `should have a title, but it was not found.`,
+    `- expected line to be: "# Your Title"`,
+    `Please add the title line that should start with "# ".`,
+  ]);
 }
 
 function verifyPostNotEmpty(post) {

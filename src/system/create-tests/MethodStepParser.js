@@ -32,6 +32,7 @@ class MethodStepParser {
       })),
       text: this.#text,
       lineNumber: this.#lineNumber,
+      isMethod: true,
     };
   }
 
