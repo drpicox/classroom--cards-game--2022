@@ -1,30 +1,35 @@
 package com.drpicox.game.cards;
 
-import com.drpicox.game.propertiesSyrup.PropertiesSyrup;
+import com.drpicox.game.constants.Constants;
+import com.drpicox.game.constants.ConstantsCollection;
+import com.drpicox.game.constants.ConstantsLoader;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 @Service
 public class CardBuilder {
 
-    private final CardPropertiesCollection cardPropertiesCollection;
     private final CardRepository cardRepository;
     private final TagBuilder tagBuilder;
+    private final ConstantsCollection cardConstantsCollection;
 
-    public CardBuilder(CardPropertiesCollection cardPropertiesCollection, CardRepository cardRepository, TagBuilder tagBuilder) {
-        this.cardPropertiesCollection = cardPropertiesCollection;
+    public CardBuilder(ConstantsLoader constantsLoader, CardRepository cardRepository, TagBuilder tagBuilder) throws URISyntaxException, IOException {
         this.cardRepository = cardRepository;
         this.tagBuilder = tagBuilder;
+        this.cardConstantsCollection = constantsLoader.loadCollection("cards");
     }
 
     public CardInstanceBuilder prepare(String cardName) {
-        var cardProperties = cardPropertiesCollection.find(cardName).get();
+        var cardProperties = cardConstantsCollection.getByName(cardName);
         return new CardInstanceBuilder(cardProperties);
     }
 
     public class CardInstanceBuilder {
-        private PropertiesSyrup cardProperties;
+        private Constants cardProperties;
 
-        public CardInstanceBuilder(PropertiesSyrup cardProperties) {
+        public CardInstanceBuilder(Constants cardProperties) {
             this.cardProperties = cardProperties;
         }
 

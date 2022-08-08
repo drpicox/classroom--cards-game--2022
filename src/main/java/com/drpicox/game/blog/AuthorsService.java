@@ -1,7 +1,7 @@
 package com.drpicox.game.blog;
 
-import com.drpicox.game.propertiesSyrup.PropertiesSyrup;
-import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;
+import com.drpicox.game.constants.Constants;
+import com.drpicox.game.constants.ConstantsLoader;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,21 +11,21 @@ import java.util.*;
 @Service
 public class AuthorsService {
 
-    private final PropertiesSyrupLoader propertiesSyrupLoader;
+    private final ConstantsLoader constantsLoader;
 
-    public AuthorsService(PropertiesSyrupLoader propertiesSyrupLoader) {
-        this.propertiesSyrupLoader = propertiesSyrupLoader;
+    public AuthorsService(ConstantsLoader constantsLoader) {
+        this.constantsLoader = constantsLoader;
     }
 
-    private PropertiesSyrup authors;
+    private Constants authors;
 
-    private PropertiesSyrup getAuthors() throws IOException, URISyntaxException {
+    private Constants getAuthors() throws IOException, URISyntaxException {
         if (authors == null) authors = readAuthorsFile();
         return authors;
     }
 
-    private PropertiesSyrup readAuthorsFile() throws IOException, URISyntaxException {
-        return propertiesSyrupLoader.load( "authors.properties");
+    private Constants readAuthorsFile() throws IOException, URISyntaxException {
+        return constantsLoader.load( "authors.properties");
     }
 
     public boolean containsGitHubUser(String value) throws IOException, URISyntaxException {

@@ -4,7 +4,7 @@ import com.drpicox.game.blog.AuthorsService;
 import com.drpicox.game.blog.api.ListPostsResponse;
 import com.drpicox.game.blog.api.ListPostsResponseEntry;
 import com.drpicox.game.blog.api.PostResponse;
-import com.drpicox.game.propertiesSyrup.PropertiesSyrupLoader;
+import com.drpicox.game.constants.ConstantsLoader;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class BlogTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private Gson gson;
     @Autowired private AuthorsService authorsService;
-    @Autowired private PropertiesSyrupLoader propertiesSyrupLoader;
+    @Autowired private ConstantsLoader constantsLoader;
 
     @Test
     public void there_should_be_more_than_one_author() {

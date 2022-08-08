@@ -3,10 +3,16 @@ package com.drpicox.game.hints;
 import com.drpicox.game.blog.IllegalPostFileFormatException;
 import com.drpicox.game.blog.Post;
 import com.drpicox.game.blog.PostParser;
+import com.drpicox.game.constants.Constants;
+import com.drpicox.game.constants.ConstantsCollection;
+import com.drpicox.game.constants.ConstantsLoader;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Properties;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -69,8 +75,61 @@ public class HintsForStudentsTest {
         assertThatThrows("---","only: frontmatter", "---", "");
     }
 
-    @Test public void loading_an_unknown_card_throws_an_exception() {
-        //
+    @Test public void loading_an_unknown_card_throws_an_exception() throws IOException, URISyntaxException {
+        var constantsLoader = new ConstantsLoader();
+        var cards = constantsLoader.loadCollection("cards");
+        Throwable found = null;
+        try {
+            cards.getByName("CardThatDoesNotExists");
+        } catch (Throwable th) {
+            found = th;
+        }
+
+        assertThat(found).isNotNull();
+        assertThat(found.toString()).contains("cards");
+        assertThat(found.toString()).contains("src/main/resources/cards");
+        assertThat(found.toString()).contains("CardThatDoesNotExists");
+    }
+
+    @Test public void loading_twice_a_property_fail_with_the_same_name_fails() throws IOException, URISyntaxException {
+        var collection = new ConstantsCollection("demo");
+        Throwable found = null;
+        try {
+            collection.add(newConstants("Repeated"), "some/path.properties");
+            collection.add(newConstants("Repeated"), "some/other/path.properties");
+        } catch (Throwable th) {
+            found = th;
+        }
+
+        assertThat(found).isNotNull();
+        assertThat(found.toString()).contains("demo");
+        assertThat(found.toString()).contains("Repeated");
+        assertThat(found.toString()).contains("some/path.properties");
+        assertThat(found.toString()).contains("some/other/path.properties");
+        assertThat(found.toString()).contains("src/main/resources/demo");
+    }
+
+    @Test public void all_property_files_with_constants_must_have_name() throws IOException, URISyntaxException {
+        var collection = new ConstantsCollection("demo");
+        Throwable found = null;
+        try {
+            collection.add(new Constants(new Properties()), "some/path.properties");
+        } catch (Throwable th) {
+            found = th;
+        }
+
+        assertThat(found).isNotNull();
+        assertThat(found.toString()).contains("does not have name");
+        assertThat(found.toString()).contains("demo");
+        assertThat(found.toString()).contains("some/path.properties");
+        assertThat(found.toString()).contains("src/main/resources/demo");
+    }
+
+    private static Constants newConstants(String name) {
+        var props = new Properties();
+        props.setProperty("name", name);
+        var constants = new Constants(props);
+        return constants;
     }
 
     private void assertThatThrows(String ...lines) throws Throwable {

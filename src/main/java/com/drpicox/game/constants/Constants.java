@@ -1,13 +1,13 @@
-package com.drpicox.game.propertiesSyrup;
+package com.drpicox.game.constants;
 
 import java.util.Collection;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-public class PropertiesSyrup {
+public class Constants {
     private final Properties properties;
 
-    public PropertiesSyrup(Properties properties) {
+    public Constants(Properties properties) {
         this.properties = properties;
     }
 
