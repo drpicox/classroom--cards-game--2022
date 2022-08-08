@@ -16,14 +16,15 @@ test("2022-07-15_hello_blog.md", async () => {
   const context = new Post_20220715_HelloBlog_Context();
   await context.beforeTest();
 
-  // # Hello Blog
-  // ## How to use the blog
-  await context.goToTheBlogSection();
-  await context.youShouldSeeAListOfPosts();
-  await context.theLastPostTitleShouldBeSThisPost("Hello Blog");
-  await context.goToTheSPost("Hello Blog");
-  await context.youShouldSeeTheSPost("Hello Blog");
-  await context.thePostShouldContainSWhichIsHere("this text");
+  // # Hello Blog                                          // # Hello Blog
+
+  // ## How to use the blog                                // ## How to use the blog
+  context.goToTheBlogSection(); // * Go to the blog section,
+  context.youShouldSeeAListOfPosts(); // * You should see a list of posts,
+  context.theLastPostTitleShouldBeSThisPost("Hello Blog"); // * The last post title should be "Hello Blog", this post
+  context.goToTheSPost("Hello Blog"); // * Go to the "Hello Blog" post,
+  context.youShouldSeeTheSPost("Hello Blog"); // * You should see the "Hello Blog" post
+  context.thePostShouldContainSWhichIsHere("this text"); // * The post should contain "this text", which is here.
 
   await context.afterTest();
   await runWhenTestSuccessful();

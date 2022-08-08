@@ -17,46 +17,51 @@ test("2022-07-21_more_details_about_how_villagers_eat_food.md", async () => {
     new Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context();
   await context.beforeTest();
 
-  // # More Details About How Villagers Eat Food
-  // ## More kinds of villagers
-  await context.givenThereAreNSAndNSCards(1, "Villager", 1, "Militia");
-  await context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
-  await context.theSCardShouldHaveNInSTag("Militia", 2, "eats");
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 3);
-  // ## More kinds of food
-  await context.givenThereAreNSAndNSCards(1, "Berry", 1, "Apple");
-  await context.theSCardShouldHaveNInSTag("Berry", 1, "food");
-  await context.theSCardShouldHaveNInSTag("Apple", 2, "food");
-  await context.theSumOfAllSTagsValueShouldBeN("food", 3);
-  // ## Eating
-  await context.endTheCurrentMoon();
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 3);
-  await context.theSumOfAllSTagsValueShouldBeN("food", 0);
-  // ## Too much food
-  await context.givenThereAreNSAndNSCards(4, "Berry", 0, "Apple");
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 3);
-  await context.theSumOfAllSTagsValueShouldBeN("food", 4);
-  await context.endTheCurrentMoon();
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 3);
-  await context.theSumOfAllSTagsValueShouldBeN("food", 1);
-  await context.thereShouldBeNSCards(1, "Berry");
-  await context.givenThereAreNSAndNSCards(0, "Berry", 2, "Apple");
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 3);
-  await context.theSumOfAllSTagsValueShouldBeN("food", 4);
-  await context.endTheCurrentMoon();
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 3);
-  await context.theSumOfAllSTagsValueShouldBeN("food", 0);
-  await context.thereShouldBeNSCards(0, "Apple");
-  // ## Too few food
-  await context.givenThereAreNSAndNSCards(0, "Villager", 2, "Militia");
-  await context.givenThereAreNSAndNSCards(3, "Berry", 0, "Apple");
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 4);
-  await context.theSumOfAllSTagsValueShouldBeN("food", 3);
-  await context.endTheCurrentMoon();
-  await context.theSumOfAllSTagsValueShouldBeN("eats", 2);
-  await context.theSumOfAllSTagsValueShouldBeN("food", 1);
-  await context.thereShouldBeNSCards(1, "Militia");
-  await context.thereShouldBeNSCards(1, "Berry");
+  // # More Details About How Villagers Eat Food                  // # More Details About How Villagers Eat Food
+
+  // ## More kinds of villagers                                   // ## More kinds of villagers
+  context.givenThereAreNSAndNSCards(1, "Villager", 1, "Militia"); // * Given there are 1 "Villager" and 1 "Militia" cards.
+  context.theSCardShouldHaveNInSTag("Villager", 1, "eats"); // * The "Villager" card should have 1 in "eats" tag.
+  context.theSCardShouldHaveNInSTag("Militia", 2, "eats"); // * The "Militia" card should have 2 in "eats" tag.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 3); // * The sum of all "eats" tags value should be 3.
+
+  // ## More kinds of food                                        // ## More kinds of food
+  context.givenThereAreNSAndNSCards(1, "Berry", 1, "Apple"); // * Given there are 1 "Berry" and 1 "Apple" cards.
+  context.theSCardShouldHaveNInSTag("Berry", 1, "food"); // * The "Berry" card should have 1 in "food" tag.
+  context.theSCardShouldHaveNInSTag("Apple", 2, "food"); // * The "Apple" card should have 2 in "food" tag.
+  context.theSumOfAllSTagsValueShouldBeN("food", 3); // * The sum of all "food" tags value should be 3.
+
+  // ## Eating                                                    // ## Eating
+  context.endTheCurrentMoon(); // * End the current moon.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 3); // * The sum of all "eats" tags value should be 3.
+  context.theSumOfAllSTagsValueShouldBeN("food", 0); // * The sum of all "food" tags value should be 0.
+
+  // ## Too much food                                             // ## Too much food
+  context.givenThereAreNSAndNSCards(4, "Berry", 0, "Apple"); // * Given there are 4 "Berry" and 0 "Apple" cards.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 3); // * The sum of all "eats" tags value should be 3.
+  context.theSumOfAllSTagsValueShouldBeN("food", 4); // * The sum of all "food" tags value should be 4.
+  context.endTheCurrentMoon(); // * End the current moon.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 3); // * The sum of all "eats" tags value should be 3.
+  context.theSumOfAllSTagsValueShouldBeN("food", 1); // * The sum of all "food" tags value should be 1.
+  context.thereShouldBeNSCards(1, "Berry"); // * There should be 1 "Berry" cards.
+  context.givenThereAreNSAndNSCards(0, "Berry", 2, "Apple"); // * Given there are 0 "Berry" and 2 "Apple" cards.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 3); // * The sum of all "eats" tags value should be 3.
+  context.theSumOfAllSTagsValueShouldBeN("food", 4); // * The sum of all "food" tags value should be 4.
+  context.endTheCurrentMoon(); // * End the current moon.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 3); // * The sum of all "eats" tags value should be 3.
+  context.theSumOfAllSTagsValueShouldBeN("food", 0); // * The sum of all "food" tags value should be 0.
+  context.thereShouldBeNSCards(0, "Apple"); // * There should be 0 "Apple" cards.
+
+  // ## Too few food                                              // ## Too few food
+  context.givenThereAreNSAndNSCards(0, "Villager", 2, "Militia"); // * Given there are 0 "Villager" and 2 "Militia" cards.
+  context.givenThereAreNSAndNSCards(3, "Berry", 0, "Apple"); // * Given there are 3 "Berry" and 0 "Apple" cards.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 4); // * The sum of all "eats" tags value should be 4.
+  context.theSumOfAllSTagsValueShouldBeN("food", 3); // * The sum of all "food" tags value should be 3.
+  context.endTheCurrentMoon(); // * End the current moon.
+  context.theSumOfAllSTagsValueShouldBeN("eats", 2); // * The sum of all "eats" tags value should be 2.
+  context.theSumOfAllSTagsValueShouldBeN("food", 1); // * The sum of all "food" tags value should be 1.
+  context.thereShouldBeNSCards(1, "Militia"); // * There should be 1 "Militia" cards.
+  context.thereShouldBeNSCards(1, "Berry"); // * There should be 1 "Berry" cards.
 
   await context.afterTest();
   await runWhenTestSuccessful();

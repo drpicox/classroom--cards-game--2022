@@ -24,14 +24,15 @@ public class Post_20220715_HelloBlog_Test {
         fixtures.runBeforeTestStarts("2022-07-15_hello_blog", "bdc923639522b08b9df5faf815a6a152");
         context.beforeTest();
 
-        // # Hello Blog
-        // ## How to use the blog
-        context.goToTheBlogSection();
-        context.youShouldSeeAListOfPosts();
-        context.theLastPostTitleShouldBeSThisPost("Hello Blog");
-        context.goToTheSPost("Hello Blog");
-        context.youShouldSeeTheSPost("Hello Blog");
-        context.thePostShouldContainSWhichIsHere("this text");
+        // # Hello Blog                                          // # Hello Blog
+
+        // ## How to use the blog                                // ## How to use the blog
+        context.goToTheBlogSection();                            // * Go to the blog section,
+        context.youShouldSeeAListOfPosts();                      // * You should see a list of posts,
+        context.theLastPostTitleShouldBeSThisPost("Hello Blog"); // * The last post title should be "Hello Blog", this post
+        context.goToTheSPost("Hello Blog");                      // * Go to the "Hello Blog" post,
+        context.youShouldSeeTheSPost("Hello Blog");              // * You should see the "Hello Blog" post
+        context.thePostShouldContainSWhichIsHere("this text");   // * The post should contain "this text", which is here.
 
         context.afterTest();
         fixtures.runWhenTestSuccessful();

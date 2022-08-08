@@ -24,22 +24,25 @@ public class Post_20220719_VillagersEatFood_Test {
         fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "73bcb415ffc123f38e4c651752c51f32");
         context.beforeTest();
 
-        // # Villagers Eat Food
-        // ## Berries are food
-        context.givenWeHaveEnteredIntoANewGame();
-        context.theSCardShouldHaveNInSTag("Berry", 1, "food");
-        context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
-        // ## Moons
-        context.endTheCurrentMoon();
-        context.thereShouldBeNoSCard("Berry");
-        context.thereShouldBeNSCard(1, "Villager");
-        context.thereShouldBeNSCard(1, "Bush");
-        // ## Starving
-        context.endTheCurrentMoon();
-        context.thereShouldBeNoSCard("Berry");
-        context.thereShouldBeNoSCard("Villager");
-        context.thereShouldBeNSCard(1, "Bush");
-        context.thereShouldBeNSCard(1, "Corpse");
+        // # Villagers Eat Food                                   // # Villagers Eat Food
+
+        // ## Berries are food                                    // ## Berries are food
+        context.givenWeHaveEnteredIntoANewGame();                 // * Given we have entered into a new game.
+        context.theSCardShouldHaveNInSTag("Berry", 1, "food");    // * The "Berry" card should have 1 in "food" tag.
+        context.theSCardShouldHaveNInSTag("Villager", 1, "eats"); // * The "Villager" card should have 1 in "eats" tag.
+
+        // ## Moons                                               // ## Moons
+        context.endTheCurrentMoon();                              // * End the current moon.
+        context.thereShouldBeNoSCard("Berry");                    // * There should be no "Berry" card.
+        context.thereShouldBeNSCard(1, "Villager");               // * There should be 1 "Villager" card.
+        context.thereShouldBeNSCard(1, "Bush");                   // * There should be 1 "Bush" card.
+
+        // ## Starving                                            // ## Starving
+        context.endTheCurrentMoon();                              // * End the current moon.
+        context.thereShouldBeNoSCard("Berry");                    // * There should be no "Berry" card.
+        context.thereShouldBeNoSCard("Villager");                 // * There should be no "Villager" card.
+        context.thereShouldBeNSCard(1, "Bush");                   // * There should be 1 "Bush" card.
+        context.thereShouldBeNSCard(1, "Corpse");                 // * There should be 1 "Corpse" card.
 
         context.afterTest();
         fixtures.runWhenTestSuccessful();

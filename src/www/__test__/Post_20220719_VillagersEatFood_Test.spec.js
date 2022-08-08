@@ -16,22 +16,25 @@ test("2022-07-19_villagers_eat_food.md", async () => {
   const context = new Post_20220719_VillagersEatFood_Context();
   await context.beforeTest();
 
-  // # Villagers Eat Food
-  // ## Berries are food
-  await context.givenWeHaveEnteredIntoANewGame();
-  await context.theSCardShouldHaveNInSTag("Berry", 1, "food");
-  await context.theSCardShouldHaveNInSTag("Villager", 1, "eats");
-  // ## Moons
-  await context.endTheCurrentMoon();
-  await context.thereShouldBeNoSCard("Berry");
-  await context.thereShouldBeNSCard(1, "Villager");
-  await context.thereShouldBeNSCard(1, "Bush");
-  // ## Starving
-  await context.endTheCurrentMoon();
-  await context.thereShouldBeNoSCard("Berry");
-  await context.thereShouldBeNoSCard("Villager");
-  await context.thereShouldBeNSCard(1, "Bush");
-  await context.thereShouldBeNSCard(1, "Corpse");
+  // # Villagers Eat Food                                   // # Villagers Eat Food
+
+  // ## Berries are food                                    // ## Berries are food
+  context.givenWeHaveEnteredIntoANewGame(); // * Given we have entered into a new game.
+  context.theSCardShouldHaveNInSTag("Berry", 1, "food"); // * The "Berry" card should have 1 in "food" tag.
+  context.theSCardShouldHaveNInSTag("Villager", 1, "eats"); // * The "Villager" card should have 1 in "eats" tag.
+
+  // ## Moons                                               // ## Moons
+  context.endTheCurrentMoon(); // * End the current moon.
+  context.thereShouldBeNoSCard("Berry"); // * There should be no "Berry" card.
+  context.thereShouldBeNSCard(1, "Villager"); // * There should be 1 "Villager" card.
+  context.thereShouldBeNSCard(1, "Bush"); // * There should be 1 "Bush" card.
+
+  // ## Starving                                            // ## Starving
+  context.endTheCurrentMoon(); // * End the current moon.
+  context.thereShouldBeNoSCard("Berry"); // * There should be no "Berry" card.
+  context.thereShouldBeNoSCard("Villager"); // * There should be no "Villager" card.
+  context.thereShouldBeNSCard(1, "Bush"); // * There should be 1 "Bush" card.
+  context.thereShouldBeNSCard(1, "Corpse"); // * There should be 1 "Corpse" card.
 
   await context.afterTest();
   await runWhenTestSuccessful();

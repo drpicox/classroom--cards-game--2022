@@ -2,6 +2,7 @@ const path = require("node:path");
 const { writeFile } = require("node:fs/promises");
 const { join } = require("./join");
 const { prettyJs } = require("./prettyJs");
+const { writeTestContextCalls } = require("./writeTestContextCalls");
 
 async function writeJsTestFile(post) {
   const testContent = await makeTestContent(post);
@@ -56,20 +57,12 @@ function makeTestFooter() {
   );
 }
 
+const jsHandler = {
+  debug(text) {
+    return `System.out.println(${JSON.stringify(text)});`;
+  },
+};
+
 function makeTestBody(post) {
-  return join(...post.testCalls.map((c) => makeTestCall(post, c)));
-}
-
-function makeTestCall(post, call) {
-  const debug = post.frontmatter.values.debug === "true";
-  if (!call.name) return `  // ${call.text}`;
-
-  const methodCall = `await context.${call.name}(${call.arguments
-    .map((a) => a.value)
-    .join(", ")});`;
-
-  return [
-    debug && `  process.stdout.write(${JSON.stringify(call.text)} + "\\n");`,
-    `  ${methodCall}`,
-  ];
+  return join(writeTestContextCalls(post, jsHandler));
 }
