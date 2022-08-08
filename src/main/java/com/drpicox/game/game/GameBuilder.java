@@ -7,42 +7,46 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class GameBuilder {
 
     private final ConstantsLoader constantsLoader;
-    private final CardService cardService;
+    private final Map<String, GameBuilderHandler> gameBuilderHandlers = new HashMap<>();
 
-    public GameBuilder(ConstantsLoader constantsLoader, CardService cardService) {
+    public GameBuilder(ConstantsLoader constantsLoader, List<GameBuilderHandler> gameBuilderHandlers) {
         this.constantsLoader = constantsLoader;
-        this.cardService = cardService;
+
+        for (var handler: gameBuilderHandlers) {
+            this.gameBuilderHandlers.put(handler.getName(), handler);
+        }
     }
 
     public GameInstanceBuilder prepare(String name) throws IOException, URISyntaxException {
-        var gameProperties = constantsLoader.load("games/" + name + ".properties");
-        return new GameInstanceBuilder(gameProperties);
+        var gameConstants = constantsLoader.load("games/" + name + ".properties");
+        return new GameInstanceBuilder(gameConstants);
     }
 
     public class GameInstanceBuilder {
-        private Constants gameProperties;
+        private Constants gameConstants;
 
-        public GameInstanceBuilder(Constants gameProperties) {
-            this.gameProperties = gameProperties;
+        public GameInstanceBuilder(Constants gameConstants) {
+            this.gameConstants = gameConstants;
         }
 
         public void build() {
-            addCards();
-        }
-
-        private void addCards() {
-            var initialCardsProps = gameProperties.streamKeysStartWith("initial.cards.");
-            initialCardsProps.forEach(initialCardKey -> {
-                var cardName = initialCardKey.substring(14);
-                var count = gameProperties.getInt(initialCardKey);
-                for (var i = 0; i < count; i += 1)
-                    cardService.create(cardName);
-            });
+            var keys = gameConstants.keySet();
+            for (var key: keys) {
+                var keySegments = key.split("\\.");
+                var handlerName = keySegments[0];
+                System.out.println(key);
+                System.out.println(handlerName);
+                var handler = gameBuilderHandlers.get(handlerName);
+                handler.build(key, gameConstants, keySegments);
+            }
         }
     }
 }
