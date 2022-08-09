@@ -12,13 +12,10 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
 
     private final FrontendSimulator frontendSimulator;
 
-    private final GameService gameService;
-
     private GameResponse game;
 
-    public Post_20220717_BushesVillagersAndBerries_Context(FrontendSimulator frontendSimulator, GameService gameService) {
+    public Post_20220717_BushesVillagersAndBerries_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
-        this.gameService = gameService;
     }
 
     public void beforeTest() {
@@ -27,13 +24,6 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
     public void enterInTheGame() {
         // example:  * Enter in the game.
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
-    }
-
-    public void thereShouldBeNCards(int expected) {
-        // example:  * There should be 3 cards.
-        // expected = 3
-        var cards = game.streamCards();
-        assertThat(cards).hasSize(expected);
     }
 
     public void thereShouldBeNSCard(int expectedCount, String cardName) {

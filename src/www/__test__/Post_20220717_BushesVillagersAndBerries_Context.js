@@ -10,14 +10,6 @@ export class Post_20220717_BushesVillagersAndBerries_Context {
     await userSimulator.waitForLoading();
   }
 
-  async thereShouldBeNCards(expectedCount) {
-    // example:  * There should be 3 cards.
-    // expected = 3
-
-    const cards = getAllCard(mainView);
-    expect(cards).toHaveLength(expectedCount);
-  }
-
   async thereShouldBeNSCard(expectedCount, cardName) {
     // example:  * There should be 1 "villager" card.
     // expected = 1
