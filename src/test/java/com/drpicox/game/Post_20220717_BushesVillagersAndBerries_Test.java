@@ -21,17 +21,17 @@ public class Post_20220717_BushesVillagersAndBerries_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() throws Throwable {
-        fixtures.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "b4aa8ae253de3d96a8876fdd12da5a53");
+        fixtures.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "51a055bba4d9d93d0710867d370c9766");
         context.beforeTest();
 
-        // # Bushes, Villagers and Berries          // # Bushes, Villagers and Berries
+        // # Bushes, Villagers and Berries            // # Bushes, Villagers and Berries
 
-        // ## The game                              // ## The game
-        context.enterInTheGame();                   // * Enter in the game.
-        context.thereShouldBeNCards(3);             // * There should be 3 cards.
-        context.thereShouldBeNSCard(1, "Villager"); // * There should be 1 "Villager" card.
-        context.thereShouldBeNSCard(1, "Bush");     // * There should be 1 "Bush" card.
-        context.andThereShouldBeNSCard(1, "Berry"); // * And there should be 1 "Berry" card.
+        // ## The game                                // ## The game
+        context.enterInTheGame();                     // * Enter in the game.
+        context.thereShouldBeNCards(3);               // * There should be 3 cards.
+        context.thereShouldBeNSCard(1, "Villager");   // * There should be 1 "Villager" card.
+        context.thereShouldBeNSCard(1, "Berry Bush"); // * There should be 1 "Berry Bush" card.
+        context.andThereShouldBeNSCard(1, "Berry");   // * And there should be 1 "Berry" card.
 
         context.afterTest();
         fixtures.runWhenTestSuccessful();

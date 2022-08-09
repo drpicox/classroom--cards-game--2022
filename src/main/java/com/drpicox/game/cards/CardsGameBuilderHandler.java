@@ -4,6 +4,8 @@ import com.drpicox.game.constants.Constants;
 import com.drpicox.game.game.GameBuilderHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Stream;
+
 @Component
 public class CardsGameBuilderHandler implements GameBuilderHandler {
 
@@ -20,8 +22,9 @@ public class CardsGameBuilderHandler implements GameBuilderHandler {
 
     @Override
     public void build(String key, Constants gameConstants, String... keySegments) {
-        var count = gameConstants.getInt(key);
-        var cardName = keySegments[2];
+        var csv = gameConstants.getCsv(key);
+        var cardName = csv[0];
+        var count = Integer.parseInt(csv[1]);
         for (var i = 0; i < count; i += 1)
             cardService.create(cardName);
     }

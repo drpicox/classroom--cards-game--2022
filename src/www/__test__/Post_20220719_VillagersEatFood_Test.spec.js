@@ -10,7 +10,7 @@ import { Post_20220719_VillagersEatFood_Context } from "./Post_20220719_Villager
 test("2022-07-19_villagers_eat_food.md", async () => {
   await runBeforeTestStarts(
     "2022-07-19_villagers_eat_food",
-    "73bcb415ffc123f38e4c651752c51f32"
+    "5f056760574817f08bff7e5ca21bb7b1"
   );
 
   const context = new Post_20220719_VillagersEatFood_Context();
@@ -27,13 +27,13 @@ test("2022-07-19_villagers_eat_food.md", async () => {
   await context.endTheCurrentMoon(); //                              // * End the current moon.
   await context.thereShouldBeNoSCard("Berry"); //                    // * There should be no "Berry" card.
   await context.thereShouldBeNSCard(1, "Villager"); //               // * There should be 1 "Villager" card.
-  await context.thereShouldBeNSCard(1, "Bush"); //                   // * There should be 1 "Bush" card.
+  await context.thereShouldBeNSCard(1, "Berry Bush"); //             // * There should be 1 "Berry Bush" card.
 
   // ## Starving                                                     // ## Starving
   await context.endTheCurrentMoon(); //                              // * End the current moon.
   await context.thereShouldBeNoSCard("Berry"); //                    // * There should be no "Berry" card.
   await context.thereShouldBeNoSCard("Villager"); //                 // * There should be no "Villager" card.
-  await context.thereShouldBeNSCard(1, "Bush"); //                   // * There should be 1 "Bush" card.
+  await context.thereShouldBeNSCard(1, "Berry Bush"); //             // * There should be 1 "Berry Bush" card.
   await context.thereShouldBeNSCard(1, "Corpse"); //                 // * There should be 1 "Corpse" card.
 
   await context.afterTest();

@@ -36,7 +36,7 @@ And look to the results:
 
  * There should be no "Berry" card.
  * There should be 1 "Villager" card.
- * There should be 1 "Bush" card.
+ * There should be 1 "Berry Bush" card.
 
 The villager has eaten the berry, and there should be no 
 more berries available.
@@ -53,7 +53,7 @@ they die.
  * End the current moon.
  * There should be no "Berry" card.
  * There should be no "Villager" card.
- * There should be 1 "Bush" card.
+ * There should be 1 "Berry Bush" card.
 
 Wait, what is that other card that we can see?
 

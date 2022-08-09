@@ -41,8 +41,6 @@ public class GameBuilder {
             for (var key: keys) {
                 var keySegments = key.split("\\.");
                 var handlerName = keySegments[0];
-                System.out.println(key);
-                System.out.println(handlerName);
                 var handler = gameBuilderHandlers.get(handlerName);
                 handler.build(key, gameConstants, keySegments);
             }

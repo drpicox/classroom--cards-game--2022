@@ -50,4 +50,12 @@ public class Constants {
     public Collection<String> keySet() {
         return properties.keySet();
     }
+
+    public String[] getCsv(String key) {
+        var fields = getString(key).split(",");
+        for (var i = 0; i < fields.length; i+=1)
+            fields[i] = fields[i].trim();
+
+        return fields;
+    }
 }
