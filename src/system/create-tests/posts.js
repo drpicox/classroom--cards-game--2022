@@ -60,5 +60,5 @@ function findOtherPostsMethodUsages(post) {
 }
 
 function findOtherPosts(post) {
-  return Object.values(posts).filter((p) => p !== post);
+  return Object.values(posts).filter((p) => p.id !== post.id);
 }
