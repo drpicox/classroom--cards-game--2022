@@ -8,6 +8,7 @@ const { writeJsTestFile } = require("./writeJsTestFile");
 const { writeJsContextFile } = require("./writeJsContextFile");
 const { registerPost, findClosestMethod } = require("./posts");
 const { join } = require("./join");
+const { writeOriginalCopy } = require("./writeOriginalCopy");
 
 async function update(filePath) {
   const post = await readBlogPost(filePath);
@@ -17,6 +18,8 @@ async function update(filePath) {
   post.failed = !verifyPost(post);
   if (post.failed) return post;
   registerPost(post);
+
+  writeOriginalCopy(post);
 
   let testWritten = false;
   let contextWritten = false;
