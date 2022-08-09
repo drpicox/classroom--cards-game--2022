@@ -166,3 +166,25 @@ When testing, code that causes React state updates should be wrapped into act(..
      
 This ensures that you're testing the behavior the user would see in the browser. Learn more at https://fb.me/react-wrap-tests-with-act
 ```
+
+## About Natural Testing Language
+
+* **Given**: They are sentences that explain something that is true at that moment
+  and we will no assert, because our code will make that happen. 
+  We can see them as pre-requisites.
+  In Givens we often do direct *Service calls to make sure that what we want is satisfied.
+  In some cases, it might also make apiCalls so the backend can send the
+  resulting state to the frontend, and then, the frontend should refresh
+  the game.
+  They are what we prepare for the execution.
+* **Should**: They are sentences that assert that the results are correct.
+  We can see them as post-conditions.
+  Shoulds, unlike Givens, should not use any *Service calls, 
+  and should neither use apiCalls, but instead, 
+  it should assert over the last game response.
+  They are what we verify from the execution.
+* _The Rest_: Sentences without Given or Should are actions: things that the user do.
+  These actions will always perform any apiCall and will save the result for future
+  assertions. They should never use *Service calls.
+  They are what we execute.
+ 
