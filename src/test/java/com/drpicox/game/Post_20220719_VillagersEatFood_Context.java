@@ -2,6 +2,10 @@ package com.drpicox.game;
 
 import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Component;
+
+import static com.drpicox.game.cards.api.CardResponseList.findAllCards;
+import static com.drpicox.game.cards.api.CardResponseList.findCard;
+import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import com.drpicox.game.fixtures.FrontendSimulator;
@@ -29,7 +33,7 @@ public class Post_20220719_VillagersEatFood_Context {
         // the = "berry"
         // has = 1
         // in = "food"
-        var matchingCard = game.streamCardsByName(cardName).findAny().get();
+        var matchingCard = findCard(game, byName(cardName)).get();
         assertThat(matchingCard.getTag(tagName)).isEqualTo(count);
     }
 
@@ -42,7 +46,7 @@ public class Post_20220719_VillagersEatFood_Context {
         // example:  * There is no "berry" card.
         // no = "berry"
 
-        var matchingCards = game.streamCardsByName(cardName);
+        var matchingCards = findAllCards(game, byName(cardName));
         assertThat(matchingCards).isEmpty();
     }
 
@@ -51,7 +55,7 @@ public class Post_20220719_VillagersEatFood_Context {
         // is = 1
         // n = "villager"
 
-        var matchingCards = game.streamCardsByName(cardName);
+        var matchingCards = findAllCards(game, byName(cardName));
         assertThat(matchingCards).hasSize(expectedCount);
     }
 

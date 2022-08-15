@@ -24,7 +24,7 @@ public class ConstantsCollection {
                     "- constants collection name: \"" + collectionName + "\"\n" +
                     "- properties file path     : \"" + path + "\"\n" +
                     "- constants directory path : src/main/resources/" + collectionName + "\n" +
-                    "Please, verify that both files have a different name."
+                    "Please, add the line name=TheCorrespondingName to the properties file."
             );
         }
 
@@ -52,10 +52,10 @@ public class ConstantsCollection {
 
         throw new RuntimeException(
             "There is no properties file in resources for a \"" + collectionName + "\" with name \"" + constantsNameValue + "\".\n" +
-            "- missing name             : \"" + constantsNameValue + "\"\n" +
-            "- constants collection name: \"" + collectionName + "\"\n" +
-            "- constants directory path : src/main/resources/" + collectionName + "\n" +
+                "- missing name             : \"" + constantsNameValue + "\"\n" +
+                "- constants collection name: \"" + collectionName + "\"\n" +
+                "- constants directory path : src/main/resources/" + collectionName + "\n" +
                 "Please, verify that there is a .properties file that contains a line with name=" + constantsNameValue + " inside the corresponding directory."
-            );
+        );
     }
 }

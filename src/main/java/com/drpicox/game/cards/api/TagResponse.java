@@ -1,6 +1,6 @@
-package com.drpicox.game.game.api;
+package com.drpicox.game.cards.api;
 
-import com.drpicox.game.cards.Tag;
+import com.drpicox.game.tags.Tag;
 
 public class TagResponse {
     private final int value;

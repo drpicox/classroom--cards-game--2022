@@ -1,5 +1,7 @@
 package com.drpicox.game.moon;
 
+import com.drpicox.game.util.Settings;
+import com.drpicox.game.util.Steps;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -7,14 +9,13 @@ import java.util.List;
 @Service
 public class MoonService {
 
-    private final List<EndMoonRule> endMoonRules;
+    private final Steps<EndMoonSettings> endMoonSteps;
 
-    public MoonService(List<EndMoonRule> endMoonRules) {
-        this.endMoonRules = endMoonRules;
-        this.endMoonRules.sort((a, b) -> a.getClass().getSimpleName().compareTo(b.getClass().getSimpleName()));
+    public MoonService(List<EndMoonStep> endMoonSteps) {
+        this.endMoonSteps = Steps.from(endMoonSteps);
     }
 
     public void endMoon() {
-        for (var rule: endMoonRules) rule.applyRule();
+        endMoonSteps.execute(new EndMoonSettings());
     }
 }

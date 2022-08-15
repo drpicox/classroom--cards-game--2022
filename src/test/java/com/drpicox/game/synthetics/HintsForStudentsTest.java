@@ -1,4 +1,4 @@
-package com.drpicox.game.hints;
+package com.drpicox.game.synthetics;
 
 import com.drpicox.game.blog.IllegalPostFileFormatException;
 import com.drpicox.game.blog.Post;
@@ -13,7 +13,6 @@ import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Properties;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

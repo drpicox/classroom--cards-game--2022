@@ -1,4 +1,4 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.tags;
 
 import javax.persistence.Id;
 import java.io.Serializable;

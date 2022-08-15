@@ -1,5 +1,7 @@
 package com.drpicox.game.cards;
 
+import com.drpicox.game.tags.Tag;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;

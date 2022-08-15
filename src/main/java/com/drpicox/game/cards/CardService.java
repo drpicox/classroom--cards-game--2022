@@ -1,26 +1,19 @@
 package com.drpicox.game.cards;
 
+import com.drpicox.game.tags.TagService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class CardService {
 
     private final CardRepository cardRepository;
-    private final TagRepository tagRepository;
-    private final CardBuilder cardBuilder;
+    private final TagService tagService;
 
-    public CardService(CardRepository cardRepository, TagRepository tagRepository, CardBuilder cardBuilder) {
+    public CardService(CardRepository cardRepository, TagService tagService) {
         this.cardRepository = cardRepository;
-        this.tagRepository = tagRepository;
-        this.cardBuilder = cardBuilder;
-    }
-
-    public Card create(String cardName) {
-        var card = cardBuilder.prepare(cardName).build();
-        return card;
+        this.tagService = tagService;
     }
 
     public List<Card> findAll() {
@@ -32,7 +25,7 @@ public class CardService {
     }
 
     public List<Card> findAllByTagName(String tagName) {
-        var tags = tagRepository.findAllByTagName(tagName);
+        var tags = tagService.findAllByTagName(tagName);
         var ids = tags.stream().map(t -> t.getCardId()).toList();
         var cards = cardRepository.findAllById(ids);
         return cards;
@@ -41,9 +34,5 @@ public class CardService {
     public void deleteAllByName(String name) {
         var cards = cardRepository.findAllByName(name);
         cardRepository.deleteAll(cards);
-    }
-
-    public List<Card> createMany(int count, String name) {
-        return Stream.generate(() -> create(name)).limit(count).toList();
     }
 }

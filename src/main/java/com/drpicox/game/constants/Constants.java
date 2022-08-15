@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -57,5 +58,9 @@ public class Constants {
             fields[i] = fields[i].trim();
 
         return fields;
+    }
+
+    public List<String> findAllKeysStartingBy(String prefix) {
+        return properties.keySet().stream().filter(k -> k.startsWith(prefix)).toList();
     }
 }

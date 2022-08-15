@@ -1,19 +1,25 @@
-package com.drpicox.game.moon.rules;
+package com.drpicox.game.moon.steps;
 
+import com.drpicox.game.cards.CardFactory;
+import com.drpicox.game.cards.CardFactorySettings;
 import com.drpicox.game.cards.CardService;
-import com.drpicox.game.moon.EndMoonRule;
+import com.drpicox.game.moon.EndMoonSettings;
+import com.drpicox.game.moon.EndMoonStep;
+import com.drpicox.game.util.Settings;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Rule_100_EatersEatFood implements EndMoonRule {
+public class EndMoonStep_100_EatersEatFood implements EndMoonStep {
 
     private final CardService cardService;
+    private final CardFactory cardFactory;
 
-    public Rule_100_EatersEatFood(CardService cardService) {
+    public EndMoonStep_100_EatersEatFood(CardService cardService, CardFactory cardFactory) {
         this.cardService = cardService;
+        this.cardFactory = cardFactory;
     }
 
-    public void applyRule() {
+    public void execute(EndMoonSettings settings) {
         var eaters = cardService.findAllByTagName("eats");
         var foods = cardService.findAllByTagName("food");
 
@@ -24,7 +30,7 @@ public class Rule_100_EatersEatFood implements EndMoonRule {
             var next = eaters.remove(0);
             totalEats -= next.getTagValue("eats");
             cardService.delete(next);
-            cardService.create("Corpse");
+            cardFactory.makeCard(new CardFactorySettings("Corpse"));
         }
 
         var remainingToEat = totalEats;

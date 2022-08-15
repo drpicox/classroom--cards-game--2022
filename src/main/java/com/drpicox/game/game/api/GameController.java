@@ -1,6 +1,7 @@
 package com.drpicox.game.game.api;
 
 import com.drpicox.game.cards.CardService;
+import com.drpicox.game.cards.api.CardResponse;
 import com.drpicox.game.game.GameService;
 import com.drpicox.game.moon.MoonService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,31 +18,24 @@ import java.util.stream.Collectors;
 public class GameController {
 
     private final GameService gameService;
-    private final CardService cardService;
     private final MoonService moonService;
+    private final GameResponseFactory gameResponseFactory;
 
-    public GameController(GameService gameService, CardService cardService, MoonService moonService) {
+    public GameController(GameService gameService, MoonService moonService, GameResponseFactory gameResponseFactory) {
         this.gameService = gameService;
-        this.cardService = cardService;
         this.moonService = moonService;
+        this.gameResponseFactory = gameResponseFactory;
     }
 
     @GetMapping
     public GameResponse getGame() throws IOException, URISyntaxException {
         gameService.createIfDoesNotExist();
-        return getGameResponse();
+        return gameResponseFactory.makeGameResponse();
     }
 
     @PostMapping("/moon")
     public GameResponse endMoon() {
         moonService.endMoon();
-        return getGameResponse();
-    }
-
-    private GameResponse getGameResponse() {
-        var cards = cardService.findAll().stream()
-            .map(c -> new CardResponse(c))
-            .collect(Collectors.toList());
-        return new GameResponse(cards);
+        return gameResponseFactory.makeGameResponse();
     }
 }
