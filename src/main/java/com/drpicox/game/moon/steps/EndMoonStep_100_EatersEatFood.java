@@ -5,7 +5,6 @@ import com.drpicox.game.cards.CardFactorySettings;
 import com.drpicox.game.cards.CardService;
 import com.drpicox.game.moon.EndMoonSettings;
 import com.drpicox.game.moon.EndMoonStep;
-import com.drpicox.game.util.Settings;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,7 +28,7 @@ public class EndMoonStep_100_EatersEatFood implements EndMoonStep {
         while (totalEats > totalFood) {
             var next = eaters.remove(0);
             totalEats -= next.getTagValue("eats");
-            cardService.delete(next);
+            cardService.discardCard(next);
             cardFactory.makeCard(new CardFactorySettings("Corpse"));
         }
 
@@ -37,7 +36,7 @@ public class EndMoonStep_100_EatersEatFood implements EndMoonStep {
         while (remainingToEat > 0) {
             var plated = foods.remove(0);
             remainingToEat -= plated.getTagValue("food");
-            cardService.delete(plated);
+            cardService.discardCard(plated);
         }
     }
 }

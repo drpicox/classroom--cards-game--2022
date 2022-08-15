@@ -18,13 +18,13 @@ public class CardResponseList extends ArrayList<CardResponse> {
         return gameResponse.deserializeField("cards", CardResponseList.class);
     }
 
-    public static List<CardResponse> findAllCards(GameResponse gameResponse, Predicate<? super CardResponse> names) {
-        return findAllCards(gameResponse).stream().filter(names).toList();
+    public static List<CardResponse> findAllCards(GameResponse gameResponse, Predicate<? super CardResponse> predicate) {
+        return findAllCards(gameResponse).stream().filter(predicate).toList();
     }
 
-    public static Optional<CardResponse> findCard(GameResponse gameResponse, Predicate<? super CardResponse> names) {
+    public static Optional<CardResponse> findCard(GameResponse gameResponse, Predicate<? super CardResponse> predicate) {
         // TODO: JPA throws an exception if there is more than one result
-        return findAllCards(gameResponse, names).stream().findAny();
+        return findAllCards(gameResponse, predicate).stream().findAny();
     }
 
     private CardResponseList() {} // GSON required constructor

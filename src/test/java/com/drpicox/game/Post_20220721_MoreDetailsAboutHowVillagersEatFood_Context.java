@@ -1,9 +1,7 @@
 package com.drpicox.game;
 
-import com.drpicox.game.cards.CardFactory;
 import com.drpicox.game.cards.CardFactorySettings;
-import com.drpicox.game.cards.CardService;
-import com.drpicox.game.cards.api.CardResponseList;
+import com.drpicox.game.cards.GivenCardService;
 import com.drpicox.game.game.GameService;
 import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Component;
@@ -23,16 +21,14 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     private final FrontendSimulator frontendSimulator;
     private final GameService gameService;
-    private final CardService cardService;
-    private final CardFactory cardFactory;
+    private final GivenCardService givenCardService;
 
     private GameResponse game;
 
-    public Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context(FrontendSimulator frontendSimulator, GameService gameService, CardService cardService, CardFactory cardFactory) {
+    public Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context(FrontendSimulator frontendSimulator, GameService gameService, GivenCardService givenCardService) {
         this.frontendSimulator = frontendSimulator;
         this.gameService = gameService;
-        this.cardService = cardService;
-        this.cardFactory = cardFactory;
+        this.givenCardService = givenCardService;
     }
 
     public void beforeTest() throws IOException, URISyntaxException {
@@ -41,11 +37,8 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     public void givenThereAreNSAndNSCards(int count1, String name1, int count2, String name2) {
         // example:  * Given there are 2 "villager" and 2 "trader" cards.
-        cardService.deleteAllByName(name1);
-        cardFactory.makeMany(count1, new CardFactorySettings(name1));
-
-        cardService.deleteAllByName(name2);
-        cardFactory.makeMany(count2, new CardFactorySettings(name2));
+        givenCardService.givenCard(count1, new CardFactorySettings(name1));
+        givenCardService.givenCard(count2, new CardFactorySettings(name2));
 
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }

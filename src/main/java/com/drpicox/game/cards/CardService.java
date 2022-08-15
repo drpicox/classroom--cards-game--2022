@@ -4,6 +4,8 @@ import com.drpicox.game.tags.TagService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
 public class CardService {
@@ -20,10 +22,6 @@ public class CardService {
         return cardRepository.findAll();
     }
 
-    public void delete(Card card) {
-        cardRepository.delete(card);
-    }
-
     public List<Card> findAllByTagName(String tagName) {
         var tags = tagService.findAllByTagName(tagName);
         var ids = tags.stream().map(t -> t.getCardId()).toList();
@@ -31,8 +29,24 @@ public class CardService {
         return cards;
     }
 
-    public void deleteAllByName(String name) {
-        var cards = cardRepository.findAllByName(name);
+    public List<Card> findAllByName(String cardName) {
+        var cards = cardRepository.findAllByName(cardName);
+        return cards;
+    }
+
+    public Optional<Card> findCard(Predicate<? super Card> predicate) {
+        return cardRepository.findAll().stream().filter(predicate).findAny();
+    }
+
+    public List<Card> findAllCards(Predicate<? super Card> predicate) {
+        return cardRepository.findAll().stream().filter(predicate).toList();
+    }
+
+    public void discardCard(Card card) {
+        cardRepository.delete(card);
+    }
+
+    public void discardCards(List<Card> cards) {
         cardRepository.deleteAll(cards);
     }
 }

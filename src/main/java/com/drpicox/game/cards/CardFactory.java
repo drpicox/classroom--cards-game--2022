@@ -8,18 +8,18 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class CardFactory {
 
     private final CardRepository cardRepository;
+    private final CardPositionService cardPositionService;
     private final TagFactory tagFactory;
     private final ConstantsCollection cardConstantsCollection;
 
-    public CardFactory(ConstantsLoader constantsLoader, CardRepository cardRepository, TagFactory tagFactory) throws URISyntaxException, IOException {
+    public CardFactory(CardRepository cardRepository, CardPositionService cardPositionService, TagFactory tagFactory, ConstantsLoader constantsLoader) throws IOException, URISyntaxException {
         this.cardRepository = cardRepository;
+        this.cardPositionService = cardPositionService;
         this.tagFactory = tagFactory;
         this.cardConstantsCollection = constantsLoader.loadCollection("cards");
     }
@@ -31,25 +31,24 @@ public class CardFactory {
 
         var cardConstants = cardConstantsCollection.getByName(cardName);
         var tags = tagFactory.makeAllTags(new TagFactorySettings(cardId).withCardConstants(cardConstants));
+        var position = settings.getPosition();
+        var zindex = cardPositionService.getStackByPosition(position).getMaxZindex() + 1;
 
-        var card = new Card(cardId, cardName, tags);
+        var card = new Card(cardId, cardName, tags, position, zindex);
         cardRepository.save(card);
         return card;
     }
 
-    public List<Card> makeMany(int count, CardFactorySettings settings) {
-        return Stream.generate(() -> makeCard(settings)).limit(count).toList();
-    }
-
     private final String getNextId(CardFactorySettings settings) {
         var cardName = settings.getCardName();
+        var kebabCardName = cardName.replaceAll("[^\\w]", "-").toLowerCase();
         var allCards = cardRepository.findAllByName(cardName);
         var maxId = allCards.stream()
             .map(c -> c.getId())
-            .map(i -> i.substring(cardName.length() + 1))
+            .map(i -> i.substring(kebabCardName.length() + 1))
             .map(i -> Integer.parseInt(i))
             .max(Integer::compare)
             .orElse(0);
-        return cardName + "-" + (maxId + 1);
+        return kebabCardName + "-" + (maxId + 1);
     }
 }

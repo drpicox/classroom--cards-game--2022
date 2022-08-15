@@ -1,6 +1,8 @@
 package com.drpicox.game.constants;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class ConstantsCollection {
@@ -58,4 +60,9 @@ public class ConstantsCollection {
                 "Please, verify that there is a .properties file that contains a line with name=" + constantsNameValue + " inside the corresponding directory."
         );
     }
+
+    public Collection<String> getAllNames() {
+        return constantsByName.keySet();
+    }
+
 }

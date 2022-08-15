@@ -1,12 +1,15 @@
 package com.drpicox.game.util;
 
+import com.drpicox.game.cards.api.DerivedStackResponse;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Names implements Predicate<List<HasName>> {
+public class Names implements Predicate<HasNames>, Iterable<String>, HasNames {
 
-    public static Predicate<HasName> byName(String cardName) {
+    public static Predicate<? super HasName> byName(String cardName) {
         return (hasName) -> hasName.getName().equals(cardName);
     }
 
@@ -37,11 +40,26 @@ public class Names implements Predicate<List<HasName>> {
     }
 
     @Override
-    public boolean test(List<HasName> hasNames) {
-        if (names.size() != hasNames.size()) return false;
-        for (var i = 0; i < names.size(); i += 1) {
-            String expectedName = names.get(i);
-            String actualName = hasNames.get(i).getName();
+    public Iterator<String> iterator() {
+        return names.iterator();
+    }
+
+    @Override
+    public int size() {
+        return names.size();
+    }
+
+    @Override
+    public String getName(int index) {
+        return names.get(index);
+    }
+
+    @Override
+    public boolean test(HasNames hasNames) {
+        if (size() != hasNames.size()) return false;
+        for (var i = 0; i < size(); i += 1) {
+            String expectedName = getName(i);
+            String actualName = hasNames.getName(i);
             if (!expectedName.equals(actualName)) return false;
         }
 
