@@ -1,11 +1,11 @@
 package com.drpicox.game.fixtures;
 
-public class FrontendBackendInteraction {
+public class FrontendBackendApiCall {
 
     private final Request request;
     private final Response response;
 
-    public FrontendBackendInteraction(String method, String url, Object requestBody, Object responseBody) {
+    public FrontendBackendApiCall(String method, String url, Object requestBody, Object responseBody) {
         this.request = new Request(method, url, requestBody);
         this.response = new Response(responseBody);
     }

@@ -12,11 +12,11 @@ export class BackendSimulator {
   constructor(postId) {
     this.closed = false;
     this.postId = postId;
-    this.filePath = getInteractionsPath(postId);
-    this.nextInteractionIndex = 0;
-    this.interactions = null;
-    this.interactionsPromise = readInteractionsFile(this.filePath)
-      .then((i) => (this.interactions = i))
+    this.filePath = getApiCallsPath(postId);
+    this.nextApiCallIndex = 0;
+    this.apiCalls = null;
+    this.apiCallsPromise = readApiCallsFile(this.filePath)
+      .then((i) => (this.apiCalls = i))
       .catch((f) => this.#throwLoadFailure(f));
   }
 
@@ -31,9 +31,9 @@ export class BackendSimulator {
   async #fetch(method, url, body) {
     const actualRequest = { method, url, body };
 
-    const interaction = await this.#nextInteraction(actualRequest);
-    const expectedRequest = interaction.request;
-    const response = interaction.response;
+    const apiCall = await this.#nextApiCall(actualRequest);
+    const expectedRequest = apiCall.request;
+    const response = apiCall.response;
 
     if (!isEqual(actualRequest, expectedRequest))
       this.#throwUnexpectedRequest(actualRequest, expectedRequest);
@@ -43,35 +43,35 @@ export class BackendSimulator {
 
   async close() {
     this.closed = true;
-    await this.interactionsPromise;
+    await this.apiCallsPromise;
 
-    if (this.nextInteractionIndex < this.interactions.length)
+    if (this.nextApiCallIndex < this.apiCalls.length)
       this.#throwSomeResponsesNotConsumed();
   }
 
-  async #nextInteraction(actualRequest) {
+  async #nextApiCall(actualRequest) {
     if (this.closed) this.#throwResponsesClosed(actualRequest);
-    await this.interactionsPromise;
+    await this.apiCallsPromise;
 
-    const responseIndex = this.nextInteractionIndex;
-    this.nextInteractionIndex += 1;
+    const responseIndex = this.nextApiCallIndex;
+    this.nextApiCallIndex += 1;
 
-    if (this.nextInteractionIndex > this.interactions.length)
+    if (this.nextApiCallIndex > this.apiCalls.length)
       this.#throwTooManyBackendCalls(actualRequest);
 
-    const interaction = this.interactions[responseIndex];
-    return interaction;
+    const apiCall = this.apiCalls[responseIndex];
+    return apiCall;
   }
 
   #throwLoadFailure(error) {
     let message = [
-      `Unkown error trying to load the interactions file for ${this.postId}.md. `,
+      `Unkown error trying to load the apiCalls file for ${this.postId}.md. `,
       `The file was expected to be at ${this.filePath}.`,
     ];
 
     if (error.code === "ENOENT")
       message = [
-        `The file that contains the frontend-backend interactions `,
+        `The file that contains the frontend-backend apiCalls `,
         `for the tests of the post ${this.postId}.md `,
         `was not found. `,
         `The file was expected to be at ${this.filePath} `,
@@ -89,7 +89,7 @@ export class BackendSimulator {
         `Please, make sure that you had run the Backend tests `,
         `before the frontend tests. `,
         `The backend tests are the ones that creates the json files `,
-        `for the backend frontend interaction`,
+        `for the backend frontend apiCall`,
       ),
     );
   }
@@ -131,22 +131,22 @@ export class BackendSimulator {
     throwBackendSimulatorError(
       this,
       `The frontend has done less calls to the backend than the ones that the backend has simulated in its tests. `,
-      `The frontend has done ${this.nextInteractionIndex} calls but the backend has simulated ${this.interactions.length}.`,
-      `The interactions are:`,
-      `- actual frontend interactions  : ${this.nextInteractionIndex}`,
-      `- expected frontend interactions: ${this.interactions.length}`,
+      `The frontend has done ${this.nextApiCallIndex} calls but the backend has simulated ${this.apiCalls.length}.`,
+      `The apiCalls are:`,
+      `- actual frontend apiCalls  : ${this.nextApiCallIndex}`,
+      `- expected frontend apiCalls: ${this.apiCalls.length}`,
       `Please, add to the frontend the missing (${
-        this.interactions.length - this.nextInteractionIndex
+        this.apiCalls.length - this.nextApiCallIndex
       }) backend api calls.`,
     );
   }
 }
 
-async function readInteractionsFile(path) {
+async function readApiCallsFile(path) {
   return readFile(path, { encoding: "utf8" }).then((c) => JSON.parse(c));
 }
 
-function getInteractionsPath(postId) {
+function getApiCallsPath(postId) {
   return path.join(
     __dirname,
     "..",
@@ -156,7 +156,7 @@ function getInteractionsPath(postId) {
     "..",
     "target",
     "classes",
-    "frontendBackendInteractions",
+    "apiCalls",
     `${postId}.json`,
   );
 }

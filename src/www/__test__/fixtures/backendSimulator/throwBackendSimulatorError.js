@@ -24,7 +24,7 @@ export function throwBackendSimulatorError(backendSimulator, ...messages) {
   process.stderr.write(chalk.gray(output));
 
   throw new Error(
-    `Error: ${backendSimulator.postId} backend interactions failed. ${message}`,
+    `Error: ${backendSimulator.postId} backend apiCalls failed. ${message}`,
   );
 }
 
@@ -65,44 +65,36 @@ function please(output) {
 
 function explainSituation(backendSimulator) {
   let result = [
-    `\nThe interaction simulation between backend and frontend is recorded at:`,
+    `\nThe apiCall simulation between backend and frontend is recorded at:`,
   ];
   result.push(chalk.black.underline(backendSimulator.filePath));
-  result.push(`\nThe recorded interactions are:`);
+  result.push(`\nThe recorded apiCalls are:`);
 
-  for (let i = 0; i < backendSimulator.nextInteractionIndex; i += 1)
-    result.push(
-      chalk.green(`   ${explainLineInteraction(backendSimulator, i)}`),
-    );
+  for (let i = 0; i < backendSimulator.nextApiCallIndex; i += 1)
+    result.push(chalk.green(`   ${explainLineApiCall(backendSimulator, i)}`));
 
-  if (
-    backendSimulator.nextInteractionIndex < backendSimulator.interactions.length
-  )
+  if (backendSimulator.nextApiCallIndex < backendSimulator.apiCalls.length)
     result.push(
       chalk.red(
-        `** ${explainLineInteraction(
+        `** ${explainLineApiCall(
           backendSimulator,
-          backendSimulator.nextInteractionIndex,
+          backendSimulator.nextApiCallIndex,
         )}`,
       ),
     );
 
   for (
-    let i = backendSimulator.nextInteractionIndex + 1;
-    i < backendSimulator.interactions.length;
+    let i = backendSimulator.nextApiCallIndex + 1;
+    i < backendSimulator.apiCalls.length;
     i += 1
   )
-    result.push(
-      chalk.grey(`   ${explainLineInteraction(backendSimulator, i)}`),
-    );
+    result.push(chalk.grey(`   ${explainLineApiCall(backendSimulator, i)}`));
 
-  if (
-    backendSimulator.nextInteractionIndex < backendSimulator.interactions.length
-  ) {
-    result.push(`\nThe next expected interaction is:`);
+  if (backendSimulator.nextApiCallIndex < backendSimulator.apiCalls.length) {
+    result.push(`\nThe next expected apiCall is:`);
     result.push(
-      explainInteraction(
-        backendSimulator.interactions[backendSimulator.nextInteractionIndex],
+      explainApiCall(
+        backendSimulator.apiCalls[backendSimulator.nextApiCallIndex],
       ),
     );
   }
@@ -110,30 +102,30 @@ function explainSituation(backendSimulator) {
   return result;
 }
 
-function explainLineInteraction(backendSimulator, index) {
-  const interaction = backendSimulator.interactions[index];
-  return `[${pad(index + 1)}]  ${interaction.request.method} ${
-    interaction.request.url
+function explainLineApiCall(backendSimulator, index) {
+  const apiCall = backendSimulator.apiCalls[index];
+  return `[${pad(index + 1)}]  ${apiCall.request.method} ${
+    apiCall.request.url
   }`;
 }
-export function explainRequest(interaction) {
+export function explainRequest(apiCall) {
   return [
-    `- method: "${interaction.method}"`,
-    `- url   : "${interaction.url}"`,
-    interaction.body
-      ? `- body  : ${JSON.stringify(interaction.body, null, 2)}`
+    `- method: "${apiCall.method}"`,
+    `- url   : "${apiCall.url}"`,
+    apiCall.body
+      ? `- body  : ${JSON.stringify(apiCall.body, null, 2)}`
       : `- body  : null`,
   ];
 }
 
-function explainInteraction(interaction) {
+function explainApiCall(apiCall) {
   return [
-    `- request method : "${interaction.request.method}"`,
-    `- request url    : "${interaction.request.url}"`,
-    interaction.body
-      ? `- request body   : ${JSON.stringify(interaction.body, null, 2)}`
+    `- request method : "${apiCall.request.method}"`,
+    `- request url    : "${apiCall.request.url}"`,
+    apiCall.body
+      ? `- request body   : ${JSON.stringify(apiCall.body, null, 2)}`
       : `- request body   : null`,
-    `- response body  : ${JSON.stringify(interaction.response.body, null, 2)}`,
+    `- response body  : ${JSON.stringify(apiCall.response.body, null, 2)}`,
   ];
 }
 
