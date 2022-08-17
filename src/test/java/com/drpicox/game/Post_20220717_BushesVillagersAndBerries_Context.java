@@ -25,7 +25,7 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
     public void beforeTest() {
     }
 
-    public void enterInTheGame() {
+    public void enterTheGame() {
         // example:  * Enter in the game.
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
