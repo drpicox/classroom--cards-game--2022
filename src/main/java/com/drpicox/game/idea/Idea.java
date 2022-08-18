@@ -31,12 +31,4 @@ public class Idea implements HasName {
     }
 
     private Idea() {} // JPA required constructor
-
-    public Map<String, Card> getRequiredCards(Stack stack) {
-        var result = new HashMap<>();
-        var requiredCardCount = requirements.stream().mapToInt(r -> r.getValue()).sum();
-        var range = stack.subCardList(1, 1 + requiredCardCount);
-
-        return null;
-    }
 }

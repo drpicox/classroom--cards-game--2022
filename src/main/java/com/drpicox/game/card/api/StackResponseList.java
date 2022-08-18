@@ -1,12 +1,15 @@
 package com.drpicox.game.card.api;
 
 import com.drpicox.game.game.api.GameResponse;
+import com.drpicox.game.util.OneCollector;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static com.drpicox.game.util.OneCollector.toOne;
 
 public class StackResponseList {
     public static List<DerivedStackResponse> findAllStack(GameResponse game) {
@@ -26,8 +29,8 @@ public class StackResponseList {
         return result;
     }
 
-    public static Optional<DerivedStackResponse> findStack(GameResponse gameResponse, Predicate<? super DerivedStackResponse> predicate) {
-        return findAllStack(gameResponse).stream().filter(predicate).findAny();
+    public static DerivedStackResponse getStack(GameResponse gameResponse, Predicate<? super DerivedStackResponse> predicate) {
+        return findAllStack(gameResponse).stream().filter(predicate).collect(toOne());
     }
 
     private static DerivedStackResponse getStackByPosition(List<CardResponse> cards, int position) {

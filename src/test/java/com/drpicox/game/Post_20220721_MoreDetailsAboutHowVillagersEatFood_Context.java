@@ -9,8 +9,7 @@ import com.drpicox.game.game.GameService;
 import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.card.api.CardResponseList.findAllCard;
-import static com.drpicox.game.card.api.CardResponseList.findCard;
+import static com.drpicox.game.card.api.CardResponseList.*;
 import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
@@ -50,7 +49,7 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     public void theSCardShouldHaveNInSTag(String cardName, int count, String tagName) {
         // example:  * The "villager" card should have 1 in "eats" tag.
-        var matchingCard = findCard(game, byName(cardName)).get();
+        var matchingCard = getCard(game, byName(cardName));
         assertThat(matchingCard.getTag(tagName)).isEqualTo(count);
     }
 

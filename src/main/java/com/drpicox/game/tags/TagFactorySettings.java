@@ -14,17 +14,8 @@ public class TagFactorySettings extends Settings {
         return this;
     }
 
-    public TagFactorySettings withTagName(String tagName) {
-        set("tagName", tagName);
-        return this;
-    }
-
     public String getCardId() {
         return get("cardId");
-    }
-
-    public String getTagName() {
-        return get("tagName");
     }
 
     public Constants getCardConstants() {

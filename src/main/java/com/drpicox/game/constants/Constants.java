@@ -29,14 +29,6 @@ public class Constants {
         return new Constants(properties);
     }
 
-    public Stream<String> streamKeysStartWith(String prefix) {
-        return properties.keySet().stream().filter(k -> k.startsWith(prefix));
-    }
-
-    public int getInt(String key) {
-        return Integer.parseInt(properties.get(key));
-    }
-
     public String getString(String key) {
         return properties.get(key);
     }
@@ -47,10 +39,6 @@ public class Constants {
 
     public Collection<String> keySet() {
         return properties.keySet();
-    }
-
-    public List<String> findAllKeysStartingBy(String prefix) {
-        return properties.keySet().stream().filter(k -> k.startsWith(prefix)).toList();
     }
 
     private List<String> findAllNumberedKeys(String key) {

@@ -16,7 +16,7 @@ public class GameResponseFactoryStep_100_Ideas implements GameResponseFactorySte
 
     @Override
     public void execute(GameResponseFactorySettings settings) {
-        var ideas = ideaService.findAll().stream().map(c -> new IdeaResponse(c)).toList();
+        var ideas = new IdeaResponseList(ideaService.findAll());
 
         var gameResponse = settings.getGameResponse();
         gameResponse.put("ideas", ideas);

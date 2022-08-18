@@ -14,8 +14,7 @@ import com.drpicox.game.idea.api.DrawIdeaForm;
 import com.drpicox.game.idea.api.IdeaResponseList;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.card.api.CardResponseList.findAllCard;
-import static com.drpicox.game.card.api.CardResponseList.findCard;
+import static com.drpicox.game.card.api.CardResponseList.*;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -60,10 +59,8 @@ public class Post_20220723_Ideas_Context {
         // text:  * There should be the "Harvest Idea" idea.
         // code: this.thereShouldBeTheSIdea("Harvest Idea")
 
-        IdeaResponseList.findIdea(game, byName(expected));
-        var actual = ideaService.findByName(expected);
-        assertThat(actual).isPresent();
-        assertThat(actual.get().getTagName()).isEqualTo(expected);
+        var actual = IdeaResponseList.getIdea(game, byName(expected));
+        assertThat(actual.getTagName()).isEqualTo(expected);
     }
 
     public void thereShouldBeNSCards(int expected, String cardName) {
@@ -100,28 +97,31 @@ public class Post_20220723_Ideas_Context {
         // text:  * Discard 1 "Harvest Idea" cards.
         // code: this.discardNSCards(1, "Harvest Idea")
 
-        var card = CardResponseList.findCard(game, byName(cardName)).get();
-        game = frontendSimulator.post("/api/v1/game/cards/discard", new DiscardCardForm(card.getId()), GameResponse.class);
+        var cards = findAllCard(game, byName(cardName));
+        var discards = cards.subList(0, count);
+        for (var card : discards) {
+            game = frontendSimulator.post("/api/v1/game/cards/discard", new DiscardCardForm(card.getId()), GameResponse.class);
+        }
     }
 
 
     public void theSCardShouldHaveNInSTag(String cardName, int value, String tagName) {
         // * The "Villager" card should have 1 in "Fruit Plant" tag.
-        var matchingCard = findCard(game, byName(cardName)).get();
+        var matchingCard = getCard(game, byName(cardName));
         assertThat(matchingCard.getTag(tagName)).isEqualTo(value);
     }
 
 
     public void theSCardDescriptionShouldSaySIsS(String cardName, String term, String text) {
         // * The "Berry Bush" card description should say "Fruit" is "Berry".
-        var matchingCard = findCard(game, byName(cardName)).get();
+        var matchingCard = getCard(game, byName(cardName));
         assertThat(matchingCard.getDescriptionTerm(term)).contains(text);
     }
 
     public void theSIdeaShouldRequireTheSumOfNInSTagCards(String ideaName, int value, String tagName) {
         // * The "Harvest Idea" idea should require the sum of 1 in "Fruit Plant" tag cards.
 
-        var idea = IdeaResponseList.findIdea(game, byName(ideaName)).get();
+        var idea = IdeaResponseList.getIdea(game, byName(ideaName));
         var requirement = idea.findTagRequirement(tagName).get();
         assertThat(requirement.getValue()).isEqualTo(value);
     }
@@ -135,7 +135,7 @@ public class Post_20220723_Ideas_Context {
     }
 
     public void moveTheSCardToItsOwnStack(String cardName) {
-        var card = CardResponseList.findCard(game, byName(cardName)).get();
+        var card = getCard(game, byName(cardName));
         var cardId = card.getId();
         var position = StackResponseList.getFreePosition(game);
         var zindex = 0;
@@ -147,11 +147,11 @@ public class Post_20220723_Ideas_Context {
         // text:  * Move the "Villager" card on top of the "Harvest Idea" card.
         // code: this.moveTheSCardOnTopOfTheSCard("Villager", "Harvest Idea")
 
-        var targetCard = CardResponseList.findCard(game, byName(targetCardName)).get();
+        var targetCard = getCard(game, byName(targetCardName));
         var position = targetCard.getPosition();
         var zindex = targetCard.getZindex();
 
-        var card = CardResponseList.findCard(game, byName(sourceCardName)).get();
+        var card = getCard(game, byName(sourceCardName));
         var cardId = card.getId();
 
         game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameResponse.class);

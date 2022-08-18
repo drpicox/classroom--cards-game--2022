@@ -2,14 +2,13 @@ package com.drpicox.game.card.api;
 
 import com.drpicox.game.card.Card;
 import com.drpicox.game.tags.api.TagResponse;
-import com.drpicox.game.util.HasId;
 import com.drpicox.game.util.HasName;
 import com.drpicox.game.util.HasPosition;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CardResponse implements HasId, HasName, HasPosition {
+public class CardResponse implements HasName, HasPosition {
 
     private String id;
     private String name;
@@ -31,7 +30,6 @@ public class CardResponse implements HasId, HasName, HasPosition {
         });
     }
 
-    @Override
     public String getId() {
         return id;
     }

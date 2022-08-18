@@ -6,6 +6,7 @@ import com.drpicox.game.blog.PostParser;
 import com.drpicox.game.constants.Constants;
 import com.drpicox.game.constants.ConstantsCollection;
 import com.drpicox.game.constants.ConstantsLoader;
+import com.drpicox.game.util.OneCollector;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -123,6 +125,28 @@ public class HintsForStudentsTest {
         assertThat(found.toString()).contains("demo");
         assertThat(found.toString()).contains("some/path.properties");
         assertThat(found.toString()).contains("src/main/resources/demo");
+    }
+
+    @Test public void one_collector_fails_if_too_much_elements() {
+        Throwable found = null;
+        try {
+            var l = List.of("a", "b");
+            l.stream().collect(OneCollector.toOne());
+        } catch (Throwable th) {
+            found = th;
+        }
+        assertThat(found).isNotNull();
+    }
+
+    @Test public void one_collector_fails_if_none_elements() {
+        Throwable found = null;
+        try {
+            var l = List.of();
+            l.stream().collect(OneCollector.toOne());
+        } catch (Throwable th) {
+            found = th;
+        }
+        assertThat(found).isNotNull();
     }
 
     private static Constants newConstants(String name) {

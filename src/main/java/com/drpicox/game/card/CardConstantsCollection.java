@@ -21,8 +21,4 @@ public class CardConstantsCollection {
     public Constants getByName(String constantsNameValue) {
         return cardConstantsCollection.getByName(constantsNameValue);
     }
-
-    public Collection<String> getAllNames() {
-        return cardConstantsCollection.getAllNames();
-    }
 }

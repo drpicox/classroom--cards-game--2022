@@ -12,7 +12,7 @@ public class IdeaEndMoonSettings extends EndMoonSettings {
 
     public IdeaEndMoonSettings withStack(Stack stack) {
         set("stack", stack);
-        set("summary", stack.getSummary());
+        set("summary", getStack().getSummary());
         return this;
     }
 

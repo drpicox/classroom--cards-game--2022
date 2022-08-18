@@ -13,14 +13,6 @@ public class CardListSummary {
         return cards.stream().mapToInt(card -> card.getTagValue(tagValue)).sum();
     }
 
-    public String getDescriptionTerm(String term) {
-        return cards.stream()
-            .map(card -> card.getDescriptionTerm(term))
-            .filter(value -> value != null)
-            .findFirst()
-            .get();
-    }
-
     public List<Card> findAllCardByDescriptionTermAndTagName(String term, String tagName) {
         return cards.stream()
             .filter(card -> card.getDescriptionTerm(term) != null)

@@ -61,8 +61,4 @@ public class ConstantsCollection {
         );
     }
 
-    public Collection<String> getAllNames() {
-        return constantsByName.keySet();
-    }
-
 }

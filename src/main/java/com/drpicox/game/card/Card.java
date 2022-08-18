@@ -1,7 +1,6 @@
 package com.drpicox.game.card;
 
 import com.drpicox.game.tags.Tag;
-import com.drpicox.game.util.HasId;
 import com.drpicox.game.util.HasName;
 import com.drpicox.game.util.HasPosition;
 
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-public class Card implements HasId, HasName, HasPosition {
+public class Card implements HasName, HasPosition {
     @Id private String id;
     private String name;
     private int position;

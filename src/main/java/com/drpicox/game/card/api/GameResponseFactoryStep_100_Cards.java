@@ -16,7 +16,7 @@ public class GameResponseFactoryStep_100_Cards implements GameResponseFactorySte
 
     @Override
     public void execute(GameResponseFactorySettings settings) {
-        var cards = cardService.findAll().stream().map(c -> new CardResponse(c)).toList();
+        var cards = new CardResponseList(cardService.findAll());
 
         var gameResponse = settings.getGameResponse();
         gameResponse.put("cards", cards);

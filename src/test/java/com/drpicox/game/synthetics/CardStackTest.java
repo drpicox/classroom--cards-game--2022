@@ -13,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.drpicox.game.card.api.StackResponseList.findAllStack;
-import static com.drpicox.game.card.api.StackResponseList.findStack;
+import static com.drpicox.game.card.api.StackResponseList.*;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -134,11 +133,11 @@ public class CardStackTest {
 
         var game = gameResponseFactory.makeGameResponse();
         var appleService = cardService.findCard(byName("Apple")).get();
-        var appleResponse = CardResponseList.findCard(game, byName("Apple")).get();
+        var appleResponse = CardResponseList.getCard(game, byName("Apple"));
         var berryService = cardService.findCard(byName("Berry")).get();
-        var berryResponse = CardResponseList.findCard(game, byName("Berry")).get();
+        var berryResponse = CardResponseList.getCard(game, byName("Berry"));
         var stackService = cardPositionService.getStackByPosition(0);
-        var stackResponse = StackResponseList.findStack(game, Positions.byPosition(0)).get();
+        var stackResponse = StackResponseList.getStack(game, Positions.byPosition(0));
 
         assertThat(appleService.toString()).contains("apple");
         assertThat(appleService.toString()).contains("0");
@@ -211,11 +210,11 @@ public class CardStackTest {
 
         givenStackService.givenStackAt(5, byNames("Berry", "Berry Bush"));
         assertThat(findAllStack(getGame(), byNames("Berry", "Berry Bush"))).hasSize(1);
-        assertThat(findStack(getGame(), Positions.byPosition(5)).get().getName(1)).isEqualTo("Berry Bush");
+        assertThat(getStack(getGame(), Positions.byPosition(5)).getName(1)).isEqualTo("Berry Bush");
 
         givenStackService.givenStackAt(5, byNames("Apple", "Apple Tree"));
         assertThat(findAllStack(getGame(), byNames("Apple", "Apple Tree"))).hasSize(1);
-        assertThat(findStack(getGame(), Positions.byPosition(5)).get().getName(1)).isEqualTo("Apple Tree");
+        assertThat(getStack(getGame(), Positions.byPosition(5)).getName(1)).isEqualTo("Apple Tree");
     }
 
     @Test
