@@ -12,7 +12,7 @@ It works based on Java 17.
 
 **MacOS**
 
-Tested with correto-17 17.0.4 (aarch64)
+Tested with correto-17 17.0.4.1 (aarch64)
 
 In mac, add to ~/.zshrc:
 

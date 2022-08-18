@@ -74,4 +74,10 @@ public class StackService {
     private Stack getStack(Card stackCard) {
         return getStack(stackCard.getPosition());
     }
+
+    public List<Stack> findAllStackByBottomCardName(String cardName) {
+        var bottomCards = cardRepository.findAllByNameAndZindex(cardName, 0);
+        var stacks = bottomCards.stream().map(this::getStack).toList();
+        return stacks;
+    }
 }

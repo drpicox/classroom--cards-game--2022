@@ -19,6 +19,11 @@ public class Stack implements HasNames {
         return cards;
     }
 
+    public List<Card> subCardList(int fromIndex, int toIndexExclusive) {
+        return new ArrayList<>(cards.subList(fromIndex, toIndexExclusive));
+    }
+
+
     public List<Card> stackOver(List<Card> cards) {
         var zindex = getMaxZindex();
         for (var card: cards) {
@@ -90,7 +95,11 @@ public class Stack implements HasNames {
 
     @Override
     public String getName(int index) {
-        return cards.get(index).getName();
+        return cards.get(index).getTagName();
+    }
+
+    public CardListSummary getSummary() {
+        return new CardListSummary(cards);
     }
 
     @Override

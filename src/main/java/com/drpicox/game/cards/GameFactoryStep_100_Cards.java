@@ -16,14 +16,13 @@ public class GameFactoryStep_100_Cards implements GameFactoryStep {
     @Override
     public void execute(GameFactorySettings settings) {
         var gameConstants = settings.getGameConstants();
-        var initialCountsKeys = gameConstants.findAllKeysStartingBy("cards.initialCount.");
+        var initialCounts = gameConstants.getCsvTable("card.initialCounts");
 
-        for (var initialCountKey : initialCountsKeys) {
-            var csv = gameConstants.getCsv(initialCountKey);
-            var cardName = csv[0];
-            var count = Integer.parseInt(csv[1]);
-            for (var i = 0; i < count; i += 1)
-                cardFactory.makeCard(new CardFactorySettings(cardName));
+        for (var row : initialCounts.getRows()) {
+            var cardName = row.get("cardName");
+            var initialCount = row.getInt("initialCount");
+
+            cardFactory.makeCards(initialCount, new CardFactorySettings(cardName));
         }
     }
 }

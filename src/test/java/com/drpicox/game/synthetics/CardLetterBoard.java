@@ -89,7 +89,7 @@ public class CardLetterBoard {
 
         var stack = cardPositionService.getStackByPosition(position);
         for (var card: stack.getCards()) {
-            var letter = cardNameToLetter.get(card.getName());
+            var letter = cardNameToLetter.get(card.getTagName());
             result.append(letter);
         }
 
@@ -114,7 +114,7 @@ public class CardLetterBoard {
         var result = new StringBuilder();
 
         for (var card: stack.getCards()) {
-            var letter = cardNameToLetter.get(card.getName());
+            var letter = cardNameToLetter.get(card.getTagName());
             result.append(letter);
         }
 

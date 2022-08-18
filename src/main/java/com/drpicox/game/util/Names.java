@@ -1,7 +1,5 @@
 package com.drpicox.game.util;
 
-import com.drpicox.game.cards.api.DerivedStackResponse;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,16 +7,16 @@ import java.util.function.Predicate;
 
 public class Names implements Predicate<HasNames>, Iterable<String>, HasNames {
 
-    public static Predicate<? super HasName> byName(String cardName) {
-        return (hasName) -> hasName.getName().equals(cardName);
+    public static Predicate<? super HasName> byName(String name) {
+        return (hasName) -> hasName.getTagName().equals(name);
     }
 
-    public static Names byNames(String... cardNames) {
-        return new Names().and(cardNames);
+    public static Names byNames(String... names) {
+        return new Names().and(names);
     }
 
-    public static Names byNames(int count, String cardName) {
-        return new Names().and(count, cardName);
+    public static Names byNames(int count, String name) {
+        return new Names().and(count, name);
     }
 
     private List<String> names = new ArrayList<>();
@@ -26,12 +24,12 @@ public class Names implements Predicate<HasNames>, Iterable<String>, HasNames {
     private Names() {}
 
     public Names and(String ... and) {
-        for (var cardName: and) names.add(cardName);
+        for (var name: and) names.add(name);
         return this;
     }
 
-    public Names and(int count, String cardName) {
-        for (var i = 0; i < count; i += 1) names.add(cardName);
+    public Names and(int count, String name) {
+        for (var i = 0; i < count; i += 1) names.add(name);
         return this;
     }
 

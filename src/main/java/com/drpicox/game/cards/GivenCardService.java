@@ -2,8 +2,10 @@ package com.drpicox.game.cards;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.function.Predicate;
 
+import static com.drpicox.game.util.GivenAlgorithm.given;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Positions.byPosition;
 
@@ -18,26 +20,21 @@ public class GivenCardService {
         this.cardFactory = cardFactory;
     }
 
-    public void givenCard(int count, String cardName) {
-        givenCard(count, new CardFactorySettings(cardName));
+    public List<Card> givenCard(int count, String cardName) {
+        return givenCard(count, new CardFactorySettings(cardName));
     }
 
-    public void givenCard(int count, CardFactorySettings settings) {
+    public List<Card> givenCard(int count, CardFactorySettings settings) {
         var cardName = settings.getCardName();
-        var predicate =  (Predicate<Card>) (Predicate) byName(cardName);
-        if (settings.hasPosition()) predicate = predicate.and(byPosition(settings.getPosition()));
-        var cards = cardService.findAllCards(predicate);
+        var hasPosition = settings.hasPosition();
+        var position = settings.getPosition();
 
-        var remaining = count - cards.size();
-        while (remaining < 0) {
-            var excess = cards.get(cards.size() + remaining);
-            cardService.discardCard(excess);
-            remaining += 1;
-        }
-
-        while (remaining > 0) {
-            cardFactory.makeCard(settings);
-            remaining -= 1;
-        }
+        return given(count,
+            () -> cardService.findAllCards(byName(cardName)).stream()
+                .filter(c -> !hasPosition || c.getPosition() == position)
+                .toList(),
+            card -> cardService.discardCard(card),
+            () -> cardFactory.makeCard(settings)
+        );
     }
 }

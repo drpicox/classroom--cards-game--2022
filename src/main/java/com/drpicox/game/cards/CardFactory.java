@@ -2,12 +2,11 @@ package com.drpicox.game.cards;
 
 import com.drpicox.game.tags.TagFactory;
 import com.drpicox.game.tags.TagFactorySettings;
-import com.drpicox.game.constants.ConstantsCollection;
-import com.drpicox.game.constants.ConstantsLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class CardFactory {
@@ -15,28 +14,51 @@ public class CardFactory {
     private final CardRepository cardRepository;
     private final CardPositionService cardPositionService;
     private final TagFactory tagFactory;
-    private final ConstantsCollection cardConstantsCollection;
+    private final CardConstantsCollection cardConstantsCollection;
 
-    public CardFactory(CardRepository cardRepository, CardPositionService cardPositionService, TagFactory tagFactory, ConstantsLoader constantsLoader) throws IOException, URISyntaxException {
+    public CardFactory(CardRepository cardRepository, CardPositionService cardPositionService, TagFactory tagFactory, CardConstantsCollection cardConstantsCollection) {
         this.cardRepository = cardRepository;
         this.cardPositionService = cardPositionService;
         this.tagFactory = tagFactory;
-        this.cardConstantsCollection = constantsLoader.loadCollection("cards");
+        this.cardConstantsCollection = cardConstantsCollection;
+    }
+
+    public void makeCards(int count, CardFactorySettings settings) {
+        for (int i = 0; i < count; i++) {
+            makeCard(settings);
+        }
     }
 
     public Card makeCard(CardFactorySettings settings) {
         var cardName = settings.getCardName();
 
+        var cardConstants = cardConstantsCollection.getByName(cardName);
+        settings.withCardConstants(cardConstants);
+
         var cardId = getNextId(settings);
 
-        var cardConstants = cardConstantsCollection.getByName(cardName);
         var tags = tagFactory.makeAllTags(new TagFactorySettings(cardId).withCardConstants(cardConstants));
         var position = settings.getPosition();
         var zindex = cardPositionService.getStackByPosition(position).getMaxZindex() + 1;
+        var description = getCardDescription(settings);
 
-        var card = new Card(cardId, cardName, tags, position, zindex);
+        var card = new Card(cardId, cardName, description, tags, position, zindex);
         cardRepository.save(card);
         return card;
+    }
+
+    private Map<String, String> getCardDescription(CardFactorySettings settings) {
+        var description = new TreeMap<String, String>();
+        var cardConstants = settings.getCardConstants();
+
+        var descriptionTable = cardConstants.getCsvTable("description");
+        for (var descriptionRow: descriptionTable.getRows()) {
+            var term = descriptionRow.get("term");
+            var text = descriptionRow.get("text");
+            description.put(term, text);
+        }
+
+        return description;
     }
 
     private final String getNextId(CardFactorySettings settings) {

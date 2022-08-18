@@ -1,6 +1,7 @@
 package com.drpicox.game.cards.api;
 
 import com.drpicox.game.cards.Card;
+import com.drpicox.game.tags.api.TagResponse;
 import com.drpicox.game.util.HasId;
 import com.drpicox.game.util.HasName;
 import com.drpicox.game.util.HasPosition;
@@ -15,12 +16,14 @@ public class CardResponse implements HasId, HasName, HasPosition {
     private int position;
     private int zindex;
     private Map<String, TagResponse> tags = new TreeMap<>();
+    private Map<String, String> description;
 
     public CardResponse(Card card) {
         this.id = card.getId();
-        this.name = card.getName();
+        this.name = card.getTagName();
         this.position = card.getPosition();
         this.zindex = card.getZindex();
+        this.description = card.getDescription();
 
         card.getTags().stream().forEach(tag -> {
             var response = new TagResponse(tag);
@@ -33,7 +36,7 @@ public class CardResponse implements HasId, HasName, HasPosition {
         return id;
     }
 
-    public String getName() {
+    public String getTagName() {
         return name;
     }
 
@@ -50,6 +53,10 @@ public class CardResponse implements HasId, HasName, HasPosition {
 
         if (tag == null) return 0;
         return tag.getValue();
+    }
+
+    public String getDescriptionTerm(String term) {
+        return description.get(term);
     }
 
     public String toString() {

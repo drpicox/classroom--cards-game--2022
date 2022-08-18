@@ -10,7 +10,7 @@ import { Post_20220719_VillagersEatFood_Context } from "./Post_20220719_Villager
 test("2022-07-19_villagers_eat_food.md", async () => {
   await runBeforeTestStarts(
     "2022-07-19_villagers_eat_food",
-    "5f056760574817f08bff7e5ca21bb7b1"
+    "5676d483cdf298b3ed6e81e15d2ebc95"
   );
 
   const context = new Post_20220719_VillagersEatFood_Context();
@@ -20,8 +20,8 @@ test("2022-07-19_villagers_eat_food.md", async () => {
 
   // ## Berries are food                                             // ## Berries are food
   await context.givenWeHaveEnteredIntoANewGame(); //                 // * Given we have entered into a new game.
-  await context.theSCardShouldHaveNInSTag("Berry", 1, "food"); //    // * The "Berry" card should have 1 in "food" tag.
-  await context.theSCardShouldHaveNInSTag("Villager", 1, "eats"); // // * The "Villager" card should have 1 in "eats" tag.
+  await context.theSCardShouldHaveNInSTag("Berry", 1, "Food"); //    // * The "Berry" card should have 1 in "Food" tag.
+  await context.theSCardShouldHaveNInSTag("Villager", 1, "Eats"); // // * The "Villager" card should have 1 in "Eats" tag.
 
   // ## Moons                                                        // ## Moons
   await context.endTheCurrentMoon(); //                              // * End the current moon.

@@ -1,4 +1,4 @@
-package com.drpicox.game.cards.api;
+package com.drpicox.game.tags.api;
 
 import com.drpicox.game.tags.Tag;
 

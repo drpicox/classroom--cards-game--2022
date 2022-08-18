@@ -21,15 +21,15 @@ public class Post_20220719_VillagersEatFood_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() throws Throwable {
-        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "5f056760574817f08bff7e5ca21bb7b1");
+        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "5676d483cdf298b3ed6e81e15d2ebc95");
         context.beforeTest();
 
         // # Villagers Eat Food                                   // # Villagers Eat Food
 
         // ## Berries are food                                    // ## Berries are food
         context.givenWeHaveEnteredIntoANewGame();                 // * Given we have entered into a new game.
-        context.theSCardShouldHaveNInSTag("Berry", 1, "food");    // * The "Berry" card should have 1 in "food" tag.
-        context.theSCardShouldHaveNInSTag("Villager", 1, "eats"); // * The "Villager" card should have 1 in "eats" tag.
+        context.theSCardShouldHaveNInSTag("Berry", 1, "Food");    // * The "Berry" card should have 1 in "Food" tag.
+        context.theSCardShouldHaveNInSTag("Villager", 1, "Eats"); // * The "Villager" card should have 1 in "Eats" tag.
 
         // ## Moons                                               // ## Moons
         context.endTheCurrentMoon();                              // * End the current moon.

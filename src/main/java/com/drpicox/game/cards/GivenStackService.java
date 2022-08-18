@@ -1,7 +1,12 @@
 package com.drpicox.game.cards;
 
+import com.drpicox.game.util.GivenAlgorithm;
 import com.drpicox.game.util.Names;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static com.drpicox.game.util.GivenAlgorithm.given;
 
 @Service
 public class GivenStackService {
@@ -17,21 +22,12 @@ public class GivenStackService {
     }
 
 
-    public void givenStack(int count, Names names) {
-        var stacks = stackService.findAllStack(names);
-
-        var remaining = count - stacks.size();
-
-        while (remaining < 0) {
-            var excess = stacks.get(stacks.size() + remaining);
-            stackService.discardStack(excess);
-            remaining += 1;
-        }
-
-        while (remaining > 0) {
-            createStack(names);
-            remaining -= 1;
-        }
+    public List<Stack> givenStack(int count, Names names) {
+        return given(count,
+            () -> stackService.findAllStack(names),
+            card -> stackService.discardStack(card),
+            () -> createStack(names)
+        );
     }
 
     public void givenStackAt(int position, Names names) {
@@ -39,15 +35,16 @@ public class GivenStackService {
         createStack(names, new CardFactorySettings().withPosition(position));
     }
 
-    private void createStack(Names names) {
+    private Stack createStack(Names names) {
         var freePosition = cardPositionService.getCardFreePosition();
         var settings = new CardFactorySettings().withPosition(freePosition);
-        createStack(names, settings);
+        return createStack(names, settings);
     }
 
-    private void createStack(Names names, CardFactorySettings settings) {
+    private Stack createStack(Names names, CardFactorySettings settings) {
         for (var cardName: names) {
             cardFactory.makeCard(settings.withCardName(cardName));
         }
+        return cardPositionService.getStackByPosition(settings.getPosition());
     }
 }

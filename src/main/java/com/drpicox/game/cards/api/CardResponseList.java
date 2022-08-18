@@ -15,15 +15,17 @@ public class CardResponseList extends ArrayList<CardResponse> {
     }
 
     public static List<CardResponse> findAllCards(GameResponse gameResponse) {
-        return gameResponse.deserializeField("cards", CardResponseList.class);
+        var result = gameResponse.deserializeField("cards", CardResponseList.class);
+        return result;
     }
 
     public static List<CardResponse> findAllCards(GameResponse gameResponse, Predicate<? super CardResponse> predicate) {
-        return findAllCards(gameResponse).stream().filter(predicate).toList();
+        var result = findAllCards(gameResponse).stream().filter(predicate).toList();
+        return result;
     }
 
     public static Optional<CardResponse> findCard(GameResponse gameResponse, Predicate<? super CardResponse> predicate) {
-        // TODO: JPA throws an exception if there is more than one result
+        // TODO: Card singular and use predicate on the first directly to avoid too many array conversions
         return findAllCards(gameResponse, predicate).stream().findAny();
     }
 

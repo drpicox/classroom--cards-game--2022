@@ -2,6 +2,8 @@ package com.drpicox.game;
 
 import com.drpicox.game.cards.CardFactorySettings;
 import com.drpicox.game.cards.GivenCardService;
+import com.drpicox.game.game.GameFactory;
+import com.drpicox.game.game.GameFactorySettings;
 import com.drpicox.game.game.GameService;
 import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Component;
@@ -21,18 +23,20 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     private final FrontendSimulator frontendSimulator;
     private final GameService gameService;
+    private final GameFactory gameFactory;
     private final GivenCardService givenCardService;
 
     private GameResponse game;
 
-    public Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context(FrontendSimulator frontendSimulator, GameService gameService, GivenCardService givenCardService) {
+    public Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context(FrontendSimulator frontendSimulator, GameService gameService, GameFactory gameFactory, GivenCardService givenCardService) {
         this.frontendSimulator = frontendSimulator;
         this.gameService = gameService;
+        this.gameFactory = gameFactory;
         this.givenCardService = givenCardService;
     }
 
     public void beforeTest() throws IOException, URISyntaxException {
-        gameService.create("empty");
+        gameFactory.makeGame(new GameFactorySettings());
     }
 
     public void givenThereAreNSAndNSCards(int count1, String name1, int count2, String name2) {

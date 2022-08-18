@@ -5,10 +5,12 @@ import com.drpicox.game.util.HasId;
 import com.drpicox.game.util.HasName;
 import com.drpicox.game.util.HasPosition;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Card implements HasId, HasName, HasPosition {
@@ -17,12 +19,15 @@ public class Card implements HasId, HasName, HasPosition {
     private int position;
     private int zindex;
 
+    @ElementCollection private Map<String,String> description;
+
     @OneToMany
     private List<Tag> tags;
 
-    public Card(String id, String name, List<Tag> tags, int position, int zindex) {
+    public Card(String id, String name, Map<String,String> description, List<Tag> tags, int position, int zindex) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.tags = tags;
         this.position = position;
         this.zindex = zindex;
@@ -32,7 +37,7 @@ public class Card implements HasId, HasName, HasPosition {
         return id;
     }
 
-    public String getName() {
+    public String getTagName() {
         return name;
     }
 
@@ -51,6 +56,14 @@ public class Card implements HasId, HasName, HasPosition {
     public void placeAt(int position, int zindex) {
         this.position = position;
         this.zindex = zindex;
+    }
+
+    public Map<String, String> getDescription() {
+        return description;
+    }
+
+    public String getDescriptionTerm(String term) {
+        return description.get(term);
     }
 
     protected Card() {}

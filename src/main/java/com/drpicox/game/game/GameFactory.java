@@ -1,7 +1,6 @@
 package com.drpicox.game.game;
 
 import com.drpicox.game.constants.ConstantsLoader;
-import com.drpicox.game.util.Settings;
 import com.drpicox.game.util.Steps;
 import org.springframework.stereotype.Service;
 
@@ -13,17 +12,28 @@ import java.util.List;
 public class GameFactory {
 
     private final ConstantsLoader constantsLoader;
-    private final Steps<GameFactorySettings> gameBuilderSteps;
+    private final GameRepository gameRepository;
+    private final Steps<GameFactorySettings> gameFactorySteps;
+    private final Steps<GameFactorySettings> gameDeleteSteps;
 
-    public GameFactory(ConstantsLoader constantsLoader, List<GameFactoryStep> gameFactorySteps) {
+    public GameFactory(ConstantsLoader constantsLoader, GameRepository gameRepository, List<GameFactoryStep> gameFactorySteps, List<GameDeleteStep> gameDeleteSteps) {
         this.constantsLoader = constantsLoader;
-        this.gameBuilderSteps = Steps.from(gameFactorySteps);
+        this.gameRepository = gameRepository;
+        this.gameFactorySteps = Steps.from(gameFactorySteps);
+        this.gameDeleteSteps = Steps.from(gameDeleteSteps);
     }
 
-    public void makeGame(String name) throws IOException, URISyntaxException {
-        var gameConstants = constantsLoader.load("games/" + name + ".properties");
-        var settings = new GameFactorySettings(gameConstants);
-        gameBuilderSteps.execute(settings);
+    public void makeGame(GameFactorySettings settings) throws IOException, URISyntaxException {
+        this.gameRepository.save(new Game(GameService.GAME_ID));
+
+        var gameName = settings.getGameName();
+        var gameConstants = constantsLoader.load("games/" + gameName + ".properties");
+        gameFactorySteps.execute(settings.withGameConstants(gameConstants));
     }
 
+    public void restartGame(GameFactorySettings settings) throws IOException, URISyntaxException {
+        this.gameRepository.deleteById(GameService.GAME_ID);
+        gameDeleteSteps.execute(settings);
+        makeGame(settings);
+    }
 }

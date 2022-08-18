@@ -1,5 +1,6 @@
 package com.drpicox.game.cards;
 
+import com.drpicox.game.constants.Constants;
 import com.drpicox.game.util.Settings;
 
 public class CardFactorySettings extends Settings {
@@ -19,6 +20,11 @@ public class CardFactorySettings extends Settings {
         return this;
     }
 
+    public CardFactorySettings withCardConstants(Constants cardConstants) {
+        set("cardConstants", cardConstants);
+        return this;
+    }
+
     public String getCardName() {
         return get("cardName");
     }
@@ -30,4 +36,9 @@ public class CardFactorySettings extends Settings {
     public boolean hasPosition() {
         return has("position");
     }
+
+    public Constants getCardConstants() {
+        return get("cardConstants");
+    }
+
 }

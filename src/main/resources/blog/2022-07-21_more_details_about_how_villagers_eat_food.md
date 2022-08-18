@@ -16,47 +16,47 @@ more than one. Like Militia, they eat two of food.
 Let's see it:
 
  * Given there are 1 "Villager" and 1 "Militia" cards.
- * The "Villager" card should have 1 in "eats" tag.
- * The "Militia" card should have 2 in "eats" tag.
- * The sum of all "eats" tags value should be 3.
+ * The "Villager" card should have 1 in "Eats" tag.
+ * The "Militia" card should have 2 in "Eats" tag.
+ * The sum of all "Eats" tags value should be 3.
 
 ## More kinds of food
 
 And there are also different kinds of food cards:
 
  * Given there are 1 "Berry" and 1 "Apple" cards.
- * The "Berry" card should have 1 in "food" tag.
- * The "Apple" card should have 2 in "food" tag.
- * The sum of all "food" tags value should be 3.
+ * The "Berry" card should have 1 in "Food" tag.
+ * The "Apple" card should have 2 in "Food" tag.
+ * The sum of all "Food" tags value should be 3.
 
 ## Eating
 
 Eating works as expected, in this case, all villagers eats all available food:
 
  * End the current moon.
- * The sum of all "eats" tags value should be 3.
- * The sum of all "food" tags value should be 0.
+ * The sum of all "Eats" tags value should be 3.
+ * The sum of all "Food" tags value should be 0.
 
 ## Too much food
 
 If there is more food than villagers, the additional food is kept for the next moon.
 
  * Given there are 4 "Berry" and 0 "Apple" cards.
- * The sum of all "eats" tags value should be 3.
- * The sum of all "food" tags value should be 4.
+ * The sum of all "Eats" tags value should be 3.
+ * The sum of all "Food" tags value should be 4.
  * End the current moon.
- * The sum of all "eats" tags value should be 3.
- * The sum of all "food" tags value should be 1.
+ * The sum of all "Eats" tags value should be 3.
+ * The sum of all "Food" tags value should be 1.
  * There should be 1 "Berry" cards.
 
 But what happens with half cards? could we eat half Apple?
 
  * Given there are 0 "Berry" and 2 "Apple" cards.
- * The sum of all "eats" tags value should be 3.
- * The sum of all "food" tags value should be 4.
+ * The sum of all "Eats" tags value should be 3.
+ * The sum of all "Food" tags value should be 4.
  * End the current moon.
- * The sum of all "eats" tags value should be 3.
- * The sum of all "food" tags value should be 0.
+ * The sum of all "Eats" tags value should be 3.
+ * The sum of all "Food" tags value should be 0.
  * There should be 0 "Apple" cards.
 
 There is no Apple card left.
@@ -71,11 +71,11 @@ are polite, and they leave the food untouched.
 
  * Given there are 0 "Villager" and 2 "Militia" cards.
  * Given there are 3 "Berry" and 0 "Apple" cards.
- * The sum of all "eats" tags value should be 4.
- * The sum of all "food" tags value should be 3.
+ * The sum of all "Eats" tags value should be 4.
+ * The sum of all "Food" tags value should be 3.
  * End the current moon.
- * The sum of all "eats" tags value should be 2.
- * The sum of all "food" tags value should be 1.
+ * The sum of all "Eats" tags value should be 2.
+ * The sum of all "Food" tags value should be 1.
  * There should be 1 "Militia" cards.
  * There should be 1 "Berry" cards.
 

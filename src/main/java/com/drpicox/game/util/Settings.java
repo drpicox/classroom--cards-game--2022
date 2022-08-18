@@ -22,4 +22,8 @@ public class Settings {
     public boolean has(String key) {
         return settings.containsKey(key);
     }
+
+    protected void extend(Settings otherSettings) {
+        settings.putAll(otherSettings.settings);
+    }
 }

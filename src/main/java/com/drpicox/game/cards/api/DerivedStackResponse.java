@@ -31,7 +31,7 @@ public class DerivedStackResponse implements HasPosition, HasNames {
 
     @Override
     public String getName(int index) {
-        return cards.get(index).getName();
+        return cards.get(index).getTagName();
     }
 
     @Override

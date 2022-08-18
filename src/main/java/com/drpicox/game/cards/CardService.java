@@ -34,6 +34,10 @@ public class CardService {
         return cards;
     }
 
+    public Optional<Card> findById(String cardId) {
+        return cardRepository.findById(cardId);
+    }
+
     public Optional<Card> findCard(Predicate<? super Card> predicate) {
         return cardRepository.findAll().stream().filter(predicate).findAny();
     }

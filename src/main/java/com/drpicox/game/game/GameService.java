@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
 @Service
 public class GameService {
 
-    private static final String GAME_ID = "TheGameId";
+    static final String GAME_ID = "TheGameId";
 
     private final GameFactory gameFactory;
     private final GameRepository gameRepository;
@@ -18,12 +18,7 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public void create(String name) throws IOException, URISyntaxException {
-        gameRepository.save(new Game(GAME_ID));
-        gameFactory.makeGame(name);
-    }
-
-    public void createIfDoesNotExist() throws IOException, URISyntaxException {
-        if (!gameRepository.existsById(GAME_ID)) create("default");
+    public boolean existsGame() {
+        return gameRepository.existsById(GAME_ID);
     }
 }
