@@ -1,4 +1,4 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
 import com.drpicox.game.constants.Constants;
 import com.drpicox.game.util.Settings;

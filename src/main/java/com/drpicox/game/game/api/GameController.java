@@ -1,7 +1,5 @@
 package com.drpicox.game.game.api;
 
-import com.drpicox.game.cards.CardService;
-import com.drpicox.game.cards.api.CardResponse;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
 import com.drpicox.game.game.GameService;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/game")

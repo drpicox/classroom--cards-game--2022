@@ -1,15 +1,16 @@
 package com.drpicox.game;
 
-import com.drpicox.game.cards.CardFactorySettings;
-import com.drpicox.game.cards.GivenCardService;
+import com.drpicox.game.card.CardFactorySettings;
+import com.drpicox.game.card.GivenCardService;
+import com.drpicox.game.card.api.CardResponseList;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
 import com.drpicox.game.game.GameService;
 import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.cards.api.CardResponseList.findAllCards;
-import static com.drpicox.game.cards.api.CardResponseList.findCard;
+import static com.drpicox.game.card.api.CardResponseList.findAllCard;
+import static com.drpicox.game.card.api.CardResponseList.findCard;
 import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
@@ -55,7 +56,7 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     public void theSumOfAllSTagsValueShouldBeN(String tagName, int expected) {
         // example:  * The sum of all "eats" tags value should be 12.
-        var cards = findAllCards(game);
+        var cards = CardResponseList.findAllCard(game);
         var sum = cards.stream().mapToInt(c -> c.getTag(tagName)).sum();
         assertThat(sum).isEqualTo(expected);
     }
@@ -67,7 +68,7 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     public void thereShouldBeNSCards(int expected, String cardName) {
         // example:  * There should be 2 "berry" cards.
-        var actual = findAllCards(game, byName(cardName)).size();
+        var actual = findAllCard(game, byName(cardName)).size();
         assertThat(actual).isEqualTo(expected);
     }
 

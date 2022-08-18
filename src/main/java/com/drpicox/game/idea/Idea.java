@@ -1,7 +1,7 @@
 package com.drpicox.game.idea;
 
-import com.drpicox.game.cards.Card;
-import com.drpicox.game.cards.Stack;
+import com.drpicox.game.card.Card;
+import com.drpicox.game.card.Stack;
 import com.drpicox.game.util.HasName;
 
 import javax.persistence.ElementCollection;

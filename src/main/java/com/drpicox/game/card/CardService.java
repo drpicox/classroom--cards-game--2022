@@ -1,4 +1,4 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
 import com.drpicox.game.tags.TagService;
 import org.springframework.stereotype.Service;

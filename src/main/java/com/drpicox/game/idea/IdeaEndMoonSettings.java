@@ -1,7 +1,7 @@
 package com.drpicox.game.idea;
 
-import com.drpicox.game.cards.CardListSummary;
-import com.drpicox.game.cards.Stack;
+import com.drpicox.game.card.CardListSummary;
+import com.drpicox.game.card.Stack;
 import com.drpicox.game.moon.EndMoonSettings;
 
 public class IdeaEndMoonSettings extends EndMoonSettings {

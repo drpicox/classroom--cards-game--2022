@@ -1,7 +1,6 @@
 package com.drpicox.game.idea.harvest;
 
-import com.drpicox.game.cards.*;
-import com.drpicox.game.idea.Idea;
+import com.drpicox.game.card.*;
 import com.drpicox.game.idea.IdeaEndMoonSettings;
 import com.drpicox.game.idea.IdeaEndMoonStepExecutor;
 import com.drpicox.game.idea.IdeaService;

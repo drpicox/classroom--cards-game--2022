@@ -1,13 +1,10 @@
 package com.drpicox.game.idea;
 
-import com.drpicox.game.cards.*;
+import com.drpicox.game.card.*;
 import com.drpicox.game.moon.EndMoonSettings;
-import com.drpicox.game.moon.EndMoonStep;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Consumer;
-
-import static com.drpicox.game.idea.harvest.EndMoonStep_100_HarvestIdea.IDEA_NAME;
 
 @Service
 public class IdeaEndMoonStepExecutor {

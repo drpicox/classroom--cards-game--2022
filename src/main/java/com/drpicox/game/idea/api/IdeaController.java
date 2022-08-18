@@ -1,16 +1,10 @@
 package com.drpicox.game.idea.api;
 
-import com.drpicox.game.cards.CardFactory;
-import com.drpicox.game.cards.CardFactorySettings;
-import com.drpicox.game.cards.CardService;
-import com.drpicox.game.game.GameService;
+import com.drpicox.game.card.CardFactory;
+import com.drpicox.game.card.CardFactorySettings;
 import com.drpicox.game.game.api.GameResponse;
 import com.drpicox.game.game.api.GameResponseFactory;
-import com.drpicox.game.moon.MoonService;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api/v1/game/ideas")

@@ -1,8 +1,8 @@
 package com.drpicox.game.synthetics;
 
-import com.drpicox.game.cards.*;
-import com.drpicox.game.cards.api.DerivedStackResponse;
-import com.drpicox.game.cards.api.StackResponseList;
+import com.drpicox.game.card.*;
+import com.drpicox.game.card.api.DerivedStackResponse;
+import com.drpicox.game.card.api.StackResponseList;
 import com.drpicox.game.game.api.GameResponseFactory;
 import org.springframework.stereotype.Service;
 
@@ -98,7 +98,7 @@ public class CardLetterBoard {
 
     public String getResponseBoard() {
         var game = gameResponseFactory.makeGameResponse();
-        var stacks = StackResponseList.findAllStacks(game);
+        var stacks = StackResponseList.findAllStack(game);
 
         var result = new StringBuilder();
         var coma = false;

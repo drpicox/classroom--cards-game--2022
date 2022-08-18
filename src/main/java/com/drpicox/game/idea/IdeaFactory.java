@@ -1,6 +1,6 @@
 package com.drpicox.game.idea;
 
-import com.drpicox.game.cards.CardConstantsCollection;
+import com.drpicox.game.card.CardConstantsCollection;
 import com.drpicox.game.constants.Constants;
 import org.springframework.stereotype.Service;
 

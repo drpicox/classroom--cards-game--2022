@@ -1,11 +1,9 @@
 package com.drpicox.game;
 
-import com.drpicox.game.cards.api.CardResponseList;
 import com.drpicox.game.game.api.GameResponse;
-import com.drpicox.game.game.GameService;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.cards.api.CardResponseList.findAllCards;
+import static com.drpicox.game.card.api.CardResponseList.findAllCard;
 import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
@@ -35,7 +33,7 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
         // expected = 1
         // arg1 = "villager"
 
-        var matchingCards = findAllCards(game, byName(cardName));
+        var matchingCards = findAllCard(game, byName(cardName));
         assertThat(matchingCards).hasSize(expectedCount);
     }
 

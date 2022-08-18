@@ -1,9 +1,9 @@
 package com.drpicox.game.synthetics;
 
 
-import com.drpicox.game.cards.*;
-import com.drpicox.game.cards.api.CardResponseList;
-import com.drpicox.game.cards.api.StackResponseList;
+import com.drpicox.game.card.*;
+import com.drpicox.game.card.api.CardResponseList;
+import com.drpicox.game.card.api.StackResponseList;
 import com.drpicox.game.fixtures.DatabaseFixture;
 import com.drpicox.game.game.api.GameResponse;
 import com.drpicox.game.game.api.GameResponseFactory;
@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.drpicox.game.cards.api.StackResponseList.findAllStacks;
-import static com.drpicox.game.cards.api.StackResponseList.findStack;
+import static com.drpicox.game.card.api.StackResponseList.findAllStack;
+import static com.drpicox.game.card.api.StackResponseList.findStack;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -190,31 +190,31 @@ public class CardStackTest {
     public void test_given_stack() {
         databaseFixture.clear();
         givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
-        assertThat(findAllStacks(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
+        assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
         givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
-        assertThat(findAllStacks(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
+        assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
         givenStackService.givenStack(3, byNames("Apple", "Berry", "Villager"));
-        assertThat(findAllStacks(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(3);
+        assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(3);
 
         givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
-        assertThat(findAllStacks(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
+        assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
         givenStackService.givenStack(2, byNames("Apple", "Berry"));
         givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
-        assertThat(findAllStacks(getGame(), byNames("Apple", "Berry"))).hasSize(2);
-        assertThat(findAllStacks(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
+        assertThat(findAllStack(getGame(), byNames("Apple", "Berry"))).hasSize(2);
+        assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
         givenStackService.givenStack(1, byNames("Militia"));
-        assertThat(findAllStacks(getGame(), byNames("Militia"))).hasSize(1);
+        assertThat(findAllStack(getGame(), byNames("Militia"))).hasSize(1);
 
         givenStackService.givenStackAt(5, byNames("Berry", "Berry Bush"));
-        assertThat(findAllStacks(getGame(), byNames("Berry", "Berry Bush"))).hasSize(1);
+        assertThat(findAllStack(getGame(), byNames("Berry", "Berry Bush"))).hasSize(1);
         assertThat(findStack(getGame(), Positions.byPosition(5)).get().getName(1)).isEqualTo("Berry Bush");
 
         givenStackService.givenStackAt(5, byNames("Apple", "Apple Tree"));
-        assertThat(findAllStacks(getGame(), byNames("Apple", "Apple Tree"))).hasSize(1);
+        assertThat(findAllStack(getGame(), byNames("Apple", "Apple Tree"))).hasSize(1);
         assertThat(findStack(getGame(), Positions.byPosition(5)).get().getName(1)).isEqualTo("Apple Tree");
     }
 

@@ -1,12 +1,9 @@
-package com.drpicox.game.cards.api;
+package com.drpicox.game.card.api;
 
-import com.drpicox.game.cards.CardFactory;
-import com.drpicox.game.cards.CardFactorySettings;
-import com.drpicox.game.cards.CardPositionService;
-import com.drpicox.game.cards.CardService;
+import com.drpicox.game.card.CardPositionService;
+import com.drpicox.game.card.CardService;
 import com.drpicox.game.game.api.GameResponse;
 import com.drpicox.game.game.api.GameResponseFactory;
-import com.drpicox.game.idea.api.DrawIdeaForm;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

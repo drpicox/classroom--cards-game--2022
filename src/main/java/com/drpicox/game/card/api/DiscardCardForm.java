@@ -1,4 +1,4 @@
-package com.drpicox.game.cards.api;
+package com.drpicox.game.card.api;
 
 public class DiscardCardForm {
     private final String cardId;

@@ -1,4 +1,4 @@
-package com.drpicox.game.cards.api;
+package com.drpicox.game.card.api;
 
 import com.drpicox.game.util.HasNames;
 import com.drpicox.game.util.HasPosition;

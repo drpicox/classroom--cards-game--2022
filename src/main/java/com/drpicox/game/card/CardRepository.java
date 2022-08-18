@@ -1,4 +1,4 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

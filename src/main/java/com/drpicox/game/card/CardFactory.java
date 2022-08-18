@@ -1,10 +1,9 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
 import com.drpicox.game.tags.TagFactory;
 import com.drpicox.game.tags.TagFactorySettings;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 

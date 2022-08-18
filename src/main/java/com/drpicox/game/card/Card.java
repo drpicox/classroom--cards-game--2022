@@ -1,4 +1,4 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
 import com.drpicox.game.tags.Tag;
 import com.drpicox.game.util.HasId;

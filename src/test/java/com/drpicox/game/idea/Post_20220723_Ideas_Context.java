@@ -1,12 +1,12 @@
 package com.drpicox.game.idea;
 
 import com.drpicox.game.GivenGameService;
-import com.drpicox.game.cards.GivenCardService;
-import com.drpicox.game.cards.GivenStackService;
-import com.drpicox.game.cards.api.CardResponseList;
-import com.drpicox.game.cards.api.DiscardCardForm;
-import com.drpicox.game.cards.api.MoveForm;
-import com.drpicox.game.cards.api.StackResponseList;
+import com.drpicox.game.card.GivenCardService;
+import com.drpicox.game.card.GivenStackService;
+import com.drpicox.game.card.api.CardResponseList;
+import com.drpicox.game.card.api.DiscardCardForm;
+import com.drpicox.game.card.api.MoveForm;
+import com.drpicox.game.card.api.StackResponseList;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
 import com.drpicox.game.game.api.GameResponse;
@@ -14,8 +14,8 @@ import com.drpicox.game.idea.api.DrawIdeaForm;
 import com.drpicox.game.idea.api.IdeaResponseList;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.cards.api.CardResponseList.findAllCards;
-import static com.drpicox.game.cards.api.CardResponseList.findCard;
+import static com.drpicox.game.card.api.CardResponseList.findAllCard;
+import static com.drpicox.game.card.api.CardResponseList.findCard;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -71,7 +71,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.thereShouldBeNSCards(0, "Harvest Idea")
         // hint: Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context.thereShouldBeNSCards
 
-        var actual = findAllCards(game, byName(cardName)).size();
+        var actual = findAllCard(game, byName(cardName)).size();
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -161,7 +161,7 @@ public class Post_20220723_Ideas_Context {
         // text:  * There should be 1 stack of 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
         // code: this.thereShouldBeNStackOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
-        var stacks = StackResponseList.findAllStacks(game,
+        var stacks = StackResponseList.findAllStack(game,
             byNames(count1, name1).and(count2, name2).and(count3, name3)
         );
         assertThat(stacks).hasSize(expected);

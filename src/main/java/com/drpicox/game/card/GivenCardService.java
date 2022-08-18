@@ -1,13 +1,11 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import static com.drpicox.game.util.GivenAlgorithm.given;
 import static com.drpicox.game.util.Names.byName;
-import static com.drpicox.game.util.Positions.byPosition;
 
 @Service
 public class GivenCardService {

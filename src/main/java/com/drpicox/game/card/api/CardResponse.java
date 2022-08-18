@@ -1,6 +1,6 @@
-package com.drpicox.game.cards.api;
+package com.drpicox.game.card.api;
 
-import com.drpicox.game.cards.Card;
+import com.drpicox.game.card.Card;
 import com.drpicox.game.tags.api.TagResponse;
 import com.drpicox.game.util.HasId;
 import com.drpicox.game.util.HasName;

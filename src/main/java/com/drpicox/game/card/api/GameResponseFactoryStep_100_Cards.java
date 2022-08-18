@@ -1,6 +1,6 @@
-package com.drpicox.game.cards.api;
+package com.drpicox.game.card.api;
 
-import com.drpicox.game.cards.CardService;
+import com.drpicox.game.card.CardService;
 import com.drpicox.game.game.api.GameResponseFactorySettings;
 import com.drpicox.game.game.api.GameResponseFactoryStep;
 import org.springframework.stereotype.Component;

@@ -1,10 +1,8 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
 import com.drpicox.game.constants.Constants;
 import com.drpicox.game.constants.ConstantsCollection;
 import com.drpicox.game.constants.ConstantsLoader;
-import com.drpicox.game.tags.TagFactory;
-import com.drpicox.game.tags.TagFactorySettings;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

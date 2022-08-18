@@ -1,6 +1,5 @@
-package com.drpicox.game.cards;
+package com.drpicox.game.card;
 
-import com.drpicox.game.util.GivenAlgorithm;
 import com.drpicox.game.util.Names;
 import org.springframework.stereotype.Service;
 

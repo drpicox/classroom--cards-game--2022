@@ -1,4 +1,4 @@
-package com.drpicox.game.cards.api;
+package com.drpicox.game.card.api;
 
 public class MoveForm {
     public MoveForm(int position, int zindex) {
