@@ -36,7 +36,7 @@ public class IdeaEndMoonStepExecutor {
 
         for (var cardRequirement : cardRequirements) {
             var tagValue = cardRequirement.getTagName();
-            var value = cardRequirement.getValue();
+            var value = cardRequirement.getTagValue();
 
             var sumValue = summary.sumTagValue(tagValue);
             if (sumValue < value) return false;

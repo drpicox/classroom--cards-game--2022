@@ -11,8 +11,11 @@ public class IdeaEndMoonSettings extends EndMoonSettings {
     }
 
     public IdeaEndMoonSettings withStack(Stack stack) {
+        var count = getIdea().countRequiredCards();
+
         set("stack", stack);
-        set("summary", getStack().getSummary());
+        set("summary", getStack().getSummary(1, count + 1));
+        set("position", getStack().getPosition());
         return this;
     }
 
@@ -26,5 +29,9 @@ public class IdeaEndMoonSettings extends EndMoonSettings {
 
     public CardListSummary getSummary() {
         return get("summary");
+    }
+
+    public int getPosition() {
+        return get("position");
     }
 }

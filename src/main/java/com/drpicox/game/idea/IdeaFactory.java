@@ -31,10 +31,11 @@ public class IdeaFactory {
 
         var requirementsTable = ideaConstants.getCsvTable("idea.requirement.tags");
         for (var requirementRow: requirementsTable.getRows()) {
-            var tagName = requirementRow.get("tagName");
+            var cardCount = requirementRow.getInt("cardCount");
             var tagValue = requirementRow.getInt("tagValue");
+            var tagName = requirementRow.get("tagName");
 
-            var requirement = new IdeaTagRequirement(tagValue, tagName);
+            var requirement = new IdeaTagRequirement(cardCount, tagValue, tagName);
             requirements.add(requirement);
         }
 

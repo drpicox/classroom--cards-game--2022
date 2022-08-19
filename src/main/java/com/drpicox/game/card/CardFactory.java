@@ -38,7 +38,9 @@ public class CardFactory {
 
         var tags = tagFactory.makeAllTags(new TagFactorySettings(cardId).withCardConstants(cardConstants));
         var position = settings.getPosition();
-        var zindex = cardPositionService.getStackByPosition(position).getMaxZindex() + 1;
+        var zindex = settings.hasZindex()
+            ? settings.getZindex()
+            : cardPositionService.getStackByPosition(position).getMaxZindex() + 1;
         var description = getCardDescription(settings);
 
         var card = new Card(cardId, cardName, description, tags, position, zindex);

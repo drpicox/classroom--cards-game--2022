@@ -64,6 +64,10 @@ public class Stack implements HasNames {
         return affectedCards;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
     public Card getBottomCard() {
         if (cards.isEmpty()) return null;
 
@@ -93,8 +97,8 @@ public class Stack implements HasNames {
         return cards.get(index).getTagName();
     }
 
-    public CardListSummary getSummary() {
-        return new CardListSummary(cards);
+    public CardListSummary getSummary(int fromIndex, int toIndexExclusive) {
+        return new CardListSummary(cards.subList(fromIndex, toIndexExclusive));
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Post_20220719_VillagersEatFood_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() throws Throwable {
-        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "5676d483cdf298b3ed6e81e15d2ebc95");
+        fixtures.runBeforeTestStarts("2022-07-19_villagers_eat_food", "63b4462fd274040ff51daacd4eab4d69");
         context.beforeTest();
 
         // # Villagers Eat Food                                   // # Villagers Eat Food
@@ -33,16 +33,16 @@ public class Post_20220719_VillagersEatFood_Test {
 
         // ## Moons                                               // ## Moons
         context.endTheCurrentMoon();                              // * End the current moon.
-        context.thereShouldBeNoSCard("Berry");                    // * There should be no "Berry" card.
-        context.thereShouldBeNSCard(1, "Villager");               // * There should be 1 "Villager" card.
-        context.thereShouldBeNSCard(1, "Berry Bush");             // * There should be 1 "Berry Bush" card.
+        context.thereShouldBeNSCards(0, "Berry");                 // * There should be 0 "Berry" cards.
+        context.thereShouldBeNSCards(1, "Villager");              // * There should be 1 "Villager" cards.
+        context.thereShouldBeNSCards(1, "Berry Bush");            // * There should be 1 "Berry Bush" cards.
 
         // ## Starving                                            // ## Starving
         context.endTheCurrentMoon();                              // * End the current moon.
-        context.thereShouldBeNoSCard("Berry");                    // * There should be no "Berry" card.
-        context.thereShouldBeNoSCard("Villager");                 // * There should be no "Villager" card.
-        context.thereShouldBeNSCard(1, "Berry Bush");             // * There should be 1 "Berry Bush" card.
-        context.thereShouldBeNSCard(1, "Corpse");                 // * There should be 1 "Corpse" card.
+        context.thereShouldBeNSCards(0, "Berry");                 // * There should be 0 "Berry" cards.
+        context.thereShouldBeNSCards(0, "Villager");              // * There should be 0 "Villager" cards.
+        context.thereShouldBeNSCards(1, "Berry Bush");            // * There should be 1 "Berry Bush" cards.
+        context.thereShouldBeNSCards(1, "Corpse");                // * There should be 1 "Corpse" cards.
 
         context.afterTest();
         fixtures.runWhenTestSuccessful();

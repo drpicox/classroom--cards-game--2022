@@ -31,4 +31,8 @@ public class Idea implements HasName {
     }
 
     private Idea() {} // JPA required constructor
+
+    public int countRequiredCards() {
+        return requirements.stream().mapToInt(r -> r.getCardCount()).sum();
+    }
 }

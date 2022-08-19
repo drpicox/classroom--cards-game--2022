@@ -13,22 +13,17 @@ import java.util.*;
 public class ConstantsLoader {
 
     private final Map<String, Constants> constantsCache = new HashMap<>();
-    private final Map<String, ConstantsCollection> collectionsCache = new HashMap<>();
 
     public ConstantsCollection loadCollection(String collectionName) throws URISyntaxException, IOException {
-        if (!collectionsCache.containsKey(collectionName)) {
-            var collection = new ConstantsCollection(collectionName);
-            var directoryUri = getUri(collectionName);
-            var directory = new File(directoryUri);
-            loadDirectory(collection, directory);
-            collectionsCache.put(collectionName, collection);
-        }
-
-        return collectionsCache.get(collectionName);
+        var collection = new ConstantsCollection(collectionName);
+        var directoryUri = getUri(collectionName);
+        var directory = new File(directoryUri);
+        loadDirectory(collection, directory);
+        return collection;
     }
 
     public Constants load(String resourceName) throws IOException, URISyntaxException {
-        if (!collectionsCache.containsKey(resourceName)) {
+        if (!constantsCache.containsKey(resourceName)) {
             var uri = getUri(resourceName);
             var file = new File(uri);
             constantsCache.put(resourceName, loadFile(file));

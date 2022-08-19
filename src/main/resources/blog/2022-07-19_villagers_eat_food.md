@@ -34,9 +34,9 @@ When the moon ends, the rules applies and the magic begin.
 
 And look to the results:
 
- * There should be no "Berry" card.
- * There should be 1 "Villager" card.
- * There should be 1 "Berry Bush" card.
+ * There should be 0 "Berry" cards.
+ * There should be 1 "Villager" cards.
+ * There should be 1 "Berry Bush" cards.
 
 The villager has eaten the berry, and there should be no 
 more berries available.
@@ -51,13 +51,13 @@ and if we do not have food for the villagers,
 they die.
 
  * End the current moon.
- * There should be no "Berry" card.
- * There should be no "Villager" card.
- * There should be 1 "Berry Bush" card.
+ * There should be 0 "Berry" cards.
+ * There should be 0 "Villager" cards.
+ * There should be 1 "Berry Bush" cards.
 
 Wait, what is that other card that we can see?
 
- * There should be 1 "Corpse" card.
+ * There should be 1 "Corpse" cards.
 
 It's a corpse! Your villager died,
 and you only have a corpse now.

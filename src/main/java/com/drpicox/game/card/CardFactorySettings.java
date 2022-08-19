@@ -20,6 +20,11 @@ public class CardFactorySettings extends Settings {
         return this;
     }
 
+    public CardFactorySettings withZindex(int zindex) {
+        set("zindex", zindex);
+        return this;
+    }
+
     public CardFactorySettings withCardConstants(Constants cardConstants) {
         set("cardConstants", cardConstants);
         return this;
@@ -35,6 +40,14 @@ public class CardFactorySettings extends Settings {
 
     public boolean hasPosition() {
         return has("position");
+    }
+
+    public int getZindex() {
+        return getOrDefault("zindex", 0);
+    }
+
+    public boolean hasZindex() {
+        return has("zindex");
     }
 
     public Constants getCardConstants() {

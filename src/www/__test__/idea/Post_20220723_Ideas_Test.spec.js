@@ -10,7 +10,7 @@ import { Post_20220723_Ideas_Context } from "./Post_20220723_Ideas_Context";
 test("2022-07-23_ideas.md", async () => {
   await runBeforeTestStarts(
     "2022-07-23_ideas",
-    "0fc42d923cf71d6a83928eb561b49f9f"
+    "c7f89d4b712c04d19dc3386fd31a241a"
   );
 
   const context = new Post_20220723_Ideas_Context();
@@ -27,49 +27,45 @@ test("2022-07-23_ideas.md", async () => {
   await context.drawACardFromTheSIdea("Harvest Idea"); //                                                                         // * Draw a card from the "Harvest Idea" idea.
   await context.thereShouldBeNSCards(1, "Harvest Idea"); //                                                                       // * There should be 1 "Harvest Idea" cards.
   // ### Ideas are several cards                                                                                                  // ### Ideas are several cards
-  await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
-  await context.givenThereAreNSCards(1, "Harvest Idea"); //                                                                       // * Given there are 1 "Harvest Idea" cards.
   await context.drawACardFromTheSIdea("Harvest Idea"); //                                                                         // * Draw a card from the "Harvest Idea" idea.
   await context.thereShouldBeNSCards(2, "Harvest Idea"); //                                                                       // * There should be 2 "Harvest Idea" cards.
   // ### Removing idea cards                                                                                                      // ### Removing idea cards
-  await context.givenThereAreNSCards(2, "Harvest Idea"); //                                                                       // * Given there are 2 "Harvest Idea" cards.
   await context.discardNSCards(1, "Harvest Idea"); //                                                                             // * Discard 1 "Harvest Idea" cards.
   await context.thereShouldBeNSCards(1, "Harvest Idea"); //                                                                       // * There should be 1 "Harvest Idea" cards.
-
-  // ## Using ideas                                                                                                               // ## Using ideas
+  // ### Using ideas                                                                                                              // ### Using ideas
   // ### Reading the idea                                                                                                         // ### Reading the idea
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
-  await context.theSIdeaShouldRequireTheSumOfNInSTagCards(
+  await context.theSIdeaShouldRequireNCardWithAtLeastNInSTag(
     "Harvest Idea",
+    1,
     1,
     "Fruit Plant"
-  ); //                                   // * The "Harvest Idea" idea should require the sum of 1 in "Fruit Plant" tag cards.
-  await context.theSIdeaShouldRequireTheSumOfNInSTagCards(
+  ); //                             // * The "Harvest Idea" idea should require 1 card with at least 1 in "Fruit Plant" tag.
+  await context.theSIdeaShouldRequireNCardWithAtLeastNInSTag(
     "Harvest Idea",
     1,
+    1,
     "Worker"
-  ); //                                        // * The "Harvest Idea" idea should require the sum of 1 in "Worker" tag cards.
-  await context.givenThereAreNSCards(1, "Berry Bush"); //                                                                         // * Given there are 1 "Berry Bush" cards.
-  await context.givenThereAreNSCards(1, "Villager"); //                                                                           // * Given there are 1 "Villager" cards.
+  ); //                                  // * The "Harvest Idea" idea should require 1 card with at least 1 in "Worker" tag.
   await context.theSCardShouldHaveNInSTag("Berry Bush", 1, "Fruit Plant"); //                                                     // * The "Berry Bush" card should have 1 in "Fruit Plant" tag.
   await context.theSCardShouldHaveNInSTag("Villager", 1, "Worker"); //                                                            // * The "Villager" card should have 1 in "Worker" tag.
-  await context.givenThereAreNSCards(1, "Berry Bush"); //                                                                         // * Given there are 1 "Berry Bush" cards.
   await context.theSCardDescriptionShouldSaySIsS(
     "Berry Bush",
     "Fruit",
     "Berry"
   ); //                                              // * The "Berry Bush" card description should say "Fruit" is "Berry".
-  // ### Stacking cards                                                                                                           // ### Stacking cards
+
+  // ## Stacking cards                                                                                                            // ## Stacking cards
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
-  await context.givenThereAreNSCards(1, "Villager"); //                                                                           // * Given there are 1 "Villager" cards.
   await context.givenThereAreNSCards(1, "Berry Bush"); //                                                                         // * Given there are 1 "Berry Bush" cards.
+  await context.givenThereAreNSCards(1, "Villager"); //                                                                           // * Given there are 1 "Villager" cards.
   await context.givenThereAreNSCards(0, "Harvest Idea"); //                                                                       // * Given there are 0 "Harvest Idea" cards.
   await context.drawACardFromTheSIdea("Harvest Idea"); //                                                                         // * Draw a card from the "Harvest Idea" idea.
   await context.moveTheSCardToItsOwnStack("Harvest Idea"); //                                                                     // * Move the "Harvest Idea" card to its own stack.
   await context.moveTheSCardOnTopOfTheSCard("Villager", "Harvest Idea"); //                                                       // * Move the "Villager" card on top of the "Harvest Idea" card.
   await context.moveTheSCardOnTopOfTheSCard("Berry Bush", "Villager"); //                                                         // * Move the "Berry Bush" card on top of the "Villager" card.
-  await context.thereShouldBeNStackOfNSNSAndNSCards(
+  await context.thereShouldBeNStacksOfNSNSAndNSCards(
     1,
     1,
     "Harvest Idea",
@@ -77,7 +73,7 @@ test("2022-07-23_ideas.md", async () => {
     "Villager",
     1,
     "Berry Bush"
-  ); //                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
+  ); //                    // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
   // ### Trying ideas                                                                                                             // ### Trying ideas
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
@@ -93,15 +89,17 @@ test("2022-07-23_ideas.md", async () => {
   ); //                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
   await context.thereShouldBeNSCards(2, "Berry"); //                                                                              // * There should be 2 "Berry" cards.
-  await context.thereShouldBeNStackOfNSNSAndNSCards(
+  await context.thereShouldBeNStacksOfNSNSNSAndNSCards(
     1,
     1,
     "Harvest Idea",
     1,
     "Villager",
     1,
-    "Berry Bush"
-  ); //                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
+    "Berry Bush",
+    2,
+    "Berry"
+  ); //      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 2 "Berry" cards.
   // ### Order has some importance                                                                                                // ### Order has some importance
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
@@ -145,26 +143,29 @@ test("2022-07-23_ideas.md", async () => {
     "Berry Bush"
   ); //                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNStackOfNSNSAndNSCards(
+  await context.thereShouldBeNStacksOfNSNSNSAndNSCards(
     1,
     1,
     "Harvest Idea",
     1,
     "Villager",
     1,
-    "Berry Bush"
-  ); //                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
+    "Berry Bush",
+    2,
+    "Berry"
+  ); //      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 2 "Berry" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNStackOfNSNSAndNSCards(
+  await context.thereShouldBeNStacksOfNSNSNSAndNSCards(
     1,
     1,
     "Harvest Idea",
     1,
     "Villager",
     1,
-    "Berry Bush"
-  ); //                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
-  await context.thereShouldBeNSCards(3, "Berry"); //                                                                              // * There should be 3 "Berry" cards.
+    "Berry Bush",
+    3,
+    "Berry"
+  ); //      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 3 "Berry" cards.
   // ### Using the same idea twice                                                                                                // ### Using the same idea twice
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
@@ -179,8 +180,18 @@ test("2022-07-23_ideas.md", async () => {
     "Berry Bush"
   ); //                    // * Given there are 2 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(4, "Berry"); //                                                                              // * There should be 4 "Berry" cards.
-  // ### Eating comes last                                                                                                        // ### Eating comes last
+  await context.thereShouldBeNStacksOfNSNSNSAndNSCards(
+    2,
+    1,
+    "Harvest Idea",
+    1,
+    "Villager",
+    1,
+    "Berry Bush",
+    2,
+    "Berry"
+  ); //      // * There should be 2 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 2 "Berry" cards.
+  // ### Eating comes first                                                                                                       // ### Eating comes first
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
   await context.givenThereAreNSCards(0, "Berry"); //                                                                              // * Given there are 0 "Berry" cards.
@@ -194,8 +205,17 @@ test("2022-07-23_ideas.md", async () => {
     "Berry Bush"
   ); //                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(1, "Villager"); //                                                                           // * There should be 1 "Villager" cards.
-  await context.thereShouldBeNSCards(1, "Berry"); //                                                                              // * There should be 1 "Berry" cards.
+  await context.thereShouldBeNStacksOfNSNSNSAndNSCards(
+    1,
+    1,
+    "Harvest Idea",
+    1,
+    "Corpse",
+    1,
+    "Berry Bush",
+    0,
+    "Berry"
+  ); //        // * There should be 1 stacks of 1 "Harvest Idea", 1 "Corpse", 1 "Berry Bush", and 0 "Berry" cards.
   // ### Card Substitutes                                                                                                         // ### Card Substitutes
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
@@ -224,7 +244,22 @@ test("2022-07-23_ideas.md", async () => {
     "Apple Tree"
   ); //                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Apple Tree" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(2, "Apple"); //                                                                              // * There should be 2 "Apple" cards.
+  await context.thereShouldBeNStacksOfNSNSNSAndNSCards(
+    1,
+    1,
+    "Harvest Idea",
+    1,
+    "Villager",
+    1,
+    "Apple Tree",
+    2,
+    "Apple"
+  ); //      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Apple Tree", and 2 "Apple" cards.
+  await context.theSCardDescriptionShouldSaySIsS(
+    "Apple Tree",
+    "Fruit",
+    "Apple"
+  ); //                                              // * The "Apple Tree" card description should say "Fruit" is "Apple".
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
   await context.givenThereAreNSCards(1, "Apple"); //                                                                              // * Given there are 1 "Apple" cards.
@@ -239,7 +274,6 @@ test("2022-07-23_ideas.md", async () => {
   ); //                     // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Militia", and 1 "Apple Tree" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
   await context.thereShouldBeNSCards(2, "Apple"); //                                                                              // * There should be 2 "Apple" cards.
-  // ### Idea cards at bottom                                                                                                     // ### Idea cards at bottom
   // ### More cards than necessary                                                                                                // ### More cards than necessary
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
@@ -251,12 +285,12 @@ test("2022-07-23_ideas.md", async () => {
     1,
     "Corpse",
     1,
-    "Villager",
+    "Berry Bush",
     1,
-    "Berry Bush"
-  ); //     // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Corpse", 1 "Villager", and 1 "Berry Bush" cards.
+    "Villager"
+  ); //     // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Corpse", 1 "Berry Bush", and 1 "Villager" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(2, "Berry"); //                                                                              // * There should be 2 "Berry" cards.
+  await context.thereShouldBeNSCards(0, "Berry"); //                                                                              // * There should be 0 "Berry" cards.
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
   await context.givenThereAreNSCards(1, "Berry"); //                                                                              // * Given there are 1 "Berry" cards.
@@ -270,40 +304,36 @@ test("2022-07-23_ideas.md", async () => {
     "Berry Bush"
   ); //                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 2 "Berry Bush" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(2, "Berry"); //                                                                              // * There should be 2 "Berry" cards.
-  await context.givenANewGame(); //                                                                                               // * Given a new game.
-  await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
-  await context.givenThereAreNSCards(1, "Berry"); //                                                                              // * Given there are 1 "Berry" cards.
-  await context.givenThereAreNStacksOfNSNSAndNSCards(
+  await context.givenThereAreNStacksOfNSNSNSAndNSCards(
     1,
     1,
     "Harvest Idea",
-    2,
+    1,
     "Villager",
     2,
-    "Berry Bush"
-  ); //                    // * Given there are 1 stacks of 1 "Harvest Idea", 2 "Villager", and 2 "Berry Bush" cards.
-  await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(3, "Berry"); //                                                                              // * There should be 3 "Berry" cards.
+    "Berry Bush",
+    2,
+    "Berry"
+  ); //      // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 2 "Berry Bush", and 2 "Berry" cards.
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
   await context.givenThereAreNSCards(1, "Berry"); //                                                                              // * Given there are 1 "Berry" cards.
-  await context.givenThereAreNStacksOfNSNSAndNSCards(
+  await context.givenThereAreNStacksOfNSNSNSAndNSCards(
     1,
     1,
     "Harvest Idea",
-    2,
-    "Villager",
     1,
-    "Berry Bush"
-  ); //                    // * Given there are 1 stacks of 1 "Harvest Idea", 2 "Villager", and 1 "Berry Bush" cards.
+    "Berry Bush",
+    1,
+    "Apple Tree",
+    1,
+    "Villager"
+  ); // // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Berry Bush", 1 "Apple Tree" and 1 "Villager" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(1, "Berry"); //                                                                              // * There should be 1 "Berry" cards.
-  // ### Mixing kinds of fruits                                                                                                   // ### Mixing kinds of fruits
+  await context.thereShouldBeNSCards(0, "Berry"); //                                                                              // * There should be 0 "Berry" cards.
   await context.givenANewGame(); //                                                                                               // * Given a new game.
   await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
   await context.givenThereAreNSCards(1, "Berry"); //                                                                              // * Given there are 1 "Berry" cards.
-  await context.givenThereAreNSCards(0, "Apple"); //                                                                              // * Given there are 0 "Apple" cards.
   await context.givenThereAreNStacksOfNSNSNSAndNSCards(
     1,
     1,
@@ -314,48 +344,10 @@ test("2022-07-23_ideas.md", async () => {
     "Berry Bush",
     1,
     "Apple Tree"
-  ); // // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 1 "Apple Tree" cards.
+  ); // // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush" and 1 "Apple Tree" cards.
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
   await context.thereShouldBeNSCards(2, "Berry"); //                                                                              // * There should be 2 "Berry" cards.
   await context.thereShouldBeNSCards(0, "Apple"); //                                                                              // * There should be 0 "Apple" cards.
-  await context.givenANewGame(); //                                                                                               // * Given a new game.
-  await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
-  await context.givenThereAreNSCards(0, "Berry"); //                                                                              // * Given there are 0 "Berry" cards.
-  await context.givenThereAreNSCards(1, "Apple"); //                                                                              // * Given there are 1 "Apple" cards.
-  await context.givenThereAreNStacksOfNSNSNSAndNSCards(
-    1,
-    1,
-    "Harvest Idea",
-    1,
-    "Villager",
-    1,
-    "Apple Tree",
-    1,
-    "Berry Bush"
-  ); // // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Apple Tree", and 1 "Berry Bush" cards.
-  await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(0, "Berry"); //                                                                              // * There should be 0 "Berry" cards.
-  await context.thereShouldBeNSCards(2, "Apple"); //                                                                              // * There should be 2 "Apple" cards.
-  await context.givenANewGame(); //                                                                                               // * Given a new game.
-  await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
-  await context.givenThereAreNSCards(1, "Berry"); //                                                                              // * Given there are 1 "Berry" cards.
-  await context.givenThereAreNSCards(1, "Apple"); //                                                                              // * Given there are 1 "Apple" cards.
-  await context.givenThereAreNStacksOfNSNSNSAndNSCards(
-    1,
-    1,
-    "Harvest Idea",
-    2,
-    "Villager",
-    1,
-    "Apple Tree",
-    1,
-    "Berry Bush"
-  ); // // * Given there are 1 stacks of 1 "Harvest Idea", 2 "Villager", 1 "Apple Tree", and 1 "Berry Bush" cards.
-  await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
-  await context.thereShouldBeNSCards(3, "Berry"); //                                                                              // * There should be 3 "Berry" cards.
-  await context.thereShouldBeNSCards(2, "Apple"); //                                                                              // * There should be 2 "Apple" cards.
-
-  // ## XP...                                                                                                                     // ## XP...
 
   await context.afterTest();
   await runWhenTestSuccessful();

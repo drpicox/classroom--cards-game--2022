@@ -1,6 +1,5 @@
 package com.drpicox.game;
 
-import com.drpicox.game.card.api.CardResponseList;
 import com.drpicox.game.game.api.GameResponse;
 import org.springframework.stereotype.Component;
 
@@ -50,7 +49,7 @@ public class Post_20220719_VillagersEatFood_Context {
         assertThat(matchingCards).isEmpty();
     }
 
-    public void thereShouldBeNSCard(int expectedCount, String cardName) {
+    public void thereShouldBeNSCards(int expectedCount, String cardName) {
         // example:  * There is 1 "villager" card.
         // is = 1
         // n = "villager"

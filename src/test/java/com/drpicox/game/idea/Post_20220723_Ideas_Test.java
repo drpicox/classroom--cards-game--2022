@@ -21,7 +21,7 @@ public class Post_20220723_Ideas_Test {
     @Autowired Fixtures fixtures;
 
     @Test public void testPost() throws Throwable {
-        fixtures.runBeforeTestStarts("2022-07-23_ideas", "0fc42d923cf71d6a83928eb561b49f9f");
+        fixtures.runBeforeTestStarts("2022-07-23_ideas", "c7f89d4b712c04d19dc3386fd31a241a");
         context.beforeTest();
 
         // # Ideas                                                                                                             // # Ideas
@@ -35,37 +35,31 @@ public class Post_20220723_Ideas_Test {
         context.drawACardFromTheSIdea("Harvest Idea");                                                                         // * Draw a card from the "Harvest Idea" idea.
         context.thereShouldBeNSCards(1, "Harvest Idea");                                                                       // * There should be 1 "Harvest Idea" cards.
         // ### Ideas are several cards                                                                                         // ### Ideas are several cards
-        context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
-        context.givenThereAreNSCards(1, "Harvest Idea");                                                                       // * Given there are 1 "Harvest Idea" cards.
         context.drawACardFromTheSIdea("Harvest Idea");                                                                         // * Draw a card from the "Harvest Idea" idea.
         context.thereShouldBeNSCards(2, "Harvest Idea");                                                                       // * There should be 2 "Harvest Idea" cards.
         // ### Removing idea cards                                                                                             // ### Removing idea cards
-        context.givenThereAreNSCards(2, "Harvest Idea");                                                                       // * Given there are 2 "Harvest Idea" cards.
         context.discardNSCards(1, "Harvest Idea");                                                                             // * Discard 1 "Harvest Idea" cards.
         context.thereShouldBeNSCards(1, "Harvest Idea");                                                                       // * There should be 1 "Harvest Idea" cards.
-
-        // ## Using ideas                                                                                                      // ## Using ideas
+        // ### Using ideas                                                                                                     // ### Using ideas
         // ### Reading the idea                                                                                                // ### Reading the idea
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
-        context.theSIdeaShouldRequireTheSumOfNInSTagCards("Harvest Idea", 1, "Fruit Plant");                                   // * The "Harvest Idea" idea should require the sum of 1 in "Fruit Plant" tag cards.
-        context.theSIdeaShouldRequireTheSumOfNInSTagCards("Harvest Idea", 1, "Worker");                                        // * The "Harvest Idea" idea should require the sum of 1 in "Worker" tag cards.
-        context.givenThereAreNSCards(1, "Berry Bush");                                                                         // * Given there are 1 "Berry Bush" cards.
-        context.givenThereAreNSCards(1, "Villager");                                                                           // * Given there are 1 "Villager" cards.
+        context.theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Fruit Plant");                             // * The "Harvest Idea" idea should require 1 card with at least 1 in "Fruit Plant" tag.
+        context.theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Worker");                                  // * The "Harvest Idea" idea should require 1 card with at least 1 in "Worker" tag.
         context.theSCardShouldHaveNInSTag("Berry Bush", 1, "Fruit Plant");                                                     // * The "Berry Bush" card should have 1 in "Fruit Plant" tag.
         context.theSCardShouldHaveNInSTag("Villager", 1, "Worker");                                                            // * The "Villager" card should have 1 in "Worker" tag.
-        context.givenThereAreNSCards(1, "Berry Bush");                                                                         // * Given there are 1 "Berry Bush" cards.
         context.theSCardDescriptionShouldSaySIsS("Berry Bush", "Fruit", "Berry");                                              // * The "Berry Bush" card description should say "Fruit" is "Berry".
-        // ### Stacking cards                                                                                                  // ### Stacking cards
+
+        // ## Stacking cards                                                                                                   // ## Stacking cards
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
-        context.givenThereAreNSCards(1, "Villager");                                                                           // * Given there are 1 "Villager" cards.
         context.givenThereAreNSCards(1, "Berry Bush");                                                                         // * Given there are 1 "Berry Bush" cards.
+        context.givenThereAreNSCards(1, "Villager");                                                                           // * Given there are 1 "Villager" cards.
         context.givenThereAreNSCards(0, "Harvest Idea");                                                                       // * Given there are 0 "Harvest Idea" cards.
         context.drawACardFromTheSIdea("Harvest Idea");                                                                         // * Draw a card from the "Harvest Idea" idea.
         context.moveTheSCardToItsOwnStack("Harvest Idea");                                                                     // * Move the "Harvest Idea" card to its own stack.
         context.moveTheSCardOnTopOfTheSCard("Villager", "Harvest Idea");                                                       // * Move the "Villager" card on top of the "Harvest Idea" card.
         context.moveTheSCardOnTopOfTheSCard("Berry Bush", "Villager");                                                         // * Move the "Berry Bush" card on top of the "Villager" card.
-        context.thereShouldBeNStackOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
+        context.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                    // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
         // ### Trying ideas                                                                                                    // ### Trying ideas
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
@@ -73,7 +67,7 @@ public class Post_20220723_Ideas_Test {
         context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
         context.thereShouldBeNSCards(2, "Berry");                                                                              // * There should be 2 "Berry" cards.
-        context.thereShouldBeNStackOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
+        context.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush", 2, "Berry");      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 2 "Berry" cards.
         // ### Order has some importance                                                                                       // ### Order has some importance
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
@@ -93,25 +87,23 @@ public class Post_20220723_Ideas_Test {
         context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
         context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNStackOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
+        context.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush", 2, "Berry");      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 2 "Berry" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNStackOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                     // * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
-        context.thereShouldBeNSCards(3, "Berry");                                                                              // * There should be 3 "Berry" cards.
+        context.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush", 3, "Berry");      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 3 "Berry" cards.
         // ### Using the same idea twice                                                                                       // ### Using the same idea twice
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
         context.givenThereAreNSCards(2, "Berry");                                                                              // * Given there are 2 "Berry" cards.
         context.givenThereAreNStacksOfNSNSAndNSCards(2, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                    // * Given there are 2 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(4, "Berry");                                                                              // * There should be 4 "Berry" cards.
-        // ### Eating comes last                                                                                               // ### Eating comes last
+        context.thereShouldBeNStacksOfNSNSNSAndNSCards(2, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush", 2, "Berry");      // * There should be 2 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 2 "Berry" cards.
+        // ### Eating comes first                                                                                              // ### Eating comes first
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
         context.givenThereAreNSCards(0, "Berry");                                                                              // * Given there are 0 "Berry" cards.
         context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush");                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(1, "Villager");                                                                           // * There should be 1 "Villager" cards.
-        context.thereShouldBeNSCards(1, "Berry");                                                                              // * There should be 1 "Berry" cards.
+        context.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Corpse", 1, "Berry Bush", 0, "Berry");        // * There should be 1 stacks of 1 "Harvest Idea", 1 "Corpse", 1 "Berry Bush", and 0 "Berry" cards.
         // ### Card Substitutes                                                                                                // ### Card Substitutes
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
@@ -124,66 +116,40 @@ public class Post_20220723_Ideas_Test {
         context.givenThereAreNSCards(1, "Apple");                                                                              // * Given there are 1 "Apple" cards.
         context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Apple Tree");                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Apple Tree" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(2, "Apple");                                                                              // * There should be 2 "Apple" cards.
+        context.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Apple Tree", 2, "Apple");      // * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Apple Tree", and 2 "Apple" cards.
+        context.theSCardDescriptionShouldSaySIsS("Apple Tree", "Fruit", "Apple");                                              // * The "Apple Tree" card description should say "Fruit" is "Apple".
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
         context.givenThereAreNSCards(1, "Apple");                                                                              // * Given there are 1 "Apple" cards.
         context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Militia", 1, "Apple Tree");                     // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Militia", and 1 "Apple Tree" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
         context.thereShouldBeNSCards(2, "Apple");                                                                              // * There should be 2 "Apple" cards.
-        // ### Idea cards at bottom                                                                                            // ### Idea cards at bottom
         // ### More cards than necessary                                                                                       // ### More cards than necessary
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
         context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
-        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Corpse", 1, "Villager", 1, "Berry Bush");     // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Corpse", 1 "Villager", and 1 "Berry Bush" cards.
+        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Corpse", 1, "Berry Bush", 1, "Villager");     // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Corpse", 1 "Berry Bush", and 1 "Villager" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(2, "Berry");                                                                              // * There should be 2 "Berry" cards.
+        context.thereShouldBeNSCards(0, "Berry");                                                                              // * There should be 0 "Berry" cards.
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
         context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
         context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 2, "Berry Bush");                    // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 2 "Berry Bush" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(2, "Berry");                                                                              // * There should be 2 "Berry" cards.
+        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 2, "Berry Bush", 2, "Berry");      // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 2 "Berry Bush", and 2 "Berry" cards.
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
         context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
-        context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 2, "Villager", 2, "Berry Bush");                    // * Given there are 1 stacks of 1 "Harvest Idea", 2 "Villager", and 2 "Berry Bush" cards.
+        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Berry Bush", 1, "Apple Tree", 1, "Villager"); // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Berry Bush", 1 "Apple Tree" and 1 "Villager" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(3, "Berry");                                                                              // * There should be 3 "Berry" cards.
+        context.thereShouldBeNSCards(0, "Berry");                                                                              // * There should be 0 "Berry" cards.
         context.givenANewGame();                                                                                               // * Given a new game.
         context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
         context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
-        context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 2, "Villager", 1, "Berry Bush");                    // * Given there are 1 stacks of 1 "Harvest Idea", 2 "Villager", and 1 "Berry Bush" cards.
-        context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(1, "Berry");                                                                              // * There should be 1 "Berry" cards.
-        // ### Mixing kinds of fruits                                                                                          // ### Mixing kinds of fruits
-        context.givenANewGame();                                                                                               // * Given a new game.
-        context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
-        context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
-        context.givenThereAreNSCards(0, "Apple");                                                                              // * Given there are 0 "Apple" cards.
-        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush", 1, "Apple Tree"); // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush", and 1 "Apple Tree" cards.
+        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush", 1, "Apple Tree"); // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Berry Bush" and 1 "Apple Tree" cards.
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
         context.thereShouldBeNSCards(2, "Berry");                                                                              // * There should be 2 "Berry" cards.
         context.thereShouldBeNSCards(0, "Apple");                                                                              // * There should be 0 "Apple" cards.
-        context.givenANewGame();                                                                                               // * Given a new game.
-        context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
-        context.givenThereAreNSCards(0, "Berry");                                                                              // * Given there are 0 "Berry" cards.
-        context.givenThereAreNSCards(1, "Apple");                                                                              // * Given there are 1 "Apple" cards.
-        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Apple Tree", 1, "Berry Bush"); // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Apple Tree", and 1 "Berry Bush" cards.
-        context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(0, "Berry");                                                                              // * There should be 0 "Berry" cards.
-        context.thereShouldBeNSCards(2, "Apple");                                                                              // * There should be 2 "Apple" cards.
-        context.givenANewGame();                                                                                               // * Given a new game.
-        context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
-        context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
-        context.givenThereAreNSCards(1, "Apple");                                                                              // * Given there are 1 "Apple" cards.
-        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 2, "Villager", 1, "Apple Tree", 1, "Berry Bush"); // * Given there are 1 stacks of 1 "Harvest Idea", 2 "Villager", 1 "Apple Tree", and 1 "Berry Bush" cards.
-        context.endTheCurrentMoon();                                                                                           // * End the current moon.
-        context.thereShouldBeNSCards(3, "Berry");                                                                              // * There should be 3 "Berry" cards.
-        context.thereShouldBeNSCards(2, "Apple");                                                                              // * There should be 2 "Apple" cards.
-
-        // ## XP...                                                                                                            // ## XP...
 
         context.afterTest();
         fixtures.runWhenTestSuccessful();

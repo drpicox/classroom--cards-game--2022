@@ -3,7 +3,6 @@ package com.drpicox.game.idea;
 import com.drpicox.game.GivenGameService;
 import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.GivenStackService;
-import com.drpicox.game.card.api.CardResponseList;
 import com.drpicox.game.card.api.DiscardCardForm;
 import com.drpicox.game.card.api.MoveForm;
 import com.drpicox.game.card.api.StackResponseList;
@@ -118,12 +117,14 @@ public class Post_20220723_Ideas_Context {
         assertThat(matchingCard.getDescriptionTerm(term)).contains(text);
     }
 
-    public void theSIdeaShouldRequireTheSumOfNInSTagCards(String ideaName, int value, String tagName) {
-        // * The "Harvest Idea" idea should require the sum of 1 in "Fruit Plant" tag cards.
+    public void theSIdeaShouldRequireNCardWithAtLeastNInSTag(String ideaName, int cardCount, int tagValue, String tagName) {
+        // * The "Harvest Idea" idea should require 1 card with at least 1 in "Fruit Plant" tag.
+        // theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Fruit Plant");
 
         var idea = IdeaResponseList.getIdea(game, byName(ideaName));
         var requirement = idea.findTagRequirement(tagName).get();
-        assertThat(requirement.getValue()).isEqualTo(value);
+        assertThat(requirement.getCardCount()).isEqualTo(cardCount);
+        assertThat(requirement.getTagValue()).isEqualTo(tagValue);
     }
 
     public void givenANewGame() throws Throwable {
@@ -157,15 +158,23 @@ public class Post_20220723_Ideas_Context {
         game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameResponse.class);
     }
 
-    public void thereShouldBeNStackOfNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3) {
+    public void thereShouldBeNStacksOfNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3) {
         // text:  * There should be 1 stack of 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
         // code: this.thereShouldBeNStackOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
+        thereShouldBeNStacksOfNSNSNSAndNSCards(expected, count1, name1, count2, name2, count3, name3, 0, null);
+    }
+
+    public void thereShouldBeNStacksOfNSNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3, int count4, String name4) {
+        // text:  * There should be 1 stack of 1 "Berry Bush", 1 "Villager", 1 "Harvest Idea", and 1 "Villager" cards.
+        // code: this.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea", 1, "Villager")
+
         var stacks = StackResponseList.findAllStack(game,
-            byNames(count1, name1).and(count2, name2).and(count3, name3)
+            byNames(count1, name1).and(count2, name2).and(count3, name3).and(count4, name4)
         );
         assertThat(stacks).hasSize(expected);
     }
+
 
     public void givenThereAreNStacksOfNSNSAndNSCards(int count, int count1, String name1, int count2, String name2, int count3, String name3) {
         // text:  * Given there are 1 stacks of 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.

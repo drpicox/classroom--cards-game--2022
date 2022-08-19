@@ -20,7 +20,6 @@ public class TagFactory {
 
         var tags = new ArrayList<Tag>();
         var tagTable = cardConstants.getCsvTable("tags");
-        if (tagTable == null) return List.of();
 
         for (var tagRow: tagTable.getRows()) {
             var tagName = tagRow.get("tagName");

@@ -5,16 +5,22 @@ import com.drpicox.game.util.HasName;
 import java.io.Serializable;
 
 public class IdeaTagRequirement implements HasName, Serializable {
-    public IdeaTagRequirement(int value, String tagName) {
-        this.value = value;
+    public IdeaTagRequirement(int cardCount, int tagValue, String tagName) {
+        this.cardCount = cardCount;
+        this.tagValue = tagValue;
         this.tagName = tagName;
     }
 
-    private int value;
+    private int cardCount;
+    private int tagValue;
     private String tagName;
 
-    public int getValue() {
-        return value;
+    public int getCardCount() {
+        return cardCount;
+    }
+
+    public int getTagValue() {
+        return tagValue;
     }
 
     public String getTagName() {

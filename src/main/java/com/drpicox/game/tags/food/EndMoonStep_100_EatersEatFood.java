@@ -8,12 +8,12 @@ import com.drpicox.game.moon.EndMoonStep;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EndMoonStep_200_EatersEatFood implements EndMoonStep {
+public class EndMoonStep_100_EatersEatFood implements EndMoonStep {
 
     private final CardService cardService;
     private final CardFactory cardFactory;
 
-    public EndMoonStep_200_EatersEatFood(CardService cardService, CardFactory cardFactory) {
+    public EndMoonStep_100_EatersEatFood(CardService cardService, CardFactory cardFactory) {
         this.cardService = cardService;
         this.cardFactory = cardFactory;
     }
@@ -28,8 +28,11 @@ public class EndMoonStep_200_EatersEatFood implements EndMoonStep {
         while (totalEats > totalFood) {
             var next = eaters.remove(0);
             totalEats -= next.getTagValue("Eats");
+
+            var position = next.getPosition();
+            var zindex = next.getZindex();
             cardService.discardCard(next);
-            cardFactory.makeCard(new CardFactorySettings("Corpse"));
+            cardFactory.makeCard(new CardFactorySettings("Corpse").withPosition(position).withZindex(zindex));
         }
 
         var remainingToEat = totalEats;
