@@ -1,6 +1,11 @@
 const prettier = require("prettier");
 
 function prettyJs(code) {
-  return prettier.format(code, { parser: "babel" });
+  try {
+    return prettier.format(code, { parser: "babel" });
+  } catch (e) {
+    console.error(e);
+    return code;
+  }
 }
 exports.prettyJs = prettyJs;

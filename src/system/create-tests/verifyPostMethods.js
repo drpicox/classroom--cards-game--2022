@@ -20,6 +20,7 @@ function verifyPostMethods(post) {
     verifyPostCompanionMethods(post) &&
     verifyPostNoGivenShouldMethods(post) &&
     verifyPostNoInvalidCalls(post) &&
+    verifyPostNoEmptyMethodNames(post) &&
     verifyPostEndsWithShould(post)
   );
 }
@@ -155,6 +156,22 @@ function verifyPostNoInvalidCalls(post) {
     `Please, `,
     `verify that it has no "s" or "n" words, or modify `,
     `the writting to generate a different name.`,
+  ]);
+
+  return false;
+}
+
+function verifyPostNoEmptyMethodNames(post) {
+  const methodWithoutName = post.contextMethods.find((m) => !m.name);
+
+  if (!methodWithoutName) return true;
+
+  reportPostError(post, methodWithoutName.lineNumber, [
+    `have no executable instructions. `,
+    `Please, make sure that it has some content.`,
+    `Please, `,
+    `remove that line `,
+    `or write the actual step text.`,
   ]);
 
   return false;

@@ -1,14 +1,13 @@
 const chalk = require("chalk");
-const levenshtein = require("fast-levenshtein");
 const { writeJavaTestFile } = require("./writeJavaTestFile");
 const { writeJavaContextFile } = require("./writeJavaContextFile");
 const { verifyPost } = require("./verifyPost");
 const { readBlogPost } = require("./readBlogPost");
 const { writeJsTestFile } = require("./writeJsTestFile");
 const { writeJsContextFile } = require("./writeJsContextFile");
-const { registerPost, findClosestMethod } = require("./posts");
-const { join } = require("./join");
+const { registerPost } = require("./posts");
 const { writeOriginalCopy } = require("./writeOriginalCopy");
+const { debugPost } = require("./debugPost");
 
 async function update(filePath) {
   const post = await readBlogPost(filePath);
@@ -47,58 +46,3 @@ async function update(filePath) {
 }
 
 exports.update = update;
-
-function debugPost(post) {
-  const sortedMethods = [];
-  let unusedMethods = post.contextMethods.slice();
-  let current = unusedMethods.shift();
-  current.distance = 0;
-  sortedMethods.push(current);
-  while (unusedMethods.length) {
-    let candidate = unusedMethods[0];
-    let candidateDistance = levenshtein.get(current.name, candidate.name);
-    for (let i = 1; i < unusedMethods.length; i += 1) {
-      let newCandidate = unusedMethods[i];
-      let newDistance = levenshtein.get(current.name, newCandidate.name);
-      if (newDistance < candidateDistance) {
-        candidate = newCandidate;
-        candidateDistance = newDistance;
-      }
-    }
-    unusedMethods = unusedMethods.filter((m) => m !== candidate);
-    sortedMethods.push(candidate);
-    candidate.distance = candidateDistance;
-    current = candidate;
-  }
-
-  console.log(
-    join(
-      `STATS FOR ${post.id}.md`,
-      `Total calls: ${post.testCalls.length}`,
-      `Total methods: ${post.contextMethods.length}`,
-      `Methos sorted by similitude:`,
-      sortedMethods.map((method) => {
-        let color = (i) => i;
-
-        let line = `${method.text} (∆${method.distance}, lines: ${post.testCalls
-          .filter((c) => c.name === method.name)
-          .map((c) => c.lineNumber)})`;
-
-        let closestMethod = findClosestMethod(post, method);
-        if (closestMethod.distance < 3) color = chalk.yellow;
-        if (closestMethod.distance === 0) color = chalk.green.bold;
-
-        if (closestMethod.distance < 3)
-          line += ` (∆${
-            closestMethod.distance
-          } at: ${closestMethod.postIds.join(", ")})`;
-        if (0 < closestMethod.distance && closestMethod.distance < 3)
-          line += ` "${closestMethod.text}"`;
-
-        if (1 <= method.distance && method.distance <= 3) color = chalk.yellow;
-
-        return color(line);
-      }),
-    ),
-  );
-}
