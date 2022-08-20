@@ -1,6 +1,7 @@
 ---
 writer: drpicox
 package: idea
+coder: nobody
 ---
 # Ideas Have Levels
 
@@ -22,7 +23,7 @@ But when you start using them, the XP in the "Harvest Idea" idea should increase
  * Move the "Harvest Idea" card to its own stack.
  * Move the "Villager" card on top of the "Harvest Idea" card.
  * Move the "Berry Bush" card on top of the "Villager" card.
- * There should be 1 stack of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
+ * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
  * There should be 1 "Berry" cards.
 
 If we end the moon, we will se how the XP would increase.
@@ -46,23 +47,12 @@ But what if we create two berry production piles?
  * End the current moon.
  * The "Harvest Idea" should have level 1 and 2 XP.
 
-We earned two XP because we used the idea twice. But we do not need two stacks for that,
-we can do it in the same stack:
-
- * Given a new game.
- * Given there is the "Harvest Idea" idea.
- * Given there are 1 stacks of 1 "Harvest Idea", 2 "Villager", and 2 "Berry Bush" cards.
- * The "Harvest Idea" should have level 1 and 0 XP.
- * End the current moon.
- * The "Harvest Idea" should have level 1 and 2 XP.
-
-So we have one new berries. But wait, did the villager eat its food? Yes!
-So in fact harvest gets two berries.
+We earned two XP because we used the idea twice.
 
 ## Increasing level
 
 Each level has a different barrier, once you achieve the
-barrier for 10 XP, then you go to the next level.
+barrier for 10 XP, then you go to the level 2.
 
  * Given a new game.
  * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
@@ -81,30 +71,24 @@ We produce three berries instead of two. That is great!
 But, there are more levels? Yes! 
 Let's see it.
 
- * Given a new game with 1 "Berry" and 1 "Berry Bush" production stack.
- * Given there is the "Harvest Idea" idea at level 2 and 19 XP.
+| Previous Level | XP Threshold | Next Level | Next Berries |
+|---------------:|-------------:|-----------:|-------------:|
+|              1 |            9 |          2 |            3 |
+|              2 |           19 |          3 |            4 |
+|              3 |           29 |          4 |            5 |
+|              4 |           39 |          5 |            6 |
+|              5 |           49 |          6 |            7 |
+
+ * Given a new game with 1 "Berry Bush" production stack.
+ * Given there is the "Harvest Idea" idea at level _Previous Level_ and _XP Threshold_ XP.
  * End the current moon.
- * The "Harvest Idea" should have level 3 and 0 XP.
- * There should be 4 "Berry" cards.
 
-It increased the level, and now we produce four berries.
-Let's see a few more:
+#### And result
 
- * Given a new game with 1 "Berry" and 1 "Berry Bush" production stack.
- * Given there is the "Harvest Idea" idea at level 3 and 29 XP.
- * End the current moon.
- * The "Harvest Idea" should have level 4 and 0 XP.
- * There should be 5 "Berry" cards.
+ * The "Harvest Idea" should have level _Next Level_ and 0 XP.
+ * There should be _Next Berries_ "Berry" cards.
 
-And...
-
- * Given a new game with 1 "Berry" and 1 "Berry Bush" production stack.
- * Given there is the "Harvest Idea" idea at level 4 and 39 XP.
- * End the current moon.
- * The "Harvest Idea" should have level 5 and 0 XP.
- * There should be 6 "Berry" cards.
-
-And so on.
+It increased by each level, and it produces more berries at each level
 
 ### XP are not lost
 
@@ -161,7 +145,7 @@ For example, harvesting is faster than seeding.
  * Given there are 0 "Berry Bush" cards.
  * End the current moon.
  * The "Seed Idea" should have level 1 and 0 XP.
- * There should be 0 "Berry Bush" card.
+ * There should be 0 "Berry Bush" cards.
 
 Everything seems to be the same. Why? Let's look to the progress.
 
@@ -179,12 +163,12 @@ That means that we have used 1 moon, but we still need four more moons to comple
 And not, it is almost done!
 
  * The "Seed Idea" should have level 1 and 0 XP.
- * There should be 0 "Berry Bush" card.
+ * There should be 0 "Berry Bush" cards.
  * The "Seed Idea" card progress should be 4 of 5.
  * End the current moon.
  * The "Seed Idea" card progress should be 0 of 5.
  * The "Seed Idea" should have level 1 and 1 XP.
- * There should be 1 "Berry Bush" card.
+ * There should be 1 "Berry Bush" cards.
 
 Finally. After 5 exhausting moons working, we did it.
 

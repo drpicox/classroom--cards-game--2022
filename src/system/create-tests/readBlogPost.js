@@ -3,6 +3,9 @@ const { MethodStepParser } = require("./MethodStepParser");
 const { makeJavaName } = require("./makeJavaName");
 const { watchPath } = require("./watchPath");
 const md5 = require("md5");
+const { PostSectionTable } = require("./PostSectionTable");
+const { preparsePostLines } = require("./preparsePostLines");
+const { isLineStep, isLineHeading } = require("./postLineQueries");
 
 async function readBlogPost(path) {
   const id = path.slice(watchPath.length + 1).split(".")[0];
@@ -14,6 +17,7 @@ async function readBlogPost(path) {
   const postLines = postContent.split("\n");
 
   const testCalls = [];
+  const tables = [];
   const contextMethods = [];
 
   const frontmatter = findFrontmatter(postLines);
@@ -22,9 +26,7 @@ async function readBlogPost(path) {
   const title = postLines[titleIndex];
   const hasCoder = findHasCoder(postLines);
 
-  postLines.forEach((line, index) =>
-    parseLine(line, index + 1, testCalls, contextMethods),
-  );
+  parseLines(postLines, testCalls, contextMethods, tables);
 
   const pkg = frontmatter.values.package;
   const subPath = pkg ? pkg.split(".") : [];
@@ -41,6 +43,7 @@ async function readBlogPost(path) {
     testCalls,
     contextName,
     contextMethods,
+    tables,
     subPath,
     subPackage: pkg ? `.${pkg}` : "",
     parent: subPath.length ? subPath.map(() => "..").join("/") : ".",
@@ -50,16 +53,21 @@ async function readBlogPost(path) {
 }
 exports.readBlogPost = readBlogPost;
 
-function parseLine(postLine, lineNumber, testCalls, contextMethods) {
-  const isCommand = postLine.startsWith(" * ");
-  const isComment = postLine.startsWith("#");
+function parseLines(postLines, testCalls, contextMethods, tables) {
+  const linePairs = preparsePostLines(postLines, tables);
 
-  if (isComment) {
+  linePairs.forEach(({ lineText, lineNumber }) => {
+    parseLine(lineText, lineNumber, testCalls, contextMethods);
+  });
+}
+
+function parseLine(postLine, lineNumber, testCalls, contextMethods) {
+  if (isLineHeading(postLine)) {
     testCalls.push({ isComment: true, text: postLine });
     return;
   }
 
-  if (!isCommand) return;
+  if (!isLineStep(postLine)) return;
   const method = new MethodStepParser(postLine, lineNumber).parse();
   testCalls.push(method);
 

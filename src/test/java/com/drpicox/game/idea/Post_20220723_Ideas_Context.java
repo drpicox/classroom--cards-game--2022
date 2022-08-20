@@ -1,6 +1,6 @@
 package com.drpicox.game.idea;
 
-import com.drpicox.game.GivenGameService;
+import com.drpicox.game.game.GivenGameService;
 import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.GivenStackService;
 import com.drpicox.game.card.api.DiscardCardForm;

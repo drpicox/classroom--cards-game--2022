@@ -1,4 +1,4 @@
-package com.drpicox.game;
+package com.drpicox.game.game;
 
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
