@@ -11,14 +11,19 @@ public class IdeaEndMoonStepExecutor {
 
     private final StackService stackService;
     private final IdeaService ideaService;
+    private final CardService cardService;
 
-    public IdeaEndMoonStepExecutor(StackService stackService, IdeaService ideaService) {
+    public IdeaEndMoonStepExecutor(StackService stackService, IdeaService ideaService, CardService cardService) {
         this.stackService = stackService;
         this.ideaService = ideaService;
+        this.cardService = cardService;
     }
 
     public void execute(EndMoonSettings moonSettings, String ideaName, Consumer<IdeaEndMoonSettings> consumer) {
-        var idea = ideaService.findByName(ideaName).get();
+        var optionalIdea = ideaService.findByName(ideaName);
+        if (!optionalIdea.isPresent()) return;
+
+        var idea = optionalIdea.get();
         var ideaSettings = new IdeaEndMoonSettings(moonSettings, idea);
 
         var stacks = stackService.findAllStackByBottomCardName(ideaName);
@@ -35,7 +40,7 @@ public class IdeaEndMoonStepExecutor {
         var cardRequirements = idea.getTagRequirements();
 
         for (var cardRequirement : cardRequirements) {
-            var tagValue = cardRequirement.getTagName();
+            var tagValue = cardRequirement.getName();
             var value = cardRequirement.getTagValue();
 
             var sumValue = summary.sumTagValue(tagValue);

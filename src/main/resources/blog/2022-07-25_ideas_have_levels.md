@@ -42,6 +42,7 @@ But what if we create two berry production piles?
 
  * Given a new game.
  * Given there is the "Harvest Idea" idea.
+ * Given there are 2 "Berry" cards.
  * Given there are 2 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
  * The "Harvest Idea" should have level 1 and 0 XP.
  * End the current moon.
@@ -110,11 +111,11 @@ So probably we can learn how to plant by harvesting.
 
  * Given a new game with 1 "Berry Bush" production stack.
  * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
- * There should be no "Plant Seed" idea.
+ * There should be no "Seed Idea" idea.
  * End the current moon.
  * The "Harvest Idea" should have level 2 and 0 XP.
- * There should be the "Plant Seed" idea.
- * The "Plant Seed" should have level 1 and 0 XP.
+ * There should be the "Seed Idea" idea.
+ * The "Seed Idea" should have level 1 and 0 XP.
 
 ### Do not lose old XP gaining again
 
@@ -139,11 +140,14 @@ For example, harvesting is faster than seeding.
 
  * Given a new game.
  * Given there is the "Seed Idea" idea at level 1 and 0 XP.
- * The "Seed Idea" idea should require the sum of 1 in "Seed" tag cards.
- * The "Seed Idea" idea should require the sum of 1 in "Worker" tag cards.
+ * Given there are 1 stacks of 5 "Berry" cards.
  * Given there are 1 stacks of 1 "Seed Idea", 1 "Villager", and 1 "Berry" cards.
  * Given there are 0 "Berry Bush" cards.
  * End the current moon.
+ * The "Seed Idea" idea should require the sum of 1 in "Seed" tag cards.
+ * The "Seed Idea" idea should require the sum of 1 in "Worker" tag cards.
+ * The "Berry" card should have 1 in "Seed" tag.
+ * The "Berry" card description should say "Plant" is "Berry Bush".
  * The "Seed Idea" should have level 1 and 0 XP.
  * There should be 0 "Berry Bush" cards.
 

@@ -10,20 +10,33 @@ import static com.drpicox.game.util.Names.byName;
 
 public class IdeaResponse implements HasName {
 
-    private String name;
-    private List<IdeaTagRequirementResponse> tagRequirements;
-
     public IdeaResponse(Idea idea) {
-        this.name = idea.getTagName();
+        this.name = idea.getName();
+        this.level = idea.getLevel();
+        this.xp = idea.getXp();
         this.tagRequirements = idea.getTagRequirements().stream().map(IdeaTagRequirementResponse::new).toList();
     }
 
-    public String getTagName() {
+    private String name;
+    private List<IdeaTagRequirementResponse> tagRequirements;
+    private int level;
+    private int xp;
+
+    public String getName() {
         return name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getXp() {
+        return xp;
     }
 
     public Optional<IdeaTagRequirementResponse> findTagRequirement(String cardName) {
         var requirement = tagRequirements.stream().filter(byName(cardName)).findAny();
         return requirement;
     }
+
 }

@@ -22,4 +22,8 @@ public class IdeaService {
         return ideaRepository.findByName(expected);
     }
 
+    public void increaseXp(Idea idea) {
+        idea.increaseXp();
+        ideaRepository.save(idea);
+    }
 }

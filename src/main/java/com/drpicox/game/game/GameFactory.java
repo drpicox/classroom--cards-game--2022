@@ -32,7 +32,8 @@ public class GameFactory {
     }
 
     public void restartGame(GameFactorySettings settings) throws IOException, URISyntaxException {
-        this.gameRepository.deleteById(GameService.GAME_ID);
+        if (this.gameRepository.existsById(GameService.GAME_ID))
+            this.gameRepository.deleteById(GameService.GAME_ID);
         gameDeleteSteps.execute(settings);
         makeGame(settings);
     }

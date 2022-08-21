@@ -13,8 +13,13 @@ public class GivenIdeaService {
         this.ideaRepository = ideaRepository;
     }
 
-    public void givenIdea(String ideaName) {
+    public void givenIdea(String ideaName, int level, int xp) {
         if (ideaRepository.existsById(ideaName)) ideaRepository.deleteById(ideaName);
-        ideaFactory.makeIdea(new IdeaFactorySettings(ideaName));
+        ideaFactory.makeIdea(new IdeaFactorySettings(ideaName).withLevel(level).withXp(xp));
     }
+
+    public void givenIdea(String ideaName) {
+        givenIdea(ideaName, 1, 0);
+    }
+
 }

@@ -13,26 +13,46 @@ import java.util.Map;
 
 @Entity
 public class Idea implements HasName {
-    @Id private String name;
-    @ElementCollection private List<IdeaTagRequirement> requirements;
-
-    public Idea(String name, List<IdeaTagRequirement> requirements) {
+    public Idea(String name, int level, int xp, List<IdeaTagRequirement> requirements) {
         this.name = name;
+        this.level = level;
+        this.xp = xp;
         this.requirements = requirements;
     }
 
+    @Id private String name;
+    private int level;
+    private int xp;
+    @ElementCollection private List<IdeaTagRequirement> requirements;
+
     @Override
-    public String getTagName() {
+    public String getName() {
         return name;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getXp() {
+        return xp;
     }
 
     public List<IdeaTagRequirement> getTagRequirements() {
         return requirements;
     }
 
-    private Idea() {} // JPA required constructor
-
     public int countRequiredCards() {
         return requirements.stream().mapToInt(r -> r.getCardCount()).sum();
     }
+
+    public void increaseXp() {
+        this.xp += 1;
+        if (xp >= level * 10) {
+            level += 1;
+            xp = 0;
+        }
+    }
+
+    private Idea() {} // JPA required constructor
 }

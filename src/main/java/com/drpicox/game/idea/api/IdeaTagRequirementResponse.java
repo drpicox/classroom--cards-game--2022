@@ -11,14 +11,14 @@ public class IdeaTagRequirementResponse implements HasName {
     public IdeaTagRequirementResponse(IdeaTagRequirement requirement) {
         this.cardCount = requirement.getCardCount();
         this.tagValue = requirement.getTagValue();
-        this.tagName = requirement.getTagName();
+        this.tagName = requirement.getName();
     }
 
     public int getTagValue() {
         return tagValue;
     }
 
-    public String getTagName() {
+    public String getName() {
         return tagName;
     }
 

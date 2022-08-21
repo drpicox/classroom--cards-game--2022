@@ -10,19 +10,14 @@ import java.util.TreeMap;
 
 public class CardResponse implements HasName, HasPosition {
 
-    private String id;
-    private String name;
-    private int position;
-    private int zindex;
-    private Map<String, TagResponse> tags = new TreeMap<>();
-    private Map<String, String> description;
-
     public CardResponse(Card card) {
         this.id = card.getId();
-        this.name = card.getTagName();
+        this.name = card.getName();
         this.position = card.getPosition();
         this.zindex = card.getZindex();
         this.description = card.getDescription();
+        this.maxProgress = card.getMaxProgress();
+        this.progress = card.getProgress();
 
         card.getTags().stream().forEach(tag -> {
             var response = new TagResponse(tag);
@@ -30,11 +25,20 @@ public class CardResponse implements HasName, HasPosition {
         });
     }
 
+    private String id;
+    private String name;
+    private int position;
+    private int zindex;
+    private int maxProgress;
+    private int progress;
+    private Map<String, TagResponse> tags = new TreeMap<>();
+    private Map<String, String> description;
+
     public String getId() {
         return id;
     }
 
-    public String getTagName() {
+    public String getName() {
         return name;
     }
 
@@ -44,6 +48,14 @@ public class CardResponse implements HasName, HasPosition {
 
     public int getZindex() {
         return zindex;
+    }
+
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    public int getProgress() {
+        return progress;
     }
 
     public int getTag(String tagName) {

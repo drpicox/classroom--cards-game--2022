@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class Names implements Predicate<HasNames>, Iterable<String>, HasNames {
 
     public static Predicate<? super HasName> byName(String name) {
-        return (hasName) -> hasName.getTagName().equals(name);
+        return (hasName) -> hasName.getName().equals(name);
     }
 
     public static Names byNames(String... names) {

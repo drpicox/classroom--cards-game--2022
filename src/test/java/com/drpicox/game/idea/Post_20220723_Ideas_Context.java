@@ -59,7 +59,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.thereShouldBeTheSIdea("Harvest Idea")
 
         var actual = IdeaResponseList.getIdea(game, byName(expected));
-        assertThat(actual.getTagName()).isEqualTo(expected);
+        assertThat(actual.getName()).isEqualTo(expected);
     }
 
     public void thereShouldBeNSCards(int expected, String cardName) {

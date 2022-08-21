@@ -17,6 +17,8 @@ public class Card implements HasName, HasPosition {
     private String name;
     private int position;
     private int zindex;
+    private int maxProgress;
+    private int progress;
 
     @ElementCollection private Map<String,String> description;
 
@@ -30,13 +32,15 @@ public class Card implements HasName, HasPosition {
         this.tags = tags;
         this.position = position;
         this.zindex = zindex;
+        this.maxProgress = 1;
+        this.progress = 0;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getTagName() {
+    public String getName() {
         return name;
     }
 
@@ -52,9 +56,12 @@ public class Card implements HasName, HasPosition {
         return zindex;
     }
 
-    public void placeAt(int position, int zindex) {
-        this.position = position;
-        this.zindex = zindex;
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    public int getProgress() {
+        return progress;
     }
 
     public Map<String, String> getDescription() {
@@ -65,8 +72,6 @@ public class Card implements HasName, HasPosition {
         return description.get(term);
     }
 
-    protected Card() {}
-
     public int getTagValue(String tagName) {
         return tags.stream()
             .filter(tag -> tag.getName().equals(tagName))
@@ -75,8 +80,33 @@ public class Card implements HasName, HasPosition {
             .orElse(0);
     }
 
+
+    void placeAt(int position, int zindex) {
+        this.position = position;
+        this.zindex = zindex;
+    }
+
+    int progress(int maxProgress) {
+        this.maxProgress = maxProgress;
+        progress += 1;
+
+        if (progress >= maxProgress) {
+            progress = 0;
+        }
+
+        return progress;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        var other = (Card) obj;
+        return id.equals(other.id);
+    }
+
     @Override
     public String toString() {
         return "C-" + id + "[#" + position + " z" + zindex + "]";
     }
+
+    private Card() {} // JPA required constructor
 }

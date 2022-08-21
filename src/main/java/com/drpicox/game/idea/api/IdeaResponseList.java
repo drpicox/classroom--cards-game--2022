@@ -21,8 +21,13 @@ public class IdeaResponseList extends ArrayList<IdeaResponse> {
         ideas.forEach(idea -> add(new IdeaResponse(idea)));
     }
 
-    private static List<IdeaResponse> findAllIdea(GameResponse game) {
+    public static List<IdeaResponse> findAllIdea(GameResponse game) {
         var result = game.deserializeField("ideas", IdeaResponseList.class);
+        return result;
+    }
+
+    public static List<IdeaResponse> findAllIdea(GameResponse game, Predicate<? super IdeaResponse> predicate) {
+        var result = findAllIdea(game).stream().filter(predicate).toList();
         return result;
     }
 

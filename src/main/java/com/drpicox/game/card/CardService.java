@@ -53,4 +53,11 @@ public class CardService {
     public void discardCards(List<Card> cards) {
         cardRepository.deleteAll(cards);
     }
+
+    public int progressCard(Card card, int maxProgress) {
+        var resultProgress = card.progress(maxProgress);
+        cardRepository.save(card);
+
+        return resultProgress;
+    }
 }

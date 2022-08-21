@@ -94,10 +94,13 @@ public class Stack implements HasNames {
 
     @Override
     public String getName(int index) {
-        return cards.get(index).getTagName();
+        return cards.get(index).getName();
     }
 
     public CardListSummary getSummary(int fromIndex, int toIndexExclusive) {
+        var size = cards.size();
+        fromIndex = Math.min(size - 1, fromIndex);
+        toIndexExclusive = Math.min(size, toIndexExclusive);
         return new CardListSummary(cards.subList(fromIndex, toIndexExclusive));
     }
 

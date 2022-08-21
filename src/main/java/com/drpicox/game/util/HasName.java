@@ -1,5 +1,5 @@
 package com.drpicox.game.util;
 
 public interface HasName {
-    String getTagName();
+    String getName();
 }

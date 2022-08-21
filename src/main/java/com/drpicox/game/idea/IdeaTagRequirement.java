@@ -23,7 +23,7 @@ public class IdeaTagRequirement implements HasName, Serializable {
         return tagValue;
     }
 
-    public String getTagName() {
+    public String getName() {
         return tagName;
     }
 }

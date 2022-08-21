@@ -1,5 +1,6 @@
 package com.drpicox.game.idea;
 
+import com.drpicox.game.card.Card;
 import com.drpicox.game.card.CardListSummary;
 import com.drpicox.game.card.Stack;
 import com.drpicox.game.moon.EndMoonSettings;
@@ -14,6 +15,7 @@ public class IdeaEndMoonSettings extends EndMoonSettings {
         var count = getIdea().countRequiredCards();
 
         set("stack", stack);
+        set("ideaCard", stack.getBottomCard());
         set("summary", getStack().getSummary(1, count + 1));
         set("position", getStack().getPosition());
         return this;
@@ -21,6 +23,10 @@ public class IdeaEndMoonSettings extends EndMoonSettings {
 
     public Idea getIdea() {
         return get("idea");
+    }
+
+    public Card getIdeaCard() {
+        return get("ideaCard");
     }
 
     public Stack getStack() {

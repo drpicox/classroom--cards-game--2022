@@ -20,9 +20,13 @@ public class IdeaFactory {
 
     public void makeIdea(IdeaFactorySettings ideaFactorySettings) {
         var ideaName = ideaFactorySettings.getIdeaName();
+        if (ideaRepository.existsById(ideaName)) return;
+
         var ideaConstants = cardConstantsCollection.getByName(ideaName);
         var requirements = getCardRequirements(ideaConstants);
-        var idea = new Idea(ideaName, requirements);
+        var level = ideaFactorySettings.getLevel();
+        var xp = ideaFactorySettings.getXp();
+        var idea = new Idea(ideaName, level, xp, requirements);
         ideaRepository.save(idea);
     }
 
