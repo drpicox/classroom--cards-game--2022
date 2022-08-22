@@ -1,4 +1,4 @@
-import { runBeforeTestStarts, runWhenTestSuccessful } from "./fixtures";
+import { runBeforeTestStarts, runWhenTestSuccessful } from "./util";
 import { Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context } from "./Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context";
 
 // !!! IMPORTANT !!!

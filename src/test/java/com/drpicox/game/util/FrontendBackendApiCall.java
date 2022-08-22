@@ -1,4 +1,4 @@
-package com.drpicox.game.fixtures;
+package com.drpicox.game.util;
 
 public class FrontendBackendApiCall {
 

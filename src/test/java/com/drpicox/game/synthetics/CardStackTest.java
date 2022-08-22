@@ -4,7 +4,7 @@ package com.drpicox.game.synthetics;
 import com.drpicox.game.card.*;
 import com.drpicox.game.card.api.CardResponseList;
 import com.drpicox.game.card.api.StackResponseList;
-import com.drpicox.game.fixtures.DatabaseFixture;
+import com.drpicox.game.util.DatabaseTestUtils;
 import com.drpicox.game.game.api.GameResponse;
 import com.drpicox.game.game.api.GameResponseFactory;
 import com.drpicox.game.util.Positions;
@@ -125,7 +125,7 @@ public class CardStackTest {
 
     @Test @Transactional
     public void to_strings() {
-        databaseFixture.clear();
+        databaseTestUtils.clear();
         var settings = new CardFactorySettings("Apple").withPosition(0);
         cardFactory.makeCard(settings);
         cardFactory.makeCard(settings.withCardName("Berry"));
@@ -156,7 +156,7 @@ public class CardStackTest {
 
     @Test @Transactional
     public void test_given_card() {
-        databaseFixture.clear();
+        databaseTestUtils.clear();
         givenCardService.givenCard(1, "Apple");
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(1);
 
@@ -187,7 +187,7 @@ public class CardStackTest {
 
     @Test @Transactional
     public void test_given_stack() {
-        databaseFixture.clear();
+        databaseTestUtils.clear();
         givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
         assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
@@ -246,7 +246,7 @@ public class CardStackTest {
     }
 
     @Autowired private CardLetterBoard cardLetterBoard;
-    @Autowired private DatabaseFixture databaseFixture;
+    @Autowired private DatabaseTestUtils databaseTestUtils;
     @Autowired private CardService cardService;
     @Autowired private CardPositionService cardPositionService;
     @Autowired private StackService stackService;
@@ -257,7 +257,7 @@ public class CardStackTest {
 
     private class StackTest {
         public StackTest given(String board) {
-            databaseFixture.clear();
+            databaseTestUtils.clear();
             cardLetterBoard.makeBoard(board);
             return this;
         }

@@ -1,9 +1,9 @@
-package com.drpicox.game.constants;
+package com.drpicox.game.util;
 
 import java.util.Map;
 
-public class CsvRow {
-    public CsvRow(String[] fields, Map<String, Integer> headings) {
+public class DataTableRow {
+    public DataTableRow(String[] fields, Map<String, Integer> headings) {
         this.fields = fields;
         this.headings = headings;
     }

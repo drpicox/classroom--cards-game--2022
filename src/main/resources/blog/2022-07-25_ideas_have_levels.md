@@ -144,8 +144,8 @@ For example, harvesting is faster than seeding.
  * Given there are 1 stacks of 1 "Seed Idea", 1 "Villager", and 1 "Berry" cards.
  * Given there are 0 "Berry Bush" cards.
  * End the current moon.
- * The "Seed Idea" idea should require the sum of 1 in "Seed" tag cards.
- * The "Seed Idea" idea should require the sum of 1 in "Worker" tag cards.
+ * The "Seed Idea" idea should require 1 card with at least 1 in "Seed" tag.
+ * The "Seed Idea" idea should require 1 card with at least 1 in "Worker" tag.
  * The "Berry" card should have 1 in "Seed" tag.
  * The "Berry" card description should say "Plant" is "Berry Bush".
  * The "Seed Idea" should have level 1 and 0 XP.

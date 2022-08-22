@@ -1,20 +1,20 @@
-package com.drpicox.game.fixtures;
+package com.drpicox.game.util;
 
 import com.drpicox.game.blog.BlogService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Fixtures {
+public class TestUtils {
 
     private final BlogService blogService;
-    private final DatabaseFixture databaseFixture;
+    private final DatabaseTestUtils databaseTestUtils;
     private final FrontendSimulator frontendSimulator;
 
     private String postId;
 
-    public Fixtures(BlogService blogService, DatabaseFixture databaseFixture, FrontendSimulator frontendSimulator) {
+    public TestUtils(BlogService blogService, DatabaseTestUtils databaseTestUtils, FrontendSimulator frontendSimulator) {
         this.blogService = blogService;
-        this.databaseFixture = databaseFixture;
+        this.databaseTestUtils = databaseTestUtils;
         this.frontendSimulator = frontendSimulator;
     }
 
@@ -22,7 +22,7 @@ public class Fixtures {
         this.postId = postId;
 
         verifyExpectedMd5(postId, expectedMd5);
-        databaseFixture.clear();
+        databaseTestUtils.clear();
         frontendSimulator.clear(postId);
     }
 

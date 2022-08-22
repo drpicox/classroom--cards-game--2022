@@ -1,4 +1,4 @@
-import { runBeforeTestStarts, runWhenTestSuccessful } from "../fixtures";
+import { runBeforeTestStarts, runWhenTestSuccessful } from "../util";
 import { Post_20220725_IdeasHaveLevels_Context } from "./Post_20220725_IdeasHaveLevels_Context";
 
 // !!! IMPORTANT !!!
@@ -10,7 +10,7 @@ import { Post_20220725_IdeasHaveLevels_Context } from "./Post_20220725_IdeasHave
 test("2022-07-25_ideas_have_levels.md", async () => {
   await runBeforeTestStarts(
     "2022-07-25_ideas_have_levels",
-    "c99257dc24a102449adfd3db35359789"
+    "d21d6e9e3f8b3a0fdf3643dc9abfefa4"
   );
 
   const context = new Post_20220725_IdeasHaveLevels_Context();
@@ -160,16 +160,18 @@ test("2022-07-25_ideas_have_levels.md", async () => {
   ); //         // * Given there are 1 stacks of 1 "Seed Idea", 1 "Villager", and 1 "Berry" cards.
   await context.givenThereAreNSCards(0, "Berry Bush"); //                                                      // * Given there are 0 "Berry Bush" cards.
   await context.endTheCurrentMoon(); //                                                                        // * End the current moon.
-  await context.theSIdeaShouldRequireTheSumOfNInSTagCards(
+  await context.theSIdeaShouldRequireNCardWithAtLeastNInSTag(
     "Seed Idea",
+    1,
     1,
     "Seed"
-  ); //                          // * The "Seed Idea" idea should require the sum of 1 in "Seed" tag cards.
-  await context.theSIdeaShouldRequireTheSumOfNInSTagCards(
+  ); //                    // * The "Seed Idea" idea should require 1 card with at least 1 in "Seed" tag.
+  await context.theSIdeaShouldRequireNCardWithAtLeastNInSTag(
     "Seed Idea",
     1,
+    1,
     "Worker"
-  ); //                        // * The "Seed Idea" idea should require the sum of 1 in "Worker" tag cards.
+  ); //                  // * The "Seed Idea" idea should require 1 card with at least 1 in "Worker" tag.
   await context.theSCardShouldHaveNInSTag("Berry", 1, "Seed"); //                                              // * The "Berry" card should have 1 in "Seed" tag.
   await context.theSCardDescriptionShouldSaySIsS(
     "Berry",

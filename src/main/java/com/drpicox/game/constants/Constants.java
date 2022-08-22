@@ -1,10 +1,12 @@
 package com.drpicox.game.constants;
 
+import com.drpicox.game.util.DataTableRow;
+import com.drpicox.game.util.DataTable;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Constants {
     private final Map<String, String> properties;
@@ -51,11 +53,11 @@ public class Constants {
             .toList();
     }
 
-    public CsvRow getCsv(String key) {
+    public DataTableRow getCsv(String key) {
         return getCsv(key, null);
     }
 
-    public CsvRow getCsv(String key, Map<String, Integer> headings) {
+    public DataTableRow getCsv(String key, Map<String, Integer> headings) {
         var rowValue = getString(key);
         if (rowValue == null) return null;
 
@@ -63,15 +65,15 @@ public class Constants {
         for (var i = 0; i < fields.length; i+=1)
             fields[i] = fields[i].trim();
 
-        return new CsvRow(fields, headings);
+        return new DataTableRow(fields, headings);
     }
 
-    public CsvTable getCsvTable(String key) {
+    public DataTable getCsvTable(String key) {
         var headings = getCsvTableHeading(key);
         var rows = getCsvTableRows(key, headings);
 
-        if (rows == null) return CsvTable.EMPTY;
-        return new CsvTable(rows);
+        if (rows == null) return DataTable.EMPTY;
+        return new DataTable(rows);
     }
 
     private Map<String, Integer> getCsvTableHeading(String key) {
@@ -86,9 +88,9 @@ public class Constants {
         return headings;
     }
 
-    private List<CsvRow> getCsvTableRows(String key, Map<String, Integer> headings) {
+    private List<DataTableRow> getCsvTableRows(String key, Map<String, Integer> headings) {
         var rowKeys = findAllNumberedKeys(key);
-        var rows = new ArrayList<CsvRow>(rowKeys.size());
+        var rows = new ArrayList<DataTableRow>(rowKeys.size());
         for (var rowKey : rowKeys) {
             var row = getCsv(rowKey, headings);
             rows.add(row);

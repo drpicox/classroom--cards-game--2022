@@ -36,7 +36,7 @@ function makeTestHeader(post) {
   const md5Value = JSON.stringify(post.md5);
 
   return join(
-    `import { runBeforeTestStarts, runWhenTestSuccessful } from '${post.parent}/fixtures';`,
+    `import { runBeforeTestStarts, runWhenTestSuccessful } from '${post.parent}/util';`,
     `import { ${post.contextName} } from './${post.contextName}';`,
     ``,
     `// !!! IMPORTANT !!!`,

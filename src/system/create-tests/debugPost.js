@@ -79,11 +79,11 @@ function debugPost(post) {
     var nextMethod = sortedMethods[index + 1];
     if (
       (closestMethod.distance === 1 &&
-        thereIsOnlyOneSMissing(method.name, closestMethod.name)) ||
+        thereIsASmallFix(method.name, closestMethod.name)) ||
       (method.distance === 1 &&
-        thereIsOnlyOneSMissing(method.name, prevMethod.name)) ||
+        thereIsASmallFix(method.name, prevMethod.name)) ||
       (nextMethod?.distance === 1 &&
-        thereIsOnlyOneSMissing(method.name, nextMethod.name))
+        thereIsASmallFix(method.name, nextMethod.name))
     )
       color = chalk.red.bold;
 
@@ -110,6 +110,21 @@ function padRight(text, width) {
   text = `${text}`;
   while (text.length < width) text = `${text} `;
   return text;
+}
+
+function thereIsASmallFix(current, existing) {
+  return (
+    thereIsOnlyTheNFromAnMissing(current, existing) ||
+    thereIsOnlyOneSMissing(existing, current)
+  );
+}
+
+function thereIsOnlyTheNFromAnMissing(withAn, withA) {
+  return (
+    withAn.length > withA.length &&
+    (withAn.replaceAll(/An([A-Z])/g, "A$1") === withA ||
+      (/^An[A-Z].*/.test(withAn) && /^A[A-Z].*/.test(withA)))
+  );
 }
 
 function thereIsOnlyOneSMissing(missesS, withS) {

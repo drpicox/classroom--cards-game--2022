@@ -1,4 +1,4 @@
-package com.drpicox.game.fixtures;
+package com.drpicox.game.util;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
-public class DatabaseFixture {
+public class DatabaseTestUtils {
     private final List<JpaRepository> repositories;
 
-    public DatabaseFixture(List<JpaRepository> repositories) {
+    public DatabaseTestUtils(List<JpaRepository> repositories) {
         this.repositories = repositories;
     }
 

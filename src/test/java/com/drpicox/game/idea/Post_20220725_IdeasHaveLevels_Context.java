@@ -7,7 +7,6 @@ import com.drpicox.game.card.api.StackResponseList;
 import com.drpicox.game.game.api.GameResponse;
 import com.drpicox.game.idea.api.DrawIdeaForm;
 import com.drpicox.game.idea.api.IdeaResponseList;
-import com.drpicox.game.util.OneCollector;
 import org.springframework.stereotype.Component;
 
 import static com.drpicox.game.card.api.CardResponseList.findAllCard;
@@ -18,7 +17,7 @@ import static com.drpicox.game.util.Names.byNames;
 import static com.drpicox.game.util.OneCollector.toOne;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
-import com.drpicox.game.fixtures.FrontendSimulator;
+import com.drpicox.game.util.FrontendSimulator;
 import com.drpicox.game.game.GivenGameService;
 
 import java.io.IOException;

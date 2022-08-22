@@ -18,7 +18,7 @@ import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
-import com.drpicox.game.fixtures.FrontendSimulator;
+import com.drpicox.game.util.FrontendSimulator;
 
 @Component
 public class Post_20220723_Ideas_Context {
