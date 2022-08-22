@@ -13,7 +13,7 @@ async function writeOriginalCopy(post) {
     `${post.id}.md`,
   );
 
-  await copy(sourcePath, targetPath);
+  await copy(sourcePath, targetPath).catch((x) => console.error(x));
 
   return true;
 }

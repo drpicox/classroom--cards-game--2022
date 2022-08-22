@@ -183,7 +183,8 @@ function verifyPostEndsWithShould(post) {
 
   reportPostError(post, lastCall.lineNumber, [
     `should end in a should instruction, but it does not. `,
-    `Any action should be always verified with an assertion.`,
+    `The should implies an assert or expert, and it has to be present `,
+    `in the last step because any action should be always verified with an assertion or expect.`,
     `Please, modify the last instruction to include should `,
     `or add an additional last instruction with should `,
     `to verify that everything worked as expected.`,
