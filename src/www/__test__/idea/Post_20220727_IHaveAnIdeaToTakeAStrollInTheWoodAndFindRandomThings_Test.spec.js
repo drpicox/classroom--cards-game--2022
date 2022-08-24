@@ -10,73 +10,77 @@ import { Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_Cont
 test("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things.md", async () => {
   await runBeforeTestStarts(
     "2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things",
-    "8898ecf9abfb6ff113c3afe47517f211"
+    "59e0040700e261d0a0b25542c02655d3"
   );
 
   const context =
     new Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_Context();
   await context.beforeTest();
 
-  // # I have an idea to take a stroll in the wood and find random things                                    // # I have an idea to take a stroll in the wood and find random things
+  // # I have an idea to take a stroll in the wood and find random things                                      // # I have an idea to take a stroll in the wood and find random things
 
-  // ## Walk in the woods idea                                                                               // ## Walk in the woods idea
-  await context.enterTheGame(); //                                                                           // * Enter the game.
-  await context.thereShouldBeTheSIdea("Harvest Idea"); //                                                    // * There should be the "Harvest Idea" idea.
-  await context.theSShouldHaveLevelNAndNXp("Woods Stroll Idea", 1, 0); //                                    // * The "Woods Stroll Idea" should have level 1 and 0 XP.
-  await context.theSMayCreateASCard("Woods Stroll Idea", "Berry"); //                                        // * The "Woods Stroll Idea" may create a "Berry" card.
-  await context.theSMayCreateASCard("Woods Stroll Idea", "Apple"); //                                        // * The "Woods Stroll Idea" may create a "Apple" card.
+  // ## Walk in the woods idea                                                                                 // ## Walk in the woods idea
+  await context.enterTheGame(); //                                                                             // * Enter the game.
+  await context.thereShouldBeTheSIdea("Harvest Idea"); //                                                      // * There should be the "Harvest Idea" idea.
+  await context.theSShouldHaveLevelNAndNXp("Woods Stroll Idea", 1, 0); //                                      // * The "Woods Stroll Idea" should have level 1 and 0 XP.
+  await context.theSMayCreateASCard("Woods Stroll Idea", "Berry"); //                                          // * The "Woods Stroll Idea" may create a "Berry" card.
+  await context.theSMayCreateASCard("Woods Stroll Idea", "Apple"); //                                          // * The "Woods Stroll Idea" may create a "Apple" card.
   await context.theSIdeaShouldRequireNCardWithAtLeastNInSTag(
     "Woods Stroll Idea",
     1,
     1,
     "Worker"
-  ); //        // * The "Woods Stroll Idea" idea should require 1 card with at least 1 in "Worker" tag.
+  ); //          // * The "Woods Stroll Idea" idea should require 1 card with at least 1 in "Worker" tag.
 
-  // ## Finding things                                                                                       // ## Finding things
-  // ### | Card Name |                                                                                       // ### | Card Name |
-  // ### |----------:|                                                                                       // ### |----------:|
-  // ### |   "Berry" |                                                                                       // ### |   "Berry" |
+  // ## Finding things                                                                                         // ## Finding things
+  // ### | Card Name |                                                                                         // ### | Card Name |
+  // ### |----------:|                                                                                         // ### |----------:|
+  // ### |   "Berry" |                                                                                         // ### |   "Berry" |
   await context.givenANewGameWithAStackOfNSCardsAndNSCards(
     1,
     "Woods Stroll Idea",
     1,
     "Villager"
-  ); //        // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
-  await context.givenThatTheOddsAreThatWeWillGetACardNameFromTheSCard(
+  ); //          // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
+  await context.givenThatTheOddsAreThatWeWillGetASFromTheSCard(
+    "Berry",
     "Woods Stroll Idea"
-  ); //               // * Given that the odds are that we will get a {Card Name} from the "Woods Stroll Idea" card.
-  await context.endTheCurrentMoon(); //                                                                      // * End the current moon.
-  await context.thereShouldBeNStacksOfNSNSAndNCardNameCards(
+  ); //               // * Given that the odds are that we will get a "Berry" from the "Woods Stroll Idea" card.
+  await context.endTheCurrentMoon(); //                                                                        // * End the current moon.
+  await context.thereShouldBeNStacksOfNSNSAndNSCards(
     1,
     1,
     "Woods Stroll Idea",
     1,
     "Villager",
-    1
-  ); // // * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 {Card Name} cards.
+    1,
+    "Berry"
+  ); // // * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 "Berry" cards.
 
-  // ## Finding things                                                                                       // ## Finding things
-  // ### | Card Name |                                                                                       // ### | Card Name |
-  // ### |----------:|                                                                                       // ### |----------:|
-  // ### |   "Apple" |                                                                                       // ### |   "Apple" |
+  // ## Finding things                                                                                         // ## Finding things
+  // ### | Card Name |                                                                                         // ### | Card Name |
+  // ### |----------:|                                                                                         // ### |----------:|
+  // ### |   "Apple" |                                                                                         // ### |   "Apple" |
   await context.givenANewGameWithAStackOfNSCardsAndNSCards(
     1,
     "Woods Stroll Idea",
     1,
     "Villager"
-  ); //        // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
-  await context.givenThatTheOddsAreThatWeWillGetACardNameFromTheSCard(
+  ); //          // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
+  await context.givenThatTheOddsAreThatWeWillGetASFromTheSCard(
+    "Apple",
     "Woods Stroll Idea"
-  ); //               // * Given that the odds are that we will get a {Card Name} from the "Woods Stroll Idea" card.
-  await context.endTheCurrentMoon(); //                                                                      // * End the current moon.
-  await context.thereShouldBeNStacksOfNSNSAndNCardNameCards(
+  ); //               // * Given that the odds are that we will get a "Apple" from the "Woods Stroll Idea" card.
+  await context.endTheCurrentMoon(); //                                                                        // * End the current moon.
+  await context.thereShouldBeNStacksOfNSNSAndNSCards(
     1,
     1,
     "Woods Stroll Idea",
     1,
     "Villager",
-    1
-  ); // // * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 {Card Name} cards.
+    1,
+    "Apple"
+  ); // // * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 "Apple" cards.
 
   await context.afterTest();
   await runWhenTestSuccessful();

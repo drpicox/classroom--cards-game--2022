@@ -14,6 +14,7 @@ public class IdeaResponse implements HasName {
         this.name = idea.getName();
         this.level = idea.getLevel();
         this.xp = idea.getXp();
+        this.cardRewards = idea.getCardRewards();
         this.tagRequirements = idea.getTagRequirements().stream().map(IdeaTagRequirementResponse::new).toList();
     }
 
@@ -21,6 +22,7 @@ public class IdeaResponse implements HasName {
     private List<IdeaTagRequirementResponse> tagRequirements;
     private int level;
     private int xp;
+    private List<String> cardRewards;
 
     public String getName() {
         return name;
@@ -32,6 +34,10 @@ public class IdeaResponse implements HasName {
 
     public int getXp() {
         return xp;
+    }
+
+    public List<String> getCardRewards() {
+        return cardRewards;
     }
 
     public Optional<IdeaTagRequirementResponse> findTagRequirement(String cardName) {

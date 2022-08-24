@@ -64,12 +64,12 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     );
   }
 
-  async givenThatTheOddsAreThatWeWillGetACardNameFromTheSCard(s1) {
-    // text:  * Given that the odds are that we will get a {Card Name} from the "Woods Stroll Idea" card.
-    // code: this.givenThatTheOddsAreThatWeWillGetACardNameFromTheSCard("Woods Stroll Idea")
+  async givenThatTheOddsAreThatWeWillGetASFromTheSCard(s1, s2) {
+    // text:  * Given that the odds are that we will get a "Berry" from the "Woods Stroll Idea" card.
+    // code: this.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Berry", "Woods Stroll Idea")
 
     throw new Error(
-      "The method givenThatTheOddsAreThatWeWillGetACardNameFromTheSCard(s1) is not implemented yet."
+      "The method givenThatTheOddsAreThatWeWillGetASFromTheSCard(s1, s2) is not implemented yet."
     );
   }
 
@@ -80,22 +80,16 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     throw new Error("The method endTheCurrentMoon() is not implemented yet.");
   }
 
-  async thereShouldBeNStacksOfNSNSAndNCardNameCards(
-    expected,
-    n2,
-    s1,
-    n3,
-    s2,
-    n4
-  ) {
-    // text:  * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 {Card Name} cards.
-    // code: this.thereShouldBeNStacksOfNSNSAndNCardNameCards(1, 1, "Woods Stroll Idea", 1, "Villager", 1)
+  async thereShouldBeNStacksOfNSNSAndNSCards(expected, n2, s1, n3, s2, n4, s3) {
+    // text:  * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 "Berry" cards.
+    // code: this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Woods Stroll Idea", 1, "Villager", 1, "Berry")
+    // hint: Post_20220725_IdeasHaveLevels_Context.thereShouldBeNStacksOfNSNSAndNSCards
 
     var actual = expected; // FIXME
     expect(actual).toEqual(expected);
 
     throw new Error(
-      "The method thereShouldBeNStacksOfNSNSAndNCardNameCards(expected, n2, s1, n3, s2, n4) is not implemented yet."
+      "The method thereShouldBeNStacksOfNSNSAndNSCards(expected, n2, s1, n3, s2, n4, s3) is not implemented yet."
     );
   }
 

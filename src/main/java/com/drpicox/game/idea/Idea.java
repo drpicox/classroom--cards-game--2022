@@ -13,17 +13,19 @@ import java.util.Map;
 
 @Entity
 public class Idea implements HasName {
-    public Idea(String name, int level, int xp, List<IdeaTagRequirement> requirements) {
+    public Idea(String name, int level, int xp, List<IdeaTagRequirement> requirements, List<String> cardRewards) {
         this.name = name;
         this.level = level;
         this.xp = xp;
         this.requirements = requirements;
+        this.cardRewards = cardRewards;
     }
 
     @Id private String name;
     private int level;
     private int xp;
     @ElementCollection private List<IdeaTagRequirement> requirements;
+    @ElementCollection private List<String> cardRewards;
 
     @Override
     public String getName() {
@@ -46,6 +48,10 @@ public class Idea implements HasName {
         return requirements.stream().mapToInt(r -> r.getCardCount()).sum();
     }
 
+    public List<String> getCardRewards() {
+        return cardRewards;
+    }
+
     public void increaseXp() {
         this.xp += 1;
         if (xp >= level * 10) {
@@ -55,4 +61,5 @@ public class Idea implements HasName {
     }
 
     private Idea() {} // JPA required constructor
+
 }

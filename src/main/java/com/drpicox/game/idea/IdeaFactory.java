@@ -24,9 +24,10 @@ public class IdeaFactory {
 
         var ideaConstants = cardConstantsCollection.getByName(ideaName);
         var requirements = getCardRequirements(ideaConstants);
+        var cardRewards = getCardRewards(ideaConstants);
         var level = ideaFactorySettings.getLevel();
         var xp = ideaFactorySettings.getXp();
-        var idea = new Idea(ideaName, level, xp, requirements);
+        var idea = new Idea(ideaName, level, xp, requirements, cardRewards);
         ideaRepository.save(idea);
     }
 
@@ -44,5 +45,13 @@ public class IdeaFactory {
         }
 
         return requirements;
+    }
+
+    private List<String> getCardRewards(Constants ideaConstants) {
+
+        var cardRewardsTable = ideaConstants.getCsvTable("idea.rewards.cards");
+        var cardRewards = cardRewardsTable.getColumn("cardName");
+
+        return cardRewards;
     }
 }

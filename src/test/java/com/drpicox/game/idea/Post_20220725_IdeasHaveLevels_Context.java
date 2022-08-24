@@ -196,15 +196,6 @@ public class Post_20220725_IdeasHaveLevels_Context {
         assertThat(actual).isEmpty();
     }
 
-    public void theSIdeaShouldRequireTheSumOfNInSTagCards(String ideaName, int tagValue, String tagName) {
-        // text:  * The "Seed Idea" idea should require the sum of 1 in "Seed" tag cards.
-        // code: this.theSIdeaShouldRequireTheSumOfNInSTagCards("Seed Idea", 1, "Seed")
-
-        var idea = getIdea(game, byName(ideaName));
-        var tag = idea.findTagRequirement(tagName).stream().collect(toOne());
-        assertThat(tag.getTagValue()).isEqualTo(tagValue);
-    }
-
     public void theSCardProgressShouldBeNOfN(String cardName, int progress, int progressEnd) {
         // text:  * The "Seed Idea" card progress should be 1 of 5.
         // code: this.theSCardProgressShouldBeNOfN("Seed Idea", 1, 5)
@@ -231,5 +222,15 @@ public class Post_20220725_IdeasHaveLevels_Context {
     public void givenThereAreNStacksOfNSCards(int count, int count1, String name1) {
         givenStackService.givenStack(count, byNames(count1, name1));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+    }
+
+    public void theSIdeaShouldRequireNCardWithAtLeastNInSTag(String ideaName, int cardCount, int tagValue, String tagName) {
+        // * The "Harvest Idea" idea should require 1 card with at least 1 in "Fruit Plant" tag.
+        // theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Fruit Plant");
+
+        var idea = IdeaResponseList.getIdea(game, byName(ideaName));
+        var requirement = idea.findTagRequirement(tagName).get();
+        assertThat(requirement.getCardCount()).isEqualTo(cardCount);
+        assertThat(requirement.getTagValue()).isEqualTo(tagValue);
     }
 }

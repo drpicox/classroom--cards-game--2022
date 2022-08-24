@@ -1,7 +1,6 @@
 ---
 writer: drpicox
 package: idea
-debug: true
 ---
 # I have an idea to take a stroll in the wood and find random things
 

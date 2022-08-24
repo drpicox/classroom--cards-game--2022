@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.drpicox.game.util.TestUtils;
 
@@ -13,6 +14,7 @@ import com.drpicox.game.util.TestUtils;
 // DO NOT MODIFY manually. Keep running yarn create-tests instead,
 // while editing your posts.
 
+@ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
 public class Post_20220723_Ideas_Test {

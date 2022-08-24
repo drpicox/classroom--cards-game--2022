@@ -44,7 +44,7 @@ function makeContextHeader(post) {
     `import org.springframework.stereotype.Component;`,
     `import static com.google.common.truth.Truth.assertThat;`,
     `import static com.google.common.truth.Truth8.assertThat;`,
-    `import com.drpicox.game.fixtures.FrontendSimulator;`,
+    `import com.drpicox.game.util.FrontendSimulator;`,
     `import com.drpicox.game.game.GivenGameService;`,
     ``,
     `@Component`,
@@ -60,7 +60,7 @@ function makeContextHeader(post) {
     ``,
     `    public void beforeTest() throws Throwable {`,
     `        // Do your setup here, and change this contents, if necessary`,
-    `        givenGameService.givenGame("safe");`,
+    `        givenGameService.givenGame("default");`,
     `        throw new UnsupportedOperationException("Please, review the implementation of beforeTest() and remove this exception when it is correct.");`,
     `    }`,
   );
