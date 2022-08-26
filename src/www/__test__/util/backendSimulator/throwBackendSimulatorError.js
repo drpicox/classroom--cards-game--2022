@@ -10,7 +10,7 @@ export function throwBackendSimulatorError(backendSimulator, ...messages) {
     please(
       expectize(
         join(
-          `${chalk.bold.magenta.inverse(" BACKEND INTERACTION ERROR ")} `,
+          `${chalk.bold.magenta.inverse(" BACKEND API CALL ERROR ")} `,
           `${chalk.bold.magenta(`${backendSimulator.postId}.md`)}`,
           chalk.magenta(message),
           explainSituation(backendSimulator),
@@ -70,26 +70,27 @@ function explainSituation(backendSimulator) {
   result.push(chalk.black.underline(backendSimulator.filePath));
   result.push(`\nThe recorded apiCalls are:`);
 
-  for (let i = 0; i < backendSimulator.nextApiCallIndex; i += 1)
-    result.push(chalk.green(`   ${explainLineApiCall(backendSimulator, i)}`));
-
-  if (backendSimulator.nextApiCallIndex < backendSimulator.apiCalls.length)
+  let apiCallIndex = 0;
+  let currentApiCallIndex = backendSimulator.nextApiCallIndex - 1;
+  while (apiCallIndex < currentApiCallIndex) {
     result.push(
-      chalk.red(
-        `** ${explainLineApiCall(
-          backendSimulator,
-          backendSimulator.nextApiCallIndex,
-        )}`,
-      ),
+      chalk.green(`   ${explainLineApiCall(backendSimulator, apiCallIndex)}`),
     );
+    apiCallIndex += 1;
+  }
 
-  for (
-    let i = backendSimulator.nextApiCallIndex + 1;
-    i < backendSimulator.apiCalls.length;
-    i += 1
-  )
-    result.push(chalk.grey(`   ${explainLineApiCall(backendSimulator, i)}`));
+  if (apiCallIndex < backendSimulator.apiCalls.length)
+    result.push(
+      chalk.red(`** ${explainLineApiCall(backendSimulator, apiCallIndex)}`),
+    );
+  apiCallIndex += 1;
 
+  while (apiCallIndex < backendSimulator.apiCalls.length) {
+    result.push(
+      chalk.grey(`   ${explainLineApiCall(backendSimulator, apiCallIndex)}`),
+    );
+    apiCallIndex += 1;
+  }
   if (backendSimulator.nextApiCallIndex < backendSimulator.apiCalls.length) {
     result.push(`\nThe next expected apiCall is:`);
     result.push(

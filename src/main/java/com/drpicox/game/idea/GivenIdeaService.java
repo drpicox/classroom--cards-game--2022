@@ -2,6 +2,8 @@ package com.drpicox.game.idea;
 
 import org.springframework.stereotype.Service;
 
+import static com.drpicox.game.idea.IdeaFactory.getIdFromName;
+
 @Service
 public class GivenIdeaService {
 
@@ -14,7 +16,8 @@ public class GivenIdeaService {
     }
 
     public void givenIdea(String ideaName, int level, int xp) {
-        if (ideaRepository.existsById(ideaName)) ideaRepository.deleteById(ideaName);
+        var ideaId = getIdFromName(ideaName);
+        if (ideaRepository.existsById(ideaId)) ideaRepository.deleteById(ideaId);
         ideaFactory.makeIdea(new IdeaFactorySettings(ideaName).withLevel(level).withXp(xp));
     }
 

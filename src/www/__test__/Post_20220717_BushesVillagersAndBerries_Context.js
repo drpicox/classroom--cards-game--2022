@@ -1,13 +1,13 @@
-import { mainView, getAllCard, getAllCardByName } from "./queries";
-import * as userSimulator from "./userSimulator";
+import { mainView } from "./main";
+import { getAllCardByName } from "./card/queries";
+import { waitForEnterTheGame } from "./main/actions";
 
 export class Post_20220717_BushesVillagersAndBerries_Context {
   async beforeTest() {}
 
-  async enterInTheGame() {
+  async enterTheGame() {
     // example:  * Enter in the game.
-    userSimulator.clickButton(mainView, "Enter the Game");
-    await userSimulator.waitForLoading();
+    await waitForEnterTheGame();
   }
 
   async thereShouldBeNSCard(expectedCount, cardName) {

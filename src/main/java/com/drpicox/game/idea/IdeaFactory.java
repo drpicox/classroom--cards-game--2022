@@ -20,15 +20,20 @@ public class IdeaFactory {
 
     public void makeIdea(IdeaFactorySettings ideaFactorySettings) {
         var ideaName = ideaFactorySettings.getIdeaName();
-        if (ideaRepository.existsById(ideaName)) return;
+        var id = getIdFromName(ideaName);
+        if (ideaRepository.existsById(id)) return;
 
         var ideaConstants = cardConstantsCollection.getByName(ideaName);
         var requirements = getCardRequirements(ideaConstants);
         var cardRewards = getCardRewards(ideaConstants);
         var level = ideaFactorySettings.getLevel();
         var xp = ideaFactorySettings.getXp();
-        var idea = new Idea(ideaName, level, xp, requirements, cardRewards);
+        var idea = new Idea(id, ideaName, level, xp, requirements, cardRewards);
         ideaRepository.save(idea);
+    }
+
+    static String getIdFromName(String ideaName) {
+        return ideaName.toLowerCase().replace(" ", "-");
     }
 
     private List<IdeaTagRequirement> getCardRequirements(Constants ideaConstants) {

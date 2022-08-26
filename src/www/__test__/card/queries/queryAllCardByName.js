@@ -1,16 +1,15 @@
-import { queryHelpers, buildQueries } from "@testing-library/react";
-import { verifyContainer } from "./verifyContainer";
+import { queryHelpers } from "@testing-library/react";
+import { createQueries } from "../../util/createQueries";
 
 // The queryAllByAttribute is a shortcut for attribute-based matchers
 // You can also use document.querySelector or a combination of existing
 // testing library utilities to find matching nodes for your query
-const queryAllCardByName = (container, cardName, ...args) =>
-  verifyContainer(container) &&
+const queryAll = (container, cardName, ...args) =>
   queryHelpers.queryAllByAttribute(
     `data-cardname`,
     container,
     cardName,
-    ...args
+    ...args,
   );
 
 const getMultipleError = (c, cardName) =>
@@ -18,19 +17,11 @@ const getMultipleError = (c, cardName) =>
 const getMissingError = (c, cardName) =>
   `Unable to find an element with the attribute data-cardname="${cardName}"`;
 
-const [
-  queryCardByName,
-  getAllCardByName,
-  getCardByName,
-  findAllCardByName,
-  findCardByName,
-] = buildQueries(queryAllCardByName, getMultipleError, getMissingError);
-
-export {
+export const {
   queryCardByName,
   queryAllCardByName,
   getCardByName,
   getAllCardByName,
   findAllCardByName,
   findCardByName,
-};
+} = createQueries("CardByName", queryAll, getMultipleError, getMissingError);

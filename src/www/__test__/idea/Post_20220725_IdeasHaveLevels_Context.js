@@ -1,5 +1,23 @@
-import { mainView, getByTestId } from "../queries";
-import * as userSimulator from "../userSimulator";
+import { mainView } from "../main";
+import {
+  waitForEndMoon,
+  waitForEnterTheGame,
+  waitForReloadGame,
+} from "../main/actions";
+import {
+  getAllCardByName,
+  getAllCardDigestByName,
+  getCardDigestByName,
+  queryAllCardByName,
+} from "../card/queries";
+import {
+  waitForMoveCardToItsOwnStack,
+  waitForMoveCardOnTopOf,
+} from "../stack/actions";
+import { getIdeaByName, getIdeaDigestByName, queryIdeaByName } from "./queries";
+import { waitForDrawIdea } from "./actions";
+import { Names } from "../util/Names";
+import { queryAllStackDigestByCardNames } from "../stack/queries";
 
 export class Post_20220725_IdeasHaveLevels_Context {
   async beforeTest() {
@@ -10,147 +28,136 @@ export class Post_20220725_IdeasHaveLevels_Context {
     // text:  * Enter the game.
     // code: this.enterTheGame()
     // hint: Post_20220723_Ideas_Context.enterTheGame
-    throw new Error("The method enterTheGame() is not implemented yet.");
+    await waitForEnterTheGame();
   }
 
-  async thereShouldBeTheSIdea(expected) {
+  async thereShouldBeTheSIdea(expectedName) {
     // text:  * There should be the "Harvest Idea" idea.
     // code: this.thereShouldBeTheSIdea("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.thereShouldBeTheSIdea
 
-    var actual = expected; // FIXME
-    expect(actual).toEqual(expected);
-
-    throw new Error(
-      "The method thereShouldBeTheSIdea(expected) is not implemented yet."
-    );
+    var actual = getIdeaByName(mainView, expectedName);
+    expect(actual).toBeInTheDocument();
   }
 
-  async theSShouldHaveLevelNAndNXp(s1, n1, n2) {
+  async theSShouldHaveLevelNAndNXp(ideaName, level, xp) {
     // text:  * The "Harvest Idea" should have level 1 and 0 XP.
     // code: this.theSShouldHaveLevelNAndNXp("Harvest Idea", 1, 0)
 
-    throw new Error(
-      "The method theSShouldHaveLevelNAndNXp(s1, n1, n2) is not implemented yet."
-    );
+    var idea = getIdeaDigestByName(mainView, ideaName);
+    expect(idea).toMatchObject({ level, xp });
   }
 
-  async drawACardFromTheSIdea(s1) {
+  async drawACardFromTheSIdea(ideaName) {
     // text:  * Draw a card from the "Harvest Idea" idea.
     // code: this.drawACardFromTheSIdea("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.drawACardFromTheSIdea
 
-    throw new Error(
-      "The method drawACardFromTheSIdea(s1) is not implemented yet."
-    );
+    await waitForDrawIdea(ideaName);
   }
 
-  async moveTheSCardToItsOwnStack(s1) {
+  async moveTheSCardToItsOwnStack(cardName) {
     // text:  * Move the "Harvest Idea" card to its own stack.
     // code: this.moveTheSCardToItsOwnStack("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.moveTheSCardToItsOwnStack
 
-    throw new Error(
-      "The method moveTheSCardToItsOwnStack(s1) is not implemented yet."
-    );
+    var [card] = getAllCardByName(mainView, cardName);
+    await waitForMoveCardToItsOwnStack(card);
   }
 
-  async moveTheSCardOnTopOfTheSCard(s1, s2) {
+  async moveTheSCardOnTopOfTheSCard(topCardName, bottomCardName) {
     // text:  * Move the "Villager" card on top of the "Harvest Idea" card.
     // code: this.moveTheSCardOnTopOfTheSCard("Villager", "Harvest Idea")
     // hint: Post_20220723_Ideas_Context.moveTheSCardOnTopOfTheSCard
 
-    throw new Error(
-      "The method moveTheSCardOnTopOfTheSCard(s1, s2) is not implemented yet."
-    );
+    var [topCard] = getAllCardByName(mainView, topCardName);
+    var [bottomCard] = getAllCardByName(mainView, bottomCardName);
+    await waitForMoveCardOnTopOf(topCard, bottomCard);
   }
 
-  async thereShouldBeNStacksOfNSNSAndNSCards(expected, n2, s1, n3, s2, n4, s3) {
+  async thereShouldBeNStacksOfNSNSAndNSCards(
+    expected,
+    count1,
+    name1,
+    count2,
+    name2,
+    count3,
+    name3,
+  ) {
     // text:  * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
     // code: this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
     // hint: Post_20220723_Ideas_Context.thereShouldBeNStacksOfNSNSAndNSCards
 
-    var actual = expected; // FIXME
-    expect(actual).toEqual(expected);
+    var names = Names.byNames(count1, name1)
+      .and(count2, name2)
+      .and(count3, name3)
+      .get();
 
-    throw new Error(
-      "The method thereShouldBeNStacksOfNSNSAndNSCards(expected, n2, s1, n3, s2, n4, s3) is not implemented yet."
-    );
+    var stacks = queryAllStackDigestByCardNames(mainView, names);
+    expect(stacks).toHaveLength(expected);
   }
 
-  async thereShouldBeNSCards(expected, s1) {
+  async thereShouldBeNSCards(expected, cardName) {
     // text:  * There should be 1 "Berry" cards.
     // code: this.thereShouldBeNSCards(1, "Berry")
     // hint: Post_20220723_Ideas_Context.thereShouldBeNSCards
 
-    var actual = expected; // FIXME
-    expect(actual).toEqual(expected);
-
-    throw new Error(
-      "The method thereShouldBeNSCards(expected, s1) is not implemented yet."
-    );
+    var cards = queryAllCardByName(mainView, cardName);
+    expect(cards).toHaveLength(expected);
   }
 
   async endTheCurrentMoon() {
     // text:  * End the current moon.
     // code: this.endTheCurrentMoon()
     // hint: Post_20220723_Ideas_Context.endTheCurrentMoon
-    throw new Error("The method endTheCurrentMoon() is not implemented yet.");
+
+    await waitForEndMoon();
   }
 
   async givenANewGame() {
     // text:  * Given a new game.
     // code: this.givenANewGame()
     // hint: Post_20220723_Ideas_Context.givenANewGame
-    throw new Error("The method givenANewGame() is not implemented yet.");
+
+    await waitForReloadGame();
   }
 
-  async givenThereIsTheSIdea(s1) {
+  async givenThereIsTheSIdea() {
     // text:  * Given there is the "Harvest Idea" idea.
     // code: this.givenThereIsTheSIdea("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.givenThereIsTheSIdea
 
-    throw new Error(
-      "The method givenThereIsTheSIdea(s1) is not implemented yet."
-    );
+    await waitForReloadGame();
   }
 
-  async givenThereAreNStacksOfNSNSAndNSCards(n1, n2, s1, n3, s2, n4, s3) {
+  async givenThereAreNStacksOfNSNSAndNSCards() {
     // text:  * Given there are 2 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
     // code: this.givenThereAreNStacksOfNSNSAndNSCards(2, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
     // hint: Post_20220723_Ideas_Context.givenThereAreNStacksOfNSNSAndNSCards
 
-    throw new Error(
-      "The method givenThereAreNStacksOfNSNSAndNSCards(n1, n2, s1, n3, s2, n4, s3) is not implemented yet."
-    );
+    await waitForReloadGame();
   }
 
-  async givenThereIsTheSIdeaAtLevelNAndNXp(s1, n1, n2) {
+  async givenThereIsTheSIdeaAtLevelNAndNXp() {
     // text:  * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
     // code: this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
 
-    throw new Error(
-      "The method givenThereIsTheSIdeaAtLevelNAndNXp(s1, n1, n2) is not implemented yet."
-    );
+    await waitForReloadGame();
   }
 
-  async givenThereAreNSCards(n1, s1) {
+  async givenThereAreNSCards() {
     // text:  * Given there are 1 "Berry" cards.
     // code: this.givenThereAreNSCards(1, "Berry")
     // hint: Post_20220723_Ideas_Context.givenThereAreNSCards
 
-    throw new Error(
-      "The method givenThereAreNSCards(n1, s1) is not implemented yet."
-    );
+    await waitForReloadGame();
   }
 
-  async givenANewGameWithNSProductionStack(n1, s1) {
+  async givenANewGameWithNSProductionStack() {
     // text:  * Given a new game with 1 "Berry Bush" production stack.
     // code: this.givenANewGameWithNSProductionStack(1, "Berry Bush")
 
-    throw new Error(
-      "The method givenANewGameWithNSProductionStack(n1, s1) is not implemented yet."
-    );
+    await waitForReloadGame();
   }
 
   async thereShouldBeNoSIdea(expected) {
@@ -158,33 +165,58 @@ export class Post_20220725_IdeasHaveLevels_Context {
     // code: this.thereShouldBeNoSIdea("Plant Seed")
     // hint: Post_20220723_Ideas_Context.thereShouldBeTheSIdea
 
-    var actual = expected; // FIXME
-    expect(actual).toEqual(expected);
-
-    throw new Error(
-      "The method thereShouldBeNoSIdea(expected) is not implemented yet."
-    );
+    var idea = queryIdeaByName(mainView, expected);
+    expect(idea).not.toBeInTheDocument();
   }
 
-  async theSIdeaShouldRequireTheSumOfNInSTagCards(s1, n1, s2) {
-    // text:  * The "Seed Idea" idea should require the sum of 1 in "Seed" tag cards.
-    // code: this.theSIdeaShouldRequireTheSumOfNInSTagCards("Seed Idea", 1, "Seed")
+  async givenThereAreNStacksOfNSCards() {
+    // text:  * Given there are 1 stacks of 5 "Berry" cards.
+    // code: this.givenThereAreNStacksOfNSCards(1, 5, "Berry");
 
-    throw new Error(
-      "The method theSIdeaShouldRequireTheSumOfNInSTagCards(s1, n1, s2) is not implemented yet."
-    );
+    await waitForReloadGame();
   }
 
-  async theSCardProgressShouldBeNOfN(s1, expected, n2) {
+  async theSIdeaShouldRequireNCardWithAtLeastNInSTag(
+    ideaName,
+    cardCount,
+    tagValue,
+    tagName,
+  ) {
+    // text:  * The "Seed Idea" idea should require 1 card with at least 1 in "Seed" tag
+    // code: this.theSIdeaShouldRequireTheSumOfNInSTagCards("Seed Idea", 1, 1, "Worker")
+
+    var idea = getIdeaDigestByName(mainView, ideaName);
+    expect(idea.tagRequirements).toMatchObject({
+      [tagName]: {
+        cardCount,
+        tagValue,
+      },
+    });
+  }
+
+  async theSCardShouldHaveNInSTag(cardName, count, tagName) {
+    // text:  * The "Berry" card should have 1 in "Seed" tag
+    // code: this.theSCardShouldHaveNInSTag("Berry", 1, "Seed")
+
+    const [card] = getAllCardDigestByName(mainView, cardName);
+    expect(card.tags).toMatchObject({ [tagName]: count });
+  }
+
+  async theSCardDescriptionShouldSaySIsS(cardName, term, description) {
+    // text: * The "Berry" card description should say "Plant" is "Berry Bush".
+    // code: this.theSCardDescriptionShouldSaySIsS("Berry", "Plant", "Berry Bush");
+
+    const [card] = getAllCardDigestByName(mainView, cardName);
+    expect(card.terms).toMatchObject({ [term]: description });
+  }
+
+  async theSCardProgressShouldBeNOfN(cardName, progress, maxProgress) {
     // text:  * The "Seed Idea" card progress should be 1 of 5.
     // code: this.theSCardProgressShouldBeNOfN("Seed Idea", 1, 5)
 
-    var actual = expected; // FIXME
-    expect(actual).toEqual(expected);
-
-    throw new Error(
-      "The method theSCardProgressShouldBeNOfN(s1, expected, n2) is not implemented yet."
-    );
+    const card = getCardDigestByName(mainView, cardName);
+    expect(card.progress).toBe(progress);
+    expect(card.maxProgress).toBe(maxProgress);
   }
 
   async afterTest() {

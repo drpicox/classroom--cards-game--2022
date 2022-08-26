@@ -27,10 +27,8 @@ public class CardController {
         return gameResponseFactory.makeGameResponse();
     }
 
-    @PostMapping("/discard")
-    public GameResponse discardCard(@RequestBody DiscardCardForm discardCardForm) {
-        var cardId = discardCardForm.getCardId();
-
+    @PostMapping("/{cardId}/discard")
+    public GameResponse discardCard(@PathVariable String cardId) {
         var card = cardService.findById(cardId).get();
         cardService.discardCard(card);
         return gameResponseFactory.makeGameResponse();

@@ -1,18 +1,17 @@
+import { mainView } from "./main";
 import {
-  mainView,
-  getAllCardByName,
-  getTagByName,
+  getAllCardDigestByName,
+  queryAllCardByName,
   queryCardByName,
-} from "./queries";
-import * as userSimulator from "./userSimulator";
+} from "./card/queries";
+import { waitForEndMoon, waitForEnterTheGame } from "./main/actions";
 
 export class Post_20220719_VillagersEatFood_Context {
   async beforeTest() {}
 
   async givenWeHaveEnteredIntoANewGame() {
     // example:  * Given we have entered into a new game.
-    userSimulator.clickButton(mainView, "Enter the Game");
-    await userSimulator.waitForLoading();
+    await waitForEnterTheGame();
   }
 
   async theSCardShouldHaveNInSTag(cardName, count, tagName) {
@@ -21,15 +20,13 @@ export class Post_20220719_VillagersEatFood_Context {
     // has = 1
     // arg2 = "food"
 
-    const [card] = getAllCardByName(mainView, cardName);
-    const tag = getTagByName(card, tagName);
-    expect(tag).toHaveTextContent("" + count);
+    const [card] = getAllCardDigestByName(mainView, cardName);
+    expect(card.tags[tagName]).toEqual(count);
   }
 
   async endTheCurrentMoon() {
     // example:  * End the current moon.
-    userSimulator.clickButton(mainView, "End Moon");
-    await userSimulator.waitForLoading();
+    await waitForEndMoon();
   }
 
   async thereShouldBeNoSCard(cardName) {
@@ -40,12 +37,12 @@ export class Post_20220719_VillagersEatFood_Context {
     expect(card).not.toBeInTheDocument();
   }
 
-  async thereShouldBeNSCard(count, cardName) {
+  async thereShouldBeNSCards(count, cardName) {
     // example:  * There is 1 "villager" card.
     // is = 1
     // n = "villager"
 
-    const cards = getAllCardByName(mainView, cardName);
+    const cards = queryAllCardByName(mainView, cardName);
     expect(cards).toHaveLength(count);
   }
 

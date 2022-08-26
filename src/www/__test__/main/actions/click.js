@@ -1,4 +1,3 @@
-// You may need to add more methods here
 import { act, getByRole } from "@testing-library/react";
 
 export function click(element) {

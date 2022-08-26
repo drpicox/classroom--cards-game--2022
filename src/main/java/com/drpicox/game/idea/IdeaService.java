@@ -26,4 +26,8 @@ public class IdeaService {
         idea.increaseXp();
         ideaRepository.save(idea);
     }
+
+    public Optional<Idea> findIdeaById(String ideaId) {
+        return ideaRepository.findById(ideaId);
+    }
 }

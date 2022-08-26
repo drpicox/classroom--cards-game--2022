@@ -1,12 +1,13 @@
-import * as userSimulator from "../userSimulator";
-import { mainView, queryAllByTestId, getByTestId } from "../queries";
+import { queryAllByTestId, getByTestId } from "@testing-library/react";
+import { clickLink, waitForLoading } from "../main/actions";
+import { mainView } from "../main";
 
 export class Post_20220715_HelloBlog_Context {
   async beforeTest() {}
 
   async goToTheBlogSection() {
-    userSimulator.clickLink(mainView, "Blog");
-    await userSimulator.waitForLoading();
+    clickLink(mainView, "Blog");
+    await waitForLoading();
   }
 
   async youShouldSeeAListOfPosts() {
@@ -24,8 +25,8 @@ export class Post_20220715_HelloBlog_Context {
   }
 
   async goToTheSPost(postTitle) {
-    userSimulator.clickLink(mainView, postTitle);
-    await userSimulator.waitForLoading();
+    clickLink(mainView, postTitle);
+    await waitForLoading();
   }
 
   async youShouldSeeTheSPost(the) {

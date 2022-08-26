@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router";
 import { App } from "../../App";
 import { createAppStore } from "../../createAppStore";
-import { setMainView } from "../queries/mainView";
+import { setMainView } from "../main";
 
 export function renderApp() {
   const result = render(
@@ -11,7 +11,7 @@ export function renderApp() {
       <MemoryRouter>
         <App />
       </MemoryRouter>
-    </Provider>
+    </Provider>,
   );
 
   setMainView(result.container);

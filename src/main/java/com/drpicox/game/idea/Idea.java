@@ -13,7 +13,8 @@ import java.util.Map;
 
 @Entity
 public class Idea implements HasName {
-    public Idea(String name, int level, int xp, List<IdeaTagRequirement> requirements, List<String> cardRewards) {
+    public Idea(String id, String name, int level, int xp, List<IdeaTagRequirement> requirements, List<String> cardRewards) {
+        this.id = id;
         this.name = name;
         this.level = level;
         this.xp = xp;
@@ -21,11 +22,16 @@ public class Idea implements HasName {
         this.cardRewards = cardRewards;
     }
 
-    @Id private String name;
+    @Id private String id;
+    private String name;
     private int level;
     private int xp;
     @ElementCollection private List<IdeaTagRequirement> requirements;
     @ElementCollection private List<String> cardRewards;
+
+    public String getId() {
+        return id;
+    }
 
     @Override
     public String getName() {

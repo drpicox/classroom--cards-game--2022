@@ -1,16 +1,20 @@
 import { backend } from "../backend";
-import { replaceCards } from "../cards/cardsSlice";
 import {
   hideLoadingSpinner,
   showLoadingSpinner,
 } from "../loading/loadingSlice";
 
-const REQUEST_GAME = "blog/REQUEST_GAME";
+const REQUEST_GAME = "game/REQUEST_GAME";
 export function requestGame() {
   return { type: REQUEST_GAME };
 }
 
-const REQUEST_END_MOON = "blog/REQUEST_END_MOON";
+export const REPLACE_GAME = "game/REPLACE_GAME";
+export function replaceGame(game) {
+  return { type: REPLACE_GAME, game };
+}
+
+const REQUEST_END_MOON = "game/REQUEST_END_MOON";
 export function requestEndMoon() {
   return { type: REQUEST_END_MOON };
 }
@@ -29,14 +33,14 @@ export const gameMiddleware = (store) => (next) => async (action) => {
   if (action.type === REQUEST_GAME) {
     store.dispatch(showLoadingSpinner());
     const game = await fetchGame();
-    store.dispatch(replaceCards(game.cards));
+    store.dispatch(replaceGame(game));
     store.dispatch(hideLoadingSpinner());
   }
 
   if (action.type === REQUEST_END_MOON) {
     store.dispatch(showLoadingSpinner());
     const game = await fetchEndMoon();
-    store.dispatch(replaceCards(game.cards));
+    store.dispatch(replaceGame(game));
     store.dispatch(hideLoadingSpinner());
   }
 };

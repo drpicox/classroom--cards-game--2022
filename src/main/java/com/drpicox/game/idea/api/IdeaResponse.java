@@ -11,6 +11,7 @@ import static com.drpicox.game.util.Names.byName;
 public class IdeaResponse implements HasName {
 
     public IdeaResponse(Idea idea) {
+        this.id = idea.getId();
         this.name = idea.getName();
         this.level = idea.getLevel();
         this.xp = idea.getXp();
@@ -18,11 +19,16 @@ public class IdeaResponse implements HasName {
         this.tagRequirements = idea.getTagRequirements().stream().map(IdeaTagRequirementResponse::new).toList();
     }
 
+    private String id;
     private String name;
     private List<IdeaTagRequirementResponse> tagRequirements;
     private int level;
     private int xp;
     private List<String> cardRewards;
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

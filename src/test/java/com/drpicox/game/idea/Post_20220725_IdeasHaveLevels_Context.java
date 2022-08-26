@@ -5,7 +5,6 @@ import com.drpicox.game.card.GivenStackService;
 import com.drpicox.game.card.api.MoveForm;
 import com.drpicox.game.card.api.StackResponseList;
 import com.drpicox.game.game.api.GameResponse;
-import com.drpicox.game.idea.api.DrawIdeaForm;
 import com.drpicox.game.idea.api.IdeaResponseList;
 import org.springframework.stereotype.Component;
 
@@ -76,7 +75,8 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.drawACardFromTheSIdea("Harvest Idea")
         // hint: Post_20220723_Ideas_Context.drawACardFromTheSIdea
 
-        game = frontendSimulator.post("/api/v1/game/ideas/draw", new DrawIdeaForm(ideaName), GameResponse.class);
+        var idea = getIdea(game, byName(ideaName));
+        game = frontendSimulator.post("/api/v1/game/ideas/" + idea.getId() + "/draw", null, GameResponse.class);
     }
 
     public void moveTheSCardToItsOwnStack(String cardName) {
@@ -150,6 +150,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // hint: Post_20220723_Ideas_Context.givenThereIsTheSIdea
 
         givenIdeaService.givenIdea(ideaName);
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void givenThereAreNStacksOfNSNSAndNSCards(int count, int count1, String name1, int count2, String name2, int count3, String name3) {
@@ -175,6 +176,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // hint: Post_20220723_Ideas_Context.givenThereAreNSCards
 
         givenCardService.givenCard(count, cardName);
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void givenANewGameWithNSProductionStack(int count, String plantName) throws IOException, URISyntaxException {

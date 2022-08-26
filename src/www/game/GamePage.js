@@ -1,12 +1,16 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card } from "../cards/Card";
-import { selectAllCardIds } from "../cards/cardsSlice";
+import { Discard } from "../card/Discard";
+import { Idea } from "../idea/Idea";
+import { selectAllIdeaNames } from "../idea/ideaSlice";
+import { Stack } from "../stack/Stack";
+import { selectAllStackPositions } from "../stack/stackSlice";
 import { requestEndMoon, requestGame } from "./gameSlice";
 
 export function GamePage() {
   const dispatch = useDispatch();
-  const cardIds = useSelector(selectAllCardIds);
+  const stackPositions = useSelector(selectAllStackPositions);
+  const ideaNames = useSelector(selectAllIdeaNames);
 
   const endMoon = useCallback(() => dispatch(requestEndMoon()), [dispatch]);
   const reload = useCallback(() => dispatch(requestGame()), [dispatch]);
@@ -14,9 +18,13 @@ export function GamePage() {
   return (
     <div>
       <button onClick={endMoon}>End Moon</button>
-      <button onClick={reload}>Reload</button>;
-      {cardIds.map((id) => (
-        <Card key={id} cardId={id} />
+      <button onClick={reload}>Reload</button>
+      <Discard />
+      {ideaNames.map((name) => (
+        <Idea key={name} ideaName={name} />
+      ))}
+      {stackPositions.map((position) => (
+        <Stack key={position} position={position} />
       ))}
     </div>
   );

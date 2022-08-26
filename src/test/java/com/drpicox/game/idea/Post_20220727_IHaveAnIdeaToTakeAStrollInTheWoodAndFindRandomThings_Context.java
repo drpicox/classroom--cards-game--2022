@@ -105,6 +105,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Berry", "Woods Stroll Idea")
 
         randomPickerServiceMock.mockPick(ideaName, cardName);
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void endTheCurrentMoon() {

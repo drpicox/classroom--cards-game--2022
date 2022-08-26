@@ -37,8 +37,9 @@ function makeContextContent(post) {
 
 function makeContextHeader(post) {
   return join(
-    `import { mainView, getByTestId } from "${post.parent}/queries";`,
-    `import * as userSimulator from "${post.parent}/userSimulator";`,
+    `import { getByTestId } from "@testing-library/react";`,
+    `import { mainView } from "${post.parent}/main";`,
+    `import { waitForLoading } from "${post.parent}/main/actions";`,
     ``,
     `export class ${post.contextName} {`,
     `  async beforeTest() {`,

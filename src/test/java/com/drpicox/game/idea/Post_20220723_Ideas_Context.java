@@ -3,17 +3,16 @@ package com.drpicox.game.idea;
 import com.drpicox.game.game.GivenGameService;
 import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.GivenStackService;
-import com.drpicox.game.card.api.DiscardCardForm;
 import com.drpicox.game.card.api.MoveForm;
 import com.drpicox.game.card.api.StackResponseList;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
 import com.drpicox.game.game.api.GameResponse;
-import com.drpicox.game.idea.api.DrawIdeaForm;
 import com.drpicox.game.idea.api.IdeaResponseList;
 import org.springframework.stereotype.Component;
 
 import static com.drpicox.game.card.api.CardResponseList.*;
+import static com.drpicox.game.idea.api.IdeaResponseList.getIdea;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -58,7 +57,7 @@ public class Post_20220723_Ideas_Context {
         // text:  * There should be the "Harvest Idea" idea.
         // code: this.thereShouldBeTheSIdea("Harvest Idea")
 
-        var actual = IdeaResponseList.getIdea(game, byName(expected));
+        var actual = getIdea(game, byName(expected));
         assertThat(actual.getName()).isEqualTo(expected);
     }
 
@@ -75,7 +74,8 @@ public class Post_20220723_Ideas_Context {
         // text:  * Draw a card from the "Harvest Idea" idea.
         // code: this.drawACardFromTheSIdea("Harvest Idea")
 
-        game = frontendSimulator.post("/api/v1/game/ideas/draw", new DrawIdeaForm(ideaName), GameResponse.class);
+        var idea = getIdea(game, byName(ideaName));
+        game = frontendSimulator.post("/api/v1/game/ideas/"+idea.getId()+"/draw", null, GameResponse.class);
     }
 
     public void givenThereIsTheSIdea(String ideaName) {
@@ -83,6 +83,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenThereIsTheSIdea("Harvest Idea")
 
         givenIdeaService.givenIdea(ideaName);
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void givenThereAreNSCards(int count, String cardName) {
@@ -90,6 +91,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenThereAreNSCards(1, "Harvest Idea")
 
         givenCardService.givenCard(count, cardName);
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void discardNSCards(int count, String cardName) {
@@ -99,7 +101,7 @@ public class Post_20220723_Ideas_Context {
         var cards = findAllCard(game, byName(cardName));
         var discards = cards.subList(0, count);
         for (var card : discards) {
-            game = frontendSimulator.post("/api/v1/game/cards/discard", new DiscardCardForm(card.getId()), GameResponse.class);
+            game = frontendSimulator.post("/api/v1/game/cards/"+card.getId()+"/discard", null, GameResponse.class);
         }
     }
 
@@ -121,7 +123,7 @@ public class Post_20220723_Ideas_Context {
         // * The "Harvest Idea" idea should require 1 card with at least 1 in "Fruit Plant" tag.
         // theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Fruit Plant");
 
-        var idea = IdeaResponseList.getIdea(game, byName(ideaName));
+        var idea = getIdea(game, byName(ideaName));
         var requirement = idea.findTagRequirement(tagName).get();
         assertThat(requirement.getCardCount()).isEqualTo(cardCount);
         assertThat(requirement.getTagValue()).isEqualTo(tagValue);
@@ -197,6 +199,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Corpse", 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
         givenStackService.givenStack(count, byNames(count1, name1).and(count2, name2).and(count3, name3).and(count4, name4));
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
     public void afterTest() {

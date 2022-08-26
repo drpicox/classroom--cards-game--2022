@@ -1,19 +1,16 @@
+import { mainView } from "./main";
 import {
-  mainView,
-  getAllCardByName,
-  getTagByName,
-  queryAllTagByName,
   queryAllCardByName,
-} from "./queries";
-import * as userSimulator from "./userSimulator";
+  getAllCardDigestByName,
+  queryAllCardDigest,
+} from "./card/queries";
+import { waitForEndMoon, waitForReloadGame } from "./main/actions";
 
 export class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
   async beforeTest() {}
 
   async givenThereAreNSAndNSCards() {
-    userSimulator.clickLink(mainView, "Game");
-    userSimulator.clickButton(mainView, "Reload");
-    await userSimulator.waitForLoading();
+    await waitForReloadGame();
   }
 
   async theSCardShouldHaveNInSTag(cardName, count, tagName) {
@@ -22,9 +19,8 @@ export class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
     // have = 1
     // arg2 = "eats"
 
-    var [card] = getAllCardByName(mainView, cardName);
-    var tag = getTagByName(card, tagName);
-    expect(tag).toHaveTextContent(count);
+    var [card] = getAllCardDigestByName(mainView, cardName);
+    expect(card.tags[tagName]).toEqual(count);
   }
 
   async theSumOfAllSTagsValueShouldBeN(tagName, expected) {
@@ -32,15 +28,14 @@ export class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
     // all = "eats"
     // expected = 12
 
-    var tags = queryAllTagByName(mainView, tagName);
-    var actual = tags.reduce((acc, t) => acc + +t.textContent, 0);
+    var cards = queryAllCardDigest(mainView);
+    var actual = cards.reduce((acc, c) => acc + c.getTag(tagName), 0);
     expect(actual).toEqual(expected);
   }
 
   async endTheCurrentMoon() {
     // example:  * End the current moon.
-    userSimulator.clickButton(mainView, "End Moon");
-    await userSimulator.waitForLoading();
+    await waitForEndMoon();
   }
 
   async thereShouldBeNSCards(expected, cardName) {
