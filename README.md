@@ -188,3 +188,134 @@ This ensures that you're testing the behavior the user would see in the browser.
   assertions. They should never use *Service calls.
   They are what we execute.
  
+## Hints to Debug JavaScript Tests
+
+### screen.debug
+
+Use `screen.debug()` to print the DOM tree, and see what would be rendered
+on the screen to the user.
+
+You can use also `screen.debug(element)` to print the DOM tree of a element,
+instead of the whole screen.
+
+Import the screen from `@testing-library/react`:
+
+```js
+import { screen } from '@testing-library/react';
+
+function example(cardElement) {
+  screen.debug(cardElement);
+}
+```
+
+If you are using digests, they have a method called `debugElement` that does the same.
+
+```js
+function example(cardDigest) {
+  cardDigest.debugElement();
+}
+```
+
+The output should look like:
+
+```html
+console.log
+      <div
+        data-cardid="villager-1"
+        data-cardname="Villager"
+        data-testid="card"
+        data-zindex="0"
+      >
+        Villager
+        <div
+          data-tagname="Eats"
+        >
+          1
+        </div>
+        <div
+          data-tagname="Worker"
+        >
+          1
+        </div>
+        <div
+          data-carddescriptionterm="Fruit"
+        >
+          Fruit
+            is 
+          None
+        </div>
+      </div>
+  
+  /Volumes/Projects/tecnocampus/LS2/2022/classroom--cards-game--2022/src/www/__test__/idea/Post_20220723_Ideas_Context.js:89:10
+    87 |
+    88 |     const [card] = getAllCardDigestByName(mainView, cardName);
+  > 89 |     card.debugElement();
+       |          ^
+```
+
+### Digest objects
+
+Digest objects are the data extracted from the DOM html. 
+Examples are the card digest, the stack digest and the stack digest.
+
+Create digests functions with `createDigestFunction`. It will add additional
+properties that will allow you to have better debugging utilities.
+
+An example of digest creation is `digestStackElement`:
+
+```js
+export const digestStackElement = createDigestFunction(
+  "stack",
+  (stackElement) => {
+    const stackDigest = {
+      position: +stackElement.dataset.stackposition,
+      cards: queryAllCardDigest(stackElement).sort(
+        (a, b) => a.zindex - b.zindex,
+      ),
+    };
+
+    return stackDigest;
+  },
+);
+```
+
+In this case it creates a digest with two fields, `position` and `cards`,
+and additional support fields:
+
+* `typeName`: The name of the digest, in this case `stack`.
+* `getElement`: A function that returns the DOM element of the digest.
+* `debugElement`: A function that prints the DOM element of the digest.
+* `debug`: A function that prints the digest.
+
+You can add your own functions to the digest, and they will be available
+to all the users. Look `digestCardElement` for an example.
+
+You can debug the contents of the digest with `debug`:
+
+```js
+  cardDigest.debug();
+```
+
+The output should look like:
+
+```json
+console.log
+        const cardDigest = {
+          typeName: "card",
+          id: "berry-bush-1",
+          name: "Berry Bush",
+          zindex: 2,
+          terms: { Fruit: "Berry" },
+          tags: { "Fruit Plant": 1 },
+          getElement() { return /* the DOM element of this digest */ },
+          debugElement() { /* shows the DOM html of this element */ },
+          debug() { /* shows this message */ },
+          getTag(...) { ... },
+        }; 
+
+    /Volumes/Projects/tecnocampus/LS2/2022/classroom--cards-game--2022/src/www/__test__/idea/Post_20220723_Ideas_Context.js:89:10
+    87 |
+    88 |     const [card] = getAllCardDigestByName(mainView, cardName);
+  > 89 |     card.debug();
+      |          ^
+```
