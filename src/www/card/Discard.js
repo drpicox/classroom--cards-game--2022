@@ -10,8 +10,8 @@ export function Discard() {
   );
 
   return (
-    <div data-testid="discard" onMouseDown={discard} onMouseUp={discard}>
-      Discard
+    <div className="discard" data-testid="discard" onClick={discard}>
+      🗑️ Discard
     </div>
   );
 }

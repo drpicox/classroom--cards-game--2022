@@ -19,13 +19,14 @@ public class Card implements HasName, HasPosition {
     private int zindex;
     private int maxProgress;
     private int progress;
+    private String looksLike;
 
     @ElementCollection private Map<String,String> description;
 
     @OneToMany
     private List<Tag> tags;
 
-    public Card(String id, String name, Map<String,String> description, List<Tag> tags, int position, int zindex) {
+    public Card(String id, String name, Map<String,String> description, List<Tag> tags, int position, int zindex, String looksLike) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -34,6 +35,7 @@ public class Card implements HasName, HasPosition {
         this.zindex = zindex;
         this.maxProgress = 1;
         this.progress = 0;
+        this.looksLike = looksLike;
     }
 
     public String getId() {
@@ -62,6 +64,10 @@ public class Card implements HasName, HasPosition {
 
     public int getProgress() {
         return progress;
+    }
+
+    public String getLooksLike() {
+        return looksLike;
     }
 
     public Map<String, String> getDescription() {

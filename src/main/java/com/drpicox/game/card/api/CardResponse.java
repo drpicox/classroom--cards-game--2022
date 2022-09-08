@@ -18,6 +18,7 @@ public class CardResponse implements HasName, HasPosition {
         this.description = card.getDescription();
         this.maxProgress = card.getMaxProgress();
         this.progress = card.getProgress();
+        this.looksLike = card.getLooksLike();
 
         card.getTags().stream().forEach(tag -> {
             var response = new TagResponse(tag);
@@ -31,6 +32,7 @@ public class CardResponse implements HasName, HasPosition {
     private int zindex;
     private int maxProgress;
     private int progress;
+    private String looksLike;
     private Map<String, TagResponse> tags = new TreeMap<>();
     private Map<String, String> description;
 

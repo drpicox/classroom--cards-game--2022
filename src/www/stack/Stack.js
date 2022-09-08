@@ -13,12 +13,13 @@ export function Stack({ position }) {
 
   return (
     <div
+      className={`stack stack-${stack.position}`}
       data-testid="stack"
       data-stackposition={stack.position}
-      onMouseUp={move}
+      onClick={move}
     >
-      {stack.cardIds.map((cardId) => (
-        <Card key={cardId} cardId={cardId} />
+      {stack.cardIds.map((cardId, index) => (
+        <Card key={cardId} cardId={cardId} index={index} />
       ))}
     </div>
   );

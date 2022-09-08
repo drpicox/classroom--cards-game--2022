@@ -5,5 +5,9 @@ export function Loading() {
   const loading = useSelector(selectIsLoading);
   if (!loading) return null;
 
-  return <div data-testid="loading">Loading...</div>;
+  return (
+    <span className="loading" data-testid="loading">
+      Loading...
+    </span>
+  );
 }

@@ -32,7 +32,7 @@ So, lets put this in movement.
 We can find any of the following things in the woods:
 
 | Card Name |
-|----------:|
+|-----------|
 |   "Berry" |
 |   "Apple" |
 

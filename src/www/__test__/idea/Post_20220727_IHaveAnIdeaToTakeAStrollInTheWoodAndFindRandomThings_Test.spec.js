@@ -10,7 +10,7 @@ import { Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_Cont
 test("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things.md", async () => {
   await runBeforeTestStarts(
     "2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things",
-    "59e0040700e261d0a0b25542c02655d3"
+    "0117e5df1915a0ec3c12074e2e5054d9"
   );
 
   const context =
@@ -34,7 +34,7 @@ test("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_thi
 
   // ## Finding things                                                                                         // ## Finding things
   // ### | Card Name |                                                                                         // ### | Card Name |
-  // ### |----------:|                                                                                         // ### |----------:|
+  // ### |-----------|                                                                                         // ### |-----------|
   // ### |   "Berry" |                                                                                         // ### |   "Berry" |
   await context.givenANewGameWithAStackOfNSCardsAndNSCards(
     1,
@@ -59,7 +59,7 @@ test("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_thi
 
   // ## Finding things                                                                                         // ## Finding things
   // ### | Card Name |                                                                                         // ### | Card Name |
-  // ### |----------:|                                                                                         // ### |----------:|
+  // ### |-----------|                                                                                         // ### |-----------|
   // ### |   "Apple" |                                                                                         // ### |   "Apple" |
   await context.givenANewGameWithAStackOfNSCardsAndNSCards(
     1,

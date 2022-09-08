@@ -16,6 +16,7 @@ public class CardResponseList extends ArrayList<CardResponse> {
 
     public CardResponseList(List<Card> cards) {
         cards.forEach(card -> add(new CardResponse(card)));
+        sort((c1, c2) -> c1.getZindex() - c2.getZindex());
     }
 
     public static List<CardResponse> findAllCard(GameResponse gameResponse) {

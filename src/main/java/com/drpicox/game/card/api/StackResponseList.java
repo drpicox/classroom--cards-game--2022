@@ -36,7 +36,6 @@ public class StackResponseList {
     private static DerivedStackResponse getStackByPosition(List<CardResponse> cards, int position) {
         var stackCards = cards.stream()
             .filter(card -> card.getPosition() == position)
-            .sorted((c1, c2) -> c1.getZindex() - c2.getZindex())
             .toList();
 
         var stack = new DerivedStackResponse(position, stackCards);

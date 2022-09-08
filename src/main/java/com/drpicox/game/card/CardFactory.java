@@ -42,8 +42,9 @@ public class CardFactory {
             ? settings.getZindex()
             : cardPositionService.getStackByPosition(position).getMaxZindex() + 1;
         var description = getCardDescription(settings);
+        var looksLike = cardConstants.getString("looksLike");
 
-        var card = new Card(cardId, cardName, description, tags, position, zindex);
+        var card = new Card(cardId, cardName, description, tags, position, zindex, looksLike);
         cardRepository.save(card);
         return card;
     }

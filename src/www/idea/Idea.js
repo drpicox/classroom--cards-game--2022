@@ -11,26 +11,40 @@ export function Idea({ ideaName }) {
   );
 
   return (
-    <div data-testid="idea" data-ideaname={idea.name} onClick={drawIdea}>
-      {idea.name}
-      <div data-testid="level">Level: {idea.level}</div>
-      <div data-testid="xp">XP: {idea.xp}</div>
-      {idea.tagRequirements.map((tagRequirement) => (
-        <IdeaTagRequirement
-          key={tagRequirement.tagName}
-          tagRequirement={tagRequirement}
-        />
-      ))}
-      {idea.cardRewards.length > 0 && (
-        <ul>
-          May create cards:
-          {idea.cardRewards.map((cardReward) => (
-            <li key={cardReward} data-testid="maycreatecard">
-              {cardReward}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div
+      className="idea with-details"
+      data-testid="idea"
+      data-ideaname={idea.name}
+      onClick={drawIdea}
+    >
+      {idea.name} ({idea.level}+{idea.xp})
+      <div className="details">
+        <div>
+          <span data-testid="level">Level {idea.level}</span>,
+          <span data-testid="xp"> {idea.xp}xp</span>
+        </div>
+        <br />
+        Requires:
+        {idea.tagRequirements.map((tagRequirement) => (
+          <IdeaTagRequirement
+            key={tagRequirement.tagName}
+            tagRequirement={tagRequirement}
+          />
+        ))}
+        <br />
+        {idea.cardRewards.length > 0 && (
+          <>
+            May create cards:
+            <ul>
+              {idea.cardRewards.map((cardReward) => (
+                <li key={cardReward} data-testid="maycreatecard">
+                  {cardReward}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </div>
   );
 }

@@ -17,15 +17,21 @@ export function GamePage() {
 
   return (
     <div>
-      <button onClick={endMoon}>End Moon</button>
-      <button onClick={reload}>Reload</button>
-      <Discard />
-      {ideaNames.map((name) => (
-        <Idea key={name} ideaName={name} />
-      ))}
-      {stackPositions.map((position) => (
-        <Stack key={position} position={position} />
-      ))}
+      <div className="game-header">
+        <button onClick={endMoon}>End Moon</button>
+        <button onClick={reload}>Reload</button>
+      </div>
+      <div className="idea-sidebar">
+        <Discard />
+        {ideaNames.map((name) => (
+          <Idea key={name} ideaName={name} />
+        ))}
+      </div>
+      <div className="table">
+        {stackPositions.map((position) => (
+          <Stack key={position} position={position} />
+        ))}
+      </div>
     </div>
   );
 }

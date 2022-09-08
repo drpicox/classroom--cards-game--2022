@@ -1,46 +1,65 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { requestMoveActiveCard } from "../stack/stackSlice";
-import { selectCard, activateCard } from "./cardSlice";
+import { selectCard, activateCard, selectActiveCardId } from "./cardSlice";
 
-export function Card({ cardId }) {
+export function Card({ cardId, index }) {
   const card = useSelector((s) => selectCard(s, cardId));
+  const activeCardId = useSelector(selectActiveCardId);
+  const isAnyActive = !!activeCardId;
+  const isActive = cardId === activeCardId;
+  const hasProgress = card.maxProgress > 1;
+
   const dispatch = useDispatch();
-  const activate = useCallback(
-    () => dispatch(activateCard(cardId)),
-    [dispatch, cardId],
-  );
-  const move = useCallback(
+  const activateOrMove = useCallback(
     (ev) => {
       ev.stopPropagation();
-      dispatch(requestMoveActiveCard(card.position, card.zindex + 1));
+      if (!isAnyActive) dispatch(activateCard(cardId));
+      else dispatch(requestMoveActiveCard(card.position, index + 1));
     },
-    [dispatch, card.position, card.zindex],
+    [dispatch, cardId, isAnyActive, card.position, index],
+  );
+
+  const style = useMemo(
+    () => ({
+      zIndex: index,
+      xmarginTop: `-${index * 4.5}rem`,
+    }),
+    [index],
   );
 
   return (
     <div
+      className={`card with-details ${hasProgress ? "has-progress" : ""} ${
+        isActive ? "active" : ""
+      } ${card.looksLike}`}
       data-testid="card"
       data-cardid={card.id}
       data-cardname={card.name}
       data-zindex={card.zindex}
-      onMouseDown={activate}
-      onMouseUp={move}
+      onClick={activateOrMove}
+      style={style}
     >
-      {card.maxProgress > 1 && (
-        <div data-testid="cardprogress">
+      {hasProgress && (
+        <div className="card-progress" data-testid="cardprogress">
           {card.progress} of {card.maxProgress}
         </div>
       )}
-      {card.name}
-      {Object.entries(card.tags).map(([tagName, tag]) => (
-        <div key={tagName} data-tagname={tagName}>
-          {tag.value}
-        </div>
-      ))}
-      {Object.entries(card.description).map(([term, text]) => (
-        <CardTermDescription key={term} term={term} text={text} />
-      ))}
+      <div className="card-name">{card.name}</div>
+      <div className="details">
+        Tags:
+        <br />
+        {Object.entries(card.tags).map(([tagName, tag]) => (
+          <div key={tagName} data-tagname={tagName}>
+            - {tagName}: {tag.value}
+          </div>
+        ))}
+        <br />
+        Terms:
+        {Object.entries(card.description).map(([term, text]) => (
+          <CardTermDescription key={term} term={term} text={text} />
+        ))}
+      </div>
     </div>
   );
 }

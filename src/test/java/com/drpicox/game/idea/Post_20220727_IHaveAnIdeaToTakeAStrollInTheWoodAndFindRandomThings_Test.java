@@ -23,7 +23,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things", "59e0040700e261d0a0b25542c02655d3");
+        testUtils.runBeforeTestStarts("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things", "0117e5df1915a0ec3c12074e2e5054d9");
         context.beforeTest();
 
         // # I have an idea to take a stroll in the wood and find random things                             // # I have an idea to take a stroll in the wood and find random things
@@ -38,7 +38,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
         // ## Finding things                                                                                // ## Finding things
         // ### | Card Name |                                                                                // ### | Card Name |
-        // ### |----------:|                                                                                // ### |----------:|
+        // ### |-----------|                                                                                // ### |-----------|
         // ### |   "Berry" |                                                                                // ### |   "Berry" |
         context.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager");          // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
         context.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Berry", "Woods Stroll Idea");               // * Given that the odds are that we will get a "Berry" from the "Woods Stroll Idea" card.
@@ -47,7 +47,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
         // ## Finding things                                                                                // ## Finding things
         // ### | Card Name |                                                                                // ### | Card Name |
-        // ### |----------:|                                                                                // ### |----------:|
+        // ### |-----------|                                                                                // ### |-----------|
         // ### |   "Apple" |                                                                                // ### |   "Apple" |
         context.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager");          // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
         context.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Apple", "Woods Stroll Idea");               // * Given that the odds are that we will get a "Apple" from the "Woods Stroll Idea" card.

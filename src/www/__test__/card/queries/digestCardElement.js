@@ -31,7 +31,7 @@ function getTags(cardElement) {
   return Object.fromEntries(
     [...cardElement.querySelectorAll("[data-tagname]")].map((element) => [
       element.dataset.tagname,
-      +element.textContent,
+      getNumber(element.textContent),
     ]),
   );
 }
@@ -46,4 +46,8 @@ function getProgressAndMaxProgress(cardElement) {
   const maxProgress = +maxProgressStr;
 
   return { progress, maxProgress };
+}
+
+function getNumber(text) {
+  return +text.match(/\d+/)[0];
 }

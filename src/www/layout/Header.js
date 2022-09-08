@@ -3,7 +3,7 @@ import { Loading } from "../loading/Loading";
 
 export function Header() {
   return (
-    <div>
+    <div className="header">
       <Link to="/blog">Blog</Link>
       <Link to="/game">Game</Link>
       <Loading />

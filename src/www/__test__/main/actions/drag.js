@@ -1,6 +1,6 @@
-import { mouseDown, mouseUp } from "./mouse";
+import { click } from "./click";
 
 export function drag(fromElement, toElement) {
-  mouseDown(fromElement);
-  mouseUp(toElement);
+  click(fromElement);
+  click(toElement);
 }
