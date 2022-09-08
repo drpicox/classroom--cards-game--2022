@@ -3,16 +3,29 @@ import { readFileSync } from "fs";
 import { codeFrameColumns } from "@babel/code-frame";
 
 export function getCodeFrame(frame) {
-  const locationStart = frame.indexOf("(") + 1;
-  const locationEnd = frame.indexOf(")");
-  const frameLocation = frame.slice(locationStart, locationEnd);
+  let filename, line, column;
+  let frameLocation;
 
-  const frameLocationElements = frameLocation.split(":");
-  const [filename, line, column] = [
-    frameLocationElements[0],
-    parseInt(frameLocationElements[1], 10),
-    parseInt(frameLocationElements[2], 10),
-  ];
+  const locationStart = frame.indexOf("(") + 1;
+  if (locationStart > 0) {
+    const locationEnd = frame.indexOf(")");
+    frameLocation = frame.slice(locationStart, locationEnd);
+
+    const frameLocationElements = frameLocation.split(":");
+    [filename, line, column] = [
+      frameLocationElements[0],
+      parseInt(frameLocationElements[1], 10),
+      parseInt(frameLocationElements[2], 10),
+    ];
+  } else {
+    frameLocation = frame.split(" ").at(-1);
+    const frameParts = frameLocation.split(":");
+    [filename, line, column] = [
+      frameParts[0],
+      parseInt(frameParts[1], 10),
+      parseInt(frameParts[2], 10),
+    ];
+  }
 
   let rawFileContents = "";
   try {
@@ -28,7 +41,6 @@ export function getCodeFrame(frame) {
     },
     {
       highlightCode: true,
-      linesBelow: 0,
     },
   );
   return `${chalk.dim(frameLocation)}\n${codeFrame}\n`;
