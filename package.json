@@ -11,6 +11,7 @@
     "fs-extra": "^10.1.0",
     "glob": "^8.0.3",
     "md5": "^2.3.0",
+    "open": "^8.4.0",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -29,7 +30,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "create-tests": "node src/system/create-tests.js"
+    "create-tests": "node src/system/create-tests.js",
+    "test-coverage": "node src/system/test-coverage.js"
   },
   "eslintConfig": {
     "extends": [
@@ -61,5 +63,17 @@
   "prettier": {
     "trailingComma": "all"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:8080",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/www/**/*.{js,jsx,ts,tsx}",
+      "!src/www/__test__"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/www/__test__",
+      "src/www/index.js",
+      "src/www/backend.js",
+      "src/www/reportWebVitals.js"
+    ]
+  }
 }

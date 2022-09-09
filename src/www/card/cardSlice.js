@@ -6,10 +6,6 @@ import {
   showLoadingSpinner,
 } from "../loading/loadingSlice";
 
-export function selectAllCardIds(state) {
-  return state.card.allIds;
-}
-
 export function selectCard(state, cardId) {
   return state.card.byId[cardId];
 }

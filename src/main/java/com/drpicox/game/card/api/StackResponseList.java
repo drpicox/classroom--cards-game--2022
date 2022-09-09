@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 
 import static com.drpicox.game.util.OneCollector.toOne;
 
-public class StackResponseList {
+public final class StackResponseList {
+    private StackResponseList() {} // static methods only
+
     public static List<DerivedStackResponse> findAllStack(GameResponse game) {
         var cards = CardResponseList.findAllCard(game);
         var maxPosition = cards.stream().mapToInt(CardResponse::getPosition).max().orElse(-1);

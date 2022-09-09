@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class GivenAlgorithm {
+public final class GivenAlgorithm {
+    private GivenAlgorithm() {} // static methods only
+
     public static <T> List<T> given(int count, Supplier<List<T>> supplier, Consumer<T> deleter, Supplier<T> creator) {
         var list = new ArrayList<T>(supplier.get());
 

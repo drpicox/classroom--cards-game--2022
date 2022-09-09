@@ -3,7 +3,9 @@ package com.drpicox.game.util;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class OneCollector {
+public final class OneCollector {
+    private OneCollector() {} // static methods only
+
     public static <T> Collector<T, ?, T> toOne() {
         return Collectors.collectingAndThen(
             Collectors.toList(),

@@ -3,7 +3,6 @@ const { MethodStepParser } = require("./MethodStepParser");
 const { makeJavaName } = require("./makeJavaName");
 const { watchPath } = require("./watchPath");
 const md5 = require("md5");
-const { PostSectionTable } = require("./PostSectionTable");
 const { preparsePostLines } = require("./preparsePostLines");
 const { isLineStep, isLineHeading } = require("./postLineQueries");
 
