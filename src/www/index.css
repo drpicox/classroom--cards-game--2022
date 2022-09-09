@@ -285,3 +285,12 @@ ul {
 .card.Idea {
   background-color: #687fb9;
 }
+
+.card img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1rem;
+  width: 9rem;
+}

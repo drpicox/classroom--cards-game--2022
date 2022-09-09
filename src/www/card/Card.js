@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { requestMoveActiveCard } from "../stack/stackSlice";
 import { selectCard, activateCard, selectActiveCardId } from "./cardSlice";
@@ -20,13 +20,7 @@ export function Card({ cardId, index }) {
     [dispatch, cardId, isAnyActive, card.position, index],
   );
 
-  const style = useMemo(
-    () => ({
-      zIndex: index,
-      xmarginTop: `-${index * 4.5}rem`,
-    }),
-    [index],
-  );
+  const image = `cards/${card.name.toLowerCase().replaceAll(/\s/g, "-")}.png`;
 
   return (
     <div
@@ -38,13 +32,13 @@ export function Card({ cardId, index }) {
       data-cardname={card.name}
       data-zindex={card.zindex}
       onClick={activateOrMove}
-      style={style}
     >
       {hasProgress && (
         <div className="card-progress" data-testid="cardprogress">
           {card.progress} of {card.maxProgress}
         </div>
       )}
+      <img src={image} alt="a card drawing" draggable={false} />
       <div className="card-name">{card.name}</div>
       <div className="details">
         Tags:
