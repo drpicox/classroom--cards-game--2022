@@ -6,6 +6,8 @@ import {
   showLoadingSpinner,
 } from "../loading/loadingSlice";
 
+if (true) console.log("fail");
+
 export function selectCard(state, cardId) {
   return state.card.byId[cardId];
 }
