@@ -23,7 +23,7 @@ public class Post_20220725_IdeasHaveLevels_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-25_ideas_have_levels", "d21d6e9e3f8b3a0fdf3643dc9abfefa4");
+        testUtils.runBeforeTestStarts("2022-07-25_ideas_have_levels", "7898442ec17fdf2f068d1f35a7abc370");
         context.beforeTest();
 
         // # Ideas Have Levels                                                                              // # Ideas Have Levels
@@ -60,9 +60,9 @@ public class Post_20220725_IdeasHaveLevels_Test {
         context.theSShouldHaveLevelNAndNXp("Harvest Idea", 2, 0);                                           // * The "Harvest Idea" should have level 2 and 0 XP.
         context.thereShouldBeNSCards(3, "Berry");                                                           // * There should be 3 "Berry" cards.
         // ### Increasing more levels                                                                       // ### Increasing more levels
-        // #### | Previous Level | XP Threshold | Next Level | Next Berries |                               // #### | Previous Level | XP Threshold | Next Level | Next Berries |
-        // #### |---------------:|-------------:|-----------:|-------------:|                               // #### |---------------:|-------------:|-----------:|-------------:|
-        // #### |              1 |            9 |          2 |            3 |                               // #### |              1 |            9 |          2 |            3 |
+        // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |                             // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |
+        // #### |---------------:|--------------:|------------:|-------------:|                             // #### |---------------:|--------------:|------------:|-------------:|
+        // #### |              1 |             9 |           2 |            3 |                             // #### |              1 |             9 |           2 |            3 |
         context.givenANewGameWithNSProductionStack(1, "Berry Bush");                                        // * Given a new game with 1 "Berry Bush" production stack.
         context.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9);                                   // * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
         context.endTheCurrentMoon();                                                                        // * End the current moon.
@@ -70,9 +70,9 @@ public class Post_20220725_IdeasHaveLevels_Test {
         context.theSShouldHaveLevelNAndNXp("Harvest Idea", 2, 0);                                           // * The "Harvest Idea" should have level 2 and 0 XP.
         context.thereShouldBeNSCards(3, "Berry");                                                           // * There should be 3 "Berry" cards.
         // ### Increasing more levels                                                                       // ### Increasing more levels
-        // #### | Previous Level | XP Threshold | Next Level | Next Berries |                               // #### | Previous Level | XP Threshold | Next Level | Next Berries |
-        // #### |---------------:|-------------:|-----------:|-------------:|                               // #### |---------------:|-------------:|-----------:|-------------:|
-        // #### |              2 |           19 |          3 |            4 |                               // #### |              2 |           19 |          3 |            4 |
+        // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |                             // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |
+        // #### |---------------:|--------------:|------------:|-------------:|                             // #### |---------------:|--------------:|------------:|-------------:|
+        // #### |              2 |            19 |           3 |            4 |                             // #### |              2 |            19 |           3 |            4 |
         context.givenANewGameWithNSProductionStack(1, "Berry Bush");                                        // * Given a new game with 1 "Berry Bush" production stack.
         context.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 2, 19);                                  // * Given there is the "Harvest Idea" idea at level 2 and 19 XP.
         context.endTheCurrentMoon();                                                                        // * End the current moon.
@@ -80,9 +80,9 @@ public class Post_20220725_IdeasHaveLevels_Test {
         context.theSShouldHaveLevelNAndNXp("Harvest Idea", 3, 0);                                           // * The "Harvest Idea" should have level 3 and 0 XP.
         context.thereShouldBeNSCards(4, "Berry");                                                           // * There should be 4 "Berry" cards.
         // ### Increasing more levels                                                                       // ### Increasing more levels
-        // #### | Previous Level | XP Threshold | Next Level | Next Berries |                               // #### | Previous Level | XP Threshold | Next Level | Next Berries |
-        // #### |---------------:|-------------:|-----------:|-------------:|                               // #### |---------------:|-------------:|-----------:|-------------:|
-        // #### |              3 |           29 |          4 |            5 |                               // #### |              3 |           29 |          4 |            5 |
+        // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |                             // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |
+        // #### |---------------:|--------------:|------------:|-------------:|                             // #### |---------------:|--------------:|------------:|-------------:|
+        // #### |              3 |            29 |           4 |            5 |                             // #### |              3 |            29 |           4 |            5 |
         context.givenANewGameWithNSProductionStack(1, "Berry Bush");                                        // * Given a new game with 1 "Berry Bush" production stack.
         context.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 3, 29);                                  // * Given there is the "Harvest Idea" idea at level 3 and 29 XP.
         context.endTheCurrentMoon();                                                                        // * End the current moon.
@@ -90,9 +90,9 @@ public class Post_20220725_IdeasHaveLevels_Test {
         context.theSShouldHaveLevelNAndNXp("Harvest Idea", 4, 0);                                           // * The "Harvest Idea" should have level 4 and 0 XP.
         context.thereShouldBeNSCards(5, "Berry");                                                           // * There should be 5 "Berry" cards.
         // ### Increasing more levels                                                                       // ### Increasing more levels
-        // #### | Previous Level | XP Threshold | Next Level | Next Berries |                               // #### | Previous Level | XP Threshold | Next Level | Next Berries |
-        // #### |---------------:|-------------:|-----------:|-------------:|                               // #### |---------------:|-------------:|-----------:|-------------:|
-        // #### |              4 |           39 |          5 |            6 |                               // #### |              4 |           39 |          5 |            6 |
+        // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |                             // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |
+        // #### |---------------:|--------------:|------------:|-------------:|                             // #### |---------------:|--------------:|------------:|-------------:|
+        // #### |              4 |            39 |           5 |            6 |                             // #### |              4 |            39 |           5 |            6 |
         context.givenANewGameWithNSProductionStack(1, "Berry Bush");                                        // * Given a new game with 1 "Berry Bush" production stack.
         context.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 4, 39);                                  // * Given there is the "Harvest Idea" idea at level 4 and 39 XP.
         context.endTheCurrentMoon();                                                                        // * End the current moon.
@@ -100,9 +100,9 @@ public class Post_20220725_IdeasHaveLevels_Test {
         context.theSShouldHaveLevelNAndNXp("Harvest Idea", 5, 0);                                           // * The "Harvest Idea" should have level 5 and 0 XP.
         context.thereShouldBeNSCards(6, "Berry");                                                           // * There should be 6 "Berry" cards.
         // ### Increasing more levels                                                                       // ### Increasing more levels
-        // #### | Previous Level | XP Threshold | Next Level | Next Berries |                               // #### | Previous Level | XP Threshold | Next Level | Next Berries |
-        // #### |---------------:|-------------:|-----------:|-------------:|                               // #### |---------------:|-------------:|-----------:|-------------:|
-        // #### |              5 |           49 |          6 |            7 |                               // #### |              5 |           49 |          6 |            7 |
+        // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |                             // #### | $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |
+        // #### |---------------:|--------------:|------------:|-------------:|                             // #### |---------------:|--------------:|------------:|-------------:|
+        // #### |              5 |            49 |           6 |            7 |                             // #### |              5 |            49 |           6 |            7 |
         context.givenANewGameWithNSProductionStack(1, "Berry Bush");                                        // * Given a new game with 1 "Berry Bush" production stack.
         context.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 5, 49);                                  // * Given there is the "Harvest Idea" idea at level 5 and 49 XP.
         context.endTheCurrentMoon();                                                                        // * End the current moon.
@@ -158,6 +158,25 @@ public class Post_20220725_IdeasHaveLevels_Test {
         context.theSCardProgressShouldBeNOfN("Seed Idea", 0, 5);                                            // * The "Seed Idea" card progress should be 0 of 5.
         context.theSShouldHaveLevelNAndNXp("Seed Idea", 1, 1);                                              // * The "Seed Idea" should have level 1 and 1 XP.
         context.thereShouldBeNSCards(1, "Berry Bush");                                                      // * There should be 1 "Berry Bush" cards.
+        context.givenANewGame();                                                                            // * Given a new game.
+        context.givenThereIsTheSIdeaAtLevelNAndNXp("Seed Idea", 1, 0);                                      // * Given there is the "Seed Idea" idea at level 1 and 0 XP.
+        context.givenThereAreNStacksOfNSCards(1, 5, "Berry");                                               // * Given there are 1 stacks of 5 "Berry" cards.
+        context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Seed Idea", 1, "Villager", 1, "Apple");         // * Given there are 1 stacks of 1 "Seed Idea", 1 "Villager", and 1 "Apple" cards.
+        context.givenThereAreNSCards(0, "Apple Tree");                                                      // * Given there are 0 "Apple Tree" cards.
+        context.theSCardShouldHaveNInSTag("Apple", 1, "Seed");                                              // * The "Apple" card should have 1 in "Seed" tag.
+        context.theSCardDescriptionShouldSaySIsS("Apple", "Plant", "Apple Tree");                           // * The "Apple" card description should say "Plant" is "Apple Tree".
+        context.endTheCurrentMoon();                                                                        // * End the current moon.
+        context.endTheCurrentMoon();                                                                        // * End the current moon.
+        context.endTheCurrentMoon();                                                                        // * End the current moon.
+        context.endTheCurrentMoon();                                                                        // * End the current moon.
+        context.endTheCurrentMoon();                                                                        // * End the current moon.
+        context.thereShouldBeNSCards(1, "Apple Tree");                                                      // * There should be 1 "Apple Tree" cards.
+        context.givenANewGame();                                                                            // * Given a new game.
+        context.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 0);                                   // * Given there is the "Harvest Idea" idea at level 1 and 0 XP.
+        context.givenThereAreNStacksOfNSCards(1, 1, "Berry");                                               // * Given there are 1 stacks of 1 "Berry" cards.
+        context.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Apple Tree"); // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Apple Tree" cards.
+        context.endTheCurrentMoon();                                                                        // * End the current moon.
+        context.thereShouldBeNSCards(1, "Apple Tree");                                                      // * There should be 1 "Apple Tree" cards.
 
         context.afterTest();
         testUtils.runWhenTestSuccessful();

@@ -31,13 +31,13 @@ So, lets put this in movement.
 
 We can find any of the following things in the woods:
 
-| Card Name |
+| $CardName |
 |-----------|
-|   "Berry" |
-|   "Apple" |
+| Berry     |
+| Apple     |
 
  * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
- * Given that the odds are that we will get a _Card Name_ from the "Woods Stroll Idea" card.
+ * Given that the odds are that we will get a "$CardName" from the "Woods Stroll Idea" card.
  * End the current moon. 
- * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 _Card Name_ cards.
+ * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 "$CardName" cards.
 

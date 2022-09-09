@@ -29,7 +29,7 @@ exports.PostSectionTable = class PostSectionTable {
     let row = { substitutions: [], rowText: line };
     for (let i = 0; i < this.#heading.length; i++) {
       let columnName = this.#heading[i];
-      row.substitutions.push({ replace: `_${columnName}_`, by: columns[i] });
+      row.substitutions.push({ replace: `${columnName}`, by: columns[i] });
     }
     this.#rows.push(row);
   }

@@ -1,11 +1,14 @@
 package com.drpicox.game.tags.food;
 
+import com.drpicox.game.card.Card;
 import com.drpicox.game.card.CardFactory;
 import com.drpicox.game.card.CardFactorySettings;
 import com.drpicox.game.card.CardService;
 import com.drpicox.game.moon.EndMoonSettings;
 import com.drpicox.game.moon.EndMoonStep;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EndMoonStep_100_EatersEatFood implements EndMoonStep {
@@ -37,9 +40,26 @@ public class EndMoonStep_100_EatersEatFood implements EndMoonStep {
 
         var remainingToEat = totalEats;
         while (remainingToEat > 0) {
-            var plated = foods.remove(0);
+            var plated = removeBestSuitedFood(foods, remainingToEat);
             remainingToEat -= plated.getTagValue("Food");
             cardService.discardCard(plated);
         }
+    }
+
+    private Card removeBestSuitedFood(List<Card> foodCards, int remainingToEat) {
+        var bestCard = (Card) null;
+        var bestFood = 0;
+        for (var card: foodCards) {
+            var food = card.getTagValue("Food");
+            if (food > bestFood && food <= remainingToEat) {
+                bestCard = card;
+                bestFood = food;
+            }
+        }
+
+        if (bestCard == null) bestCard = foodCards.get(0);
+
+        foodCards.remove(bestCard);
+        return bestCard;
     }
 }

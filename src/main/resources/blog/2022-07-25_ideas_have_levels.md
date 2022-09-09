@@ -72,22 +72,22 @@ We produce three berries instead of two. That is great!
 But, there are more levels? Yes! 
 Let's see it.
 
-| Previous Level | XP Threshold | Next Level | Next Berries |
-|---------------:|-------------:|-----------:|-------------:|
-|              1 |            9 |          2 |            3 |
-|              2 |           19 |          3 |            4 |
-|              3 |           29 |          4 |            5 |
-|              4 |           39 |          5 |            6 |
-|              5 |           49 |          6 |            7 |
+| $PreviousLevel |  $XPThreshold |  $NextLevel | $NextBerries |
+|---------------:|--------------:|------------:|-------------:|
+|              1 |             9 |           2 |            3 |
+|              2 |            19 |           3 |            4 |
+|              3 |            29 |           4 |            5 |
+|              4 |            39 |           5 |            6 |
+|              5 |            49 |           6 |            7 |
 
  * Given a new game with 1 "Berry Bush" production stack.
- * Given there is the "Harvest Idea" idea at level _Previous Level_ and _XP Threshold_ XP.
+ * Given there is the "Harvest Idea" idea at level $PreviousLevel and $XPThreshold XP.
  * End the current moon.
 
 #### And result
 
- * The "Harvest Idea" should have level _Next Level_ and 0 XP.
- * There should be _Next Berries_ "Berry" cards.
+ * The "Harvest Idea" should have level $NextLevel and 0 XP.
+ * There should be $NextBerries "Berry" cards.
 
 It increased by each level, and it produces more berries at each level
 
@@ -176,3 +176,27 @@ And not, it is almost done!
 
 Finally. After 5 exhausting moons working, we did it.
 
+And the same idea can grow an Apple Tree.
+
+ * Given a new game.
+ * Given there is the "Seed Idea" idea at level 1 and 0 XP.
+ * Given there are 1 stacks of 5 "Berry" cards.
+ * Given there are 1 stacks of 1 "Seed Idea", 1 "Villager", and 1 "Apple" cards.
+ * Given there are 0 "Apple Tree" cards.
+ * The "Apple" card should have 1 in "Seed" tag.
+ * The "Apple" card description should say "Plant" is "Apple Tree".
+ * End the current moon.
+ * End the current moon.
+ * End the current moon.
+ * End the current moon.
+ * End the current moon.
+ * There should be 1 "Apple Tree" cards.
+
+And Apple Trees can be also harvested:
+
+ * Given a new game.
+ * Given there is the "Harvest Idea" idea at level 1 and 0 XP.
+ * Given there are 1 stacks of 1 "Berry" cards.
+ * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Apple Tree" cards.
+ * End the current moon.
+ * There should be 1 "Apple Tree" cards.

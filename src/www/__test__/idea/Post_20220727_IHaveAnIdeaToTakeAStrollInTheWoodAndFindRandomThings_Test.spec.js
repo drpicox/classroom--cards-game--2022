@@ -10,7 +10,7 @@ import { Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_Cont
 test("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things.md", async () => {
   await runBeforeTestStarts(
     "2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things",
-    "0117e5df1915a0ec3c12074e2e5054d9"
+    "447d6c0e1e71cd940f825ee2dd3b6830"
   );
 
   const context =
@@ -33,9 +33,9 @@ test("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_thi
   ); //          // * The "Woods Stroll Idea" idea should require 1 card with at least 1 in "Worker" tag.
 
   // ## Finding things                                                                                         // ## Finding things
-  // ### | Card Name |                                                                                         // ### | Card Name |
+  // ### | $CardName |                                                                                         // ### | $CardName |
   // ### |-----------|                                                                                         // ### |-----------|
-  // ### |   "Berry" |                                                                                         // ### |   "Berry" |
+  // ### | Berry     |                                                                                         // ### | Berry     |
   await context.givenANewGameWithAStackOfNSCardsAndNSCards(
     1,
     "Woods Stroll Idea",
@@ -58,9 +58,9 @@ test("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_thi
   ); // // * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 "Berry" cards.
 
   // ## Finding things                                                                                         // ## Finding things
-  // ### | Card Name |                                                                                         // ### | Card Name |
+  // ### | $CardName |                                                                                         // ### | $CardName |
   // ### |-----------|                                                                                         // ### |-----------|
-  // ### |   "Apple" |                                                                                         // ### |   "Apple" |
+  // ### | Apple     |                                                                                         // ### | Apple     |
   await context.givenANewGameWithAStackOfNSCardsAndNSCards(
     1,
     "Woods Stroll Idea",

@@ -23,7 +23,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things", "0117e5df1915a0ec3c12074e2e5054d9");
+        testUtils.runBeforeTestStarts("2022-07-27_i_have_an_idea_to_take_a_stroll_in_the_wood_and_find_random_things", "447d6c0e1e71cd940f825ee2dd3b6830");
         context.beforeTest();
 
         // # I have an idea to take a stroll in the wood and find random things                             // # I have an idea to take a stroll in the wood and find random things
@@ -37,18 +37,18 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         context.theSIdeaShouldRequireNCardWithAtLeastNInSTag("Woods Stroll Idea", 1, 1, "Worker");          // * The "Woods Stroll Idea" idea should require 1 card with at least 1 in "Worker" tag.
 
         // ## Finding things                                                                                // ## Finding things
-        // ### | Card Name |                                                                                // ### | Card Name |
+        // ### | $CardName |                                                                                // ### | $CardName |
         // ### |-----------|                                                                                // ### |-----------|
-        // ### |   "Berry" |                                                                                // ### |   "Berry" |
+        // ### | Berry     |                                                                                // ### | Berry     |
         context.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager");          // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
         context.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Berry", "Woods Stroll Idea");               // * Given that the odds are that we will get a "Berry" from the "Woods Stroll Idea" card.
         context.endTheCurrentMoon();                                                                        // * End the current moon.
         context.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Woods Stroll Idea", 1, "Villager", 1, "Berry"); // * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 "Berry" cards.
 
         // ## Finding things                                                                                // ## Finding things
-        // ### | Card Name |                                                                                // ### | Card Name |
+        // ### | $CardName |                                                                                // ### | $CardName |
         // ### |-----------|                                                                                // ### |-----------|
-        // ### |   "Apple" |                                                                                // ### |   "Apple" |
+        // ### | Apple     |                                                                                // ### | Apple     |
         context.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager");          // * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
         context.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Apple", "Woods Stroll Idea");               // * Given that the odds are that we will get a "Apple" from the "Woods Stroll Idea" card.
         context.endTheCurrentMoon();                                                                        // * End the current moon.

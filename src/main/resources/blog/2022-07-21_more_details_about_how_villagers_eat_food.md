@@ -80,3 +80,25 @@ are polite, and they leave the food untouched.
  * There should be 1 "Berry" cards.
 
 So, at least they starve letting the future generations an option.
+
+## Choosing what to eat
+
+Villagers eat the first food that most adjust to their needs.
+
+| $Villagers | $Militia | $Berries | $Apples | $ResultBerries | $ResultApples |
+|------------|----------|----------|---------|----------------|---------------|
+| 1          | 0        | 1        | 0       | 0              | 0             |
+| 1          | 0        | 0        | 1       | 0              | 0             |
+| 1          | 0        | 1        | 1       | 0              | 1             |
+| 0          | 1        | 2        | 0       | 0              | 0             |
+| 0          | 1        | 0        | 1       | 0              | 0             |
+| 0          | 1        | 2        | 1       | 2              | 0             |
+| 1          | 1        | 2        | 2       | 1              | 1             |
+
+ * Given there are $Villagers "Villager" and $Militia "Militia" cards.
+ * Given there are $Berries "Berry" and $Apples "Apple" cards.
+ * End the current moon.
+ * There should be $ResultBerries "Berry" cards.
+ * There should be $ResultApples "Apple" cards.
+
+

@@ -23,7 +23,7 @@ public class Post_20220723_Ideas_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-23_ideas", "c7f89d4b712c04d19dc3386fd31a241a");
+        testUtils.runBeforeTestStarts("2022-07-23_ideas", "0d3af7ebad92159fce8e4a7848812efe");
         context.beforeTest();
 
         // # Ideas                                                                                                             // # Ideas
@@ -152,6 +152,13 @@ public class Post_20220723_Ideas_Test {
         context.endTheCurrentMoon();                                                                                           // * End the current moon.
         context.thereShouldBeNSCards(2, "Berry");                                                                              // * There should be 2 "Berry" cards.
         context.thereShouldBeNSCards(0, "Apple");                                                                              // * There should be 0 "Apple" cards.
+        context.givenANewGame();                                                                                               // * Given a new game.
+        context.givenThereIsTheSIdea("Harvest Idea");                                                                          // * Given there is the "Harvest Idea" idea.
+        context.givenThereAreNSCards(1, "Berry");                                                                              // * Given there are 1 "Berry" cards.
+        context.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Apple Tree", 1, "Berry Bush"); // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Apple Tree" and 1 "Berry Bush" cards.
+        context.endTheCurrentMoon();                                                                                           // * End the current moon.
+        context.thereShouldBeNSCards(0, "Berry");                                                                              // * There should be 0 "Berry" cards.
+        context.thereShouldBeNSCards(2, "Apple");                                                                              // * There should be 2 "Apple" cards.
 
         context.afterTest();
         testUtils.runWhenTestSuccessful();

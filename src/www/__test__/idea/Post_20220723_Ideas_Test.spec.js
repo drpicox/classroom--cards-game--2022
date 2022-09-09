@@ -10,7 +10,7 @@ import { Post_20220723_Ideas_Context } from "./Post_20220723_Ideas_Context";
 test("2022-07-23_ideas.md", async () => {
   await runBeforeTestStarts(
     "2022-07-23_ideas",
-    "c7f89d4b712c04d19dc3386fd31a241a"
+    "0d3af7ebad92159fce8e4a7848812efe"
   );
 
   const context = new Post_20220723_Ideas_Context();
@@ -348,6 +348,23 @@ test("2022-07-23_ideas.md", async () => {
   await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
   await context.thereShouldBeNSCards(2, "Berry"); //                                                                              // * There should be 2 "Berry" cards.
   await context.thereShouldBeNSCards(0, "Apple"); //                                                                              // * There should be 0 "Apple" cards.
+  await context.givenANewGame(); //                                                                                               // * Given a new game.
+  await context.givenThereIsTheSIdea("Harvest Idea"); //                                                                          // * Given there is the "Harvest Idea" idea.
+  await context.givenThereAreNSCards(1, "Berry"); //                                                                              // * Given there are 1 "Berry" cards.
+  await context.givenThereAreNStacksOfNSNSNSAndNSCards(
+    1,
+    1,
+    "Harvest Idea",
+    1,
+    "Villager",
+    1,
+    "Apple Tree",
+    1,
+    "Berry Bush"
+  ); // // * Given there are 1 stacks of 1 "Harvest Idea", 1 "Villager", 1 "Apple Tree" and 1 "Berry Bush" cards.
+  await context.endTheCurrentMoon(); //                                                                                           // * End the current moon.
+  await context.thereShouldBeNSCards(0, "Berry"); //                                                                              // * There should be 0 "Berry" cards.
+  await context.thereShouldBeNSCards(2, "Apple"); //                                                                              // * There should be 2 "Apple" cards.
 
   await context.afterTest();
   await runWhenTestSuccessful();
