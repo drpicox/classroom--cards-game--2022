@@ -11,3 +11,6 @@ CI=1 yarn create-tests    || error "yarn create-tests"
 ./mvnw test               || error "./mvwn test"
 CI=1 yarn test --coverage || error "yarn test"
 CI=$CI yarn test-coverage || error "yarn test-coverage"
+yarn build                || error "yarn build"
+./mvnw compile            || error "./mvwn compile"
+
