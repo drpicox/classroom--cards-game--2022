@@ -1,4 +1,4 @@
-const levenshtein = require("fast-levenshtein");
+const { methodNameDistance } = require("./methodNameDistance");
 
 const posts = {};
 
@@ -20,10 +20,10 @@ function findClosestMethod(post, method) {
   const targetName = method.name;
 
   let candidate = usages[0];
-  let candidateDistance = levenshtein.get(candidate.name, targetName);
+  let candidateDistance = methodNameDistance(candidate.name, targetName);
   for (let i = 1; i < usages.length; i += 1) {
     let newCandidate = usages[i];
-    let newDistance = levenshtein.get(newCandidate.name, targetName);
+    let newDistance = methodNameDistance(newCandidate.name, targetName);
     if (newDistance < candidateDistance) {
       candidate = newCandidate;
       candidateDistance = newDistance;

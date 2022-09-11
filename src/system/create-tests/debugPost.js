@@ -1,7 +1,7 @@
 const chalk = require("chalk");
-const levenshtein = require("fast-levenshtein");
 const { findClosestMethod } = require("./posts");
 const { join } = require("./join");
+const { methodNameDistance } = require("./methodNameDistance");
 
 function debugPost(post) {
   const sortedMethods = [];
@@ -11,10 +11,10 @@ function debugPost(post) {
   sortedMethods.push(current);
   while (unusedMethods.length) {
     let candidate = unusedMethods[0];
-    let candidateDistance = levenshtein.get(current.name, candidate.name);
+    let candidateDistance = methodNameDistance(current.name, candidate.name);
     for (let i = 1; i < unusedMethods.length; i += 1) {
       let newCandidate = unusedMethods[i];
-      let newDistance = levenshtein.get(current.name, newCandidate.name);
+      let newDistance = methodNameDistance(current.name, newCandidate.name);
       if (newDistance < candidateDistance) {
         candidate = newCandidate;
         candidateDistance = newDistance;
