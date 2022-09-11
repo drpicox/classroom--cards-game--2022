@@ -6,7 +6,9 @@
 **Note**: you should keep running `yarn create-tests` while you are developing.
 It will create and update all tests according the blog contents.
 
-## Java
+## Required Environment
+
+### Java
 
 It works based on Java 17.
 
@@ -20,7 +22,7 @@ In mac, add to ~/.zshrc:
 $ export JAVA_HOME=$(/usr/libexec/java_home -v 1.17.0.4)
 ```
 
-## Javascript
+### Javascript
 
 It requires at least Node 18.6.0 and yarn.
 
@@ -30,13 +32,109 @@ You can enable yarn by executing:
 $ corepack enable
 ```
 
-## Backend
+### Windows
 
-Run on Java 17.
+You will need a Bash compatible shell in Windows
+like GitBash.
 
-Suggested flags for faster execution: `-ea -client -XX:TieredStopAtLevel=1`
 
-Non-fully compatible flags for even faster execution: `-ea -client -Xverify:none -noverify -XX:TieredStopAtLevel=1`
+## Verify that everything works
+
+Execute in a **bash terminal** the following command:
+
+```bash
+$ ./test.sh
+```
+
+> You should execute this always before commit.
+
+## How to run
+
+**Java**: First, open the project, make sure that maven dependencies are downloaded.
+
+Then, run the following java main method:
+
+- `com.drpicox.game.ClassroomCardsGame2022Application.main`
+
+
+**Javascript**: Once the java server is running, go to the server
+
+Then, run the following command:
+
+```bash
+$ yarn start
+```
+
+The browser will open automatically in the URL http://localhost:3000.
+
+## How to develop
+
+### 1. Start the `create-tests` process.
+   
+Open a terminal windows, and execute:
+
+```bash
+$ yarn create-tests
+```
+
+Do not close until you finish the development.
+Leave open in the next stages.
+
+### 2. Develop the backend.
+
+> Note that you should not develop your own posts.
+> But you should keep working yarn create-tests just in case.
+
+Run all the tests under `src/test/java` in your IDE.
+If you want, while developing one feature, you can run only that test.
+
+**Speedup Backend Tests**: You may want accelerate the execution of the
+test adding the following java flags to the execution configuration:
+
+- Works everywhere: `-ea -client -XX:TieredStopAtLevel=1`
+- Non-fully compatible flags for even faster execution: `-ea -client -Xverify:none -noverify -XX:TieredStopAtLevel=1`
+
+### 3. Develop the frontend.
+
+Run all tests with jests:
+
+```bash
+$ yarn test
+```
+
+You can also run only one test:
+
+```bash
+$ yarn test MyTestName.spec
+```
+
+If your computer is slow, and it causes timeouts to fail, you 
+may want to add the following flags to the execution:
+
+```bash
+$ yarn test --testTimeout=10000 --runInBand MyTestName.spec
+```
+
+### 4. Verify the coverage
+
+We expect 100% of code coverage. You can verify it with:
+
+```bash
+$ ./mvnw test
+$ yarn test --coverage
+$ yarn test-coverage
+```
+
+### 5. Verify that everything works
+
+Execute in a **bash terminal** the following command:
+
+```bash
+$ ./test.sh
+```
+
+> Note: You should also execute this even if all that you have done is
+> writing a post.
 
 ## create-tests
 
@@ -50,10 +148,10 @@ $ yarn create-tests
 
 Watches the posts and creates the test files.
 
-- Creates `src/test/java/com/drpicox/game/Post_XXX_Test.java`
-- Creates `src/test/java/com/drpicox/game/Post_XXX_Context.java`
-- Creates `src/www/__test__/Post_XXX_Test.spec.js`
-- Creates `src/www/__test__/Post_XXX_Context.js`
+- Creates `src/test/java/com/drpicox/game/${package}/Post_XXX_Test.java`
+- Creates `src/test/java/com/drpicox/game/${package}/Post_XXX_Context.java`
+- Creates `src/www/__test__/${package}/Post_XXX_Test.spec.js`
+- Creates `src/www/__test__/${package}/Post_XXX_Context.js`
 
 The possible outputs are:
 
