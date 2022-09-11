@@ -46,21 +46,32 @@ function makeContextHeader(post) {
     `import static com.google.common.truth.Truth8.assertThat;`,
     `import com.drpicox.game.util.FrontendSimulator;`,
     `import com.drpicox.game.game.GivenGameService;`,
+    `import com.drpicox.game.card.GivenCardService;`,
+    `import com.drpicox.game.game.api.GameResponse;`,
     ``,
     `@Component`,
     `public class ${post.contextName} {`,
     ``,
     `    private final FrontendSimulator frontendSimulator;`,
     `    private final GivenGameService givenGameService;`,
+    `    private final GivenCardService givenCardService;`,
+    `    private GameResponse game;`,
     ``,
-    `    ${post.contextName}(FrontendSimulator frontendSimulator, GivenGameService givenGameService) {`,
+    `    ${post.contextName}(FrontendSimulator frontendSimulator, GivenGameService givenGameService, GivenCardService givenCardService) {`,
     `        this.frontendSimulator = frontendSimulator;`,
     `        this.givenGameService = givenGameService;`,
+    `        this.givenCardService = givenCardService;`,
     `    }`,
     ``,
     `    public void beforeTest() throws Throwable {`,
-    `        // Do your setup here, and change this contents, if necessary`,
-    `        givenGameService.givenGame("default");`,
+    `        // Do your setup here`,
+    `        givenGameService.givenGame("empty");`,
+    `        givenCardService.givenCards(1, "Berry");`,
+    `        game = frontendSimulator.get("/api/v1/game", GameResponse.class);`,
+    `        `,
+    `        // Please, verify that:`,
+    `        // [ ] there are villagers, militia, ... that need berries? How many? How many moons?`,
+    `        // [ ] is the empty game right for this post?`,
     `        throw new UnsupportedOperationException("Please, review the implementation of beforeTest() and remove this exception when it is correct.");`,
     `    }`,
   );
@@ -77,6 +88,7 @@ function makeContextMethod(post, method) {
   const formalArguments = args.map(({ name, type }) => `${type} ${name}`);
   const methodSignature = `${name}(${formalArguments.join(", ")})`;
   const closest = findClosestMethod(post, method);
+  const lowerName = name.toLowerCase();
 
   return [
     ``,
@@ -86,15 +98,44 @@ function makeContextMethod(post, method) {
     // ...args.map(({ name, value }) => `        // ${name} = ${value}`),
     closest?.distance < 4 &&
       `        // hint: ${closest.post.contextName}.${closest.name}`,
-    args.length && ``,
+    ``,
+    makeContextMethodGiven(name),
+    makeContextMethodEndMoon(lowerName),
+    makeContextMethodExpected(args),
+    ``,
+    `        throw new UnsupportedOperationException("The method ${methodSignature} is not implemented yet.");`,
+    `    }`,
+  ];
+}
+
+function makeContextMethodGiven(name) {
+  return (
+    name.startsWith("given") && [
+      "        // Add here what is given",
+      "",
+      "        // And make sure that the game is in the right state (also for the frontend)",
+      '        game = frontendSimulator.get("/api/v1/game", GameResponse.class);',
+    ]
+  );
+}
+
+function makeContextMethodExpected(args) {
+  return (
     args.some(({ name }) => name === "expected") && [
       `        var actual = expected; // FIXME`,
       `        assertThat(actual).isEqualTo(expected);`,
       ``,
-    ],
-    `        throw new UnsupportedOperationException("The method ${methodSignature} is not implemented yet.");`,
-    `    }`,
-  ];
+    ]
+  );
+}
+
+function makeContextMethodEndMoon(lowerName) {
+  return (
+    lowerName.includes("end") &&
+    lowerName.includes("moon") && [
+      '        game = frontendSimulator.post("/api/v1/game/moon", null, GameResponse.class);',
+    ]
+  );
 }
 
 function makeContextFooter() {

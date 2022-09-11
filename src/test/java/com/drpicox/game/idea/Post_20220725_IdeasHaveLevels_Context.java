@@ -13,7 +13,6 @@ import static com.drpicox.game.card.api.CardResponseList.getCard;
 import static com.drpicox.game.idea.api.IdeaResponseList.getIdea;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
-import static com.drpicox.game.util.OneCollector.toOne;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import com.drpicox.game.util.FrontendSimulator;
@@ -158,7 +157,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.givenThereAreNStacksOfNSNSAndNSCards(2, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
         // hint: Post_20220723_Ideas_Context.givenThereAreNStacksOfNSNSAndNSCards
 
-        givenStackService.givenStack(count, byNames(count1, name1).and(count2, name2).and(count3, name3));
+        givenStackService.givenStacks(count, byNames(count1, name1).and(count2, name2).and(count3, name3));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
@@ -175,7 +174,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.givenThereAreNSCards(1, "Berry")
         // hint: Post_20220723_Ideas_Context.givenThereAreNSCards
 
-        givenCardService.givenCard(count, cardName);
+        givenCardService.givenCards(count, cardName);
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
@@ -184,8 +183,8 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.givenANewGameWithNSProductionStack(1, "Berry Bush")
 
         givenGameService.givenGame("empty");
-        givenCardService.givenCard(count, "Berry");
-        givenStackService.givenStack(count, byNames("Harvest Idea", "Villager", plantName));
+        givenCardService.givenCards(count, "Berry");
+        givenStackService.givenStacks(count, byNames("Harvest Idea", "Villager", plantName));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
@@ -222,7 +221,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
     }
 
     public void givenThereAreNStacksOfNSCards(int count, int count1, String name1) {
-        givenStackService.givenStack(count, byNames(count1, name1));
+        givenStackService.givenStacks(count, byNames(count1, name1));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 

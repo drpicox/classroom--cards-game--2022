@@ -18,11 +18,11 @@ public class GivenCardService {
         this.cardFactory = cardFactory;
     }
 
-    public List<Card> givenCard(int count, String cardName) {
-        return givenCard(count, new CardFactorySettings(cardName));
+    public List<Card> givenCards(int count, String cardName) {
+        return givenCards(count, new CardFactorySettings(cardName));
     }
 
-    public List<Card> givenCard(int count, CardFactorySettings settings) {
+    public List<Card> givenCards(int count, CardFactorySettings settings) {
         var cardName = settings.getCardName();
         var hasPosition = settings.hasPosition();
         var position = settings.getPosition();

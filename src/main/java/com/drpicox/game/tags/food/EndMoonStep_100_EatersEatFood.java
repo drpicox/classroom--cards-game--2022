@@ -6,11 +6,12 @@ import com.drpicox.game.card.CardFactorySettings;
 import com.drpicox.game.card.CardService;
 import com.drpicox.game.moon.EndMoonSettings;
 import com.drpicox.game.moon.EndMoonStep;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Component
 public class EndMoonStep_100_EatersEatFood implements EndMoonStep {
 
     private final CardService cardService;

@@ -7,9 +7,10 @@ import com.drpicox.game.idea.IdeaEndMoonStepExecutor;
 import com.drpicox.game.idea.IdeaProgressService;
 import com.drpicox.game.moon.EndMoonSettings;
 import com.drpicox.game.moon.EndMoonStep;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class EndMoonStep_900_SeedIdea implements EndMoonStep {
 
     public static final String IDEA_NAME = "Seed Idea";

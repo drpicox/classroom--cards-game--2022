@@ -8,7 +8,6 @@ import com.drpicox.game.card.api.StackResponseList;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
 import com.drpicox.game.game.api.GameResponse;
-import com.drpicox.game.idea.api.IdeaResponseList;
 import org.springframework.stereotype.Component;
 
 import static com.drpicox.game.card.api.CardResponseList.*;
@@ -90,7 +89,7 @@ public class Post_20220723_Ideas_Context {
         // text:  * Given there are 1 "Harvest Idea" cards.
         // code: this.givenThereAreNSCards(1, "Harvest Idea")
 
-        givenCardService.givenCard(count, cardName);
+        givenCardService.givenCards(count, cardName);
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
@@ -182,7 +181,7 @@ public class Post_20220723_Ideas_Context {
         // text:  * Given there are 1 stacks of 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
         // code: this.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
-        givenStackService.givenStack(count, byNames(count1, name1).and(count2, name2).and(count3, name3));
+        givenStackService.givenStacks(count, byNames(count1, name1).and(count2, name2).and(count3, name3));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 
@@ -198,7 +197,7 @@ public class Post_20220723_Ideas_Context {
         // text:  * Given there are 1 stacks of 1 "Corpse", 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
         // code: this.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Corpse", 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
-        givenStackService.givenStack(count, byNames(count1, name1).and(count2, name2).and(count3, name3).and(count4, name4));
+        givenStackService.givenStacks(count, byNames(count1, name1).and(count2, name2).and(count3, name3).and(count4, name4));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 

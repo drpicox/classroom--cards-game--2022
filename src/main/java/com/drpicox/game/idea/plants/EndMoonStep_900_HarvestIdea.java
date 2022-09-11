@@ -4,9 +4,10 @@ import com.drpicox.game.card.*;
 import com.drpicox.game.idea.*;
 import com.drpicox.game.moon.EndMoonSettings;
 import com.drpicox.game.moon.EndMoonStep;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class EndMoonStep_900_HarvestIdea implements EndMoonStep {
 
     public static final String IDEA_NAME = "Harvest Idea";

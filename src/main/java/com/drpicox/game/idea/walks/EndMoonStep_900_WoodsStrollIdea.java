@@ -8,9 +8,10 @@ import com.drpicox.game.idea.IdeaProgressService;
 import com.drpicox.game.moon.EndMoonSettings;
 import com.drpicox.game.moon.EndMoonStep;
 import com.drpicox.game.util.RandomPickerService;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class EndMoonStep_900_WoodsStrollIdea implements EndMoonStep {
 
     public static final String IDEA_NAME = "Woods Stroll Idea";

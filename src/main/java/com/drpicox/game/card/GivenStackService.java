@@ -21,7 +21,7 @@ public class GivenStackService {
     }
 
 
-    public List<Stack> givenStack(int count, Names names) {
+    public List<Stack> givenStacks(int count, Names names) {
         return given(count,
             () -> stackService.findAllStack(names),
             card -> stackService.discardStack(card),

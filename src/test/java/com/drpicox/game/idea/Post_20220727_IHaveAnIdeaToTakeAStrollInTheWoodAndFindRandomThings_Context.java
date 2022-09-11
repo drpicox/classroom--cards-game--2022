@@ -94,9 +94,9 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager")
 
         givenGameService.givenGame("empty");
-        givenCardService.givenCard(9, "Berry");
+        givenCardService.givenCards(9, "Berry");
         givenIdeaService.givenIdea("Woods Stroll Idea");
-        givenStackService.givenStack(1, byNames(count1, name1).and(count2, name2));
+        givenStackService.givenStacks(1, byNames(count1, name1).and(count2, name2));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
     }
 

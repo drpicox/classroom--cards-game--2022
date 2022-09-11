@@ -157,55 +157,55 @@ public class CardStackTest {
     @Test @Transactional
     public void test_given_card() {
         databaseTestUtils.clear();
-        givenCardService.givenCard(1, "Apple");
+        givenCardService.givenCards(1, "Apple");
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(1);
 
-        givenCardService.givenCard(1, "Apple");
+        givenCardService.givenCards(1, "Apple");
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(1);
 
-        givenCardService.givenCard(3, "Apple");
+        givenCardService.givenCards(3, "Apple");
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(3);
 
-        givenCardService.givenCard(1, "Apple");
+        givenCardService.givenCards(1, "Apple");
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(1);
 
-        givenCardService.givenCard(2, new CardFactorySettings("Apple"));
+        givenCardService.givenCards(2, new CardFactorySettings("Apple"));
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(2);
 
-        givenCardService.givenCard(3, new CardFactorySettings("Apple").withPosition(1));
+        givenCardService.givenCards(3, new CardFactorySettings("Apple").withPosition(1));
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(5);
 
-        givenCardService.givenCard(5, new CardFactorySettings("Apple").withPosition(1));
+        givenCardService.givenCards(5, new CardFactorySettings("Apple").withPosition(1));
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(7);
 
-        givenCardService.givenCard(2, new CardFactorySettings("Apple").withPosition(1));
+        givenCardService.givenCards(2, new CardFactorySettings("Apple").withPosition(1));
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(4);
 
-        givenCardService.givenCard(1, new CardFactorySettings("Apple").withPosition(0));
+        givenCardService.givenCards(1, new CardFactorySettings("Apple").withPosition(0));
         assertThat(cardService.findAllCards(byName("Apple"))).hasSize(3);
     }
 
     @Test @Transactional
     public void test_given_stack() {
         databaseTestUtils.clear();
-        givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
+        givenStackService.givenStacks(1, byNames("Apple", "Berry", "Villager"));
         assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
-        givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
+        givenStackService.givenStacks(1, byNames("Apple", "Berry", "Villager"));
         assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
-        givenStackService.givenStack(3, byNames("Apple", "Berry", "Villager"));
+        givenStackService.givenStacks(3, byNames("Apple", "Berry", "Villager"));
         assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(3);
 
-        givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
+        givenStackService.givenStacks(1, byNames("Apple", "Berry", "Villager"));
         assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
-        givenStackService.givenStack(2, byNames("Apple", "Berry"));
-        givenStackService.givenStack(1, byNames("Apple", "Berry", "Villager"));
+        givenStackService.givenStacks(2, byNames("Apple", "Berry"));
+        givenStackService.givenStacks(1, byNames("Apple", "Berry", "Villager"));
         assertThat(findAllStack(getGame(), byNames("Apple", "Berry"))).hasSize(2);
         assertThat(findAllStack(getGame(), byNames("Apple", "Berry", "Villager"))).hasSize(1);
 
-        givenStackService.givenStack(1, byNames("Militia"));
+        givenStackService.givenStacks(1, byNames("Militia"));
         assertThat(findAllStack(getGame(), byNames("Militia"))).hasSize(1);
 
         givenStackService.givenStackAt(5, byNames("Berry", "Berry Bush"));

@@ -37,13 +37,16 @@ function makeContextContent(post) {
 
 function makeContextHeader(post) {
   return join(
-    `import { getByTestId } from "@testing-library/react";`,
+    `import { getByTestId, screen } from "@testing-library/react";`,
     `import { mainView } from "${post.parent}/main";`,
-    `import { waitForLoading } from "${post.parent}/main/actions";`,
+    `import { waitForEnterTheGame, waitForReloadGame, waitForEndMoon } from "${post.parent}/main/actions";`,
     ``,
     `export class ${post.contextName} {`,
     `  async beforeTest() {`,
-    `    // Do your setup here, if necessary`,
+    `    // Do your setup here`,
+    `    await waitForEnterTheGame();`,
+    `    `,
+    `    throw new Error("Please, review the implementation of beforeTest() and remove this exception when it is correct.");`,
     `  }`,
   );
 }
@@ -59,24 +62,50 @@ function makeContextMethod(post, method) {
   const formalArguments = args.map(({ name }) => `${name}`);
   const methodSignature = `${name}(${formalArguments.join(", ")})`;
   const closest = findClosestMethod(post, method);
+  const lowerName = name.toLowerCase();
 
   return [
     ``,
     `  async ${methodSignature} {`,
     `    // text: ${text}`,
     `    // code: this.${name}(${args.map((a) => a.value).join(", ")})`,
-    closest?.distance < 4 &&
-      `    // hint: ${closest.post.contextName}.${closest.name}`,
-    //  ...args.map(({ name, value }) => `    //    ${name} <= ${value}`),
-    args.length && ``,
+    makeContextMethodHint(closest),
+    ``,
+    makeContextMethodGiven(name),
+    makeContextMethodEndMoon(lowerName),
+    makeContextMethodExpect(args),
+    ``,
+    `    throw new Error("The method ${methodSignature} is not implemented yet.");`,
+    `  }`,
+  ];
+}
+
+function makeContextMethodGiven(name) {
+  return name.startsWith("given") && ["await waitForReloadGame();"];
+}
+
+function makeContextMethodEndMoon(lowerName) {
+  return (
+    lowerName.includes("end") &&
+    lowerName.includes("moon") && ["await waitForEndMoon();"]
+  );
+}
+
+function makeContextMethodExpect(args) {
+  return (
     args.some(({ name }) => name === "expected") && [
       `    var actual = expected; // FIXME`,
       `    expect(actual).toEqual(expected);`,
       ``,
-    ],
-    `    throw new Error("The method ${methodSignature} is not implemented yet.");`,
-    `  }`,
-  ];
+    ]
+  );
+}
+
+function makeContextMethodHint(closest) {
+  return (
+    closest?.distance < 4 &&
+    `    // hint: ${closest.post.contextName}.${closest.name}`
+  );
 }
 
 function makeContextFooter() {
