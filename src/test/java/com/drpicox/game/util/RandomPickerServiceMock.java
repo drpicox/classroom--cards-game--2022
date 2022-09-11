@@ -5,39 +5,41 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.drpicox.game.util.Names.byName;
+
 @Service
 public class RandomPickerServiceMock extends RandomPickerService {
 
-    private Map<String, List<Object>> mockedRolls = new TreeMap<>();
+    private Map<String, List<String>> mockedPicks = new TreeMap<>();
 
     @Override
-    public <T> T pick(String rollName, List<T> items) {
-        if (!mockedRolls.containsKey(rollName)) return items.get(0);
+    public <T extends PossiblePick> T pick(String pickName, List<T> possibilities) {
+        if (!mockedPicks.containsKey(pickName)) return possibilities.get(0);
 
-        var list = mockedRolls.get(rollName);
-        var element = list.remove(0);
-        if (list.isEmpty()) mockedRolls.remove(rollName);
+        var nextPicks = mockedPicks.get(pickName);
+        var nextPick = nextPicks.remove(0);
+        if (nextPicks.isEmpty()) mockedPicks.remove(pickName);
 
-        if (!items.contains(element)) throw new AssertionError(
-            "The random for rollName '" + rollName + "' was mocked to be " + element + " but it is not present in the list.\n" +
-            " - mocked element   : '" + element + "'\n" +
-            " - possible elements: '" + listElements(items) + "'\n");
+        var next = possibilities.stream().filter(byName(nextPick)).findAny();
 
-        return (T) element;
+        if (!next.isPresent()) throw new AssertionError(
+            "The random for pickName '" + pickName + "' was mocked to be " + nextPick + " but it is not present in the list.\n" +
+            " - mocked element   : '" + nextPick + "'\n" +
+            " - possible elements: '" + listElements(possibilities) + "'\n");
+
+        return (T) next.get();
     }
 
-    private <T> String listElements(List<T> items) {
-        return items.stream().map(e -> e.toString()).collect(Collectors.joining("', '"));
+    private <T extends PossiblePick> String listElements(List<T> items) {
+        return items.stream().map(e -> e.getName()).collect(Collectors.joining("', '"));
     }
 
-    public void mockPick(String rollName, Object value) {
-        if (!mockedRolls.containsKey(rollName)) {
-            mockedRolls.put(rollName, new LinkedList<>());
+    public void mockPick(String pickName, String possibilityName) {
+        if (!mockedPicks.containsKey(pickName)) {
+            mockedPicks.put(pickName, new LinkedList<>());
         }
 
-        var list = mockedRolls.get(rollName);
-        list.add(value);
+        var list = mockedPicks.get(pickName);
+        list.add(possibilityName);
     }
-
-
 }

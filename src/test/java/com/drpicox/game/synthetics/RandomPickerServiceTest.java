@@ -1,5 +1,6 @@
 package com.drpicox.game.synthetics;
 
+import com.drpicox.game.util.PossiblePick;
 import com.drpicox.game.util.RandomPickerService;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +14,9 @@ public class RandomPickerServiceTest {
 
     @Test public void test_random_picker_one_of_two() {
         var picker = new RandomPickerService();
-        var list = new ArrayList<String>();
-        list.add("first");
-        list.add("second");
+        var list = new ArrayList<PossiblePick>();
+        list.add(item("first"));
+        list.add(item("second"));
 
         var times = 1000;
         var results = pickMany(picker, list, times);
@@ -28,10 +29,10 @@ public class RandomPickerServiceTest {
 
     @Test public void test_random_picker_one_of_three() {
         var picker = new RandomPickerService();
-        var list = new ArrayList<String>();
-        list.add("first");
-        list.add("second");
-        list.add("third");
+        var list = new ArrayList<PossiblePick>();
+        list.add(item("first"));
+        list.add(item("second"));
+        list.add(item("third"));
 
         var times = 1000;
         var results = pickMany(picker, list, times);
@@ -47,27 +48,35 @@ public class RandomPickerServiceTest {
 
     @Test public void test_random_picker_one_of_many() {
         var picker = new RandomPickerService();
-        var list = new ArrayList<String>();
-        list.add("few");
-        for (var i = 0; i < 9; i++) list.add("many");
+        var list = new ArrayList<PossiblePick>();
+        list.add(item("few"));
+        list.add(item("many", 9));
 
         var times = 1000;
         var results = pickMany(picker, list, times);
 
-        System.out.println(results);
         assertThat(results).containsKey("few");
         assertThat(results).containsKey("many");
         assertThat(results.get("few")).isGreaterThan(results.get("many") / 30);
         assertThat(results.get("many")).isGreaterThan(results.get("few") * 2);
     }
 
-    private static HashMap<String, Integer> pickMany(RandomPickerService picker, List<String> list, int times) {
+    private static HashMap<String, Integer> pickMany(RandomPickerService picker, List<PossiblePick> list, int times) {
         var results = new HashMap<String, Integer>();
         for (var i = 0; i < times; i++) {
             var result = picker.pick("test", list);
-            results.put(result, results.getOrDefault(result, 0) + 1);
+            var resultName = result.getName();
+            results.put(resultName, results.getOrDefault(resultName, 0) + 1);
         }
         return results;
+    }
+
+    private static PossiblePick item(String name) {
+        return new PossiblePick(name, 1);
+    }
+
+    private static PossiblePick item(String name, int possibilities) {
+        return new PossiblePick(name, possibilities);
     }
 
 }

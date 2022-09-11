@@ -37,8 +37,9 @@ public class EndMoonStep_900_WoodsStrollIdea implements EndMoonStep {
 
         var idea = settings.getIdea();
         var cardRewards = idea.getCardRewards();
-        var randomCardName = randomPickerService.pick(IDEA_NAME, cardRewards);
+        var randomCardPossibility = randomPickerService.pick(IDEA_NAME, cardRewards);
 
+        var randomCardName = randomCardPossibility.getCardName();
         cardFactory.makeCards(1, new CardFactorySettings(randomCardName).withPosition(settings.getPosition()));
     }
 }

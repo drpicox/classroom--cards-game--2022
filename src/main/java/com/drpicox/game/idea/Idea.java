@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Entity
 public class Idea implements HasName {
-    public Idea(String id, String name, int level, int xp, List<IdeaTagRequirement> requirements, List<String> cardRewards) {
+    public Idea(String id, String name, int level, int xp, List<IdeaTagRequirement> requirements, List<IdeaCardReward> cardRewards) {
         this.id = id;
         this.name = name;
         this.level = level;
@@ -27,7 +27,7 @@ public class Idea implements HasName {
     private int level;
     private int xp;
     @ElementCollection private List<IdeaTagRequirement> requirements;
-    @ElementCollection private List<String> cardRewards;
+    @ElementCollection private List<IdeaCardReward> cardRewards;
 
     public String getId() {
         return id;
@@ -54,8 +54,8 @@ public class Idea implements HasName {
         return requirements.stream().mapToInt(r -> r.getCardCount()).sum();
     }
 
-    public List<String> getCardRewards() {
-        return cardRewards;
+    public List<IdeaCardReward> getCardRewards() {
+        return cardRewards.stream().filter(r -> r.getLevel() <= level).toList();
     }
 
     public void increaseXp() {

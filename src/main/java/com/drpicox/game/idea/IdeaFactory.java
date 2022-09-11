@@ -52,10 +52,18 @@ public class IdeaFactory {
         return requirements;
     }
 
-    private List<String> getCardRewards(Constants ideaConstants) {
+    private List<IdeaCardReward> getCardRewards(Constants ideaConstants) {
+        var cardRewards = new ArrayList<IdeaCardReward>();
 
         var cardRewardsTable = ideaConstants.getCsvTable("idea.rewards.cards");
-        var cardRewards = cardRewardsTable.getColumn("cardName");
+        for (var row: cardRewardsTable.getRows()) {
+            var level = row.getInt("level");
+            var cardName = row.get("cardName");
+            var possibilities = row.getInt("possibilities");
+
+            var cardReward = new IdeaCardReward(cardName, level, possibilities);
+            cardRewards.add(cardReward);
+        }
 
         return cardRewards;
     }

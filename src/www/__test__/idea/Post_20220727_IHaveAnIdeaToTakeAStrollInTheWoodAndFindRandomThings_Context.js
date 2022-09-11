@@ -107,6 +107,13 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     expect(stacks).toHaveLength(expected);
   }
 
+  async givenThereIsTheSIdeaAtLevelNAndNXp() {
+    // text:  * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
+    // code: this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
+
+    await waitForReloadGame();
+  }
+
   async afterTest() {
     // Do your teardown here, if necessary
   }

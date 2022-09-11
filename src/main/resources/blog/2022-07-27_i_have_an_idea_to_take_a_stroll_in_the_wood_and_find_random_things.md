@@ -29,6 +29,8 @@ So, lets put this in movement.
 
 ## Finding things
 
+### Finding things in the woods
+
 We can find any of the following things in the woods:
 
 | $CardName |
@@ -40,4 +42,35 @@ We can find any of the following things in the woods:
  * Given that the odds are that we will get a "$CardName" from the "Woods Stroll Idea" card.
  * End the current moon. 
  * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager" and 1 "$CardName" cards.
+
+### In the level 1
+
+That was because we were in the level one, but what if we go to the level 2?
+Before that, we knew that we had no reward with of a Villager card:
+
+* Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
+* Given there is the "Harvest Idea" idea at level 1 and 0 XP.
+* The "Woods Stroll Idea" may not create a "Villager" card.
+
+### In a higher level
+
+But at level 2, you may also find Villagers in the woods:
+
+| $CardName |
+|-----------|
+| Berry     |
+| Apple     |
+| Villager  |
+
+We should see the $CardName as possible reward:
+
+ * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
+ * Given there is the "Woods Stroll Idea" idea at level 2 and 0 XP.
+ * The "Woods Stroll Idea" may create a "$CardName" card.
+
+But it should also possible to receive it as a reward:
+
+ * Given that the odds are that we will get a "$CardName" from the "Woods Stroll Idea" card.
+ * End the current moon.
+ * There should be 1 stacks of 1 "Woods Stroll Idea", 1 "Villager", and 1 "$CardName" cards.
 

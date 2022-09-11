@@ -15,7 +15,7 @@ public class IdeaResponse implements HasName {
         this.name = idea.getName();
         this.level = idea.getLevel();
         this.xp = idea.getXp();
-        this.cardRewards = idea.getCardRewards();
+        this.cardRewards = idea.getCardRewards().stream().map(r -> r.getCardName()).toList();
         this.tagRequirements = idea.getTagRequirements().stream().map(IdeaTagRequirementResponse::new).toList();
     }
 

@@ -10,9 +10,17 @@ public class RandomPickerService {
 
     private final Random random = new Random();
 
-    public <T> T pick(String rollName, List<T> items) {
-        var randomIndex = random.nextInt(items.size());
-        var result = items.get(randomIndex);
-        return result;
+    public <T extends PossiblePick> T pick(String rollName, List<T> items) {
+        var totalPossibilities = items.stream().mapToInt(i -> i.getPossibilities()).sum();
+        var randomPossibility = random.nextInt(totalPossibilities);
+
+        var currentPossibility = 0;
+        var index = 0;
+        while (currentPossibility <= randomPossibility) {
+            var item = items.get(index);
+            currentPossibility += item.getPossibilities();
+            index++;
+        }
+        return items.get(index - 1);
     }
 }

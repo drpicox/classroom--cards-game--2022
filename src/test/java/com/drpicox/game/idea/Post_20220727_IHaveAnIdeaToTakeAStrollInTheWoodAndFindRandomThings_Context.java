@@ -94,7 +94,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager")
 
         givenGameService.givenGame("empty");
-        givenCardService.givenCards(9, "Berry");
+        givenCardService.givenCards(1, "Berry");
         givenIdeaService.givenIdea("Woods Stroll Idea");
         givenStackService.givenStacks(1, byNames(count1, name1).and(count2, name2));
         game = frontendSimulator.get("/api/v1/game", GameResponse.class);
@@ -128,5 +128,19 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
     public void afterTest() {
         // Do your teardown here, if necessary
+    }
+
+    public void givenThereIsTheSIdeaAtLevelNAndNXp(String ideaName, int level, int xp) {
+        // text:  * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
+        // code: this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
+
+        givenIdeaService.givenIdea(ideaName, level, xp);
+        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+    }
+
+    public void theSMayNotCreateASCard(String ideaName, String cardName) {
+        var idea = getIdea(game, byName(ideaName));
+        var rewards = idea.getCardRewards();
+        assertThat(rewards).doesNotContain(cardName);
     }
 }
