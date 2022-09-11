@@ -129,7 +129,7 @@ public class BlogTest {
             if (coder == null) return;
 
             var writer = post.getProperty("writer");
-            if (!coder.equals(writer)) return;
+            if (!coder.equals(writer) || coder.equals("drpicox")) return;
 
             var id = post.getId();
             throw new AssertionError("Post '" + id + ".md' frontmatter coder and writer have the same value '"+coder+"'.\nThe writer of a post cannot be its coder.\n" +

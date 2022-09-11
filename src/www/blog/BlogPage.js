@@ -16,9 +16,11 @@ export function BlogPage() {
     <div className="blog">
       <h1>Blog</h1>
 
-      {posts.map((post) => (
-        <BlogListItem key={post.id} post={post} />
-      ))}
+      <div className="panel">
+        {posts.map((post) => (
+          <BlogListItem key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 }

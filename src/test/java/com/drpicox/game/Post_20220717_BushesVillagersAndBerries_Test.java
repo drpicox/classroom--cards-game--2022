@@ -23,7 +23,7 @@ public class Post_20220717_BushesVillagersAndBerries_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "824e6953105ab2951a266edb4038af73");
+        testUtils.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "50b492be6d98fa144fda0e76d56bc4a0");
         context.beforeTest();
 
         // # Bushes, Villagers and Berries            // # Bushes, Villagers and Berries

@@ -68,9 +68,9 @@ function reportUncovered(uncovered) {
   uncovered.misses.forEach((miss) => {
     console.error(
       chalk.dim(
-        `\nMissed ${miss.type}${miss.name ? ` ${miss.name}` : ""}, at ${
-          miss.file
-        }:${miss.line}`,
+        `\nMissed ${miss.type}${
+          miss.name ? ` ${miss.name}` : ""
+        } coverage, at ${miss.file}:${miss.line}`,
       ),
     );
     console.error(getCodeFrame(miss.file, miss.line));

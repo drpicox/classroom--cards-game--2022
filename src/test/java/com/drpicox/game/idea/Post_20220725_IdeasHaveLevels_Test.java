@@ -23,7 +23,7 @@ public class Post_20220725_IdeasHaveLevels_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-25_ideas_have_levels", "7898442ec17fdf2f068d1f35a7abc370");
+        testUtils.runBeforeTestStarts("2022-07-25_ideas_have_levels", "19ad66ca57a036c8ed22f51c75a62507");
         context.beforeTest();
 
         // # Ideas Have Levels                                                                              // # Ideas Have Levels

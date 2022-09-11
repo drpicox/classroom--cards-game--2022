@@ -16,6 +16,7 @@ body {
   user-select: none;
   margin: 8vh auto 2vh;
   max-width: 90vw;
+  background: #93b995;
 }
 
 button {
@@ -25,6 +26,13 @@ button {
 ul {
   padding: 0 2vw;
   margin: 0;
+}
+
+.panel {
+  box-shadow: inset 0 0 0vmin 0.1vmin rgba(0, 0, 0, 0.8),
+    0 0 0.1vmin 0.1vmin rgba(0, 0, 0, 0.7);
+  background-color: #fff9e3;
+  padding: 1rem;
 }
 
 .header {
@@ -57,9 +65,16 @@ ul {
 .blog a {
   display: block;
   font-size: larger;
-  margin-top: 0.6vh;
+  margin-top: 2vh;
+  margin-bottom: 0.1vh;
   color: #6d6137;
   text-decoration: none;
+}
+.blog a::before {
+  content: "» ";
+}
+.blog :first-child a {
+  margin-top: 0vh;
 }
 .blog a:hover {
   color: inherit;
@@ -67,7 +82,7 @@ ul {
 }
 .post-package {
   font-size: smaller;
-  background: #e9dfbb;
+  background: #fff4cc;
   margin-left: 0.2vw;
   padding: 0 0.2vw;
 }
@@ -83,6 +98,17 @@ ul {
   line-height: 1.4;
   color: rgba(0, 0, 0, 0.7);
 }
+.post-body :first-child {
+  margin-top: 0;
+}
+.post-body :last-child {
+  margin-bottom: 0;
+}
+
+.post-body div:has(table) {
+  overflow-x: auto;
+  margin: 1rem -0.95rem;
+}
 
 .post-body table {
   border-collapse: collapse;
@@ -90,21 +116,30 @@ ul {
   width: 100%;
   margin: 1.5rem 0;
   font-size: 1.2rem;
-  overflow: auto;
+  overflow: hide;
 }
 
 .post-body table td,
 .post-body table th {
-  border: 1px solid #ddd;
+  border: 1px solid #b8ac81;
   padding: 0.2rem 0.5rem;
 }
 
+.post-body table td:first-child,
+.post-body table th:first-child {
+  border-left: none;
+}
+.post-body table td:last-child,
+.post-body table th:last-child {
+  border-right: none;
+}
+
 .post-body table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #f8edc57d;
 }
 
 .post-body table tr:hover {
-  background-color: #ddd;
+  background-color: #93b99567;
 }
 
 .post-body table th {

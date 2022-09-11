@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectPost, requestPost } from "./blogSlice";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { selectPost, requestPost } from "./blogSlice";
 import { PostSummary } from "./PostSummary";
+import { remarkTableResponsive } from "./remarkTableResponsive";
 
-const remarkPlugins = [remarkGfm];
+const remarkPlugins = [remarkGfm, remarkTableResponsive];
 
 export function PostPage() {
   const { postId } = useParams();
@@ -25,11 +26,8 @@ export function PostPage() {
       <small>
         <PostSummary post={post} />
       </small>
-      <div className="post-body" data-testid="post-body">
+      <div className="panel post-body" data-testid="post-body">
         <ReactMarkdown children={post.body} remarkPlugins={remarkPlugins} />
-        <br />
-        <hr />
-        <br />
       </div>
     </div>
   );

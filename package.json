@@ -23,6 +23,7 @@
     "remark-gfm": "^3.0.1",
     "reselect": "^4.1.6",
     "underscore": "^1.13.4",
+    "unist-util-visit": "^4.1.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
@@ -73,7 +74,8 @@
       "src/www/__test__",
       "src/www/index.js",
       "src/www/backend.js",
-      "src/www/reportWebVitals.js"
+      "src/www/reportWebVitals.js",
+      "src/www/blog/remarkTableResponsive.js"
     ]
   }
 }

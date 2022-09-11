@@ -101,7 +101,7 @@ function verifyPostFrontmatterPackageKey(post) {
 
 function verifyPostWriterAndCodeAreDifferent(post) {
   const { writer, coder } = post.frontmatter.values;
-  if (writer !== coder) return true;
+  if (writer !== coder || coder === "drpicox") return true;
 
   const wrongLine = post.frontmatter.valuesLines.coder;
   const acceptableCoders = getAuthorUsernames().filter(

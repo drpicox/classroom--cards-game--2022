@@ -12,6 +12,7 @@ jest.mock(
       children,
 );
 jest.mock("remark-gfm", () => {});
+jest.mock("unist-util-visit", () => {});
 
 const realTest = global.test;
 global.test = function (name, fn) {

@@ -23,7 +23,7 @@ public class Post_20220719_VillagersEatFood_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-19_villagers_eat_food", "63b4462fd274040ff51daacd4eab4d69");
+        testUtils.runBeforeTestStarts("2022-07-19_villagers_eat_food", "3b358a9a0ccb84fcaa23165f6aba1c0c");
         context.beforeTest();
 
         // # Villagers Eat Food                                   // # Villagers Eat Food

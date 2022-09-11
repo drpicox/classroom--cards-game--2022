@@ -23,7 +23,7 @@ public class Post_20220715_HelloBlog_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-15_hello_blog", "51b19208fbda586e1c68931c488111bf");
+        testUtils.runBeforeTestStarts("2022-07-15_hello_blog", "ee5216b03b56d4c41fe753c274af3c88");
         context.beforeTest();
 
         // # Hello Blog                                          // # Hello Blog

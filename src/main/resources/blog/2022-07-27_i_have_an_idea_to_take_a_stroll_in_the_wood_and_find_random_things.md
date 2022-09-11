@@ -1,7 +1,7 @@
 ---
 writer: drpicox
 package: idea
-coder: nobody
+coder: drpicox
 ---
 # I have an idea to take a stroll in the wood and find random things
 
