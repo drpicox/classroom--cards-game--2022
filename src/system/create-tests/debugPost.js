@@ -7,6 +7,17 @@ function debugPost(post) {
   const sortedMethods = [];
   let unusedMethods = post.contextMethods.slice();
   let current = unusedMethods.shift();
+  if (!current) {
+    console.log(
+      join([
+        `STATS FOR ${post.id}.md`,
+        "Nothing to debug yet. ",
+        '> Please add some " * Steps" to start the debugger.',
+      ]),
+    );
+    return;
+  }
+
   current.distance = 0;
   sortedMethods.push(current);
   while (unusedMethods.length) {
@@ -100,7 +111,9 @@ function debugPost(post) {
     ),
   );
 }
+
 exports.debugPost = debugPost;
+
 function padLeft(text, width) {
   text = `${text}`;
   while (text.length < width) text = ` ${text}`;
