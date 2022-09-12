@@ -7,16 +7,16 @@ import java.util.List;
 
 // TODO: Which is the best name for this POJO? (and similars)
 // ListPostsJson? ListPostsData? ...
-public class ListPostsResponse {
+public class ListPostsDTO {
 
-    private List<ListPostsResponseEntry> posts = new ArrayList<>();
+    private List<ListPostsEntryDTO> posts = new ArrayList<>();
 
     public void addPost(Post post) {
-        var entry = new ListPostsResponseEntry(post);
+        var entry = new ListPostsEntryDTO(post);
         posts.add(entry);
     }
 
-    public List<ListPostsResponseEntry> getPosts() {
+    public List<ListPostsEntryDTO> getPosts() {
         return posts;
     }
 }

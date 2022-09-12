@@ -1,9 +1,9 @@
 package com.drpicox.game.synthetics;
 
 import com.drpicox.game.blog.AuthorsService;
-import com.drpicox.game.blog.api.ListPostsResponse;
-import com.drpicox.game.blog.api.ListPostsResponseEntry;
-import com.drpicox.game.blog.api.PostResponse;
+import com.drpicox.game.blog.api.ListPostsDTO;
+import com.drpicox.game.blog.api.ListPostsEntryDTO;
+import com.drpicox.game.blog.api.PostDTO;
 import com.drpicox.game.constants.ConstantsLoader;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,7 +37,7 @@ public class BlogTest {
 
     @Test
     public void the_post_service_list_all_the_posts() throws Throwable {
-        var list = fetchFromRestController("/api/v1/posts", ListPostsResponse.class);
+        var list = fetchFromRestController("/api/v1/posts", ListPostsDTO.class);
         var posts = list.getPosts();
 
         assertThat(posts.size()).isAtLeast(1);
@@ -51,7 +50,7 @@ public class BlogTest {
 
     @Test
     public void the_post_service_reads_one_post() throws Throwable {
-        var post = fetchFromRestController("/api/v1/posts/2022-07-15_hello_blog", PostResponse.class);
+        var post = fetchFromRestController("/api/v1/posts/2022-07-15_hello_blog", PostDTO.class);
 
         assertThat(post.getId()).isEqualTo("2022-07-15_hello_blog");
         assertThat(post.getTitle()).isEqualTo("Hello Blog");
@@ -159,13 +158,13 @@ public class BlogTest {
     }
 
     private void forEachPost(TestPost consumer) throws Throwable {
-        var list = fetchFromRestController("/api/v1/posts", ListPostsResponse.class);
+        var list = fetchFromRestController("/api/v1/posts", ListPostsDTO.class);
         for (var post: list.getPosts()) {
             consumer.test(post);
         }
     }
 
     interface TestPost {
-        void test(ListPostsResponseEntry post) throws Throwable;
+        void test(ListPostsEntryDTO post) throws Throwable;
     }
 }

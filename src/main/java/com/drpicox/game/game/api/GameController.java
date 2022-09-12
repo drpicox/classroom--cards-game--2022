@@ -19,26 +19,26 @@ public class GameController {
     private final GameService gameService;
     private final GameFactory gameFactory;
     private final MoonService moonService;
-    private final GameResponseFactory gameResponseFactory;
+    private final GameDTOFactory gameDTOFactory;
 
-    public GameController(GameService gameService, GameFactory gameFactory, MoonService moonService, GameResponseFactory gameResponseFactory) {
+    public GameController(GameService gameService, GameFactory gameFactory, MoonService moonService, GameDTOFactory gameDTOFactory) {
         this.gameService = gameService;
         this.gameFactory = gameFactory;
         this.moonService = moonService;
-        this.gameResponseFactory = gameResponseFactory;
+        this.gameDTOFactory = gameDTOFactory;
     }
 
     @GetMapping
-    public GameResponse getGame() throws IOException, URISyntaxException {
+    public GameDTO getGame() throws IOException, URISyntaxException {
         if (!gameService.existsGame()) {
             gameFactory.makeGame(new GameFactorySettings());
         }
-        return gameResponseFactory.makeGameResponse();
+        return gameDTOFactory.makeGameDTO();
     }
 
     @PostMapping("/moon")
-    public GameResponse endMoon() {
+    public GameDTO endMoon() {
         moonService.endMoon();
-        return gameResponseFactory.makeGameResponse();
+        return gameDTOFactory.makeGameDTO();
     }
 }

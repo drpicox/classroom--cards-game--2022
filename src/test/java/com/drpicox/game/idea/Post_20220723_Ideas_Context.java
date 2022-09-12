@@ -4,14 +4,14 @@ import com.drpicox.game.game.GivenGameService;
 import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.GivenStackService;
 import com.drpicox.game.card.api.MoveForm;
-import com.drpicox.game.card.api.StackResponseList;
+import com.drpicox.game.card.api.StackListDTO;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
-import com.drpicox.game.game.api.GameResponse;
+import com.drpicox.game.game.api.GameDTO;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.card.api.CardResponseList.*;
-import static com.drpicox.game.idea.api.IdeaResponseList.getIdea;
+import static com.drpicox.game.card.api.CardListDTO.*;
+import static com.drpicox.game.idea.api.IdeaListDTO.getIdea;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -28,7 +28,7 @@ public class Post_20220723_Ideas_Context {
     private final GivenCardService givenCardService;
     private final GivenStackService givenStackService;
     private final GivenGameService givenGameService;
-    private GameResponse game;
+    private GameDTO game;
 
     public Post_20220723_Ideas_Context(FrontendSimulator frontendSimulator, GameFactory gameFactory, IdeaService ideaService, GivenIdeaService givenIdeaService, GivenCardService givenCardService, GivenStackService givenStackService, GivenGameService givenGameService) {
         this.frontendSimulator = frontendSimulator;
@@ -49,7 +49,7 @@ public class Post_20220723_Ideas_Context {
         // text:  * Enter the game.
         // code: this.enterTheGame()
         // hint: Post_20220717_BushesVillagersAndBerries_Context.enterTheGame
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void thereShouldBeTheSIdea(String expected) {
@@ -74,7 +74,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.drawACardFromTheSIdea("Harvest Idea")
 
         var idea = getIdea(game, byName(ideaName));
-        game = frontendSimulator.post("/api/v1/game/ideas/"+idea.getId()+"/draw", null, GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/ideas/"+idea.getId()+"/draw", null, GameDTO.class);
     }
 
     public void givenThereIsTheSIdea(String ideaName) {
@@ -82,7 +82,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenThereIsTheSIdea("Harvest Idea")
 
         givenIdeaService.givenIdea(ideaName);
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenThereAreNSCards(int count, String cardName) {
@@ -90,7 +90,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenThereAreNSCards(1, "Harvest Idea")
 
         givenCardService.givenCards(count, cardName);
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void discardNSCards(int count, String cardName) {
@@ -100,7 +100,7 @@ public class Post_20220723_Ideas_Context {
         var cards = findAllCard(game, byName(cardName));
         var discards = cards.subList(0, count);
         for (var card : discards) {
-            game = frontendSimulator.post("/api/v1/game/cards/"+card.getId()+"/discard", null, GameResponse.class);
+            game = frontendSimulator.post("/api/v1/game/cards/"+card.getId()+"/discard", null, GameDTO.class);
         }
     }
 
@@ -133,16 +133,16 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenANewGame()
 
         givenGameService.givenGame("empty");
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void moveTheSCardToItsOwnStack(String cardName) {
         var card = getCard(game, byName(cardName));
         var cardId = card.getId();
-        var position = StackResponseList.getFreePosition(game);
+        var position = StackListDTO.getFreePosition(game);
         var zindex = 0;
 
-        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex), GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex), GameDTO.class);
     }
 
     public void moveTheSCardOnTopOfTheSCard(String sourceCardName, String targetCardName) {
@@ -156,7 +156,7 @@ public class Post_20220723_Ideas_Context {
         var card = getCard(game, byName(sourceCardName));
         var cardId = card.getId();
 
-        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameDTO.class);
     }
 
     public void thereShouldBeNStacksOfNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3) {
@@ -170,7 +170,7 @@ public class Post_20220723_Ideas_Context {
         // text:  * There should be 1 stack of 1 "Berry Bush", 1 "Villager", 1 "Harvest Idea", and 1 "Villager" cards.
         // code: this.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea", 1, "Villager")
 
-        var stacks = StackResponseList.findAllStack(game,
+        var stacks = StackListDTO.findAllStack(game,
             byNames(count1, name1).and(count2, name2).and(count3, name3).and(count4, name4)
         );
         assertThat(stacks).hasSize(expected);
@@ -182,7 +182,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
         givenStackService.givenStacks(count, byNames(count1, name1).and(count2, name2).and(count3, name3));
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void endTheCurrentMoon() {
@@ -190,7 +190,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.endTheCurrentMoon()
         // hint: Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context.endTheCurrentMoon
 
-        game = frontendSimulator.post("/api/v1/game/moon", null, GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);
     }
 
     public void givenThereAreNStacksOfNSNSNSAndNSCards(int count, int count1, String name1, int count2, String name2, int count3, String name3, int count4, String name4) {
@@ -198,7 +198,7 @@ public class Post_20220723_Ideas_Context {
         // code: this.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Corpse", 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
         givenStackService.givenStacks(count, byNames(count1, name1).and(count2, name2).and(count3, name3).and(count4, name4));
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void afterTest() {

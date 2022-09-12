@@ -3,14 +3,14 @@ package com.drpicox.game.idea;
 import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.GivenStackService;
 import com.drpicox.game.card.api.MoveForm;
-import com.drpicox.game.card.api.StackResponseList;
-import com.drpicox.game.game.api.GameResponse;
-import com.drpicox.game.idea.api.IdeaResponseList;
+import com.drpicox.game.card.api.StackListDTO;
+import com.drpicox.game.game.api.GameDTO;
+import com.drpicox.game.idea.api.IdeaListDTO;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.card.api.CardResponseList.findAllCard;
-import static com.drpicox.game.card.api.CardResponseList.getCard;
-import static com.drpicox.game.idea.api.IdeaResponseList.getIdea;
+import static com.drpicox.game.card.api.CardListDTO.findAllCard;
+import static com.drpicox.game.card.api.CardListDTO.getCard;
+import static com.drpicox.game.idea.api.IdeaListDTO.getIdea;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -29,7 +29,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
     private final GivenIdeaService givenIdeaService;
     private final GivenStackService givenStackService;
     private final GivenCardService givenCardService;
-    private GameResponse game;
+    private GameDTO game;
 
     public Post_20220725_IdeasHaveLevels_Context(FrontendSimulator frontendSimulator, GivenGameService givenGameService, GivenIdeaService givenIdeaService, GivenStackService givenStackService, GivenCardService givenCardService) {
         this.frontendSimulator = frontendSimulator;
@@ -48,7 +48,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // text:  * Enter the game.
         // code: this.enterTheGame()
         // hint: Post_20220723_Ideas_Context.enterTheGame
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void thereShouldBeTheSIdea(String expected) {
@@ -75,7 +75,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // hint: Post_20220723_Ideas_Context.drawACardFromTheSIdea
 
         var idea = getIdea(game, byName(ideaName));
-        game = frontendSimulator.post("/api/v1/game/ideas/" + idea.getId() + "/draw", null, GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/ideas/" + idea.getId() + "/draw", null, GameDTO.class);
     }
 
     public void moveTheSCardToItsOwnStack(String cardName) {
@@ -85,10 +85,10 @@ public class Post_20220725_IdeasHaveLevels_Context {
 
         var card = getCard(game, byName(cardName));
         var cardId = card.getId();
-        var position = StackResponseList.getFreePosition(game);
+        var position = StackListDTO.getFreePosition(game);
         var zindex = 0;
 
-        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex), GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex), GameDTO.class);
     }
 
     public void moveTheSCardOnTopOfTheSCard(String sourceCardName, String targetCardName) {
@@ -103,7 +103,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         var card = getCard(game, byName(sourceCardName));
         var cardId = card.getId();
 
-        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameDTO.class);
     }
 
     public void thereShouldBeNStacksOfNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3) {
@@ -111,7 +111,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
         // hint: Post_20220723_Ideas_Context.thereShouldBeNStacksOfNSNSAndNSCards
 
-        var stacks = StackResponseList.findAllStack(game,
+        var stacks = StackListDTO.findAllStack(game,
             byNames(count1, name1).and(count2, name2).and(count3, name3)
         );
         assertThat(stacks).hasSize(expected);
@@ -131,7 +131,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.endTheCurrentMoon()
         // hint: Post_20220723_Ideas_Context.endTheCurrentMoon
 
-        game = frontendSimulator.post("/api/v1/game/moon", null, GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);
     }
 
     public void givenANewGame() throws IOException, URISyntaxException {
@@ -140,7 +140,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // hint: Post_20220723_Ideas_Context.givenANewGame
 
         givenGameService.givenGame("empty");
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenThereIsTheSIdea(String ideaName) {
@@ -149,7 +149,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // hint: Post_20220723_Ideas_Context.givenThereIsTheSIdea
 
         givenIdeaService.givenIdea(ideaName);
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenThereAreNStacksOfNSNSAndNSCards(int count, int count1, String name1, int count2, String name2, int count3, String name3) {
@@ -158,7 +158,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // hint: Post_20220723_Ideas_Context.givenThereAreNStacksOfNSNSAndNSCards
 
         givenStackService.givenStacks(count, byNames(count1, name1).and(count2, name2).and(count3, name3));
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenThereIsTheSIdeaAtLevelNAndNXp(String ideaName, int level, int xp) {
@@ -166,7 +166,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
 
         givenIdeaService.givenIdea(ideaName, level, xp);
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenThereAreNSCards(int count, String cardName) {
@@ -175,7 +175,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // hint: Post_20220723_Ideas_Context.givenThereAreNSCards
 
         givenCardService.givenCards(count, cardName);
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenANewGameWithNSProductionStack(int count, String plantName) throws IOException, URISyntaxException {
@@ -185,7 +185,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         givenGameService.givenGame("empty");
         givenCardService.givenCards(count, "Berry");
         givenStackService.givenStacks(count, byNames("Harvest Idea", "Villager", plantName));
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void thereShouldBeNoSIdea(String expected) {
@@ -193,7 +193,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         // code: this.thereShouldBeNoSIdea("Plant Seed")
         // hint: Post_20220723_Ideas_Context.thereShouldBeTheSIdea
 
-        var actual = IdeaResponseList.findAllIdea(game, byName(expected));
+        var actual = IdeaListDTO.findAllIdea(game, byName(expected));
         assertThat(actual).isEmpty();
     }
 
@@ -222,14 +222,14 @@ public class Post_20220725_IdeasHaveLevels_Context {
 
     public void givenThereAreNStacksOfNSCards(int count, int count1, String name1) {
         givenStackService.givenStacks(count, byNames(count1, name1));
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void theSIdeaShouldRequireNCardWithAtLeastNInSTag(String ideaName, int cardCount, int tagValue, String tagName) {
         // * The "Harvest Idea" idea should require 1 card with at least 1 in "Fruit Plant" tag.
         // theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Fruit Plant");
 
-        var idea = IdeaResponseList.getIdea(game, byName(ideaName));
+        var idea = IdeaListDTO.getIdea(game, byName(ideaName));
         var requirement = idea.findTagRequirement(tagName).get();
         assertThat(requirement.getCardCount()).isEqualTo(cardCount);
         assertThat(requirement.getTagValue()).isEqualTo(tagValue);

@@ -2,10 +2,10 @@ package com.drpicox.game.tags.api;
 
 import com.drpicox.game.tags.Tag;
 
-public class TagResponse {
+public class TagDTO {
     private final int value;
 
-    public TagResponse(Tag tag) {
+    public TagDTO(Tag tag) {
         this.value = tag.getValue();
     }
 

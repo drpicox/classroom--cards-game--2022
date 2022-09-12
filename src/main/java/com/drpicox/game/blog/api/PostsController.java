@@ -17,17 +17,17 @@ public class PostsController {
     }
 
     @GetMapping
-    public ListPostsResponse listPosts() throws Exception {
+    public ListPostsDTO listPosts() throws Exception {
         var list = blogService.findAll();
-        var result = new ListPostsResponse();
+        var result = new ListPostsDTO();
         list.forEach(post -> result.addPost(post));
         return result;
     }
 
     @GetMapping("/{postId}")
-    public PostResponse getPost(@PathVariable String postId) throws Exception {
+    public PostDTO getPost(@PathVariable String postId) throws Exception {
         var post = blogService.findPost(postId).orElseThrow();
-        var response = new PostResponse(post);
-        return response;
+        var postDTO = new PostDTO(post);
+        return postDTO;
     }
 }

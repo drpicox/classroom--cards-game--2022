@@ -2,18 +2,18 @@ package com.drpicox.game.synthetics;
 
 
 import com.drpicox.game.card.*;
-import com.drpicox.game.card.api.CardResponseList;
-import com.drpicox.game.card.api.StackResponseList;
+import com.drpicox.game.card.api.CardListDTO;
+import com.drpicox.game.card.api.StackListDTO;
 import com.drpicox.game.util.DatabaseTestUtils;
-import com.drpicox.game.game.api.GameResponse;
-import com.drpicox.game.game.api.GameResponseFactory;
+import com.drpicox.game.game.api.GameDTO;
+import com.drpicox.game.game.api.GameDTOFactory;
 import com.drpicox.game.util.Positions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.drpicox.game.card.api.StackResponseList.*;
+import static com.drpicox.game.card.api.StackListDTO.*;
 import static com.drpicox.game.util.Names.byName;
 import static com.drpicox.game.util.Names.byNames;
 import static com.google.common.truth.Truth.assertThat;
@@ -131,27 +131,27 @@ public class CardStackTest {
         cardFactory.makeCard(settings.withCardName("Berry"));
         cardFactory.makeCard(settings.withCardName("Villager"));
 
-        var game = gameResponseFactory.makeGameResponse();
+        var game = gameDTOFactory.makeGameDTO();
         var appleService = cardService.findCard(byName("Apple")).get();
-        var appleResponse = CardResponseList.getCard(game, byName("Apple"));
+        var appleDTO = CardListDTO.getCard(game, byName("Apple"));
         var berryService = cardService.findCard(byName("Berry")).get();
-        var berryResponse = CardResponseList.getCard(game, byName("Berry"));
+        var berryDTO = CardListDTO.getCard(game, byName("Berry"));
         var stackService = cardPositionService.getStackByPosition(0);
-        var stackResponse = StackResponseList.getStack(game, Positions.byPosition(0));
+        var stackDTO = StackListDTO.getStack(game, Positions.byPosition(0));
 
         assertThat(appleService.toString()).contains("apple");
         assertThat(appleService.toString()).contains("0");
         assertThat(berryService.toString()).contains("berry");
         assertThat(berryService.toString()).contains("0");
         assertThat(berryService.toString()).contains("1");
-        assertThat(appleResponse.toString()).contains("apple");
-        assertThat(appleResponse.toString()).contains("0");
-        assertThat(berryResponse.toString()).contains("berry");
-        assertThat(berryResponse.toString()).contains("0");
-        assertThat(berryResponse.toString()).contains("1");
+        assertThat(appleDTO.toString()).contains("apple");
+        assertThat(appleDTO.toString()).contains("0");
+        assertThat(berryDTO.toString()).contains("berry");
+        assertThat(berryDTO.toString()).contains("0");
+        assertThat(berryDTO.toString()).contains("1");
 
         assertThat(stackService.toString()).containsMatch(".*0.*apple.*berry.*villager.*");
-        assertThat(stackResponse.toString()).containsMatch(".*0.*apple.*berry.*villager.*");
+        assertThat(stackDTO.toString()).containsMatch(".*0.*apple.*berry.*villager.*");
     }
 
     @Test @Transactional
@@ -237,8 +237,8 @@ public class CardStackTest {
     }
 
 
-    private GameResponse getGame() {
-        return gameResponseFactory.makeGameResponse();
+    private GameDTO getGame() {
+        return gameDTOFactory.makeGameDTO();
     }
 
     private StackTest given(String board) {
@@ -251,7 +251,7 @@ public class CardStackTest {
     @Autowired private CardPositionService cardPositionService;
     @Autowired private StackService stackService;
     @Autowired private CardFactory cardFactory;
-    @Autowired private GameResponseFactory gameResponseFactory;
+    @Autowired private GameDTOFactory gameDTOFactory;
     @Autowired private GivenCardService givenCardService;
     @Autowired private GivenStackService givenStackService;
 

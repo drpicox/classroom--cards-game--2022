@@ -1,9 +1,9 @@
 package com.drpicox.game;
 
-import com.drpicox.game.game.api.GameResponse;
+import com.drpicox.game.game.api.GameDTO;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.card.api.CardResponseList.findAllCard;
+import static com.drpicox.game.card.api.CardListDTO.findAllCard;
 import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
@@ -14,7 +14,7 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
 
     private final FrontendSimulator frontendSimulator;
 
-    private GameResponse game;
+    private GameDTO game;
 
     public Post_20220717_BushesVillagersAndBerries_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
@@ -25,7 +25,7 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
 
     public void enterTheGame() {
         // example:  * Enter in the game.
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void thereShouldBeNSCard(int expectedCount, String cardName) {

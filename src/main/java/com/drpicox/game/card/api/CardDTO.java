@@ -1,16 +1,16 @@
 package com.drpicox.game.card.api;
 
 import com.drpicox.game.card.Card;
-import com.drpicox.game.tags.api.TagResponse;
+import com.drpicox.game.tags.api.TagDTO;
 import com.drpicox.game.util.HasName;
 import com.drpicox.game.util.HasPosition;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CardResponse implements HasName, HasPosition {
+public class CardDTO implements HasName, HasPosition {
 
-    public CardResponse(Card card) {
+    public CardDTO(Card card) {
         this.id = card.getId();
         this.name = card.getName();
         this.position = card.getPosition();
@@ -21,8 +21,8 @@ public class CardResponse implements HasName, HasPosition {
         this.looksLike = card.getLooksLike();
 
         card.getTags().stream().forEach(tag -> {
-            var response = new TagResponse(tag);
-            tags.put(tag.getName(), response);
+            var dto = new TagDTO(tag);
+            tags.put(tag.getName(), dto);
         });
     }
 
@@ -33,7 +33,7 @@ public class CardResponse implements HasName, HasPosition {
     private int maxProgress;
     private int progress;
     private String looksLike;
-    private Map<String, TagResponse> tags = new TreeMap<>();
+    private Map<String, TagDTO> tags = new TreeMap<>();
     private Map<String, String> description;
 
     public String getId() {

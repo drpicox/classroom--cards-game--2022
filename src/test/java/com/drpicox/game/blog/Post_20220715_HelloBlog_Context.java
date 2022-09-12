@@ -1,8 +1,8 @@
 package com.drpicox.game.blog;
 
-import com.drpicox.game.blog.api.ListPostsResponse;
-import com.drpicox.game.blog.api.ListPostsResponseEntry;
-import com.drpicox.game.blog.api.PostResponse;
+import com.drpicox.game.blog.api.ListPostsDTO;
+import com.drpicox.game.blog.api.ListPostsEntryDTO;
+import com.drpicox.game.blog.api.PostDTO;
 import org.springframework.stereotype.Component;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
@@ -15,8 +15,8 @@ public class Post_20220715_HelloBlog_Context {
 
     private final FrontendSimulator frontendSimulator;
 
-    private ListPostsResponse postsList;
-    private PostResponse post;
+    private ListPostsDTO postsList;
+    private PostDTO post;
 
     Post_20220715_HelloBlog_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
@@ -26,7 +26,7 @@ public class Post_20220715_HelloBlog_Context {
     }
 
     public void goToTheBlogSection() {
-        postsList = frontendSimulator.get("/api/v1/posts", ListPostsResponse.class);
+        postsList = frontendSimulator.get("/api/v1/posts", ListPostsDTO.class);
     }
 
     public void youShouldSeeAListOfPosts() {
@@ -43,7 +43,7 @@ public class Post_20220715_HelloBlog_Context {
         // the = "Hello Blog"
         var entry = findPostEntry(the);
         var id = entry.get().getId();
-        post = frontendSimulator.get("/api/v1/posts/" + id, PostResponse.class);
+        post = frontendSimulator.get("/api/v1/posts/" + id, PostDTO.class);
     }
 
     public void youShouldSeeTheSPost(String the) {
@@ -54,7 +54,7 @@ public class Post_20220715_HelloBlog_Context {
         assertThat(post.getBody()).contains(contain);
     }
 
-    private Optional<ListPostsResponseEntry> findPostEntry(String expectedTitle) {
+    private Optional<ListPostsEntryDTO> findPostEntry(String expectedTitle) {
         return postsList.getPosts().stream().filter(p -> p.getTitle().equals(expectedTitle)).findAny();
     }
 

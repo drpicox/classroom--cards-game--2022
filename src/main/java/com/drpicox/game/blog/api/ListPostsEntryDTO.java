@@ -4,12 +4,12 @@ import com.drpicox.game.blog.Post;
 
 import java.util.Map;
 
-public class ListPostsResponseEntry {
+public class ListPostsEntryDTO {
     private final String id;
     private final String title;
     private final Map<String,String> frontMatter;
 
-    public ListPostsResponseEntry(Post post) {
+    public ListPostsEntryDTO(Post post) {
         id = post.getId();
         title = post.getTitle();
         frontMatter = post.getFrontMatter();

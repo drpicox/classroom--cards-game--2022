@@ -1,9 +1,9 @@
 package com.drpicox.game.synthetics;
 
 import com.drpicox.game.card.*;
-import com.drpicox.game.card.api.DerivedStackResponse;
-import com.drpicox.game.card.api.StackResponseList;
-import com.drpicox.game.game.api.GameResponseFactory;
+import com.drpicox.game.card.api.DerivedStackDTO;
+import com.drpicox.game.card.api.StackListDTO;
+import com.drpicox.game.game.api.GameDTOFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -31,13 +31,13 @@ public class CardLetterBoard {
     private final CardFactory cardFactory;
     private final CardService cardService;
     private final CardPositionService cardPositionService;
-    private final GameResponseFactory gameResponseFactory;
+    private final GameDTOFactory gameDTOFactory;
 
-    public CardLetterBoard(CardFactory cardFactory, CardService cardService, CardPositionService cardPositionService, GameResponseFactory gameResponseFactory) {
+    public CardLetterBoard(CardFactory cardFactory, CardService cardService, CardPositionService cardPositionService, GameDTOFactory gameDTOFactory) {
         this.cardFactory = cardFactory;
         this.cardService = cardService;
         this.cardPositionService = cardPositionService;
-        this.gameResponseFactory = gameResponseFactory;
+        this.gameDTOFactory = gameDTOFactory;
     }
 
 
@@ -97,20 +97,20 @@ public class CardLetterBoard {
     }
 
     public String getResponseBoard() {
-        var game = gameResponseFactory.makeGameResponse();
-        var stacks = StackResponseList.findAllStack(game);
+        var game = gameDTOFactory.makeGameDTO();
+        var stacks = StackListDTO.findAllStack(game);
 
         var result = new StringBuilder();
         var coma = false;
         for (var stack: stacks) {
             if (coma) result.append(","); coma = true;
-            result.append(getStackResponseBoard(stack));
+            result.append(getStackDTOBoard(stack));
         }
 
         return result.toString();
     }
 
-    private String getStackResponseBoard(DerivedStackResponse stack) {
+    private String getStackDTOBoard(DerivedStackDTO stack) {
         var result = new StringBuilder();
 
         for (var card: stack.getCards()) {

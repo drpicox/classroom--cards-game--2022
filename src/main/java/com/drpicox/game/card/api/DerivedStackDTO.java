@@ -5,12 +5,12 @@ import com.drpicox.game.util.HasPosition;
 
 import java.util.List;
 
-public class DerivedStackResponse implements HasPosition, HasNames {
+public class DerivedStackDTO implements HasPosition, HasNames {
 
     private int position;
-    private List<CardResponse> cards;
+    private List<CardDTO> cards;
 
-    public DerivedStackResponse(int position, List<CardResponse> cards) {
+    public DerivedStackDTO(int position, List<CardDTO> cards) {
         this.position = position;
         this.cards = cards;
     }
@@ -20,7 +20,7 @@ public class DerivedStackResponse implements HasPosition, HasNames {
         return position;
     }
 
-    public List<CardResponse> getCards() {
+    public List<CardDTO> getCards() {
         return cards;
     }
 

@@ -5,12 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static com.drpicox.game.util.Positions.byPosition;
+
 public class Names implements Predicate<HasNames>, Iterable<String>, HasNames {
 
     public static Predicate<? super HasName> byName(String name) {
         return (hasName) -> hasName.getName().equals(name);
     }
-
+    
     public static Names byNames(String... names) {
         return new Names().and(names);
     }

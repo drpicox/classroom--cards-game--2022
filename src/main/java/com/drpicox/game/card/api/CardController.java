@@ -2,8 +2,8 @@ package com.drpicox.game.card.api;
 
 import com.drpicox.game.card.CardPositionService;
 import com.drpicox.game.card.CardService;
-import com.drpicox.game.game.api.GameResponse;
-import com.drpicox.game.game.api.GameResponseFactory;
+import com.drpicox.game.game.api.GameDTO;
+import com.drpicox.game.game.api.GameDTOFactory;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,25 +12,25 @@ public class CardController {
 
     private final CardService cardService;
     private final CardPositionService cardPositionService;
-    private final GameResponseFactory gameResponseFactory;
+    private final GameDTOFactory gameDTOFactory;
 
-    public CardController(CardService cardService, CardPositionService cardPositionService, GameResponseFactory gameResponseFactory) {
+    public CardController(CardService cardService, CardPositionService cardPositionService, GameDTOFactory gameDTOFactory) {
         this.cardService = cardService;
         this.cardPositionService = cardPositionService;
-        this.gameResponseFactory = gameResponseFactory;
+        this.gameDTOFactory = gameDTOFactory;
     }
 
     @PostMapping("/{cardId}/move")
-    public GameResponse moveCard(@PathVariable String cardId, @RequestBody MoveForm moveForm) {
+    public GameDTO moveCard(@PathVariable String cardId, @RequestBody MoveForm moveForm) {
         var card = cardService.findById(cardId).get();
         cardPositionService.moveCard(card, moveForm.getPosition(), moveForm.getZindex());
-        return gameResponseFactory.makeGameResponse();
+        return gameDTOFactory.makeGameDTO();
     }
 
     @PostMapping("/{cardId}/discard")
-    public GameResponse discardCard(@PathVariable String cardId) {
+    public GameDTO discardCard(@PathVariable String cardId) {
         var card = cardService.findById(cardId).get();
         cardService.discardCard(card);
-        return gameResponseFactory.makeGameResponse();
+        return gameDTOFactory.makeGameDTO();
     }
 }

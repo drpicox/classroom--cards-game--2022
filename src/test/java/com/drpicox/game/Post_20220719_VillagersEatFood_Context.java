@@ -1,9 +1,9 @@
 package com.drpicox.game;
 
-import com.drpicox.game.game.api.GameResponse;
+import com.drpicox.game.game.api.GameDTO;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.card.api.CardResponseList.*;
+import static com.drpicox.game.card.api.CardListDTO.*;
 import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
@@ -13,7 +13,7 @@ import com.drpicox.game.util.FrontendSimulator;
 public class Post_20220719_VillagersEatFood_Context {
 
     private final FrontendSimulator frontendSimulator;
-    private GameResponse game;
+    private GameDTO game;
 
     Post_20220719_VillagersEatFood_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
@@ -24,7 +24,7 @@ public class Post_20220719_VillagersEatFood_Context {
 
     public void givenWeHaveEnteredIntoANewGame() {
         // example:  * Given we have entered into a new game.
-        game = frontendSimulator.get("/api/v1/game", GameResponse.class);
+        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void theSCardShouldHaveNInSTag(String cardName, int count, String tagName) {
@@ -38,7 +38,7 @@ public class Post_20220719_VillagersEatFood_Context {
 
     public void endTheCurrentMoon() {
         // example:  * End the current moon.
-        game = frontendSimulator.post("/api/v1/game/moon", null, GameResponse.class);
+        game = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);
     }
 
     public void thereShouldBeNoSCard(String cardName) {
