@@ -1,10 +1,15 @@
-import { mainView } from "./main";
+import { getByTestId, screen } from "@testing-library/react";
+import { mainView } from "../../main";
 import {
   getAllCardDigestByName,
   queryAllCardByName,
   queryCardByName,
-} from "./card/queries";
-import { waitForEndMoon, waitForEnterTheGame } from "./main/actions";
+} from "../../card/queries";
+import {
+  waitForEnterTheGame,
+  waitForReloadGame,
+  waitForEndMoon,
+} from "../../main/actions";
 
 export class Post_20220719_VillagersEatFood_Context {
   async beforeTest() {}

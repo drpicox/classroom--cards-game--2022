@@ -1,8 +1,8 @@
 const { isAuthorValid, getAuthorUsernames } = require("./authors");
 const { reportPostError } = require("./reportPostError");
 
-const validKeys = ["writer", "coder", "package"];
-const mandatoryKeys = ["writer"];
+const mandatoryKeys = ["writer", "package"];
+const validKeys = [...mandatoryKeys, "coder"];
 const keysWithAuthors = ["writer", "coder"];
 
 if (!process.env.CI !== "1") validKeys.push("debug");
@@ -85,10 +85,8 @@ function verifyPostFrontmatterPackageKey(post) {
   reportPostError(post, wrongLine, [
     `frontmatter "package" or is either empty or has satisfies this format ${packageRegExp.source} but it was "${pkg}". `,
     `- actual package value            : "${pkg}"`,
-    `- example of valid package value  : not existing`,
     `- example of valid package value  : "cards"`,
     `- example of valid package value  : "ideas.places"`,
-    `- example of valid package value  : "someStrange3.packageName"`,
     `- example of valid package value  : "someStrange3.packageName"`,
     `- example of invalid package value: "Caps"`,
     `- example of invalid package value: "12Number"`,

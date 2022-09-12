@@ -1,19 +1,21 @@
-package com.drpicox.game;
+package com.drpicox.game.tag.food;
 
 import com.drpicox.game.card.CardFactorySettings;
-import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.api.CardListDTO;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
 import com.drpicox.game.game.GameService;
-import com.drpicox.game.game.api.GameDTO;
 import org.springframework.stereotype.Component;
 
-import static com.drpicox.game.card.api.CardListDTO.*;
+import static com.drpicox.game.card.api.CardListDTO.findAllCard;
+import static com.drpicox.game.card.api.CardListDTO.getCard;
 import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import com.drpicox.game.util.FrontendSimulator;
+import com.drpicox.game.game.GivenGameService;
+import com.drpicox.game.card.GivenCardService;
+import com.drpicox.game.game.api.GameDTO;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

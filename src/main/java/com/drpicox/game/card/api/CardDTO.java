@@ -1,7 +1,7 @@
 package com.drpicox.game.card.api;
 
 import com.drpicox.game.card.Card;
-import com.drpicox.game.tags.api.TagDTO;
+import com.drpicox.game.tag.api.TagDTO;
 import com.drpicox.game.util.HasName;
 import com.drpicox.game.util.HasPosition;
 

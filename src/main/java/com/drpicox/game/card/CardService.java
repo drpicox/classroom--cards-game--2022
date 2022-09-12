@@ -1,6 +1,6 @@
 package com.drpicox.game.card;
 
-import com.drpicox.game.tags.TagService;
+import com.drpicox.game.tag.TagService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

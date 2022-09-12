@@ -1,6 +1,11 @@
-import { mainView } from "./main";
-import { getAllCardByName } from "./card/queries";
-import { waitForEnterTheGame } from "./main/actions";
+import { getByTestId, screen } from "@testing-library/react";
+import { getAllCardByName } from "../card/queries";
+import { mainView } from "../main";
+import {
+  waitForEnterTheGame,
+  waitForReloadGame,
+  waitForEndMoon,
+} from "../main/actions";
 
 export class Post_20220717_BushesVillagersAndBerries_Context {
   async beforeTest() {}

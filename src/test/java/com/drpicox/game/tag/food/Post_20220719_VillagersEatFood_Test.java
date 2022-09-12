@@ -1,4 +1,4 @@
-package com.drpicox.game;
+package com.drpicox.game.tag.food;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class Post_20220719_VillagersEatFood_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-19_villagers_eat_food", "3b358a9a0ccb84fcaa23165f6aba1c0c");
+        testUtils.runBeforeTestStarts("2022-07-19_villagers_eat_food", "6711c15ae9c4bf79937bc1f436499773");
         context.beforeTest();
 
         // # Villagers Eat Food                                   // # Villagers Eat Food

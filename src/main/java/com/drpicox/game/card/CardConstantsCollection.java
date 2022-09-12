@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Collection;
 
 @Service
 public class CardConstantsCollection {
@@ -15,7 +14,7 @@ public class CardConstantsCollection {
     private final ConstantsCollection cardConstantsCollection;
 
     public CardConstantsCollection(ConstantsLoader constantsLoader) throws IOException, URISyntaxException {
-        this.cardConstantsCollection = constantsLoader.loadCollection("cards");
+        this.cardConstantsCollection = constantsLoader.loadCollection("card");
     }
 
     public Constants getByName(String constantsNameValue) {

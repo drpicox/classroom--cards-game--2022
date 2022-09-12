@@ -19,6 +19,8 @@ function findClosestMethod(post, method) {
   const usages = findOtherPostsMethodUsages(post);
   const targetName = method.name;
 
+  if (usages.length === 0) return null;
+
   let candidate = usages[0];
   let candidateDistance = methodNameDistance(candidate.name, targetName);
   for (let i = 1; i < usages.length; i += 1) {

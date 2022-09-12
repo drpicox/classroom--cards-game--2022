@@ -16,18 +16,18 @@ public class CardListDTO extends ArrayList<CardDTO> {
         sort((c1, c2) -> c1.getZindex() - c2.getZindex());
     }
 
-    public static List<CardDTO> findAllCard(GameDTO gameDto) {
-        var result = gameDto.getField("cards", CardListDTO.class);
+    public static List<CardDTO> findAllCard(GameDTO gameDTO) {
+        var result = gameDTO.getField("cards", CardListDTO.class);
         return result;
     }
 
-    public static List<CardDTO> findAllCard(GameDTO gameDto, Predicate<? super CardDTO> predicate) {
-        var result = findAllCard(gameDto).stream().filter(predicate).toList();
+    public static List<CardDTO> findAllCard(GameDTO gameDTO, Predicate<? super CardDTO> predicate) {
+        var result = findAllCard(gameDTO).stream().filter(predicate).toList();
         return result;
     }
 
-    public static CardDTO getCard(GameDTO gameDto, Predicate<? super CardDTO> predicate) {
-        return findAllCard(gameDto, predicate).stream().collect(toOne());
+    public static CardDTO getCard(GameDTO gameDTO, Predicate<? super CardDTO> predicate) {
+        return findAllCard(gameDTO, predicate).stream().collect(toOne());
     }
 
     private CardListDTO() {} // GSON required constructor

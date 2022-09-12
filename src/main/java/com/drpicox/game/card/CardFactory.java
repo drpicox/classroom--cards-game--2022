@@ -1,7 +1,7 @@
 package com.drpicox.game.card;
 
-import com.drpicox.game.tags.TagFactory;
-import com.drpicox.game.tags.TagFactorySettings;
+import com.drpicox.game.tag.TagFactory;
+import com.drpicox.game.tag.TagFactorySettings;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

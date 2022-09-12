@@ -1,4 +1,4 @@
-package com.drpicox.game;
+package com.drpicox.game.game;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class Post_20220717_BushesVillagersAndBerries_Test {
     @Autowired TestUtils testUtils;
 
     @Test public void testPost() throws Throwable {
-        testUtils.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "5891036d68975611f10ee7335fb5240a");
+        testUtils.runBeforeTestStarts("2022-07-17_bushes_villagers_and_berries", "187c6ace9199129be617f29fe9a5cfe4");
         context.beforeTest();
 
         // # Bushes, Villagers and Berries             // # Bushes, Villagers and Berries

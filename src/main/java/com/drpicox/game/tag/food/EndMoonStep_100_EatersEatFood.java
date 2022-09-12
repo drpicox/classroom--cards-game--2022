@@ -1,4 +1,4 @@
-package com.drpicox.game.tags.food;
+package com.drpicox.game.tag.food;
 
 import com.drpicox.game.card.Card;
 import com.drpicox.game.card.CardFactory;
@@ -7,7 +7,6 @@ import com.drpicox.game.card.CardService;
 import com.drpicox.game.moon.EndMoonSettings;
 import com.drpicox.game.moon.EndMoonStep;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

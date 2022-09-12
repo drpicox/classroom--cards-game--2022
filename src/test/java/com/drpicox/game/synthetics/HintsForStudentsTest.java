@@ -79,7 +79,7 @@ public class HintsForStudentsTest {
 
     @Test public void loading_an_unknown_card_throws_an_exception() throws IOException, URISyntaxException {
         var constantsLoader = new ConstantsLoader();
-        var cards = constantsLoader.loadCollection("cards");
+        var cards = constantsLoader.loadCollection("card");
         Throwable found = null;
         try {
             cards.getByName("CardThatDoesNotExists");
@@ -88,8 +88,8 @@ public class HintsForStudentsTest {
         }
 
         assertThat(found).isNotNull();
-        assertThat(found.toString()).contains("cards");
-        assertThat(found.toString()).contains("src/main/resources/cards");
+        assertThat(found.toString()).contains("card");
+        assertThat(found.toString()).contains("src/main/resources/card");
         assertThat(found.toString()).contains("CardThatDoesNotExists");
     }
 

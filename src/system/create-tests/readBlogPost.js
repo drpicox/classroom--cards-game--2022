@@ -30,7 +30,7 @@ async function readBlogPost(path) {
   const pkg = frontmatter.values.package;
   const subPath = pkg ? pkg.split(".") : [];
 
-  return {
+  const result = {
     id,
     title,
     titleLineNumber,
@@ -49,6 +49,7 @@ async function readBlogPost(path) {
     md5: md5(postContent),
     failed: false,
   };
+  return result;
 }
 exports.readBlogPost = readBlogPost;
 

@@ -1,4 +1,4 @@
-package com.drpicox.game.tags;
+package com.drpicox.game.tag;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

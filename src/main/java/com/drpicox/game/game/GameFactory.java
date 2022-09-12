@@ -27,7 +27,7 @@ public class GameFactory {
         this.gameRepository.save(new Game(GameService.GAME_ID));
 
         var gameName = settings.getGameName();
-        var gameConstants = constantsLoader.load("games/" + gameName + ".properties");
+        var gameConstants = constantsLoader.load("game/" + gameName + ".properties");
         gameFactorySteps.execute(settings.withGameConstants(gameConstants));
     }
 

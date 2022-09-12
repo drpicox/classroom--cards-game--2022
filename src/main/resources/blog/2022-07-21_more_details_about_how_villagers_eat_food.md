@@ -1,6 +1,7 @@
 ---
 writer: drpicox
 coder: drpicox
+package: tag.food
 ---
 # More Details About How Villagers Eat Food
 

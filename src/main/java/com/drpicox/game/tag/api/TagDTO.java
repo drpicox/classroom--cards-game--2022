@@ -1,6 +1,6 @@
-package com.drpicox.game.tags.api;
+package com.drpicox.game.tag.api;
 
-import com.drpicox.game.tags.Tag;
+import com.drpicox.game.tag.Tag;
 
 public class TagDTO {
     private final int value;

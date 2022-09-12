@@ -1,6 +1,6 @@
 package com.drpicox.game.card;
 
-import com.drpicox.game.tags.Tag;
+import com.drpicox.game.tag.Tag;
 import com.drpicox.game.util.HasName;
 import com.drpicox.game.util.HasPosition;
 

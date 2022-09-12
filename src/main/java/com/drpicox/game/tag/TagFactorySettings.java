@@ -1,4 +1,4 @@
-package com.drpicox.game.tags;
+package com.drpicox.game.tag;
 
 import com.drpicox.game.constants.Constants;
 import com.drpicox.game.util.Settings;
