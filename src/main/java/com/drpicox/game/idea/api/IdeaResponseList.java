@@ -22,7 +22,7 @@ public class IdeaResponseList extends ArrayList<IdeaResponse> {
     }
 
     public static List<IdeaResponse> findAllIdea(GameResponse game) {
-        var result = game.deserializeField("ideas", IdeaResponseList.class);
+        var result = game.getField("ideas", IdeaResponseList.class);
         return result;
     }
 

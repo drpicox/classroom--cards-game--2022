@@ -20,7 +20,7 @@ public class CardResponseList extends ArrayList<CardResponse> {
     }
 
     public static List<CardResponse> findAllCard(GameResponse gameResponse) {
-        var result = gameResponse.deserializeField("cards", CardResponseList.class);
+        var result = gameResponse.getField("cards", CardResponseList.class);
         return result;
     }
 
