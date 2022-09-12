@@ -8,15 +8,13 @@ import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import com.drpicox.game.util.FrontendSimulator;
-import com.drpicox.game.game.GivenGameService;
-import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.game.api.GameDTO;
 
 @Component
 public class Post_20220719_VillagersEatFood_Context {
 
     private final FrontendSimulator frontendSimulator;
-    private GameDTO game;
+    private GameDTO gameDTO;
 
     Post_20220719_VillagersEatFood_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
@@ -27,7 +25,7 @@ public class Post_20220719_VillagersEatFood_Context {
 
     public void givenWeHaveEnteredIntoANewGame() {
         // example:  * Given we have entered into a new game.
-        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
+        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void theSCardShouldHaveNInSTag(String cardName, int count, String tagName) {
@@ -35,20 +33,20 @@ public class Post_20220719_VillagersEatFood_Context {
         // the = "berry"
         // has = 1
         // in = "food"
-        var matchingCard = getCard(game, byName(cardName));
+        var matchingCard = getCard(gameDTO, byName(cardName));
         assertThat(matchingCard.getTag(tagName)).isEqualTo(count);
     }
 
     public void endTheCurrentMoon() {
         // example:  * End the current moon.
-        game = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);
+        gameDTO = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);
     }
 
     public void thereShouldBeNoSCard(String cardName) {
         // example:  * There is no "berry" card.
         // no = "berry"
 
-        var matchingCards = findAllCard(game, byName(cardName));
+        var matchingCards = findAllCard(gameDTO, byName(cardName));
         assertThat(matchingCards).isEmpty();
     }
 
@@ -57,7 +55,7 @@ public class Post_20220719_VillagersEatFood_Context {
         // is = 1
         // n = "villager"
 
-        var matchingCards = findAllCard(game, byName(cardName));
+        var matchingCards = findAllCard(gameDTO, byName(cardName));
         assertThat(matchingCards).hasSize(expectedCount);
     }
 

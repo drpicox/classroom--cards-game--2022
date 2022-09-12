@@ -15,8 +15,8 @@ public class Post_20220715_HelloBlog_Context {
 
     private final FrontendSimulator frontendSimulator;
 
-    private ListPostsDTO postsList;
-    private PostDTO post;
+    private ListPostsDTO postsListDTO;
+    private PostDTO postDTO;
 
     Post_20220715_HelloBlog_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
@@ -26,11 +26,11 @@ public class Post_20220715_HelloBlog_Context {
     }
 
     public void goToTheBlogSection() {
-        postsList = frontendSimulator.get("/api/v1/posts", ListPostsDTO.class);
+        postsListDTO = frontendSimulator.get("/api/v1/posts", ListPostsDTO.class);
     }
 
     public void youShouldSeeAListOfPosts() {
-        assertThat(postsList.getPosts()).isNotEmpty();
+        assertThat(postsListDTO.getPosts()).isNotEmpty();
     }
 
     public void theLastPostTitleShouldBeSThisPost(String expected) {
@@ -43,19 +43,19 @@ public class Post_20220715_HelloBlog_Context {
         // the = "Hello Blog"
         var entry = findPostEntry(the);
         var id = entry.get().getId();
-        post = frontendSimulator.get("/api/v1/posts/" + id, PostDTO.class);
+        postDTO = frontendSimulator.get("/api/v1/posts/" + id, PostDTO.class);
     }
 
     public void youShouldSeeTheSPost(String the) {
-        assertThat(post.getTitle()).isEqualTo(the);
+        assertThat(postDTO.getTitle()).isEqualTo(the);
     }
 
     public void thePostShouldContainSWhichIsHere(String contain) {
-        assertThat(post.getBody()).contains(contain);
+        assertThat(postDTO.getBody()).contains(contain);
     }
 
     private Optional<ListPostsEntryDTO> findPostEntry(String expectedTitle) {
-        return postsList.getPosts().stream().filter(p -> p.getTitle().equals(expectedTitle)).findAny();
+        return postsListDTO.getPosts().stream().filter(p -> p.getTitle().equals(expectedTitle)).findAny();
     }
 
     public void afterTest() {

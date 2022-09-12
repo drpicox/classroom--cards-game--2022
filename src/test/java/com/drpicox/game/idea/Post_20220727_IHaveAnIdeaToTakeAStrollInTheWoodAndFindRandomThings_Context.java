@@ -28,7 +28,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     private final GivenIdeaService givenIdeaService;
     private final GivenStackService givenStackService;
     private final RandomPickerServiceMock randomPickerServiceMock;
-    private GameDTO game;
+    private GameDTO gameDTO;
 
     public Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_Context(FrontendSimulator frontendSimulator, GivenGameService givenGameService, GivenCardService givenCardService, GivenIdeaService givenIdeaService, GivenStackService givenStackService, RandomPickerServiceMock randomPickerServiceMock) {
         this.frontendSimulator = frontendSimulator;
@@ -48,7 +48,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // text:  * Enter the game.
         // code: this.enterTheGame()
         // hint: Post_20220725_IdeasHaveLevels_Context.enterTheGame
-        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
+        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void thereShouldBeTheSIdea(String expected) {
@@ -56,7 +56,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.thereShouldBeTheSIdea("Harvest Idea")
         // hint: Post_20220725_IdeasHaveLevels_Context.thereShouldBeTheSIdea
 
-        var actual = getIdea(game, byName(expected));
+        var actual = getIdea(gameDTO, byName(expected));
         assertThat(actual.getName()).isEqualTo(expected);
     }
 
@@ -64,7 +64,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // text:  * The "Harvest Idea" should have level 1 and 0 XP.
         // code: this.theSShouldHaveLevelNAndNXp("Harvest Idea", 1, 0)
 
-        var idea = getIdea(game, byName(ideaName));
+        var idea = getIdea(gameDTO, byName(ideaName));
         assertThat(idea.getLevel()).isEqualTo(level);
         assertThat(idea.getXp()).isEqualTo(xp);
     }
@@ -73,7 +73,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // text:  * The "Woods Stroll Idea" may create a "Berry" card.
         // code: this.theSMayCreateASCard("Woods Stroll Idea", "Berry")
 
-        var idea = getIdea(game, byName(ideaName));
+        var idea = getIdea(gameDTO, byName(ideaName));
         var rewards = idea.getCardRewards();
         assertThat(rewards).contains(cardName);
     }
@@ -83,7 +83,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.theSIdeaShouldRequireNCardWithAtLeastNInSTag("Woods Stroll Idea", 1, 1, "Worker")
         // hint: Post_20220725_IdeasHaveLevels_Context.theSIdeaShouldRequireNCardWithAtLeastNInSTag
 
-        var idea = IdeaListDTO.getIdea(game, byName(ideaName));
+        var idea = IdeaListDTO.getIdea(gameDTO, byName(ideaName));
         var requirement = idea.findTagRequirement(tagName).get();
         assertThat(requirement.getCardCount()).isEqualTo(cardCount);
         assertThat(requirement.getTagValue()).isEqualTo(tagValue);
@@ -97,7 +97,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         givenCardService.givenCards(1, "Berry");
         givenIdeaService.givenIdea("Woods Stroll Idea");
         givenStackService.givenStacks(1, byNames(count1, name1).and(count2, name2));
-        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
+        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenThatTheOddsAreThatWeWillGetASFromTheSCard(String cardName, String ideaName) {
@@ -105,14 +105,14 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Berry", "Woods Stroll Idea")
 
         randomPickerServiceMock.mockPick(ideaName, cardName);
-        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
+        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void endTheCurrentMoon() {
         // text:  * End the current moon.
         // code: this.endTheCurrentMoon()
         // hint: Post_20220725_IdeasHaveLevels_Context.endTheCurrentMoon
-        game = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);
+        gameDTO = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);
     }
 
     public void thereShouldBeNStacksOfNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3) {
@@ -120,7 +120,7 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
         // hint: Post_20220723_Ideas_Context.thereShouldBeNStacksOfNSNSAndNSCards
 
-        var stacks = StackListDTO.findAllStack(game,
+        var stacks = StackListDTO.findAllStack(gameDTO,
             byNames(count1, name1).and(count2, name2).and(count3, name3)
         );
         assertThat(stacks).hasSize(expected);
@@ -135,11 +135,11 @@ public class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
         // code: this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
 
         givenIdeaService.givenIdea(ideaName, level, xp);
-        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
+        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void theSMayNotCreateASCard(String ideaName, String cardName) {
-        var idea = getIdea(game, byName(ideaName));
+        var idea = getIdea(gameDTO, byName(ideaName));
         var rewards = idea.getCardRewards();
         assertThat(rewards).doesNotContain(cardName);
     }

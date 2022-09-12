@@ -23,7 +23,7 @@ public class GameDTO extends TreeMap<String, Object> {
      * ```
      *
      * @param fieldName the name of the field to get from the gameDTO
-     * @param fieldClass the class of type that we want
+     * @param fieldClass the class of type that we want (a DTO)
      * @return the value saved in the gameDTO
      */
     public <T> T getField(String fieldName, Class<T> fieldClass) {

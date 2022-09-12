@@ -55,7 +55,7 @@ function makeContextHeader(post) {
     `    private final FrontendSimulator frontendSimulator;`,
     `    private final GivenGameService givenGameService;`,
     `    private final GivenCardService givenCardService;`,
-    `    private GameDTO game;`,
+    `    private GameDTO gameDTO;`,
     ``,
     `    ${post.contextName}(FrontendSimulator frontendSimulator, GivenGameService givenGameService, GivenCardService givenCardService) {`,
     `        this.frontendSimulator = frontendSimulator;`,
@@ -67,7 +67,7 @@ function makeContextHeader(post) {
     `        // Do your setup here`,
     `        givenGameService.givenGame("empty");`,
     `        givenCardService.givenCards(1, "Berry");`,
-    `        game = frontendSimulator.get("/api/v1/game", GameDTO.class);`,
+    `        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);`,
     `        `,
     `        // Please, verify that:`,
     `        // [ ] there are villagers, militia, ... that need berries? How many? How many moons?`,
@@ -114,7 +114,7 @@ function makeContextMethodGiven(name) {
       "        // Add here what is given",
       "",
       "        // And make sure that the game is in the right state (also for the frontend)",
-      '        game = frontendSimulator.get("/api/v1/game", GameDTO.class);',
+      '        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);',
     ]
   );
 }
@@ -133,7 +133,7 @@ function makeContextMethodEndMoon(lowerName) {
   return (
     lowerName.includes("end") &&
     lowerName.includes("moon") && [
-      '        game = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);',
+      '        gameDTO = frontendSimulator.post("/api/v1/game/moon", null, GameDTO.class);',
     ]
   );
 }

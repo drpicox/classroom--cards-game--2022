@@ -7,8 +7,6 @@ import static com.drpicox.game.util.Names.byName;
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth8.assertThat;
 import com.drpicox.game.util.FrontendSimulator;
-import com.drpicox.game.game.GivenGameService;
-import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.game.api.GameDTO;
 
 @Component
@@ -16,7 +14,7 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
 
     private final FrontendSimulator frontendSimulator;
 
-    private GameDTO game;
+    private GameDTO gameDTO;
 
     public Post_20220717_BushesVillagersAndBerries_Context(FrontendSimulator frontendSimulator) {
         this.frontendSimulator = frontendSimulator;
@@ -27,7 +25,7 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
 
     public void enterTheGame() {
         // example:  * Enter in the game.
-        game = frontendSimulator.get("/api/v1/game", GameDTO.class);
+        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void thereShouldBeNSCards(int expectedCount, String cardName) {
@@ -35,7 +33,7 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
         // expected = 1
         // arg1 = "villager"
 
-        var matchingCards = findAllCard(game, byName(cardName));
+        var matchingCards = findAllCard(gameDTO, byName(cardName));
         assertThat(matchingCards).hasSize(expectedCount);
     }
 
