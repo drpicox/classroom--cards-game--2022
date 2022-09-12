@@ -18,8 +18,8 @@ Tested with correto-17 17.0.4.1 (aarch64)
 
 In mac, add to ~/.zshrc:
 
-```
-$ export JAVA_HOME=$(/usr/libexec/java_home -v 1.17.0.4)
+```bash
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.17.0.4)
 ```
 
 ### Javascript
@@ -28,7 +28,7 @@ It requires at least Node 18.6.0 and yarn.
 
 You can enable yarn by executing:
 
-```
+```bash
 $ corepack enable
 ```
 
@@ -36,6 +36,21 @@ $ corepack enable
 
 You will need a Bash compatible shell in Windows
 like GitBash.
+
+### Verify environments
+
+You can verify the environments by executing in the bash terminal:
+
+```bash
+$ java -version
+openjdk version "17.0.4.1" 2022-08-12 LTS
+OpenJDK Runtime Environment Corretto-17.0.4.9.1 (build 17.0.4.1+9-LTS)
+OpenJDK 64-Bit Server VM Corretto-17.0.4.9.1 (build 17.0.4.1+9-LTS, mixed mode, sharing)
+$ node --version
+v18.6.0
+$ yarn --version
+1.22.19
+```
 
 
 ## Verify that everything works
@@ -67,7 +82,7 @@ $ yarn start
 
 The browser will open automatically in the URL http://localhost:3000.
 
-## How to develop
+## How to develop
 
 ### 1. Start the `create-tests` process.
    
@@ -94,7 +109,7 @@ test adding the following java flags to the execution configuration:
 - Works everywhere: `-ea -client -XX:TieredStopAtLevel=1`
 - Non-fully compatible flags for even faster execution: `-ea -client -Xverify:none -noverify -XX:TieredStopAtLevel=1`
 
-### 3. Develop the frontend.
+### 3. Develop the frontend.
 
 Run all tests with jests:
 
@@ -248,7 +263,7 @@ Please notice the two store dispatch, first _showLoadingSpinner_,
 and at the end, _hideLoadingSpinner_.
 
 The function waitForLoading leverages on that, first to be sure
-that an Backend Api Call has began, and then, to wait for its
+that a Backend Api Call has began, and then, to wait for its
 completion.
 
 Note that any other way for data is very dangerous and can 
