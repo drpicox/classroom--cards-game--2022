@@ -28,17 +28,13 @@ public class Post_20220717_BushesVillagersAndBerries_Context {
         game = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
-    public void thereShouldBeNSCard(int expectedCount, String cardName) {
-        // example:  * There should be 1 "villager" card.
+    public void thereShouldBeNSCards(int expectedCount, String cardName) {
+        // example:  * There should be 1 "villager" cards.
         // expected = 1
         // arg1 = "villager"
 
         var matchingCards = findAllCard(game, byName(cardName));
         assertThat(matchingCards).hasSize(expectedCount);
-    }
-
-    public void andThereShouldBeNSCard(int expectedCount, String expectedName) {
-        thereShouldBeNSCard(expectedCount, expectedName);
     }
 
     public void afterTest() {

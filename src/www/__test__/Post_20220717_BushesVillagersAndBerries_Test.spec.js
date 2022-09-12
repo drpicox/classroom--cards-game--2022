@@ -10,19 +10,19 @@ import { Post_20220717_BushesVillagersAndBerries_Context } from "./Post_20220717
 test("2022-07-17_bushes_villagers_and_berries.md", async () => {
   await runBeforeTestStarts(
     "2022-07-17_bushes_villagers_and_berries",
-    "50b492be6d98fa144fda0e76d56bc4a0"
+    "5891036d68975611f10ee7335fb5240a"
   );
 
   const context = new Post_20220717_BushesVillagersAndBerries_Context();
   await context.beforeTest();
 
-  // # Bushes, Villagers and Berries                     // # Bushes, Villagers and Berries
+  // # Bushes, Villagers and Berries                      // # Bushes, Villagers and Berries
 
-  // ## The game                                         // ## The game
-  await context.enterTheGame(); //                       // * Enter the game.
-  await context.thereShouldBeNSCard(1, "Villager"); //   // * There should be 1 "Villager" card.
-  await context.thereShouldBeNSCard(1, "Berry Bush"); // // * There should be 1 "Berry Bush" card.
-  await context.andThereShouldBeNSCard(1, "Berry"); //   // * And there should be 1 "Berry" card.
+  // ## The game                                          // ## The game
+  await context.enterTheGame(); //                        // * Enter the game.
+  await context.thereShouldBeNSCards(1, "Villager"); //   // * There should be 1 "Villager" cards.
+  await context.thereShouldBeNSCards(1, "Berry Bush"); // // * There should be 1 "Berry Bush" cards.
+  await context.thereShouldBeNSCards(1, "Berry"); //      // * There should be 1 "Berry" cards.
 
   await context.afterTest();
   await runWhenTestSuccessful();
