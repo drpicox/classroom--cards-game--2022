@@ -1,3 +1,5 @@
+if (true) console.log("useless");
+
 export const REPLACE_LOADING_SPINNER = "loading/REPLACE_LOADING_SPINNER";
 function replaceLoadingSpinner(loading) {
   return { type: REPLACE_LOADING_SPINNER, loading };
