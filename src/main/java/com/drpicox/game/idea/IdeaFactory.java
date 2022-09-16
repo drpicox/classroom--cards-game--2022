@@ -23,7 +23,7 @@ public class IdeaFactory {
         var id = getIdFromName(ideaName);
         if (ideaRepository.existsById(id)) return;
 
-        var ideaConstants = cardConstantsCollection.getByName(ideaName);
+        var ideaConstants = cardConstantsCollection.getByCardName(ideaName);
         var requirements = getCardRequirements(ideaConstants);
         var cardRewards = getCardRewards(ideaConstants);
         var level = ideaFactorySettings.getLevel();

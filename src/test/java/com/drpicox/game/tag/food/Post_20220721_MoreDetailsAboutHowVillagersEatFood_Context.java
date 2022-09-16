@@ -38,12 +38,13 @@ public class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
 
     public void beforeTest() throws IOException, URISyntaxException {
         gameFactory.makeGame(new GameFactorySettings());
+        gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }
 
     public void givenThereAreNSAndNSCards(int count1, String name1, int count2, String name2) {
         // example:  * Given there are 2 "villager" and 2 "trader" cards.
-        givenCardService.givenCards(count1, new CardFactorySettings(name1));
-        givenCardService.givenCards(count2, new CardFactorySettings(name2));
+        givenCardService.givenCards(count1, name1);
+        givenCardService.givenCards(count2, name2);
 
         gameDTO = frontendSimulator.get("/api/v1/game", GameDTO.class);
     }

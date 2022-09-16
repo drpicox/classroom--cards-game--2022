@@ -19,8 +19,6 @@ export const {
   getAllStackDigestByCardNames,
   queryAllStackDigestByCardNames,
   getStackDigestByCardNames,
-  findAllStackDigestByCardNames,
-  findStackDigestByCardNames,
 } = createQueries(
   "StackDigestByCardNames",
   queryAll,

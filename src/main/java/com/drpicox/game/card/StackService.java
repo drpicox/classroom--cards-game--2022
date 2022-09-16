@@ -34,11 +34,11 @@ public class StackService {
         return findAllStack().stream().filter(names).toList();
     }
 
-    public void stackSlice(Card originCard, Card targetCard) {
-        stackSlice(originCard, targetCard.getPosition());
+    public void splitAndStackOnTopOf(Card originCard, Card targetCard) {
+        splitAndStackOnTopOf(originCard, targetCard.getPosition());
     }
 
-    public void stackSlice(Card originCard, int targetPosition) {
+    public void splitAndStackOnTopOf(Card originCard, int targetPosition) {
         var originStack = getStack(originCard);
         Stack targetStack = getStack(targetPosition);
         if (originStack.equals(targetStack)) return;
@@ -51,7 +51,7 @@ public class StackService {
 
     public void discardStack(Stack stack) {
         var card = stack.getBottomCard();
-        if (card != null) discardSlice(card);
+        if (card != null) splitAndDiscard(card);
     }
 
     public void discardStack(int position) {
@@ -59,7 +59,7 @@ public class StackService {
         discardStack(stack);
     }
 
-    public void discardSlice(Card originCard) {
+    public void splitAndDiscard(Card originCard) {
         var originStack = getStack(originCard);
         var cards = originStack.cut(originCard);
 

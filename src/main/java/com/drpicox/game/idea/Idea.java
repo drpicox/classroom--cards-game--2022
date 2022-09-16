@@ -58,7 +58,7 @@ public class Idea implements HasName {
         return cardRewards.stream().filter(r -> r.getLevel() <= level).toList();
     }
 
-    public void increaseXp() {
+    void increaseXp() {
         this.xp += 1;
         if (xp >= level * 10) {
             level += 1;
@@ -66,6 +66,10 @@ public class Idea implements HasName {
         }
     }
 
-    private Idea() {} // JPA required constructor
+    protected Idea() {} // JPA required constructor
 
+    @Override
+    public String toString() {
+        return "I-" + id + "-{" + level + "+" + xp + "}";
+    }
 }

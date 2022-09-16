@@ -51,4 +51,8 @@ public class IdeaDTO implements HasName {
         return requirement;
     }
 
+    @Override
+    public String toString() {
+        return "I-" + id + "-{" + level + "+" + xp + "}";
+    }
 }

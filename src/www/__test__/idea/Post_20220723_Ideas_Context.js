@@ -1,9 +1,6 @@
 import { mainView } from "../main";
-import {
-  waitForEndMoon,
-  waitForEnterTheGame,
-  waitForReloadGame,
-} from "../main/actions";
+import { waitForEnterTheGame, waitForReloadGame } from "../game/actions";
+import { waitForEndMoon } from "../moon/actions";
 import { getIdeaByName, getIdeaDigestByName } from "./queries";
 import {
   getAllCardByName,
@@ -25,14 +22,14 @@ export class Post_20220723_Ideas_Context {
 
   async enterTheGame() {
     // text:  * Enter the game.
-    // code: this.enterTheGame()
+    // code: await this.enterTheGame()
     // hint: Post_20220717_BushesVillagersAndBerries_Context.enterTheGame
     await waitForEnterTheGame();
   }
 
   async thereShouldBeTheSIdea(expectedName) {
     // text:  * There should be the "Harvest Idea" idea.
-    // code: this.thereShouldBeTheSIdea("Harvest Idea")
+    // code: await this.thereShouldBeTheSIdea("Harvest Idea")
 
     var actual = getIdeaByName(mainView, expectedName);
     expect(actual).toBeInTheDocument();
@@ -40,7 +37,7 @@ export class Post_20220723_Ideas_Context {
 
   async thereShouldBeNSCards(count, cardName) {
     // text:  * There should be 0 "Harvest Idea" cards.
-    // code: this.thereShouldBeNSCards(0, "Harvest Idea")
+    // code: await this.thereShouldBeNSCards(0, "Harvest Idea")
     // hint: Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context.thereShouldBeNSCards
 
     var actual = queryAllCardByName(mainView, cardName);
@@ -49,14 +46,14 @@ export class Post_20220723_Ideas_Context {
 
   async drawACardFromTheSIdea(ideaName) {
     // text:  * Draw a card from the "Harvest Idea" idea.
-    // code: this.drawACardFromTheSIdea("Harvest Idea")
+    // code: await this.drawACardFromTheSIdea("Harvest Idea")
 
     await waitForDrawIdea(ideaName);
   }
 
   async givenThereIsTheSIdea() {
     // text:  * Given there is the "Harvest Idea" idea.
-    // code: this.givenThereIsTheSIdea("Harvest Idea")
+    // code: await this.givenThereIsTheSIdea("Harvest Idea")
 
     await waitForReloadGame();
   }
@@ -68,7 +65,7 @@ export class Post_20220723_Ideas_Context {
     tagName,
   ) {
     // text: * The "Harvest Idea" idea should require 1 card with at least 1 in "Fruit Plant" tag.
-    // code: this.theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Fruit Plant")
+    // code: await this.theSIdeaShouldRequireNCardWithAtLeastNInSTag("Harvest Idea", 1, 1, "Fruit Plant")
 
     var idea = getIdeaDigestByName(mainView, ideaName);
     expect(idea.tagRequirements).toMatchObject({
@@ -91,7 +88,7 @@ export class Post_20220723_Ideas_Context {
 
   async theSCardDescriptionShouldSaySIsS(cardName, term, text) {
     // text: * The "Berry Bush" card description should say "Fruit" is "Berry".
-    // code: this.theSCardDescriptionShouldSaySIsS("Berry Bush", "Fruit"," Berry")
+    // code: await this.theSCardDescriptionShouldSaySIsS("Berry Bush", "Fruit"," Berry")
 
     const [card] = getAllCardDigestByName(mainView, cardName);
     expect(card.terms).toMatchObject({ [term]: text });
@@ -99,7 +96,7 @@ export class Post_20220723_Ideas_Context {
 
   async discardNSCards(count, cardName) {
     // text:  * Discard 1 "Harvest Idea" cards.
-    // code: this.discardNSCards(1, "Harvest Idea")
+    // code: await this.discardNSCards(1, "Harvest Idea")
 
     for (var i = 0; i < count; i++) {
       var [card] = getAllCardByName(mainView, cardName);
@@ -109,20 +106,20 @@ export class Post_20220723_Ideas_Context {
 
   async givenANewGame() {
     // text:  * Given a new game.
-    // code: this.givenANewGame()
+    // code: await this.givenANewGame()
     await waitForReloadGame();
   }
 
   async givenThereAreNSCards() {
     // text:  * Given there are 1 "Harvest Idea" cards.
-    // code: this.givenThereAreNSCards(1, "Harvest Idea")
+    // code: await this.givenThereAreNSCards(1, "Harvest Idea")
 
     await waitForReloadGame();
   }
 
   async moveTheSCardToItsOwnStack(cardName) {
     // text:  * Move the "Berry Bush" card to its own stack.
-    // code: this.moveTheSCardToItsOwnStack("Berry Bush")
+    // code: await this.moveTheSCardToItsOwnStack("Berry Bush")
 
     var [card] = getAllCardByName(mainView, cardName);
     await waitForMoveCardToItsOwnStack(card);
@@ -130,7 +127,7 @@ export class Post_20220723_Ideas_Context {
 
   async moveTheSCardOnTopOfTheSCard(topCardName, bottomCardName) {
     // text:  * Move the "Villager" card on top of the "Harvest Idea" card.
-    // code: this.stackNSCardOnTopOfTheSCard("Villager", "Harvest Idea")
+    // code: await this.stackNSCardOnTopOfTheSCard("Villager", "Harvest Idea")
 
     var [topCard] = getAllCardByName(mainView, topCardName);
     var [bottomCard] = getAllCardByName(mainView, bottomCardName);
@@ -147,7 +144,7 @@ export class Post_20220723_Ideas_Context {
     name3,
   ) {
     // text:  * There should be 1 stacks of 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
-    // code: this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
+    // code: await this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
     var names = Names.byNames(count1, name1)
       .and(count2, name2)
@@ -160,14 +157,14 @@ export class Post_20220723_Ideas_Context {
 
   async givenThereAreNStacksOfNSNSAndNSCards() {
     // text:  * Given there are 1 stacks of 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
-    // code: this.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
+    // code: await this.givenThereAreNStacksOfNSNSAndNSCards(1, 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
     await waitForReloadGame();
   }
 
   async endTheCurrentMoon() {
     // text:  * End the current moon.
-    // code: this.endTheCurrentMoon()
+    // code: await this.endTheCurrentMoon()
     // hint: Post_20220719_VillagersEatFood_Context.endTheCurrentMoon
 
     await waitForEndMoon();
@@ -175,7 +172,7 @@ export class Post_20220723_Ideas_Context {
 
   async givenThereAreNStacksOfNSNSNSAndNSCards() {
     // text:  * Given there are 1 stacks of 1 "Corpse", 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
-    // code: this.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Corpse", 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
+    // code: await this.givenThereAreNStacksOfNSNSNSAndNSCards(1, 1, "Corpse", 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
     await waitForReloadGame();
   }
@@ -192,7 +189,7 @@ export class Post_20220723_Ideas_Context {
     name4,
   ) {
     // text:  * There should be 1 stacks of 1 "Corpse", 1 "Berry Bush", 1 "Villager", and 1 "Harvest Idea" cards.
-    // code: this.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Corpse", 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
+    // code: await this.thereShouldBeNStacksOfNSNSNSAndNSCards(1, 1, "Corpse", 1, "Berry Bush", 1, "Villager", 1, "Harvest Idea")
 
     var names = Names.byNames(count1, name1)
       .and(count2, name2)

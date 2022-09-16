@@ -1,14 +1,10 @@
-import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIdea, requestDrawIdea } from "./ideaSlice";
 
 export function Idea({ ideaName }) {
   const idea = useSelector((s) => selectIdea(s, ideaName));
   const dispatch = useDispatch();
-  const drawIdea = useCallback(
-    () => dispatch(requestDrawIdea(idea.id)),
-    [dispatch, idea.id],
-  );
+  const drawIdea = () => dispatch(requestDrawIdea(idea.id));
 
   return (
     <div

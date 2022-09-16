@@ -31,7 +31,7 @@ public class CardFactory {
     public Card makeCard(CardFactorySettings settings) {
         var cardName = settings.getCardName();
 
-        var cardConstants = cardConstantsCollection.getByName(cardName);
+        var cardConstants = cardConstantsCollection.getByCardName(cardName);
         settings.withCardConstants(cardConstants);
 
         var cardId = getNextId(settings);

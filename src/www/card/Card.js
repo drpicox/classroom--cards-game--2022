@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { requestMoveActiveCard } from "../stack/stackSlice";
 import { selectCard, activateCard, selectActiveCardId } from "./cardSlice";
@@ -11,14 +10,11 @@ export function Card({ cardId, index }) {
   const hasProgress = card.maxProgress > 1;
 
   const dispatch = useDispatch();
-  const activateOrMove = useCallback(
-    (ev) => {
-      ev.stopPropagation();
-      if (!isAnyActive) dispatch(activateCard(cardId));
-      else dispatch(requestMoveActiveCard(card.position, index + 1));
-    },
-    [dispatch, cardId, isAnyActive, card.position, index],
-  );
+  const activateOrMove = (ev) => {
+    ev.stopPropagation();
+    if (!isAnyActive) dispatch(activateCard(cardId));
+    else dispatch(requestMoveActiveCard(card.position, index + 1));
+  };
 
   const image = `cards/${card.name.toLowerCase().replaceAll(/\s/g, "-")}.png`;
 

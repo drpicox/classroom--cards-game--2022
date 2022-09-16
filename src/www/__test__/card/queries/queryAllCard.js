@@ -12,11 +12,9 @@ const getMultipleError = (c, dataKey, dataValue) =>
 const getMissingError = (c, dataKey, dataValue) =>
   `Unable to find an element with the attribute data-testid="card"`;
 
-export const {
-  queryCard,
-  getAllCard,
-  queryAllCard,
-  getCard,
-  findAllCard,
-  findCard,
-} = createQueries("Card", queryAll, getMultipleError, getMissingError);
+export const { queryCard, getAllCard, queryAllCard, getCard } = createQueries(
+  "Card",
+  queryAll,
+  getMultipleError,
+  getMissingError,
+);

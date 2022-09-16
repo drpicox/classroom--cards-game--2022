@@ -17,6 +17,4 @@ export const {
   getAllStackDigest,
   queryAllStackDigest,
   getStackDigest,
-  findAllStackDigest,
-  findStackDigest,
 } = createQueries("StackDigest", queryAll, getMultipleError, getMissingError);

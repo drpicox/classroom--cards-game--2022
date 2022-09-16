@@ -21,9 +21,9 @@ public class CardController {
     }
 
     @PostMapping("/{cardId}/move")
-    public GameDTO moveCard(@PathVariable String cardId, @RequestBody MoveForm moveForm) {
+    public GameDTO moveCard(@PathVariable String cardId, @RequestBody MoveCardDTO moveCardDTO) {
         var card = cardService.findById(cardId).get();
-        cardPositionService.moveCard(card, moveForm.getPosition(), moveForm.getZindex());
+        cardPositionService.moveCard(card, moveCardDTO.getPosition(), moveCardDTO.getZindex());
         return gameDTOFactory.makeGameDTO();
     }
 

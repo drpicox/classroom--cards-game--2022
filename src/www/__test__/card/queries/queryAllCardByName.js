@@ -22,6 +22,4 @@ export const {
   queryAllCardByName,
   getCardByName,
   getAllCardByName,
-  findAllCardByName,
-  findCardByName,
 } = createQueries("CardByName", queryAll, getMultipleError, getMissingError);

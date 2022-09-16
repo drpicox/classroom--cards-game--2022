@@ -4,6 +4,9 @@ package com.drpicox.game.synthetics;
 import com.drpicox.game.card.*;
 import com.drpicox.game.card.api.CardListDTO;
 import com.drpicox.game.card.api.StackListDTO;
+import com.drpicox.game.idea.GivenIdeaService;
+import com.drpicox.game.idea.IdeaService;
+import com.drpicox.game.idea.api.IdeaListDTO;
 import com.drpicox.game.util.DatabaseTestUtils;
 import com.drpicox.game.game.api.GameDTO;
 import com.drpicox.game.game.api.GameDTOFactory;
@@ -124,34 +127,56 @@ public class CardStackTest {
     }
 
     @Test @Transactional
-    public void to_strings() {
+    public void card_to_strings() {
         databaseTestUtils.clear();
         var settings = new CardFactorySettings("Apple").withPosition(0);
         cardFactory.makeCard(settings);
         cardFactory.makeCard(settings.withCardName("Berry"));
         cardFactory.makeCard(settings.withCardName("Villager"));
 
-        var game = gameDTOFactory.makeGameDTO();
-        var appleService = cardService.findCard(byName("Apple")).get();
-        var appleDTO = CardListDTO.getCard(game, byName("Apple"));
-        var berryService = cardService.findCard(byName("Berry")).get();
-        var berryDTO = CardListDTO.getCard(game, byName("Berry"));
-        var stackService = cardPositionService.getStackByPosition(0);
-        var stackDTO = StackListDTO.getStack(game, Positions.byPosition(0));
+        var gameDTO = gameDTOFactory.makeGameDTO();
+        var appleModel = cardService.findCard(byName("Apple")).get();
+        var appleDTO = CardListDTO.getCard(gameDTO, byName("Apple"));
+        var berryModel = cardService.findCard(byName("Berry")).get();
+        var berryDTO = CardListDTO.getCard(gameDTO, byName("Berry"));
+        var stackModel = cardPositionService.getStackByPosition(0);
+        var stackDTO = StackListDTO.getStack(gameDTO, Positions.byPosition(0));
 
-        assertThat(appleService.toString()).contains("apple");
-        assertThat(appleService.toString()).contains("0");
-        assertThat(berryService.toString()).contains("berry");
-        assertThat(berryService.toString()).contains("0");
-        assertThat(berryService.toString()).contains("1");
+        assertThat(appleModel.toString()).contains("apple");
+        assertThat(appleModel.toString()).contains("0");
+        assertThat(berryModel.toString()).contains("berry");
+        assertThat(berryModel.toString()).contains("0");
+        assertThat(berryModel.toString()).contains("1");
         assertThat(appleDTO.toString()).contains("apple");
         assertThat(appleDTO.toString()).contains("0");
         assertThat(berryDTO.toString()).contains("berry");
         assertThat(berryDTO.toString()).contains("0");
         assertThat(berryDTO.toString()).contains("1");
 
-        assertThat(stackService.toString()).containsMatch(".*0.*apple.*berry.*villager.*");
+        assertThat(stackModel.toString()).containsMatch(".*0.*apple.*berry.*villager.*");
         assertThat(stackDTO.toString()).containsMatch(".*0.*apple.*berry.*villager.*");
+        assertThat(gameDTO.toString()).containsMatch(".*apple.*berry.*villager.*");
+    }
+
+    @Test @Transactional
+    public void idea_to_strings() {
+        databaseTestUtils.clear();
+        var settings = new CardFactorySettings("Apple").withPosition(0);
+        givenIdeaService.givenIdea("Harvest Idea", 2, 7);
+        givenIdeaService.givenIdea("Woods Stroll Idea");
+
+        var gameDTO = gameDTOFactory.makeGameDTO();
+        var harvestModel = ideaService.findIdea(byName("Harvest Idea")).get();
+        var harvestDTO = IdeaListDTO.getIdea(gameDTO, byName("Harvest Idea"));
+        var strollModel = ideaService.findIdea(byName("Woods Stroll Idea")).get();
+        var strollDTO = IdeaListDTO.getIdea(gameDTO, byName("Woods Stroll Idea"));
+
+        assertThat(harvestModel.toString()).containsMatch(".*harvest.idea.*2.*7.*");
+        assertThat(harvestDTO.toString()).containsMatch(".*harvest.idea.*2.*7.*");
+        assertThat(strollModel.toString()).containsMatch(".*woods.stroll.idea.*");
+        assertThat(strollDTO.toString()).containsMatch(".*woods.stroll.idea.*");
+
+        assertThat(gameDTO.toString()).containsMatch(".*harvest.idea.*woods.stroll.idea.*");
     }
 
     @Test @Transactional
@@ -251,9 +276,11 @@ public class CardStackTest {
     @Autowired private CardPositionService cardPositionService;
     @Autowired private StackService stackService;
     @Autowired private CardFactory cardFactory;
+    @Autowired private IdeaService ideaService;
     @Autowired private GameDTOFactory gameDTOFactory;
     @Autowired private GivenCardService givenCardService;
     @Autowired private GivenStackService givenStackService;
+    @Autowired private GivenIdeaService givenIdeaService;
 
     private class StackTest {
         public StackTest given(String board) {
@@ -276,18 +303,18 @@ public class CardStackTest {
             var originCard = cardLetterBoard.getCard(originLetter);
             var targetCard = cardLetterBoard.getCard(targetLetter);
 
-            stackService.stackSlice(originCard, targetCard);
+            stackService.splitAndStackOnTopOf(originCard, targetCard);
         }
 
         public void whenStackToPosition(String originLetter, int targetPosition) {
             var originCard = cardLetterBoard.getCard(originLetter);
 
-            stackService.stackSlice(originCard, targetPosition);
+            stackService.splitAndStackOnTopOf(originCard, targetPosition);
         }
 
         public StackTest whenDiscard(String letter) {
             var card = cardLetterBoard.getCard(letter);
-            stackService.discardSlice(card);
+            stackService.splitAndDiscard(card);
             return this;
         }
 

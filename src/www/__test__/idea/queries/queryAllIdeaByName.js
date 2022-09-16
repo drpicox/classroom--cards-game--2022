@@ -22,6 +22,4 @@ export const {
   queryAllIdeaByName,
   getIdeaByName,
   getAllIdeaByName,
-  findAllIdeaByName,
-  findIdeaByName,
 } = createQueries("IdeaByName", queryAll, getMultipleError, getMissingError);

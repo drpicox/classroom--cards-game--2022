@@ -18,6 +18,8 @@ export function PostPage() {
     dispatch(requestPost(postId));
   }, [dispatch, postId]);
 
+  if (!post?.body) return "Loading post...";
+
   return (
     <div className="post">
       <h1 className="post-title" data-testid="post-title">

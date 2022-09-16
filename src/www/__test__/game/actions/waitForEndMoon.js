@@ -1,4 +1,4 @@
-import { mainView } from "../mainView";
+import { mainView } from "../../main";
 import { clickButton } from "./click";
 import { waitForLoading } from "./waitForLoading";
 

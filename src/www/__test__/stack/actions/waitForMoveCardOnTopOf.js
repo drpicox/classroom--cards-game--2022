@@ -1,9 +1,10 @@
-import { drag, waitForLoading } from "../../main/actions";
+import { move } from "../../main/actions";
+import { waitForLoading } from "../../loading/actions";
 
 export async function waitForMoveCardOnTopOf(
   topCardElement,
   bottomCardElement,
 ) {
-  drag(topCardElement, bottomCardElement);
+  move(topCardElement, bottomCardElement);
   await waitForLoading();
 }

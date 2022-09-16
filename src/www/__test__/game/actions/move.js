@@ -1,6 +1,6 @@
 import { click } from "./click";
 
-export function drag(fromElement, toElement) {
+export function move(fromElement, toElement) {
   click(fromElement);
   click(toElement);
 }

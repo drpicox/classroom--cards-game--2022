@@ -22,8 +22,6 @@ export const {
   getAllStackByPosition,
   queryAllStackByPosition,
   getStackByPosition,
-  findAllStackByPosition,
-  findStackByPosition,
 } = createQueries(
   "StackByPosition",
   queryAll,

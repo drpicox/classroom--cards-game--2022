@@ -1,4 +1,5 @@
-import { applyMiddleware, createStore, combineReducers } from "redux";
+import { applyMiddleware, createStore, combineReducers, compose } from "redux";
+import reduxFreeze from "redux-freeze";
 
 import { blogReducer, blogMiddleware } from "./blog/blogSlice";
 import { cardReducer, cardMiddleware } from "./card/cardSlice";
@@ -21,8 +22,9 @@ const middleware = [
   gameMiddleware,
   ideaMiddleware,
   stackMiddleware,
+  reduxFreeze,
 ];
 
-export function createAppStore() {
-  return createStore(reducer, applyMiddleware(...middleware));
+export function createAppStore(composeEnhancers = compose) {
+  return createStore(reducer, composeEnhancers(applyMiddleware(...middleware)));
 }

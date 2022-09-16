@@ -17,7 +17,7 @@ public class CardConstantsCollection {
         this.cardConstantsCollection = constantsLoader.loadCollection("card");
     }
 
-    public Constants getByName(String constantsNameValue) {
-        return cardConstantsCollection.getByName(constantsNameValue);
+    public Constants getByCardName(String cardName) {
+        return cardConstantsCollection.getByName(cardName);
     }
 }

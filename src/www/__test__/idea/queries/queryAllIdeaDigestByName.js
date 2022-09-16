@@ -18,8 +18,6 @@ export const {
   queryAllIdeaDigestByName,
   getIdeaDigestByName,
   getAllIdeaDigestByName,
-  findAllIdeaDigestByName,
-  findIdeaDigestByName,
 } = createQueries(
   "IdeaDigestByName",
   queryAll,

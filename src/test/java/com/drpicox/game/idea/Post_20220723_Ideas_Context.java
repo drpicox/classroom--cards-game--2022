@@ -3,7 +3,7 @@ package com.drpicox.game.idea;
 import com.drpicox.game.game.GivenGameService;
 import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.GivenStackService;
-import com.drpicox.game.card.api.MoveForm;
+import com.drpicox.game.card.api.MoveCardDTO;
 import com.drpicox.game.card.api.StackListDTO;
 import com.drpicox.game.game.GameFactory;
 import com.drpicox.game.game.GameFactorySettings;
@@ -23,17 +23,15 @@ public class Post_20220723_Ideas_Context {
 
     private final FrontendSimulator frontendSimulator;
     private final GameFactory gameFactory;
-    private final IdeaService ideaService;
     private final GivenIdeaService givenIdeaService;
     private final GivenCardService givenCardService;
     private final GivenStackService givenStackService;
     private final GivenGameService givenGameService;
     private GameDTO gameDTO;
 
-    public Post_20220723_Ideas_Context(FrontendSimulator frontendSimulator, GameFactory gameFactory, IdeaService ideaService, GivenIdeaService givenIdeaService, GivenCardService givenCardService, GivenStackService givenStackService, GivenGameService givenGameService) {
+    public Post_20220723_Ideas_Context(FrontendSimulator frontendSimulator, GameFactory gameFactory, GivenIdeaService givenIdeaService, GivenCardService givenCardService, GivenStackService givenStackService, GivenGameService givenGameService) {
         this.frontendSimulator = frontendSimulator;
         this.gameFactory = gameFactory;
-        this.ideaService = ideaService;
         this.givenIdeaService = givenIdeaService;
         this.givenCardService = givenCardService;
         this.givenStackService = givenStackService;
@@ -142,7 +140,7 @@ public class Post_20220723_Ideas_Context {
         var position = StackListDTO.getFreePosition(gameDTO);
         var zindex = 0;
 
-        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex), GameDTO.class);
+        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveCardDTO(position, zindex), GameDTO.class);
     }
 
     public void moveTheSCardOnTopOfTheSCard(String sourceCardName, String targetCardName) {
@@ -156,7 +154,7 @@ public class Post_20220723_Ideas_Context {
         var card = getCard(gameDTO, byName(sourceCardName));
         var cardId = card.getId();
 
-        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameDTO.class);
+        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveCardDTO(position, zindex + 1), GameDTO.class);
     }
 
     public void thereShouldBeNStacksOfNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3) {

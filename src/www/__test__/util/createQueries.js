@@ -18,8 +18,6 @@ export function createQueries(
   buildQuery(result, `queryAll${queryName}`, queryAll);
   buildQuery(result, `get${queryName}`, get);
   buildQuery(result, `getAll${queryName}`, getAll);
-  buildQuery(result, `find${queryName}`, find);
-  buildQuery(result, `findAll${queryName}`, findAll);
 
   return result;
 }

@@ -1,9 +1,6 @@
 import { mainView } from "../main";
-import {
-  waitForEndMoon,
-  waitForEnterTheGame,
-  waitForReloadGame,
-} from "../main/actions";
+import { waitForEnterTheGame, waitForReloadGame } from "../game/actions";
+import { waitForEndMoon } from "../moon/actions";
 import {
   getAllCardByName,
   getAllCardDigestByName,
@@ -26,14 +23,14 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async enterTheGame() {
     // text:  * Enter the game.
-    // code: this.enterTheGame()
+    // code: await this.enterTheGame()
     // hint: Post_20220723_Ideas_Context.enterTheGame
     await waitForEnterTheGame();
   }
 
   async thereShouldBeTheSIdea(expectedName) {
     // text:  * There should be the "Harvest Idea" idea.
-    // code: this.thereShouldBeTheSIdea("Harvest Idea")
+    // code: await this.thereShouldBeTheSIdea("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.thereShouldBeTheSIdea
 
     var actual = getIdeaByName(mainView, expectedName);
@@ -42,7 +39,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async theSShouldHaveLevelNAndNXp(ideaName, level, xp) {
     // text:  * The "Harvest Idea" should have level 1 and 0 XP.
-    // code: this.theSShouldHaveLevelNAndNXp("Harvest Idea", 1, 0)
+    // code: await this.theSShouldHaveLevelNAndNXp("Harvest Idea", 1, 0)
 
     var idea = getIdeaDigestByName(mainView, ideaName);
     expect(idea).toMatchObject({ level, xp });
@@ -50,7 +47,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async drawACardFromTheSIdea(ideaName) {
     // text:  * Draw a card from the "Harvest Idea" idea.
-    // code: this.drawACardFromTheSIdea("Harvest Idea")
+    // code: await this.drawACardFromTheSIdea("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.drawACardFromTheSIdea
 
     await waitForDrawIdea(ideaName);
@@ -58,7 +55,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async moveTheSCardToItsOwnStack(cardName) {
     // text:  * Move the "Harvest Idea" card to its own stack.
-    // code: this.moveTheSCardToItsOwnStack("Harvest Idea")
+    // code: await this.moveTheSCardToItsOwnStack("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.moveTheSCardToItsOwnStack
 
     var [card] = getAllCardByName(mainView, cardName);
@@ -67,7 +64,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async moveTheSCardOnTopOfTheSCard(topCardName, bottomCardName) {
     // text:  * Move the "Villager" card on top of the "Harvest Idea" card.
-    // code: this.moveTheSCardOnTopOfTheSCard("Villager", "Harvest Idea")
+    // code: await this.moveTheSCardOnTopOfTheSCard("Villager", "Harvest Idea")
     // hint: Post_20220723_Ideas_Context.moveTheSCardOnTopOfTheSCard
 
     var [topCard] = getAllCardByName(mainView, topCardName);
@@ -85,7 +82,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
     name3,
   ) {
     // text:  * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
-    // code: this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
+    // code: await this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
     // hint: Post_20220723_Ideas_Context.thereShouldBeNStacksOfNSNSAndNSCards
 
     var names = Names.byNames(count1, name1)
@@ -99,7 +96,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async thereShouldBeNSCards(expected, cardName) {
     // text:  * There should be 1 "Berry" cards.
-    // code: this.thereShouldBeNSCards(1, "Berry")
+    // code: await this.thereShouldBeNSCards(1, "Berry")
     // hint: Post_20220723_Ideas_Context.thereShouldBeNSCards
 
     var cards = queryAllCardByName(mainView, cardName);
@@ -108,7 +105,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async endTheCurrentMoon() {
     // text:  * End the current moon.
-    // code: this.endTheCurrentMoon()
+    // code: await this.endTheCurrentMoon()
     // hint: Post_20220723_Ideas_Context.endTheCurrentMoon
 
     await waitForEndMoon();
@@ -116,7 +113,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async givenANewGame() {
     // text:  * Given a new game.
-    // code: this.givenANewGame()
+    // code: await this.givenANewGame()
     // hint: Post_20220723_Ideas_Context.givenANewGame
 
     await waitForReloadGame();
@@ -124,7 +121,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async givenThereIsTheSIdea() {
     // text:  * Given there is the "Harvest Idea" idea.
-    // code: this.givenThereIsTheSIdea("Harvest Idea")
+    // code: await this.givenThereIsTheSIdea("Harvest Idea")
     // hint: Post_20220723_Ideas_Context.givenThereIsTheSIdea
 
     await waitForReloadGame();
@@ -132,7 +129,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async givenThereAreNStacksOfNSNSAndNSCards() {
     // text:  * Given there are 2 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
-    // code: this.givenThereAreNStacksOfNSNSAndNSCards(2, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
+    // code: await this.givenThereAreNStacksOfNSNSAndNSCards(2, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
     // hint: Post_20220723_Ideas_Context.givenThereAreNStacksOfNSNSAndNSCards
 
     await waitForReloadGame();
@@ -140,14 +137,14 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async givenThereIsTheSIdeaAtLevelNAndNXp() {
     // text:  * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
-    // code: this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
+    // code: await this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
 
     await waitForReloadGame();
   }
 
   async givenThereAreNSCards() {
     // text:  * Given there are 1 "Berry" cards.
-    // code: this.givenThereAreNSCards(1, "Berry")
+    // code: await this.givenThereAreNSCards(1, "Berry")
     // hint: Post_20220723_Ideas_Context.givenThereAreNSCards
 
     await waitForReloadGame();
@@ -155,14 +152,14 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async givenANewGameWithNSProductionStack() {
     // text:  * Given a new game with 1 "Berry Bush" production stack.
-    // code: this.givenANewGameWithNSProductionStack(1, "Berry Bush")
+    // code: await this.givenANewGameWithNSProductionStack(1, "Berry Bush")
 
     await waitForReloadGame();
   }
 
   async thereShouldBeNoSIdea(expected) {
     // text:  * There should be no "Plant Seed" idea.
-    // code: this.thereShouldBeNoSIdea("Plant Seed")
+    // code: await this.thereShouldBeNoSIdea("Plant Seed")
     // hint: Post_20220723_Ideas_Context.thereShouldBeTheSIdea
 
     var idea = queryIdeaByName(mainView, expected);
@@ -171,7 +168,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async givenThereAreNStacksOfNSCards() {
     // text:  * Given there are 1 stacks of 5 "Berry" cards.
-    // code: this.givenThereAreNStacksOfNSCards(1, 5, "Berry");
+    // code: await this.givenThereAreNStacksOfNSCards(1, 5, "Berry");
 
     await waitForReloadGame();
   }
@@ -183,7 +180,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
     tagName,
   ) {
     // text:  * The "Seed Idea" idea should require 1 card with at least 1 in "Seed" tag
-    // code: this.theSIdeaShouldRequireTheSumOfNInSTagCards("Seed Idea", 1, 1, "Worker")
+    // code: await this.theSIdeaShouldRequireTheSumOfNInSTagCards("Seed Idea", 1, 1, "Worker")
 
     var idea = getIdeaDigestByName(mainView, ideaName);
     expect(idea.tagRequirements).toMatchObject({
@@ -196,7 +193,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async theSCardShouldHaveNInSTag(cardName, count, tagName) {
     // text:  * The "Berry" card should have 1 in "Seed" tag
-    // code: this.theSCardShouldHaveNInSTag("Berry", 1, "Seed")
+    // code: await this.theSCardShouldHaveNInSTag("Berry", 1, "Seed")
 
     const [card] = getAllCardDigestByName(mainView, cardName);
     expect(card.tags).toMatchObject({ [tagName]: count });
@@ -204,7 +201,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async theSCardDescriptionShouldSaySIsS(cardName, term, description) {
     // text: * The "Berry" card description should say "Plant" is "Berry Bush".
-    // code: this.theSCardDescriptionShouldSaySIsS("Berry", "Plant", "Berry Bush");
+    // code: await this.theSCardDescriptionShouldSaySIsS("Berry", "Plant", "Berry Bush");
 
     const [card] = getAllCardDigestByName(mainView, cardName);
     expect(card.terms).toMatchObject({ [term]: description });
@@ -212,7 +209,7 @@ export class Post_20220725_IdeasHaveLevels_Context {
 
   async theSCardProgressShouldBeNOfN(cardName, progress, maxProgress) {
     // text:  * The "Seed Idea" card progress should be 1 of 5.
-    // code: this.theSCardProgressShouldBeNOfN("Seed Idea", 1, 5)
+    // code: await this.theSCardProgressShouldBeNOfN("Seed Idea", 1, 5)
 
     const card = getCardDigestByName(mainView, cardName);
     expect(card.progress).toBe(progress);

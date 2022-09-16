@@ -114,5 +114,5 @@ public class Card implements HasName, HasPosition {
         return "C-" + id + "[#" + position + " z" + zindex + "]";
     }
 
-    private Card() {} // JPA required constructor
+    protected Card() {} // JPA required constructor
 }

@@ -2,7 +2,7 @@ package com.drpicox.game.idea;
 
 import com.drpicox.game.card.GivenCardService;
 import com.drpicox.game.card.GivenStackService;
-import com.drpicox.game.card.api.MoveForm;
+import com.drpicox.game.card.api.MoveCardDTO;
 import com.drpicox.game.card.api.StackListDTO;
 import com.drpicox.game.game.api.GameDTO;
 import com.drpicox.game.idea.api.IdeaListDTO;
@@ -88,7 +88,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         var position = StackListDTO.getFreePosition(gameDTO);
         var zindex = 0;
 
-        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex), GameDTO.class);
+        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveCardDTO(position, zindex), GameDTO.class);
     }
 
     public void moveTheSCardOnTopOfTheSCard(String sourceCardName, String targetCardName) {
@@ -103,7 +103,7 @@ public class Post_20220725_IdeasHaveLevels_Context {
         var card = getCard(gameDTO, byName(sourceCardName));
         var cardId = card.getId();
 
-        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveForm(position, zindex + 1), GameDTO.class);
+        gameDTO = frontendSimulator.post("/api/v1/game/cards/"+cardId+"/move", new MoveCardDTO(position, zindex + 1), GameDTO.class);
     }
 
     public void thereShouldBeNStacksOfNSNSAndNSCards(int expected, int count1, String name1, int count2, String name2, int count3, String name3) {

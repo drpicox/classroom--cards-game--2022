@@ -39,7 +39,8 @@ function makeContextHeader(post) {
   return join(
     `import { getByTestId, screen } from "@testing-library/react";`,
     `import { mainView } from "${post.parent}/main";`,
-    `import { waitForEnterTheGame, waitForReloadGame, waitForEndMoon } from "${post.parent}/main/actions";`,
+    `import { waitForEnterTheGame, waitForReloadGame } from "${post.parent}/game/actions";`,
+    `import { waitForEndMoon } from "${post.parent}/moon/actions";`,
     ``,
     `export class ${post.contextName} {`,
     `  async beforeTest() {`,
@@ -68,7 +69,7 @@ function makeContextMethod(post, method) {
     ``,
     `  async ${methodSignature} {`,
     `    // text: ${text}`,
-    `    // code: this.${name}(${args.map((a) => a.value).join(", ")})`,
+    `    // code: await this.${name}(${args.map((a) => a.value).join(", ")})`,
     makeContextMethodHint(closest),
     ``,
     makeContextMethodGiven(name),

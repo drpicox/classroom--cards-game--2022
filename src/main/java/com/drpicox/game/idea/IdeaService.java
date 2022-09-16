@@ -1,9 +1,11 @@
 package com.drpicox.game.idea;
 
+import com.drpicox.game.util.HasName;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
 public class IdeaService {
@@ -29,5 +31,11 @@ public class IdeaService {
 
     public Optional<Idea> findIdeaById(String ideaId) {
         return ideaRepository.findById(ideaId);
+    }
+
+    public Optional<Idea> findIdea(Predicate<? super Idea> predicate) {
+        var all = findAll();
+        var result = all.stream().filter(predicate).findAny();
+        return result;
     }
 }

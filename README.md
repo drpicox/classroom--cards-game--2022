@@ -238,7 +238,7 @@ for loading a data.
 Please, do not use any function to load but:
 
 ```js
-await userSimulator.waitForLoading();
+await waitForLoading();
 ```
 
 The idea is that the middleware shows the spinner before making

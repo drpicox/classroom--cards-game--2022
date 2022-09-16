@@ -5,11 +5,8 @@ import {
   queryAllCardDigest,
 } from "../../card/queries";
 import { mainView } from "../../main";
-import {
-  waitForEnterTheGame,
-  waitForReloadGame,
-  waitForEndMoon,
-} from "../../main/actions";
+import { waitForReloadGame } from "../../game/actions";
+import { waitForEndMoon } from "../../moon/actions";
 
 export class Post_20220721_MoreDetailsAboutHowVillagersEatFood_Context {
   async beforeTest() {}

@@ -15,6 +15,4 @@ export const {
   getAllCardDigest,
   queryAllCardDigest,
   getCardDigest,
-  findAllCardDigest,
-  findCardDigest,
 } = createQueries("CardDigest", queryAll, getMultipleError, getMissingError);

@@ -18,8 +18,6 @@ export const {
   queryAllCardDigestByName,
   getCardDigestByName,
   getAllCardDigestByName,
-  findAllCardDigestByName,
-  findCardDigestByName,
 } = createQueries(
   "CardDigestByName",
   queryAll,

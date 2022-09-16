@@ -1,9 +1,6 @@
 import { mainView } from "../main";
-import {
-  waitForEndMoon,
-  waitForEnterTheGame,
-  waitForReloadGame,
-} from "../main/actions";
+import { waitForEnterTheGame, waitForReloadGame } from "../game/actions";
+import { waitForEndMoon } from "../moon/actions";
 import { queryAllStackDigestByCardNames } from "../stack/queries";
 import { Names } from "../util/Names";
 import { getIdeaByName, getIdeaDigestByName } from "./queries";
@@ -15,14 +12,14 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
   async enterTheGame() {
     // text:  * Enter the game.
-    // code: this.enterTheGame()
+    // code: await this.enterTheGame()
     // hint: Post_20220725_IdeasHaveLevels_Context.enterTheGame
     await waitForEnterTheGame();
   }
 
   async thereShouldBeTheSIdea(expectedName) {
     // text:  * There should be the "Harvest Idea" idea.
-    // code: this.thereShouldBeTheSIdea("Harvest Idea")
+    // code: await this.thereShouldBeTheSIdea("Harvest Idea")
     // hint: Post_20220725_IdeasHaveLevels_Context.thereShouldBeTheSIdea
 
     var actual = getIdeaByName(mainView, expectedName);
@@ -31,7 +28,7 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
   async theSShouldHaveLevelNAndNXp(ideaName, level, xp) {
     // text:  * The "Harvest Idea" should have level 1 and 0 XP.
-    // code: this.theSShouldHaveLevelNAndNXp("Harvest Idea", 1, 0)
+    // code: await this.theSShouldHaveLevelNAndNXp("Harvest Idea", 1, 0)
 
     var idea = getIdeaDigestByName(mainView, ideaName);
     expect(idea).toMatchObject({ level, xp });
@@ -39,7 +36,7 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
   async theSMayCreateASCard(ideaName, cardName) {
     // text:  * The "Woods Stroll Idea" may create a "Berry" card.
-    // code: this.theSMayCreateASCard("Woods Stroll Idea", "Berry")
+    // code: await this.theSMayCreateASCard("Woods Stroll Idea", "Berry")
 
     var idea = getIdeaDigestByName(mainView, ideaName);
     expect(idea.mayCreateCards).toContain(cardName);
@@ -52,7 +49,7 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     tagName,
   ) {
     // text:  * The "Seed Idea" idea should require 1 card with at least 1 in "Seed" tag
-    // code: this.theSIdeaShouldRequireTheSumOfNInSTagCards("Seed Idea", 1, 1, "Worker")
+    // code: await this.theSIdeaShouldRequireTheSumOfNInSTagCards("Seed Idea", 1, 1, "Worker")
 
     var idea = getIdeaDigestByName(mainView, ideaName);
     expect(idea.tagRequirements).toMatchObject({
@@ -65,21 +62,21 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
   async givenANewGameWithAStackOfNSCardsAndNSCards() {
     // text:  * Given a new game with a stack of 1 "Woods Stroll Idea" cards and 1 "Villager" cards.
-    // code: this.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager")
+    // code: await this.givenANewGameWithAStackOfNSCardsAndNSCards(1, "Woods Stroll Idea", 1, "Villager")
 
     await waitForReloadGame();
   }
 
   async givenThatTheOddsAreThatWeWillGetASFromTheSCard() {
     // text:  * Given that the odds are that we will get a "Berry" from the "Woods Stroll Idea" card.
-    // code: this.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Berry", "Woods Stroll Idea")
+    // code: await this.givenThatTheOddsAreThatWeWillGetASFromTheSCard("Berry", "Woods Stroll Idea")
 
     await waitForReloadGame();
   }
 
   async endTheCurrentMoon() {
     // text:  * End the current moon.
-    // code: this.endTheCurrentMoon()
+    // code: await this.endTheCurrentMoon()
     // hint: Post_20220725_IdeasHaveLevels_Context.endTheCurrentMoon
 
     await waitForEndMoon();
@@ -95,7 +92,7 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
     name3,
   ) {
     // text:  * There should be 1 stacks of 1 "Harvest Idea", 1 "Villager", and 1 "Berry Bush" cards.
-    // code: this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
+    // code: await this.thereShouldBeNStacksOfNSNSAndNSCards(1, 1, "Harvest Idea", 1, "Villager", 1, "Berry Bush")
     // hint: Post_20220723_Ideas_Context.thereShouldBeNStacksOfNSNSAndNSCards
 
     var names = Names.byNames(count1, name1)
@@ -109,7 +106,7 @@ export class Post_20220727_IHaveAnIdeaToTakeAStrollInTheWoodAndFindRandomThings_
 
   async givenThereIsTheSIdeaAtLevelNAndNXp() {
     // text:  * Given there is the "Harvest Idea" idea at level 1 and 9 XP.
-    // code: this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
+    // code: await this.givenThereIsTheSIdeaAtLevelNAndNXp("Harvest Idea", 1, 9)
 
     await waitForReloadGame();
   }

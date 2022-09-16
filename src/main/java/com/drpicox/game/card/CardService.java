@@ -39,7 +39,9 @@ public class CardService {
     }
 
     public Optional<Card> findCard(Predicate<? super Card> predicate) {
-        return cardRepository.findAll().stream().filter(predicate).findAny();
+        var all = findAll();
+        var result = all.stream().filter(predicate).findFirst();
+        return result;
     }
 
     public List<Card> findAllCards(Predicate<? super Card> predicate) {

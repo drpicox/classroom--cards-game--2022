@@ -1,5 +1,6 @@
 import { queryAllByTestId, getByTestId } from "@testing-library/react";
-import { clickLink, waitForLoading } from "../main/actions";
+import { clickLink } from "../main/actions";
+import { waitForLoading } from "../loading/actions";
 import { mainView } from "../main";
 
 export class Post_20220715_HelloBlog_Context {

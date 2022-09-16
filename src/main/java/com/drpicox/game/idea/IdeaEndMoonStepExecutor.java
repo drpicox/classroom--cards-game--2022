@@ -11,12 +11,10 @@ public class IdeaEndMoonStepExecutor {
 
     private final StackService stackService;
     private final IdeaService ideaService;
-    private final CardService cardService;
 
-    public IdeaEndMoonStepExecutor(StackService stackService, IdeaService ideaService, CardService cardService) {
+    public IdeaEndMoonStepExecutor(StackService stackService, IdeaService ideaService) {
         this.stackService = stackService;
         this.ideaService = ideaService;
-        this.cardService = cardService;
     }
 
     public void execute(EndMoonSettings moonSettings, String ideaName, Consumer<IdeaEndMoonSettings> consumer) {

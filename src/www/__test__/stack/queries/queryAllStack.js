@@ -12,11 +12,5 @@ const getMultipleError = (c, dataKey, dataValue) =>
 const getMissingError = (c, dataKey, dataValue) =>
   `Unable to find an element with the attribute data-testid="stack"`;
 
-export const {
-  queryStack,
-  getAllStack,
-  queryAllStack,
-  getStack,
-  findAllStack,
-  findStack,
-} = createQueries("Stack", queryAll, getMultipleError, getMissingError);
+export const { queryStack, getAllStack, queryAllStack, getStack } =
+  createQueries("Stack", queryAll, getMultipleError, getMissingError);

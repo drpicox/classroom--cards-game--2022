@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "../card/Card";
 import { requestMoveActiveCard, selectStack } from "./stackSlice";
@@ -6,10 +5,7 @@ import { requestMoveActiveCard, selectStack } from "./stackSlice";
 export function Stack({ position }) {
   const stack = useSelector((s) => selectStack(s, position));
   const dispatch = useDispatch();
-  const move = useCallback(
-    () => dispatch(requestMoveActiveCard(position, 0)),
-    [dispatch, position],
-  );
+  const move = () => dispatch(requestMoveActiveCard(position, 0));
 
   return (
     <div
