@@ -10,11 +10,9 @@ public class GameService {
 
     static final String GAME_ID = "TheGameId";
 
-    private final GameFactory gameFactory;
     private final GameRepository gameRepository;
 
-    public GameService(GameFactory gameFactory, GameRepository gameRepository) {
-        this.gameFactory = gameFactory;
+    public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
 

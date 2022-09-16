@@ -24,6 +24,8 @@ public class GameFactory {
     }
 
     public void makeGame(GameFactorySettings settings) throws IOException, URISyntaxException {
+        deleteOldGameIfExists(settings);
+
         this.gameRepository.save(new Game(GameService.GAME_ID));
 
         var gameName = settings.getGameName();
@@ -31,10 +33,10 @@ public class GameFactory {
         gameFactorySteps.execute(settings.withGameConstants(gameConstants));
     }
 
-    public void restartGame(GameFactorySettings settings) throws IOException, URISyntaxException {
-        if (this.gameRepository.existsById(GameService.GAME_ID))
+    private void deleteOldGameIfExists(GameFactorySettings settings) throws IOException, URISyntaxException {
+        if (this.gameRepository.existsById(GameService.GAME_ID)) {
             this.gameRepository.deleteById(GameService.GAME_ID);
-        gameDeleteSteps.execute(settings);
-        makeGame(settings);
+            gameDeleteSteps.execute(settings);
+        }
     }
 }

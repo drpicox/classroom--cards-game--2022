@@ -1,9 +1,11 @@
 package com.drpicox.game.card;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 interface CardRepository extends JpaRepository<Card, String> {
 
     List<Card> findAllByName(String name);

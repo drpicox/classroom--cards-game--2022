@@ -17,7 +17,7 @@ public class GivenGameService {
     }
 
     public void givenGame(String gameName) throws IOException, URISyntaxException {
-        gameFactory.restartGame(new GameFactorySettings(gameName));
+        gameFactory.makeGame(new GameFactorySettings(gameName));
     }
 
 }

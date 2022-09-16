@@ -5,8 +5,6 @@ import com.drpicox.game.blog.Post;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Which is the best name for this POJO? (and similars)
-// ListPostsJson? ListPostsData? ...
 public class ListPostsDTO {
 
     private List<ListPostsEntryDTO> posts = new ArrayList<>();
