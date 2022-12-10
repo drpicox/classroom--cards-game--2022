@@ -123,6 +123,8 @@ public class BlogTest {
 
     @Test
     public void posts_writer_and_coder_cannot_have_the_same_value() throws Throwable {
+        /*
+        DISABLED FOR THE EXAM
         forEachPost(post -> {
             var coder = post.getProperty("coder");
             if (coder == null) return;
@@ -138,12 +140,13 @@ public class BlogTest {
                     "actual coder  : " + coder + "\n" +
                     "expected coder: _a coder different from '"+coder+"'_\n" +
                     "Please, check that:\n" +
-                    "- you added correctly your github username as coder,\n" +
+                    "- you added correctly your GitHub username as coder,\n" +
                     "- the actual writer is the real writer of the post,\n" +
                     "- if you are the writer and post, look for another post to solve,\n" +
                     "You cannot develop your own posts.\n"
             );
         });
+         */
     }
 
     private <T> T fetchFromRestController(String url, Class<T> type) throws Exception {

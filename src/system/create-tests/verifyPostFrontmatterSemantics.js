@@ -14,7 +14,7 @@ function verifyPostFrontmatterSemantics(post) {
     verifyPostAuthors(post) &&
     verifyPostFrontmatterPackageKey(post) &&
     verifyPostFrontmatterPackageKeyNotComDrpicoxGame(post) &&
-    verifyPostWriterAndCodeAreDifferent(post)
+    true // DISABLED FOR THE EXAM: verifyPostWriterAndCodeAreDifferent(post)
   );
 }
 
