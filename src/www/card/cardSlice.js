@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { createSelector } from "reselect";
 import { backend } from "../backend";
 import { replaceGame, REPLACE_GAME } from "../game/gameSlice";
 import {
@@ -13,6 +14,11 @@ export function selectCard(state, cardId) {
 export function selectActiveCardId(state) {
   return state.card.activeCardId;
 }
+
+export const selectAllCards = createSelector(
+  (state) => state.card.byId,
+  (byIds) => Object.values(byIds),
+);
 
 const REPLACE_CARDS = "cards/REPLACE_CARDS";
 export function replaceCards(cards) {
@@ -33,7 +39,6 @@ export const cardReducer = combineReducers({
   byId: cardByIdReducer,
   allIds: cardIdsReducer,
   activeCardId: activeCardReducer,
-
 });
 
 function activeCardReducer(state = null, action) {

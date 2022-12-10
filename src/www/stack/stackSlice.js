@@ -1,11 +1,22 @@
 import { combineReducers } from "redux";
+import { createSelector } from "reselect";
 import { backend } from "../backend";
-import { selectActiveCardId } from "../card/cardSlice";
+import { selectActiveCardId, selectAllCards } from "../card/cardSlice";
 import { replaceGame, REPLACE_GAME } from "../game/gameSlice";
 import {
   hideLoadingSpinner,
   showLoadingSpinner,
 } from "../loading/loadingSlice";
+
+export function makeSelectAggregateTags(aggregate, tagName) {
+  return createSelector(selectAllCards, (cards) => {
+    const cardsWithTag = cards.filter((card) => card.tags[tagName]);
+    const tagsValues = cardsWithTag.map((card) => card.tags[tagName].value);
+
+    if (tagsValues.length === 0) return 0;
+    return tagsValues.reduce(aggregate);
+  });
+}
 
 export function selectAllStackPositions(state) {
   return state.stack.allPositions;

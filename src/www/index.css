@@ -150,6 +150,7 @@ ul {
 .game-header {
   display: flex;
   flex-direction: row-reverse;
+  align-items: center;
   background: #e9dfbb;
   position: fixed;
   bottom: 0.7vh;
@@ -157,6 +158,13 @@ ul {
   z-index: 99999;
   box-shadow: inset 0 0 0vmin 0.1vmin rgba(0, 0, 0, 0.8),
     0 0 0.1vmin 0.1vmin rgba(0, 0, 0, 0.7);
+}
+
+.game-header span {
+  display: block;
+  margin: 0 0.5vw;
+  letter-spacing: -0.07em;
+  color: rgba(0, 0, 0, 0.7);
 }
 
 .game-header button {

@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { GameCounters } from "./GameCounters";
 import { requestEndMoon, requestGame } from "./gameSlice";
 
 export function GameHeader() {
@@ -8,6 +9,7 @@ export function GameHeader() {
 
   return (
     <div className="game-header">
+      <GameCounters />
       <button onClick={endMoon}>End Moon</button>
       <button onClick={reload}>Reload</button>
     </div>
